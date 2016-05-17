@@ -1,0 +1,5 @@
+set (libname "upm_c_es9257")
+set (libdescription "UPM Servo C Driver: es9257")
+set (module_src es9257.c)
+set (module_h es9257.h)
+upm_module_init()
