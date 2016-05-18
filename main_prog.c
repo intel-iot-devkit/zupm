@@ -30,6 +30,10 @@ int main(int argc, char **argv) {
 
 	struct _upm_servo_ft ft = (*getft)();
 	void* dev = ft.upm_servo_init(3,3,600,2200);
+	printf("starting es08a motor\n");
+	ft.upm_servo_set_angle(dev, 180);
+	sleep(1);
+	ft.upm_servo_set_angle(dev, 90);
 
 	dlclose(handle);
 }
