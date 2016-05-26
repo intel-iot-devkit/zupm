@@ -1,0 +1,5 @@
+set (libname "upm_c_es08a")
+set (libdescription "UPM Servo C Driver: es08a")
+set (module_src es08a.c)
+set (module_h es08a.h)
+upm_module_init()
