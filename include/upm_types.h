@@ -24,4 +24,20 @@
 #ifndef UPM_TYPES_H_
 #define UPM_TYPES_H_
 
+#ifdef C99
+#include <stdbool.h>
+#else
+typedef enum {
+    false = 0,
+    true  = 1,
+} bool;
+#endif
+
+#include <types/upm_distance.h>
+#include <types/upm_heart_rate.h>
+#include <types/upm_ph.h>
+#include <types/upm_servo.h>
+#include <types/upm_temperature.h>
+#include <types/upm_touch.h>
+
 #endif /* UPM_TYPES_H_ */

@@ -24,6 +24,14 @@
 #ifndef UPM_H_
 #define UPM_H_
 
+#if __STDC_VERSION__ >= 199901L
+#define C99
+#endif
+
+#include <upm_types.h>
+#include <upm_math.h>
+#include <upm_utilities.h>
+
 #define upm_sensor_category_invalid 0
 #define upm_sensor_category_size 5
 

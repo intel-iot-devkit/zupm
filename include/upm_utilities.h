@@ -54,10 +54,6 @@ typedef enum {
 	UPM_TOUCH
 } upm_sensor_types;
 
-typedef unsigned int upm_boolean_t;
-#define TRUE			1
-#define FALSE			0
-
 void* upm_get_function_table(upm_sensor_types sensor_type);
 
 static inline void upm_delay_seconds(int time){

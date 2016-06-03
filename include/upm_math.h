@@ -24,4 +24,8 @@
 #ifndef UPM_MATH_H_
 #define UPM_MATH_H_
 
+#ifdef linux
+#include <math.h>
+#endif
+
 #endif /* UPM_MATH_H_ */
