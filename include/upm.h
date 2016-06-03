@@ -1,7 +1,6 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
- * Copyright (c) 2014 Intel Corporation.
+ * Authors: 
+ * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,7 +21,8 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#pragma once
+#ifndef UPM_H_
+#define UPM_H_
 
 #define upm_sensor_category_invalid 0
 #define upm_sensor_category_size 5
@@ -91,3 +91,5 @@ typedef enum {
 } upm_result_t;
 
 #define upm_perror(...) perror(args, __VA_ARGS__)
+
+#endif /* UPM_H_ */
