@@ -33,6 +33,52 @@ typedef enum {
 } bool;
 #endif
 
+typedef enum {
+	UPM_SUCCESS,						/* Operation is successful */
+	UPM_MODE_NOT_SUPPORTED,				/* Trying to access one mode while working on another mode */
+	UPM_ERROR_UNSPECIFIED,				/* Unspecified error */
+	UPM_ERROR_OUT_OF_RANGE,				/* When the input to drive is too high/low or -ve */
+	UPM_ERROR_OPERATION_FAILED,			/* When a function isn't able to perform as expected */
+	UPM_ERROR_TIMED_OUT,
+	UPM_ERROR_INVALID_PACKET_SIZE
+} upm_result_t;
+
+/* Sensor categories */
+typedef enum {
+    UPM_ACCELEROMETER,
+    UPM_COMPASS,
+    UPM_DISTANCE,
+    UPM_GYROSCOPE,
+    UPM_HEART_RATE,
+    UPM_IMU,
+    UPM_LIGHT,
+    UPM_PH,
+    UPM_PRESSURE,
+    UPM_SERVO,
+    UPM_STEPPER,
+    UPM_TEMPERATURE,
+    UPM_TOUCH
+} upm_sensor_t;
+
+/* Supported IO protocols via MRAA */
+typedef enum {
+	UPM_ANALOG,
+	UPM_GPIO,
+	UPM_PWM,
+	UPM_I2C,
+	UPM_SPI,
+	UPM_UART,
+    UPM_ONEWIRE
+} upm_protocol_t;
+
+/* Sensor descriptor */
+typedef struct _upm_sensor_descriptor {
+    char* name;
+    char* description;
+    int category_size;
+    upm_sensor_t* category;
+} upm_sensor_descriptor_t;
+
 #include <types/upm_distance.h>
 #include <types/upm_heart_rate.h>
 #include <types/upm_ph.h>
