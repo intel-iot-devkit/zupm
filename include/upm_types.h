@@ -1,5 +1,5 @@
 /*
- * Authors: 
+ * Authors:
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -34,18 +34,18 @@ typedef enum {
 #endif
 
 typedef enum {
-	UPM_SUCCESS = 0,						/* Operation is successful, expected response */
-    UPM_ERROR_NOT_IMPLEMENTED = 1,		    /* Trying to access a feature or mode that is not implemented */
-	UPM_ERROR_NOT_SUPPORTED = 2,			/* Trying to access a feature or mode that is not supported */
+    UPM_SUCCESS = 0,                        /* Operation is successful, expected response */
+    UPM_ERROR_NOT_IMPLEMENTED = 1,          /* Trying to access a feature or mode that is not implemented */
+    UPM_ERROR_NOT_SUPPORTED = 2,            /* Trying to access a feature or mode that is not supported */
     UPM_ERROR_NO_RESOURCES = 3,             /* No resources to perform operation */
-	UPM_ERROR_NO_DATA = 4,                  /* No data received or available from the sensor */
+    UPM_ERROR_NO_DATA = 4,                  /* No data received or available from the sensor */
     UPM_ERROR_INVALID_PARAMETER = 5,        /* Invalid parameter passed to the function*/
-	UPM_ERROR_INVALID_SIZE = 6,             /* Invalid buffer size */
-    UPM_ERROR_OUT_OF_RANGE = 7,				/* When the input to drive is too high/low or -ve */
-	UPM_ERROR_OPERATION_FAILED = 8,			/* When a function isn't able to perform as expected */
-	UPM_ERROR_TIMED_OUT = 9,                /* Timed out while communicating with the sensor */
-    
-    UPM_ERROR_UNSPECIFIED = 99				/* Unspecified/Unknown error */
+    UPM_ERROR_INVALID_SIZE = 6,             /* Invalid buffer size */
+    UPM_ERROR_OUT_OF_RANGE = 7,             /* When the input to drive is too high/low or -ve */
+    UPM_ERROR_OPERATION_FAILED = 8,         /* When a function isn't able to perform as expected */
+    UPM_ERROR_TIMED_OUT = 9,                /* Timed out while communicating with the sensor */
+
+    UPM_ERROR_UNSPECIFIED = 99              /* Unspecified/Unknown error */
 } upm_result_t;
 
 /* Sensor categories */
@@ -68,6 +68,7 @@ typedef enum {
     UPM_PH,
     UPM_POTENTIOMETER,
     UPM_PRESSURE,
+    UPM_SENSOR,
     UPM_SERVO,
     UPM_STEPPER,
     UPM_SWITCH,
@@ -80,12 +81,12 @@ typedef enum {
 
 /* Supported IO protocols via MRAA */
 typedef enum {
-	UPM_ANALOG,
-	UPM_GPIO,
-	UPM_PWM,
-	UPM_I2C,
-	UPM_SPI,
-	UPM_UART,
+    UPM_ANALOG,
+    UPM_GPIO,
+    UPM_PWM,
+    UPM_I2C,
+    UPM_SPI,
+    UPM_UART,
     UPM_ONEWIRE
 } upm_protocol_t;
 

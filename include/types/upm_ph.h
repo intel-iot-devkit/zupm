@@ -1,5 +1,5 @@
 /*
- * Authors: 
+ * Authors:
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,33 +21,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef _UPM_PH_H_
-#define _UPM_PH_H_
+#ifndef UPM_PH_H_
+#define UPM_PH_H_
 
-#include <stdarg.h>
-#include "upm.h"
-#include "mraa/types.h"
+// pH units
+typedef enum _upm_ph_u {NORMALIZED, PH} upm_ph_u;
 
-/**
- * pH sensor value types
- */
-typedef enum {
-    UPM_PH_RAW = 0,
-    UPM_PH_NORMALIZED,
-    UPM_PH_PH
-} upm_ph_value_t;
+// pH function table
+typedef struct _upm_ph_ft {
+    upm_result_t (*upm_ph_set_offset) (void* dev, float offset);
+    upm_result_t (*upm_ph_get_value) (void* dev, float* value, upm_ph_u unit);
+} upm_ph_ft;
 
-
-// pH sensor function table
-typedef struct upm_ft_ph {
-    void (*get_upm_descriptor) (upm_sensor_descriptor* desc);
-    void* (*upm_ph_init) (int pin, float aref);
-    upm_result_t (*upm_ph_close) (void* dev);
-    upm_result_t (*upm_ph_set_offset) (void* dev, float ph_offset);
-    upm_result_t (*upm_ph_get_value) (void* dev, float* value, upm_ph_value_t unit);
-} upm_ft_ph;
-
-// pH sensor helper methods
-typedef upm_ft_ph (*func_get_upm_ft_ph)();
-
-#endif /* _UPM_PH_H_ */
+#endif /* UPM_PH_H_ */

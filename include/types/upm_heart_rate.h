@@ -1,5 +1,5 @@
 /*
- * Authors: 
+ * Authors:
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,15 +24,12 @@
 #ifndef UPM_HEART_RATE_H_
 #define UPM_HEART_RATE_H_
 
-#include <stdarg.h>
-#include "upm_utilities.h"
+// Heart rate units
+typedef enum _upm_heart_rate_u {BPM} upm_heart_rate_u;
 
-typedef enum _upm_heart_rate_units {RAW_HR, HEART_RATE} upm_heart_rate_units;
-
-struct _upm_hr_ft {
-	void* (*upm_heart_rate_sensor_init) (int num,...);
-	upm_result_t (*upm_heart_rate_sensor_close) (void* dev);
-	upm_result_t (*upm_heart_rate_sensor_get_heart_rate) (void* dev, float* dist, upm_heart_rate_units rate_unit);
-} upm_hr_func_table;
+// Heart rate function table
+struct _upm_heart_rate_ft {
+    upm_result_t (*upm_heart_rate_get_value) (void* dev, float* value, upm_heart_rate_u unit);
+} upm_heart_rate_ft;
 
 #endif /* UPM_HEART_RATE_H_ */

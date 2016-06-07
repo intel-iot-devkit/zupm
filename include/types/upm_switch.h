@@ -1,5 +1,5 @@
 /*
- * Authors: 
+ * Authors:
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,15 +21,14 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_SENSOR_TOUCH_H_
-#define UPM_SENSOR_TOUCH_H_
-#include <stdarg.h>
-#include "upm_utilities.h"
+#ifndef UPM_SWITCH_H_
+#define UPM_SWITCH_H_
 
-struct _upm_touch_ft {
-	void* (*upm_touch_init) (int num,...);
-	upm_result_t (*upm_touch_close) (void* dev);
-	upm_result_t (*upm_touch_get_is_pressed) (void* dev, upm_boolean_t* value, int num);
-} upm_touch_func_table;
+// Switch function table
+struct _upm_switch_ft {
+    upm_result_t (*upm_switch_get_value) (void* dev, bool* value);
+    upm_result_t (*upm_switch_attach_isr) (void* dev, void (*isr)(void *), void *arg);
+    upm_result_t (*upm_switch_clear_isr) (void* dev);
+} upm_switch_ft;
 
-#endif /* UPM_SENSOR_TOUCH_H_ */
+#endif /* UPM_SWITCH_H_ */

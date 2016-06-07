@@ -23,16 +23,14 @@
  */
 #ifndef UPM_TEMPERATURE_H_
 #define UPM_TEMPERATURE_H_
-#include <stdarg.h>
-#include "upm_utilities.h"
 
-typedef enum upm_temp_units {RAW_TEMP, CELSIUS, FAHRENHEIT, KELVIN} upm_temperature_units;
-//typedef struct _upm_temp_ft* upm_temperature_func_table;
+// Temperature units
+typedef enum _upm_temperature_u {CELSIUS, FAHRENHEIT, KELVIN} upm_temperature_u;
 
-struct _upm_temp_ft {
-	void* (*upm_temperature_init) (int num,...);
-	upm_result_t (*upm_temperature_close) (void* dev);
-	upm_result_t (*upm_temperature_get_temperature) (void* dev, float* temp, upm_temperature_units temp_unit);
-} upm_temperature_func_table;
+// Temperature function table
+struct _upm_temperature_ft {
+    upm_result_t (*upm_temperature_set_scale) (void* dev, float scale);
+    upm_result_t (*upm_temperature_get_value) (void* dev, float* value, upm_temperature_u unit);
+} upm_temperature_ft;
 
 #endif /* UPM_TEMPERATURE_H_ */

@@ -21,13 +21,17 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_SERVO_H_
-#define UPM_SERVO_H_
+#ifndef UPM_SENSOR_H_
+#define UPM_SENSOR_H_
 
-// Servo function table
-struct _upm_servo_ft {
-    upm_result_t (*upm_servo_set_angle) (void* dev, int angle);
-} upm_servo_ft;
+// Generic sensor function table
+struct _upm_sensor_ft {
+    void* (*upm_sensor_init_name) (char* protocol, char* params);
+    void (*upm_sensor_close) (void* dev);
+    upm_result_t (*upm_sensor_read) (void* dev, void* value, int len);
+    upm_result_t (*upm_sensor_write) (void* dev, void* value, int len);
+    upm_sensor_descriptor_t (*upm_sensor_get_descriptor) (void* dev);
+} upm_sensor_ft;
 
-#endif /* UPM_SERVO_H_ */
+#endif /* UPM_SENSOR_H_ */
 

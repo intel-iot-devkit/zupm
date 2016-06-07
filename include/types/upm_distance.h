@@ -1,5 +1,5 @@
 /*
- * Authors: 
+ * Authors:
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,18 +21,15 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_SENSOR_DISTANCE_H_
-#define UPM_SENSOR_DISTANCE_H_
-#include <stdarg.h>
-#include "upm_utilities.h"
+#ifndef UPM_DISTANCE_H_
+#define UPM_DISTANCE_H_
 
-typedef enum upm_dist_units {RAW_DIST, CENTIMETER, INCH} upm_distance_units;
-//typedef struct _upm_dist_ft* upm_distance_func_table;
+// Distance units
+typedef enum _upm_distance_u {CENTIMETER, INCH} upm_distance_u;
 
+// Distance function table
 struct _upm_dist_ft {
-	void* (*upm_distance_init) (int num,...);
-	upm_result_t (*upm_distance_close) (void* dev);
-	upm_result_t (*upm_distance_get_distance) (void* dev, float* dist, upm_distance_units dist_unit);
-} upm_distance_func_table;
+    upm_result_t (*upm_distance_get_value) (void* dev, float* value, upm_distance_u unit);
+} upm_distance_ft;
 
 #endif /* UPM_SENSOR_DISTANCE_H_ */

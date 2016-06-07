@@ -21,13 +21,17 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_SERVO_H_
-#define UPM_SERVO_H_
+#ifndef UPM_ACCELERATION_H_
+#define UPM_ACCELERATION_H_
 
-// Servo function table
-struct _upm_servo_ft {
-    upm_result_t (*upm_servo_set_angle) (void* dev, int angle);
-} upm_servo_ft;
+// Acceleration units
+typedef enum _upm_acceleration_u {G, METERS_PER_SECOND_SQ, FEET_PER_SECOND_SQ} upm_acceleration_u;
 
-#endif /* UPM_SERVO_H_ */
+// Acceleration function table
+struct _upm_acceleration_ft {
+    upm_result_t (*upm_acceleration_set_scale) (void* dev, float* scale);
+    upm_result_t (*upm_acceleration_set_offset) (void* dev, float* offset);
+    upm_result_t (*upm_acceleration_get_value) (void* dev, float* value, upm_acceleration_u unit);
+} upm_acceleration_ft;
 
+#endif /* UPM_ACCELERATION_H_ */
