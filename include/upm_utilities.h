@@ -24,7 +24,7 @@
 #ifndef UPM_UTILITIES_H_
 #define UPM_UTILITIES_H_
 
-inline const char * to_char(upm_sensor_category category)
+inline const char * to_char(upm_sensor_t category)
 {
     switch(category) {
         case UPM_PH:
