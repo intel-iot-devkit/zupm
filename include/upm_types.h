@@ -106,5 +106,9 @@ typedef struct _upm_sensor_descriptor {
 #include <types/upm_servo.h>
 #include <types/upm_temperature.h>
 #include <types/upm_touch.h>
+#include <types/upm_acceleration.h>
+#include <types/upm_angle.h>
+#include <types/upm_audio.h>
+#include <types/upm_potentiometer.h>
 
 #endif /* UPM_TYPES_H_ */
