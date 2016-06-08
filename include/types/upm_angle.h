@@ -28,7 +28,7 @@
 typedef enum _upm_angle_u {DEGREES, RADIANS} upm_angle_u;
 
 struct _upm_angle_ft {
-	upm_result_t (*upm_angle_get_AbsValue) (void* dev, float* value, upm_angle_u unit);
+	upm_result_t (*upm_angle_get_absValue) (void* dev, float* value, upm_angle_u unit);
 	upm_result_t (*upm_angle_get_relValue) (void* dev, float* value, upm_angle_u unit);
 } upm_angle_ft;
 
