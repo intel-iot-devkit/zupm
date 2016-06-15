@@ -1,8 +1,26 @@
 /*
- * es9257.h
+ * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
+ * 		   Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2016 Intel Corporation.
  *
- *  Created on: May 6, 2016
- *  Modified: Abhishek Malik <abhishek.malik@intel.com>
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 #ifndef ES9257_H_
@@ -13,8 +31,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <mraa/pwm.h>
-#include "upm_servo.h"
+#include "../upm.h"
 
 /**
  * @library servo
@@ -51,7 +68,7 @@
  * Opaque pointer to the servo motor struct
  */
 //struct _upm_es9257;
-typedef struct _upm_es9257* UpmES9257;
+typedef struct _upm_es9257* upm_es9257;
 
 /**
  * Instantiates a the servo at the given pin
@@ -62,14 +79,19 @@ typedef struct _upm_es9257* UpmES9257;
  * @param waitAndDisablePwm If 1, PWM is enabled only during the setAngle() execution
  * for a period of 1 second, and then turned back off. If 0, PWM remains on afterward.
  */
-//upm_es9257 upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
-//void* upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
-void* upm_es9257_init(int num,...);
+
+upm_sensor_descriptor_t upm_es9257_get_descriptor (void* dev);
+
+void* upm_es9257_get_ft(upm_sensor_t sensor_type);
+
+void* upm_es9257_init_name(int num,...);
+
+void* upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
 
 /**
  * Halts PWM for this servo and allows it to move freely.
  */
-upm_result_t upm_es9257_halt(void* dev);
+void upm_es9257_close(void* dev);
 
 /**
  * Sets the angle of the servo engine.
@@ -112,6 +134,8 @@ int upm_es9257_get_min_pulse_width (void* dev);
  */
 int upm_es9257_get_max_pulse_width (void* dev);
 
-void UpmES9257GetSensorInfo();
+upm_result_t upm_es9257_write (void* dev, void* data, int len);
+
+upm_result_t upm_es9257_read(void* dev, void* value, int len);
 
 #endif /* ES9257_H_ */

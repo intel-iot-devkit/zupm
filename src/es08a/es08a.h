@@ -1,6 +1,6 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * Modified: Abhishek Malik <abhishek.malik@intel.com>
+ * 		   Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,8 +31,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdarg.h>
-#include <mraa/pwm.h>
-#include "upm_servo.h"
+#include "../upm.h"
 
 /**
  * @library servo
@@ -69,7 +68,7 @@
  * Opaque pointer to the servo motor struct
  */
 //struct _upm_es08a;
-typedef struct _upm_es08a* UpmES08A;
+typedef struct _upm_es08a* upm_es08a;
 
 /**
  * Instantiates a the servo at the given pin
@@ -80,13 +79,20 @@ typedef struct _upm_es08a* UpmES08A;
  * @param waitAndDisablePwm If 1, PWM is enabled only during the setAngle() execution
  * for a period of 1 second, and then turned back off. If 0, PWM remains on afterward.
  */
-//void* upm_es08a_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
-void* upm_es08a_init(int num,...);
+
+upm_sensor_descriptor_t upm_es08a_get_descriptor (void* dev);
+
+void* upm_es08a_get_ft(upm_sensor_t sensor_type);
+
+void* upm_es08a_init_name(int num,...);
+
+// the regular init function
+void* upm_es08a_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
 
 /**
  * Halts PWM for this servo and allows it to move freely.
  */
-upm_result_t upm_es08a_halt(void* dev);
+void upm_es08a_halt(void* dev);
 
 /**
  * Sets the angle of the servo engine.
@@ -131,7 +137,9 @@ int upm_es08a_get_max_pulse_width (void* dev);
 
 void upm_es08a_get_sensor_info();
 
-//struct _upm_servo_ft upm_es08a_get_function_table();
+upm_result_t upm_es08a_read (void* dev, void* data, int len);
+
+upm_result_t upm_es08a_write (void* dev, void* data, int len);
 
 #endif /* ES08A_H_ */
 
