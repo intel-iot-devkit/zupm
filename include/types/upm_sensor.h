@@ -25,7 +25,7 @@
 #define UPM_SENSOR_H_
 
 // Generic sensor function table
-struct _upm_sensor_ft {
+typedef struct _upm_sensor_ft {
     void* (*upm_sensor_init_name) (char* protocol, char* params);
     void (*upm_sensor_close) (void* dev);
     upm_result_t (*upm_sensor_read) (void* dev, void* value, int len);

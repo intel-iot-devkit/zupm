@@ -92,12 +92,12 @@ typedef enum {
 
 /* Sensor descriptor */
 typedef struct _upm_sensor_descriptor {
-    char* name;
-    char* description;
+    const char* name;
+    const char* description;
     int protocol_size;
-    upm_protocol_t* protocol;
+    const upm_protocol_t* protocol;
     int category_size;
-    upm_sensor_t* category;
+    const upm_sensor_t* category;
 } upm_sensor_descriptor_t;
 
 #include <types/upm_distance.h>
