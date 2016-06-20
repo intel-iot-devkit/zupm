@@ -62,14 +62,22 @@ inline const char * to_char(upm_sensor_t category)
     }
 }
 
-void upm_delay(int time);
+static inline void upm_delay(int time){
+#ifdef linux
+    sleep(time);
+#endif
+}
 
-void upm_delay_ms(int time);
+static inline void upm_delay_ms(int time){
+#ifdef linux
+    usleep(1000 * time);
+#endif
+}
 
-void upm_delay_us(int time);
-
-void* upm_malloc(uint32_t mem_map, int size);
-
-void upm_free(uint32_t mem_map, void* ptr);
+static inline void upm_delay_us(int time){
+#ifdef linux
+    usleep(time);
+#endif
+}
 
 #endif /* UPM_UTILITIES_H_ */
