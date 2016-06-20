@@ -26,10 +26,11 @@
 
 #ifdef C99
 #include <stdbool.h>
+#elif __cplusplus
 #else
 typedef enum {
     false = 0,
-    true  = 1,
+    true = 1
 } bool;
 #endif
 
@@ -99,6 +100,9 @@ typedef struct _upm_sensor_descriptor {
     int category_size;
     const upm_sensor_t* category;
 } upm_sensor_descriptor_t;
+
+/* Function pointer typedef helpers */
+typedef struct _upm_sensor_ft (*func_get_upm_sensor_ft)();
 
 #include <types/upm_distance.h>
 #include <types/upm_heart_rate.h>

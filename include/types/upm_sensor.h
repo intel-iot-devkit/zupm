@@ -26,7 +26,7 @@
 
 // Generic sensor function table
 typedef struct _upm_sensor_ft {
-    void* (*upm_sensor_init_name) (char* protocol, char* params);
+    void* (*upm_sensor_init_name) (const char* protocol, const char* params);
     void (*upm_sensor_close) (void* dev);
     upm_result_t (*upm_sensor_read) (void* dev, void* value, int len);
     upm_result_t (*upm_sensor_write) (void* dev, void* value, int len);
@@ -34,4 +34,3 @@ typedef struct _upm_sensor_ft {
 } upm_sensor_ft;
 
 #endif /* UPM_SENSOR_H_ */
-

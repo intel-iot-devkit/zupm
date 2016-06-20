@@ -1,5 +1,5 @@
 /*
- * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Author:
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,60 +27,76 @@
 #include <mraa/aio.h>
 
 #include "upm.h"
-#include "upm_sensor_ph.h"
+#include "upm_sensor.h"
+#include "upm_ph.h"
 
 /**
  * pH sensor Struct
  */
-struct _upm_ph {
+typedef struct _upm_dfrph {
+    /* mraa aio pin context */
     mraa_aio_context aio;
+    /* Analog bit resolution (number of bits) */
     int16_t m_aRes;
+    /* Analog voltage reference */
     float m_aRef;
+    /* */
     float m_offset;
-};
-
-typedef struct _upm_ph* upm_ph;
+} upm_dfrph;
 
 /**
  * Fill in a sensor descriptor structure for this sensor
  * @param desc Sensor descriptor struct
  * @return void
  */
-void get_upm_descriptor(upm_sensor_descriptor* desc);
+void get_upm_descriptor(upm_sensor_descriptor_t* desc);
 
 /**
  * Get the function table for this sensor
- * @return pH function table struct
+ * @return generic function table struct
  */
-upm_ft_ph upm_get_ph_ft();
+upm_sensor_ft upm_get_ft();
+
+/**
+ * Initialize pH sensor
+ * @param protocol protocol initliazation string
+ * @param params sensor parameter string
+ * @return upm_dfrph struct pointer
+ */
+upm_dfrph* upm_dfrph_init_str (const char* protocol, const char* params);
 
 /**
  * Initialize pH sensor
  * @param pin is Analog pin
- * @return upm_ph struct
+ * @return upm_dfrph struct pointer
  */
-upm_ph upm_dfrph_init(int16_t pin, float aRef);
+upm_dfrph* upm_dfrph_init(int16_t pin, float aref);
 
 /**
  * pH sensor destructor
- * @param upm_ph dev struct to deallocate memory
+ * @param upm_dfrph dev struct to deallocate memory
  */
-void upm_dfrph_close(upm_ph dev);
+void upm_dfrph_close (upm_dfrph* dev);
+
+upm_result_t upm_dfrph_read (void* dev, void* value, int len);
+upm_result_t upm_dfrph_write (void* dev, void* value, int len);
+const upm_sensor_descriptor_t upm_dfrph_get_descriptor (void* dev);
+
 
 /**
  * Set a +/- pH offset.  This offset is applied to the return pH
  *     pH = pH + offset
- * @param upm_ph dev struct
+ * @param upm_dfrph dev struct
  * @param ph_offset pH offset value used
  * @return Function result code
  */
-upm_result_t upm_dfrph_set_offset(upm_ph dev, float ph_offset);
+upm_result_t upm_dfrph_set_offset(upm_dfrph* dev, float ph_offset);
 
 /**
  * Read value from sensor
- * @param upm_ph dev struct
+ * @param upm_dfrph dev struct
  * @param *value pH value from sensor, units depend on 
  * @param unit Enum which specifies units for value return in value
  * @return Function result code
  */
-upm_result_t upm_dfrph_get_value(upm_ph dev, float *value, upm_ph_value_t unit);
+upm_result_t upm_dfrph_get_value(upm_dfrph* dev, float *value, upm_ph_u unit);

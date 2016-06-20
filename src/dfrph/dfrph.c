@@ -1,5 +1,5 @@
 /*
- * Author: Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Author:
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -25,29 +25,21 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "ph.h"
+#include "dfrph.h"
 
-void get_upm_descriptor(upm_sensor_descriptor* desc)
+const char upm_dfrph_name[] = "DFRPH";
+const char upm_dfrph_description[] = "Analog pH Meter Pro";
+const upm_protocol_t upm_dfrph_protocol[] = {UPM_ANALOG};
+const upm_sensor_t upm_dfrph_category[] = {UPM_PH};
+
+upm_dfrph* upm_dfrph_init_str(const char* protocol, const char* params)
 {
-    strcpy(desc->name, "dfrph");
-    strcpy(desc->description, "Analog pH Meter Pro");
-    desc->category[0] = UPM_PH;
+    return NULL;
 }
 
-upm_ft_ph upm_get_ph_ft()
+upm_dfrph* upm_dfrph_init(int16_t pin, float aref)
 {
-    /* Fill in the function table for this sensor */
-    upm_ft_ph ft;
-    ft.get_upm_descriptor = &get_upm_descriptor;
-    ft.upm_ph_init = &upm_dfrph_init;
-    ft.upm_ph_set_offset = &upm_dfrph_set_offset;
-    ft.upm_ph_get_value = &upm_dfrph_get_value;
-    return ft;
-}
-
-upm_ph upm_dfrph_init(int16_t pin, float aref)
-{
-    upm_ph dev = (upm_ph) malloc(sizeof(struct _upm_ph));
+    upm_dfrph* dev = (upm_dfrph*) malloc(sizeof(upm_dfrph));
 
     if(dev == NULL) return NULL;
 
@@ -69,36 +61,68 @@ upm_ph upm_dfrph_init(int16_t pin, float aref)
     return dev;
 }
 
-void upm_dfrph_close(upm_ph dev)
+void upm_dfrph_close(upm_dfrph* dev)
 {
     mraa_aio_close(dev->aio);
     free(dev);
 }
 
-upm_result_t upm_dfrph_set_offset(upm_ph dev, float ph_offset)
+upm_sensor_ft upm_get_ft()
 {
-    dev->m_offset = ph_offset;
+    /* Fill in the function table */
+    upm_sensor_ft ft;
+    ft.upm_sensor_init_name = &upm_dfrph_init_str;
+    ft.upm_sensor_close = &upm_dfrph_close;
+    ft.upm_sensor_read = &upm_dfrph_read;
+    ft.upm_sensor_write = &upm_dfrph_write;
+    ft.upm_sensor_get_descriptor = &upm_dfrph_get_descriptor;
+    return ft;
+}
+
+const upm_sensor_descriptor_t upm_dfrph_get_descriptor (void* dev)
+{
+    /* Fill in the descriptor */
+    upm_sensor_descriptor_t usd;
+    usd.name = upm_dfrph_name;
+    usd.description = upm_dfrph_description;
+    usd.protocol_size = 1;
+    usd.protocol = upm_dfrph_protocol;
+    usd.category_size = 1;
+    usd.category = upm_dfrph_category;
+
+    return usd;
+}
+
+upm_result_t upm_dfrph_read (void* dev, void* value, int len)
+{
+    /* Read the adc twice, first adc read can have weird data */
+    mraa_aio_read(((upm_dfrph*)dev)->aio);
+    *(int*)value = mraa_aio_read(((upm_dfrph*)dev)->aio);
+    if (value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_dfrph_get_value(upm_ph dev, float *value, upm_ph_value_t unit)
+upm_result_t upm_dfrph_write (void* dev, void* value, int len)
 {
-//    printf("XXX value context: aRes: %d aRef: %f offset: %f\n",  dev->m_aRes, dev->m_aRef, dev->m_offset);
-//    return;
-    /* Read the adc, first adc read can have weird data */
-    mraa_aio_read(dev->aio);
-    int counts = mraa_aio_read(dev->aio);
+    return UPM_ERROR_NOT_SUPPORTED;
+}
+
+upm_result_t upm_dfrph_get_value(upm_dfrph* dev, float *value, upm_ph_u unit)
+{
+    int counts = 0;
+
+    /* Read counts from the generic read method */
+    upm_dfrph_read(dev, counts, 1);
 
     /* Provide the value in whichever unit was requested */
     switch (unit)
     {
-        case UPM_PH_RAW:
-            *value = counts;
-            break;
-        case UPM_PH_NORMALIZED:
+        case NORMALIZED:
             *value = counts / (float)dev->m_aRes;
             break;
-        case UPM_PH_PH:
+        case PH:
             *value = 3.5 * dev->m_aRef * counts / dev->m_aRes + dev->m_offset;
             break;
         default:
@@ -106,5 +130,11 @@ upm_result_t upm_dfrph_get_value(upm_ph dev, float *value, upm_ph_value_t unit)
             break;
     }
 
+    return UPM_SUCCESS;
+}
+
+upm_result_t upm_dfrph_set_offset(upm_dfrph* dev, float ph_offset)
+{
+    dev->m_offset = ph_offset;
     return UPM_SUCCESS;
 }

@@ -24,6 +24,10 @@
 #ifndef UPM_UTILITIES_H_
 #define UPM_UTILITIES_H_
 
+#ifdef linux
+#include <unistd.h>
+#endif
+
 inline const char * to_char(upm_sensor_t category)
 {
     switch(category) {
@@ -46,19 +50,19 @@ inline const char * to_char(upm_sensor_t category)
 
 static inline void upm_delay(int time){
 #ifdef linux
-	sleep(time);
+    sleep(time);
 #endif
 }
 
 static inline void upm_delay_ms(int time){
 #ifdef linux
-	usleep(1000 * time);
+    usleep(1000 * time);
 #endif
 }
 
 static inline void upm_delay_us(int time){
 #ifdef linux
-	usleep(time);
+    usleep(time);
 #endif
 }
 

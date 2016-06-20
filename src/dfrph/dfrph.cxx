@@ -38,7 +38,7 @@ DFRPH::~DFRPH()
 float DFRPH::volts()
 {
     float volts = 0.0;
-    _dev->m_aRef * upm_dfrph_get_value(_dev, &volts, UPM_PH_NORMALIZED);
+    _dev->m_aRef * upm_dfrph_get_value(_dev, &volts, NORMALIZED);
     return volts;
 }
 
@@ -57,7 +57,7 @@ float DFRPH::pH(unsigned int samples)
     float ph = 0.0;
     while (samples-- > 0)
     {
-        _dev->m_aRef * upm_dfrph_get_value(_dev, &ph, UPM_PH_PH);
+        _dev->m_aRef * upm_dfrph_get_value(_dev, &ph, PH);
         ph_avg += ph;
     }
 
