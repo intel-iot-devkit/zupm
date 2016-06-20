@@ -78,10 +78,27 @@ upm_dfrph* upm_dfrph_init(int16_t pin, float aref);
  */
 void upm_dfrph_close (upm_dfrph* dev);
 
+/**
+ * Generic sensor read method
+ * @param dev sensor device context pointer
+ * @param value pointer to value read from hardware
+ * @param len length of items to read
+ */
 upm_result_t upm_dfrph_read (void* dev, void* value, int len);
-upm_result_t upm_dfrph_write (void* dev, void* value, int len);
-const upm_sensor_descriptor_t upm_dfrph_get_descriptor (void* dev);
 
+/**
+ * Generic sensor write method
+ * @param dev sensor device context pointer
+ * @param value pointer to value to write
+ * @param len length of items to write
+ */
+upm_result_t upm_dfrph_write (void* dev, void* value, int len);
+
+/**
+ * pH Get a descriptor for this sensor
+ * @return Sensor descriptor struct
+ */
+const upm_sensor_descriptor_t upm_dfrph_get_descriptor ();
 
 /**
  * Set a +/- pH offset.  This offset is applied to the return pH

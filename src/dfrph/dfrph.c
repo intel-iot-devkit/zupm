@@ -79,7 +79,7 @@ upm_sensor_ft upm_get_ft()
     return ft;
 }
 
-const upm_sensor_descriptor_t upm_dfrph_get_descriptor (void* dev)
+const upm_sensor_descriptor_t upm_dfrph_get_descriptor ()
 {
     /* Fill in the descriptor */
     upm_sensor_descriptor_t usd;
