@@ -28,7 +28,7 @@
 #include <unistd.h>
 #endif
 
-#elif defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 #include <zephyr.h>
 #include <device.h>
 #include <sys_clock.h>
