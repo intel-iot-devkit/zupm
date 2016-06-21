@@ -47,7 +47,7 @@ void* upm_ad8232_init(int lo_plus, int lo_minus, int output, float a_ref);
 
 void upm_ad8232_close(void* dev);
 
-upm_result_t upm_ad8232_get_value(void* dev, float* value, upm_heart_rate_u rate_unit);
+upm_result_t upm_ad8232_get_value(void* dev, int* value, upm_heart_rate_u rate_unit);
 
 upm_result_t upm_ad8232_read(void* dev, void* data, int* len);
 

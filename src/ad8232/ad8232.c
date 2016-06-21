@@ -149,7 +149,7 @@ void upm_ad8232_close(void* dev){
 		free(device);
 }
 
-upm_result_t upm_ad8232_get_value(void* dev, float* value, upm_heart_rate_u rate_unit){
+upm_result_t upm_ad8232_get_value(void* dev, int* value, upm_heart_rate_u rate_unit){
 	upm_ad8232 device = (upm_ad8232) dev;
 	int len;
 	upm_ad8232_read(device, value, &len);
