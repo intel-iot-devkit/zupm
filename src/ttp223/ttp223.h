@@ -51,7 +51,7 @@ upm_result_t upm_ttp223_install_isr(void* dev, mraa_gpio_edge_t edge_level, void
 
 upm_result_t upm_ttp223_uninstall_isr(void* dev);
 
-upm_result_t upm_ttp223_read(void* dev, void* data, int len);
+upm_result_t upm_ttp223_read(void* dev, void* data, int* len);
 
 upm_result_t upm_ttp223_write(void* dev, void* value, int len);
 #endif /* UPM_C_TTP223_TTP223_H_ */
