@@ -113,8 +113,11 @@ void* upm_ttp223_init(int pin){
 }
 
 void upm_ttp223_close(void* dev){
-	if(dev != NULL)
-		upm_free(UPM_TTP223_MEM_MAP, dev);
+	upm_ttp223 device = (upm_ttp223) dev;
+	if(device->gpio != NULL)
+		mraa_gpio_close(device->gpio);
+	if(device != NULL)
+		free(device);
 }
 
 upm_result_t upm_ttp223_get_value(mraa_gpio_context dev, uint32_t* value){
