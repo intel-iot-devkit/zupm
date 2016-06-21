@@ -122,7 +122,7 @@ upm_result_t upm_ttp223_get_value(mraa_gpio_context dev, uint32_t* value){
 	return UPM_SUCCESS;
 }
 
-upm_result_t upm_ttp223_read(void* dev, void* data, int len){
+upm_result_t upm_ttp223_read(void* dev, void* data, int* len){
 	upm_ttp223 device = (upm_ttp223) dev;
 	int* int_data = data;
 	*int_data = mraa_gpio_read(device->gpio);
