@@ -114,5 +114,6 @@ typedef struct _upm_sensor_ft (*func_get_upm_sensor_ft)();
 #include <types/upm_angle.h>
 #include <types/upm_audio.h>
 #include <types/upm_potentiometer.h>
+#include <types/upm_voltage.h>
 
 #endif /* UPM_TYPES_H_ */
