@@ -36,13 +36,13 @@ typedef enum _upm_voltage_u
 } upm_voltage_u;
 
 /* Generic voltage function table */
-typedef struct _upm_ph_ft {
+typedef struct _upm_voltage_ft {
     /* Set sensor offset in volts */
-    upm_result_t (*upm_ph_set_offset) (void* dev, float offset);
+    upm_result_t (*upm_voltage_set_offset) (void* dev, float offset);
     /* Set sensor scale in volts */
-    upm_result_t (*upm_ph_set_scale) (void* dev, float scale);
+    upm_result_t (*upm_voltage_set_scale) (void* dev, float scale);
     /* Read sensor value, return units based on _upm_voltage_u */
-    upm_result_t (*upm_ph_get_value) (void* dev, float* value, upm_voltage_u unit);
-} upm_ph_ft;
+    upm_result_t (*upm_voltage_get_value) (void* dev, float* value, upm_voltage_u unit);
+} upm_voltage_ft;
 
 #endif /* UPM_VOLTAGE_H_ */
