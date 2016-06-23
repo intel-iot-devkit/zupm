@@ -66,6 +66,7 @@ typedef enum {
     UPM_HUMIDITY,
     UPM_IMU,
     UPM_LIGHT,
+	UPM_NFC,
     UPM_PH,
     UPM_POTENTIOMETER,
     UPM_PRESSURE,
