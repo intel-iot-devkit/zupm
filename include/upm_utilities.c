@@ -1,6 +1,6 @@
 #include <upm_utilities.h>
 
-void* upm_malloc(uint32_t mem_map, int size){
+void* upm_malloc(int mem_map, int size){
 	void *mem;
 #if defined(linux)
 	mem = malloc(size);
@@ -23,7 +23,7 @@ void* upm_malloc(uint32_t mem_map, int size){
 	return mem;
 }
 
-void upm_free(uint32_t mem_map, void* ptr){
+void upm_free(int mem_map, void* ptr){
 #if defined(linux)
 	free(ptr);
 #elif defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
