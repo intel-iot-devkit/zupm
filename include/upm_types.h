@@ -66,7 +66,7 @@ typedef enum {
     UPM_HUMIDITY,
     UPM_IMU,
     UPM_LIGHT,
-	UPM_NFC,
+    UPM_NFC,
     UPM_PH,
     UPM_POTENTIOMETER,
     UPM_PRESSURE,
@@ -78,6 +78,7 @@ typedef enum {
     UPM_TIME,
     UPM_VIDEO,
     UPM_VOLTAGE,
+    UPM_VIBRATION,
     UPM_WIRELESS
 } upm_sensor_t;
 
@@ -116,5 +117,6 @@ typedef struct _upm_sensor_ft (*func_get_upm_sensor_ft)();
 #include <types/upm_audio.h>
 #include <types/upm_potentiometer.h>
 #include <types/upm_voltage.h>
+#include <types/upm_vibration.h>
 
 #endif /* UPM_TYPES_H_ */
