@@ -58,6 +58,7 @@ typedef enum {
     UPM_CURRENT,
     UPM_DISPLAY,
     UPM_DISTANCE,
+	UPM_ELECTRICITY,
     UPM_FLOW,
     UPM_FORCE,
     UPM_GAS,
@@ -65,8 +66,9 @@ typedef enum {
     UPM_HEART_RATE,
     UPM_HUMIDITY,
     UPM_IMU,
+	UPM_LED,
     UPM_LIGHT,
-    UPM_NFC,
+	UPM_NFC,
     UPM_PH,
     UPM_POTENTIOMETER,
     UPM_PRESSURE,
@@ -78,8 +80,8 @@ typedef enum {
     UPM_TIME,
     UPM_VIDEO,
     UPM_VOLTAGE,
-    UPM_VIBRATION,
-    UPM_WIRELESS
+    UPM_WIRELESS,
+	UPM_MOISTURE
 } upm_sensor_t;
 
 /* Supported IO protocols via MRAA */
