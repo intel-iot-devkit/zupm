@@ -25,6 +25,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "mraa/aio.h"
+#include "types/upm_sensor.h"
 #include "dfrph.h"
 
 const char upm_dfrph_name[] = "DFRPH";
@@ -32,12 +34,59 @@ const char upm_dfrph_description[] = "Analog pH Meter Pro";
 const upm_protocol_t upm_dfrph_protocol[] = {UPM_ANALOG};
 const upm_sensor_t upm_dfrph_category[] = {UPM_PH};
 
-upm_dfrph* upm_dfrph_init_str(const char* protocol, const char* params)
+/**
+ * Analog sensor struct
+ */
+typedef struct _upm_dfrph {
+    /* mraa aio pin context */
+    mraa_aio_context aio;
+    /* Analog voltage reference */
+    float m_aRef;
+    /* Raw count offset */
+    float m_count_offset;
+    /* Raw count scale */
+    float m_count_scale;
+} upm_dfrph;
+
+/* This sensor implementes 2 function tables */
+/* 1. Generic base function table */
+static const upm_sensor_ft ft_gen =
 {
-    return NULL;
+    .upm_sensor_init_name = &upm_dfrph_init_str,
+    .upm_sensor_close = &upm_dfrph_close,
+    .upm_sensor_read = &upm_dfrph_read,
+    .upm_sensor_write = &upm_dfrph_write,
+    .upm_sensor_get_descriptor = &upm_dfrph_get_descriptor
+};
+
+/* 2. PH function table */
+static const upm_ph_ft ft_ph =
+{
+    .upm_ph_set_offset = &upm_dfrph_set_offset,
+    .upm_ph_set_scale = &upm_dfrph_set_scale,
+    .upm_ph_get_value = &upm_dfrph_get_value
+};
+
+const void* upm_dfrph_get_ft(upm_sensor_t sensor_type)
+{
+    switch(sensor_type)
+    {
+        case UPM_SENSOR:
+            return &ft_gen;
+        case UPM_PH:
+            return &ft_ph;
+        default:
+            return NULL;
+    }
 }
 
-upm_dfrph* upm_dfrph_init(int16_t pin, float aref)
+void* upm_dfrph_init_str(const char* protocol, const char* params)
+{
+    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
+    return upm_dfrph_init(0);
+}
+
+void* upm_dfrph_init(int16_t pin)
 {
     upm_dfrph* dev = (upm_dfrph*) malloc(sizeof(upm_dfrph));
 
@@ -46,12 +95,9 @@ upm_dfrph* upm_dfrph_init(int16_t pin, float aref)
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
 
-    /* Get adc bit range */
-    dev->m_aRes = (1 << mraa_aio_get_bit(dev->aio));
-
     /* Set the ref, zero the offset */
-    dev->m_aRef = aref;
-    dev->m_offset = 0.0;
+    dev->m_count_offset = 0.0;
+    dev->m_count_scale = 1.0;
 
     if(dev->aio == NULL) {
         free(dev);
@@ -61,25 +107,13 @@ upm_dfrph* upm_dfrph_init(int16_t pin, float aref)
     return dev;
 }
 
-void upm_dfrph_close(upm_dfrph* dev)
+void upm_dfrph_close(void* dev)
 {
-    mraa_aio_close(dev->aio);
+    mraa_aio_close(((upm_dfrph*)dev)->aio);
     free(dev);
 }
 
-upm_sensor_ft upm_get_ft()
-{
-    /* Fill in the function table */
-    upm_sensor_ft ft;
-    ft.upm_sensor_init_name = &upm_dfrph_init_str;
-    ft.upm_sensor_close = &upm_dfrph_close;
-    ft.upm_sensor_read = &upm_dfrph_read;
-    ft.upm_sensor_write = &upm_dfrph_write;
-    ft.upm_sensor_get_descriptor = &upm_dfrph_get_descriptor;
-    return ft;
-}
-
-const upm_sensor_descriptor_t upm_dfrph_get_descriptor ()
+const upm_sensor_descriptor_t upm_dfrph_get_descriptor()
 {
     /* Fill in the descriptor */
     upm_sensor_descriptor_t usd;
@@ -93,7 +127,7 @@ const upm_sensor_descriptor_t upm_dfrph_get_descriptor ()
     return usd;
 }
 
-upm_result_t upm_dfrph_read (void* dev, void* value, int len)
+upm_result_t upm_dfrph_read(const void* dev, void* value, int len)
 {
     /* Read the adc twice, first adc read can have weird data */
     mraa_aio_read(((upm_dfrph*)dev)->aio);
@@ -104,37 +138,44 @@ upm_result_t upm_dfrph_read (void* dev, void* value, int len)
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_dfrph_write (void* dev, void* value, int len)
+upm_result_t upm_dfrph_write(const void* dev, void* value, int len)
 {
     return UPM_ERROR_NOT_SUPPORTED;
 }
 
-upm_result_t upm_dfrph_get_value(upm_dfrph* dev, float *value, upm_ph_u unit)
+upm_result_t upm_dfrph_set_offset(const void* dev, float offset)
+{
+    ((upm_dfrph*)dev)->m_count_offset = offset;
+    return UPM_SUCCESS;
+}
+
+upm_result_t upm_dfrph_set_scale(const void* dev, float scale)
+{
+    ((upm_dfrph*)dev)->m_count_scale = scale;
+    return UPM_SUCCESS;
+}
+
+upm_result_t upm_dfrph_get_value(const void* dev, float *value)
 {
     int counts = 0;
 
     /* Read counts from the generic read method */
-    upm_dfrph_read(dev, counts, 1);
+    upm_dfrph_read(dev, &counts, 1);
 
-    /* Provide the value in whichever unit was requested */
-    switch (unit)
-    {
-        case NORMALIZED:
-            *value = counts / (float)dev->m_aRes;
-            break;
-        case PH:
-            *value = 3.5 * dev->m_aRef * counts / dev->m_aRes + dev->m_offset;
-            break;
-        default:
-            //upm_perror("Invalid pH units specified: ", unit);
-            break;
-    }
+    /* Get max adc value range 1023, 2047, 4095, etc... */
+    float max_adc = (1 << mraa_aio_get_bit(((upm_dfrph*)dev)->aio)) - 1;
 
-    return UPM_SUCCESS;
-}
+    /* Apply raw scale */
+    *value = counts * ((upm_dfrph*)dev)->m_count_scale;
 
-upm_result_t upm_dfrph_set_offset(upm_dfrph* dev, float ph_offset)
-{
-    dev->m_offset = ph_offset;
+    /* Apply raw offset */
+    *value += ((upm_dfrph*)dev)->m_count_offset;
+
+    /* Normalize the value */
+    *value /= max_adc;
+
+    /* Vmax for sensor is 0.8 * Vref, so scale by 1/0.8 = 1.25 */
+    *value *= 1.25 * 14; /* Convert to pH */
+
     return UPM_SUCCESS;
 }

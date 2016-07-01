@@ -1,0 +1,6 @@
+set (libname "vdiv")
+set (libdescription "upm x_sensorname sensor")
+set (module_src vdiv.c ${libname}.cxx)
+set (module_hpp ${libname}.hpp)
+set (module_h vdiv.h)
+upm_module_init()

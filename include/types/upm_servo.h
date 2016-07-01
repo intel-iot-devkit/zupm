@@ -24,10 +24,18 @@
 #ifndef UPM_SERVO_H_
 #define UPM_SERVO_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Servo function table
-struct _upm_servo_ft {
+typedef struct _upm_servo_ft {
     upm_result_t (*upm_servo_set_angle) (void* dev, int angle);
 } upm_servo_ft;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_SERVO_H_ */
 

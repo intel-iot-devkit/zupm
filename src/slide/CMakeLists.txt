@@ -1,0 +1,6 @@
+set (libname "slide")
+set (libdescription "upm volts sensor")
+set (module_src ${libname}.cxx slide.c)
+set (module_hpp ${libname}.hpp)
+set (module_h ${libname}.hpp slide.h)
+upm_module_init()

@@ -24,6 +24,10 @@
 #ifndef UPM_H_
 #define UPM_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #if __STDC_VERSION__ >= 199901L
 #define C99
 #endif
@@ -33,5 +37,9 @@
 #include <upm_utilities.h>
 
 #define upm_perror(...) perror(args, __VA_ARGS__)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_H_ */

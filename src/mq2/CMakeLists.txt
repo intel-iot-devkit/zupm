@@ -1,0 +1,6 @@
+set (libname "mq2")
+set (libdescription "upm x_sensorname sensor")
+set (module_src ${libname}.cxx mq2.c)
+set (module_hpp ${libname}.hpp)
+set (module_h ${libname}.hpp mq2.h)
+upm_module_init()

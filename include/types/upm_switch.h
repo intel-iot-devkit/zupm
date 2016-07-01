@@ -24,11 +24,19 @@
 #ifndef UPM_SWITCH_H_
 #define UPM_SWITCH_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Switch function table
-struct _upm_switch_ft {
+typedef struct _upm_switch_ft {
     upm_result_t (*upm_switch_get_value) (void* dev, bool* value);
     upm_result_t (*upm_switch_attach_isr) (void* dev, void (*isr)(void *), void *arg);
     upm_result_t (*upm_switch_clear_isr) (void* dev);
 } upm_switch_ft;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_SWITCH_H_ */

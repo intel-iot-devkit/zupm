@@ -24,12 +24,20 @@
 #ifndef UPM_DISTANCE_H_
 #define UPM_DISTANCE_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // Distance units
 typedef enum _upm_distance_u {CENTIMETER, INCH} upm_distance_u;
 
 // Distance function table
-struct _upm_dist_ft {
+typedef struct _upm_dist_ft {
     upm_result_t (*upm_distance_get_value) (void* dev, float* value, upm_distance_u unit);
 } upm_distance_ft;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_SENSOR_DISTANCE_H_ */

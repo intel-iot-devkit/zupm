@@ -96,9 +96,9 @@ namespace upm {
      * DFRPH constructor
      *
      * @param pin Analog pin to use
-     * @param aref Analog reference voltage; default is 5.0 V
+     * @param vref Analog reference voltage; default is 5.0 V
      */
-    DFRPH(int pin, float aref = 5.0);
+    DFRPH(int pin, float vref = 5.0);
 
     /**
      * DFRPH destructor
@@ -121,6 +121,14 @@ namespace upm {
     void setOffset(float offset);
 
     /**
+     * Specifies the scale determined from calibration.  The default
+     * is 1.0.
+     *
+     * @param scale The scale value to use
+     */
+    void setScale(float scale);
+
+    /**
      * Take a number of samples and return the detected pH value.  The
      * default number of samples is 15.
      *
@@ -130,7 +138,7 @@ namespace upm {
     float pH(unsigned int samples = 15);
 
   private:
-    upm_dfrph* _dev;
+    void* _dev;
   };
 }
 

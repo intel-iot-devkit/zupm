@@ -24,59 +24,45 @@
 
 #pragma once
 
-#include <mraa/aio.h>
-
 #include "upm.h"
-#include "upm_sensor.h"
-#include "upm_ph.h"
+#include "types/upm_sensor.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
- * pH sensor Struct
- */
-typedef struct _upm_dfrph {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog bit resolution (number of bits) */
-    int16_t m_aRes;
-    /* Analog voltage reference */
-    float m_aRef;
-    /* */
-    float m_offset;
-} upm_dfrph;
-
-/**
- * Fill in a sensor descriptor structure for this sensor
- * @param desc Sensor descriptor struct
- * @return void
- */
-void get_upm_descriptor(upm_sensor_descriptor_t* desc);
-
-/**
- * Get the function table for this sensor
+ * Get the generic function table for this sensor
  * @return generic function table struct
  */
-upm_sensor_ft upm_get_ft();
+const void* upm_dfrph_get_ft(upm_sensor_t sensor_type);
 
 /**
- * Initialize pH sensor
+ * Initialize analog sensor
  * @param protocol protocol initliazation string
  * @param params sensor parameter string
- * @return upm_dfrph struct pointer
+ * @return sensor context as void pointer
  */
-upm_dfrph* upm_dfrph_init_str (const char* protocol, const char* params);
+void* upm_dfrph_init_str(const char* protocol, const char* params);
 
 /**
- * Initialize pH sensor
+ * Initialize analog sensor
  * @param pin is Analog pin
- * @return upm_dfrph struct pointer
+ * @return sensor context as void pointer
  */
-upm_dfrph* upm_dfrph_init(int16_t pin, float aref);
+void* upm_dfrph_init(int16_t pin);
 
 /**
- * pH sensor destructor
- * @param upm_dfrph dev struct to deallocate memory
+ * Analog sensor destructor
+ * @param sensor context pointer deallocate memory
  */
-void upm_dfrph_close (upm_dfrph* dev);
+void upm_dfrph_close(void* dev);
+
+/**
+ * Get descriptor for this sensor
+ * @return Sensor descriptor struct
+ */
+const upm_sensor_descriptor_t upm_dfrph_get_descriptor();
 
 /**
  * Generic sensor read method
@@ -84,7 +70,7 @@ void upm_dfrph_close (upm_dfrph* dev);
  * @param value pointer to value read from hardware
  * @param len length of items to read
  */
-upm_result_t upm_dfrph_read (void* dev, void* value, int len);
+upm_result_t upm_dfrph_read(const void* dev, void* value, int len);
 
 /**
  * Generic sensor write method
@@ -92,28 +78,35 @@ upm_result_t upm_dfrph_read (void* dev, void* value, int len);
  * @param value pointer to value to write
  * @param len length of items to write
  */
-upm_result_t upm_dfrph_write (void* dev, void* value, int len);
+upm_result_t upm_dfrph_write(const void* dev, void* value, int len);
 
 /**
- * pH Get a descriptor for this sensor
- * @return Sensor descriptor struct
- */
-const upm_sensor_descriptor_t upm_dfrph_get_descriptor ();
-
-/**
- * Set a +/- pH offset.  This offset is applied to the return pH
- *     pH = pH + offset
- * @param upm_dfrph dev struct
- * @param ph_offset pH offset value used
+ * Set sensor offset.  This offset is applied to the return value:
+ *     counts = counts + offset
+ * @param dev sensor context pointer
+ * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t upm_dfrph_set_offset(upm_dfrph* dev, float ph_offset);
+upm_result_t upm_dfrph_set_offset(const void* dev, float offset);
+
+/**
+ * Set sensor scale.  This scale is applied to the return value:
+ *     counts = counts * scale
+ * @param dev sensor context pointer
+ * @param scale count scale value used
+ * @return Function result code
+ */
+upm_result_t upm_dfrph_set_scale(const void* dev, float scale);
 
 /**
  * Read value from sensor
- * @param upm_dfrph dev struct
- * @param *value pH value from sensor, units depend on 
- * @param unit Enum which specifies units for value return in value
+ * @param dev sensor context pointer
+ * @param *value pH value from sensor, units depend on unit enum
+ * @param unit Enum which specifies units returned in *value
  * @return Function result code
  */
-upm_result_t upm_dfrph_get_value(upm_dfrph* dev, float *value, upm_ph_u unit);
+upm_result_t upm_dfrph_get_value(const void* dev, float *value);
+
+#ifdef __cplusplus
+}
+#endif

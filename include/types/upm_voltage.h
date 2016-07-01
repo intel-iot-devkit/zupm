@@ -26,23 +26,22 @@
 
 #include "upm_types.h"
 
-/* Generic voltage sensor units */
-typedef enum _upm_voltage_u
-{
-    /* Normalized unit value (0.0 - 1.0) */
-    NORMALIZED,
-    /* Unit in volts */
-    VOLTS
-} upm_voltage_u;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Generic voltage function table */
 typedef struct _upm_voltage_ft {
     /* Set sensor offset in volts */
-    upm_result_t (*upm_voltage_set_offset) (void* dev, float offset);
+    upm_result_t (*upm_voltage_set_offset) (const void* dev, float offset);
     /* Set sensor scale in volts */
-    upm_result_t (*upm_voltage_set_scale) (void* dev, float scale);
-    /* Read sensor value, return units based on _upm_voltage_u */
-    upm_result_t (*upm_voltage_get_value) (void* dev, float* value, upm_voltage_u unit);
+    upm_result_t (*upm_voltage_set_scale) (const void* dev, float scale);
+    /* Read sensor value in volts */
+    upm_result_t (*upm_voltage_get_value) (const void* dev, float* value);
 } upm_voltage_ft;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_VOLTAGE_H_ */

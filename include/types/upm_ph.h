@@ -24,13 +24,25 @@
 #ifndef UPM_PH_H_
 #define UPM_PH_H_
 
-// pH units
-typedef enum _upm_ph_u {NORMALIZED, PH} upm_ph_u;
+#include "upm_types.h"
 
-// pH function table
-typedef struct _upm_ph_ft {
-    upm_result_t (*upm_ph_set_offset) (void* dev, float offset);
-    upm_result_t (*upm_ph_get_value) (void* dev, float* value, upm_ph_u unit);
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* pH function table */
+typedef struct _upm_ph_ft
+{
+    /* Set sensor offset in raw counts */
+    upm_result_t (*upm_ph_set_offset) (const void* dev, float offset);
+    /* Set sensor scale in raw counts */
+    upm_result_t (*upm_ph_set_scale) (const void* dev, float scale);
+    /* Read sensor value, return pH */
+    upm_result_t (*upm_ph_get_value) (const void* dev, float* value);
 } upm_ph_ft;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_PH_H_ */

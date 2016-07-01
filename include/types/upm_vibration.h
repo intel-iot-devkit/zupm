@@ -25,8 +25,16 @@
 #ifndef UPM_VIBRATION_H_
 #define UPM_VIBRATION_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 struct _upm_vibration_ft {
 	upm_result_t (*upm_vibration_get_value) (void* dev, float* value);
 } upm_vibration_ft;
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_VIBRATION_H_ */

@@ -24,6 +24,10 @@
 #ifndef UPM_TYPES_H_
 #define UPM_TYPES_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef C99
 #include <stdbool.h>
 #elif __cplusplus
@@ -58,7 +62,6 @@ typedef enum {
     UPM_CURRENT,
     UPM_DISPLAY,
     UPM_DISTANCE,
-	UPM_ELECTRICITY,
     UPM_FLOW,
     UPM_FORCE,
     UPM_GAS,
@@ -66,12 +69,12 @@ typedef enum {
     UPM_HEART_RATE,
     UPM_HUMIDITY,
     UPM_IMU,
-	UPM_LED,
+    UPM_JOYSTICK,
     UPM_LIGHT,
-	UPM_NFC,
     UPM_PH,
     UPM_POTENTIOMETER,
     UPM_PRESSURE,
+    UPM_RAW,
     UPM_SENSOR,
     UPM_SERVO,
     UPM_STEPPER,
@@ -80,8 +83,7 @@ typedef enum {
     UPM_TIME,
     UPM_VIDEO,
     UPM_VOLTAGE,
-    UPM_WIRELESS,
-	UPM_MOISTURE
+    UPM_WIRELESS
 } upm_sensor_t;
 
 /* Supported IO protocols via MRAA */
@@ -106,19 +108,22 @@ typedef struct _upm_sensor_descriptor {
 } upm_sensor_descriptor_t;
 
 /* Function pointer typedef helpers */
-typedef struct _upm_sensor_ft (*func_get_upm_sensor_ft)();
+typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_type);
 
-#include <types/upm_distance.h>
-#include <types/upm_heart_rate.h>
-#include <types/upm_ph.h>
-#include <types/upm_servo.h>
-#include <types/upm_temperature.h>
-#include <types/upm_touch.h>
 #include <types/upm_acceleration.h>
 #include <types/upm_angle.h>
 #include <types/upm_audio.h>
+#include <types/upm_distance.h>
+#include <types/upm_heart_rate.h>
+#include <types/upm_ph.h>
 #include <types/upm_potentiometer.h>
+#include <types/upm_servo.h>
+#include <types/upm_temperature.h>
+#include <types/upm_touch.h>
 #include <types/upm_voltage.h>
-#include <types/upm_vibration.h>
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_TYPES_H_ */

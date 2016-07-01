@@ -24,8 +24,16 @@
 #ifndef UPM_MATH_H_
 #define UPM_MATH_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef linux
 #include <math.h>
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* UPM_MATH_H_ */

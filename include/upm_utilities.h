@@ -24,25 +24,16 @@
 #ifndef UPM_UTILITIES_H_
 #define UPM_UTILITIES_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifdef linux
 #include <unistd.h>
-#include <stdio.h>
-#include <unistd.h>
 #endif
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-#include <zephyr.h>
-#include <device.h>
-#include <sys_clock.h>
-
-#if defined(CONFIG_STDOUT_CONSOLE)
-#include <stdio.h>
-#define PRINT           printf
-#else
-#include <misc/printk.h>
-#define PRINT           printk
-#endif
-#endif
+/* Get filename w/o path */
+#define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
 inline const char * to_char(upm_sensor_t category)
 {
@@ -64,14 +55,26 @@ inline const char * to_char(upm_sensor_t category)
     }
 }
 
-void upm_delay(int time);
+static inline void upm_delay(int time){
+#ifdef linux
+    sleep(time);
+#endif
+}
 
-void upm_delay_ms(int time);
+static inline void upm_delay_ms(int time){
+#ifdef linux
+    usleep(1000 * time);
+#endif
+}
 
-void upm_delay_us(int time);
+static inline void upm_delay_us(int time){
+#ifdef linux
+    usleep(time);
+#endif
+}
 
-void* upm_malloc(int mem_map, int size);
-
-void upm_free(int mem_map, void* ptr);
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* UPM_UTILITIES_H_ */
