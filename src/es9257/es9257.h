@@ -30,8 +30,12 @@
 
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 #include <unistd.h>
-#include "../upm.h"
+
+#include "upm.h"
+#include "mraa/pwm.h"
+#include "types/upm_sensor.h"
 
 /**
  * @library servo
