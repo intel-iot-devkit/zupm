@@ -33,7 +33,7 @@ typedef enum _upm_heart_rate_u {BPM} upm_heart_rate_u;
 
 // Heart rate function table
 typedef struct _upm_heart_rate_ft {
-    upm_result_t (*upm_heart_rate_get_value) (void* dev, float* value, upm_heart_rate_u unit);
+    upm_result_t (*upm_heart_rate_get_value) (void* dev, int* value, upm_heart_rate_u unit);
 } upm_heart_rate_ft;
 
 #ifdef __cplusplus

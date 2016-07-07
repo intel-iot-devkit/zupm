@@ -118,6 +118,8 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <types/upm_ph.h>
 #include <types/upm_potentiometer.h>
 #include <types/upm_servo.h>
+#include <types/upm_sensor.h>
+#include <types/upm_switch.h>
 #include <types/upm_temperature.h>
 #include <types/upm_touch.h>
 #include <types/upm_voltage.h>

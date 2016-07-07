@@ -1,6 +1,6 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,8 +30,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <stdarg.h>
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/pwm.h"
 
 /**
  * @library servo
@@ -59,7 +59,7 @@
 #define UPM_ES08A_MIN_PULSE_WIDTH             600
 #define UPM_ES08A_MAX_PULSE_WIDTH             2200
 #define UPM_ES08A_PERIOD                      20000
-#define UPM_ES08A_MAX_ANGLE		            180.0
+#define UPM_ES08A_MAX_ANGLE                   180.0
 
 #define UPM_ES08A_HIGH                        1
 #define UPM_ES08A_LOW                         0
@@ -80,11 +80,10 @@ typedef struct _upm_es08a* upm_es08a;
  * for a period of 1 second, and then turned back off. If 0, PWM remains on afterward.
  */
 
-upm_sensor_descriptor_t upm_es08a_get_descriptor (void* dev);
+const upm_sensor_descriptor_t upm_es08a_get_descriptor ();
 
-void* upm_es08a_get_ft(upm_sensor_t sensor_type);
-//void* upm_es08a_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
-void* upm_es08a_init_name(int num,...);
+const void* upm_es08a_get_ft(upm_sensor_t sensor_type);
+void* upm_es08a_init_name();
 
 // the regular init function
 void* upm_es08a_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
@@ -105,7 +104,7 @@ upm_result_t upm_es08a_set_angle(void* dev, int32_t angle);
 /*
  * Calculating relative pulse time to the value.
  * */
-upm_result_t upm_es08a_calc_pulse_travelling(void* dev, int32_t* ret_val, int32_t value);
+upm_result_t upm_es08a_calc_pulse_travelling(const void* dev, int32_t* ret_val, int32_t value);
 
 /**
  * Sets the minimum pulse width
@@ -137,13 +136,9 @@ int upm_es08a_get_max_pulse_width (void* dev);
 
 void upm_es08a_get_sensor_info();
 
-upm_result_t upm_es08a_read (void* dev, void* data, int* len);
+upm_result_t upm_es08a_read (const void* dev, void* data, int len);
 
-upm_result_t upm_es08a_write (void* dev, void* data, int len);
-
-//upm_result_t upm_es08a_write (void* dev, void* data, int len);
-
-//struct _upm_servo_ft upm_es08a_get_function_table();
+upm_result_t upm_es08a_write (const void* dev, void* data, int len);
 
 #endif /* ES08A_H_ */
 

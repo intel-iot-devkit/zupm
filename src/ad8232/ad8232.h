@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,26 +31,53 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/aio.h"
+#include "mraa/gpio.h"
 
 #define AD8232_DEFAULT_AREF  3.3
 
+/**
+ * Opaque pointer to sensor structure
+ */
 typedef struct _upm_ad8232* upm_ad8232;
 
+/**
+ * Gets the sensor descriptor for AD8232. Heart Rate Monitor.
+ *
+ * @param void* pointer to the sensor struct
+ * @return upm_sensor_descriptor_t descriptor for the sensor
+ */
 upm_sensor_descriptor_t upm_ad8232_get_descriptor (void* dev);
 
-void* upm_ad8232_get_ft(upm_sensor_t sensor_type);
+/**
+ * Gets the function table for the particular sensor.
+ *
+ * @param upm_sensor_t the type of function table
+ * @return void* a void pointer to the ft struct
+ */
+const void* upm_ad8232_get_ft(upm_sensor_t sensor_type);
 
-void* upm_ad8232_init_name(int num,...);
+/**
+ * Generic init function
+ *
+ * @return void* pointer to the sensor structure
+ */
+void* upm_ad8232_init_name();
 
+/**
+ * Sensor Init function
+
+
+ */
 void* upm_ad8232_init(int lo_plus, int lo_minus, int output, float a_ref);
 
 void upm_ad8232_close(void* dev);
 
 upm_result_t upm_ad8232_get_value(void* dev, int* value, upm_heart_rate_u rate_unit);
 
-upm_result_t upm_ad8232_read(void* dev, void* data, int* len);
+upm_result_t upm_ad8232_read(const void* dev, void* data, int len);
 
-upm_result_t upm_ad8232_write(void* dev, void* value, int len);
+upm_result_t upm_ad8232_write(const void* dev, void* value, int len);
 
 #endif /* AD8232_H_ */

@@ -30,7 +30,7 @@ extern "C" {
 
 // Switch function table
 typedef struct _upm_switch_ft {
-    upm_result_t (*upm_switch_get_value) (void* dev, bool* value);
+    upm_result_t (*upm_switch_get_value) (void* dev, bool* value, int num);
     upm_result_t (*upm_switch_attach_isr) (void* dev, void (*isr)(void *), void *arg);
     upm_result_t (*upm_switch_clear_isr) (void* dev);
 } upm_switch_ft;

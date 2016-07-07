@@ -37,7 +37,7 @@ const char upm_es9257_description[] = "Grove Servo - Heavy Duty";
 const upm_protocol_t upm_es9257_protocol[] = {UPM_PWM};
 const upm_sensor_t upm_es9257_category[] = {UPM_SERVO};
 
-upm_sensor_descriptor_t upm_es9257_get_descriptor (void* dev){
+const upm_sensor_descriptor_t upm_es9257_get_descriptor (){
     upm_sensor_descriptor_t usd;
     usd.name = upm_es9257_name;
     usd.description = upm_es9257_description;
@@ -48,59 +48,33 @@ upm_sensor_descriptor_t upm_es9257_get_descriptor (void* dev){
     return usd;
 }
 
-void* upm_es9257_get_ft(upm_sensor_t sensor_type){
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_es9257_init_name,
+    .upm_sensor_close = &upm_es9257_close,
+    .upm_sensor_read = &upm_es9257_read,
+    .upm_sensor_write = &upm_es9257_write,
+    .upm_sensor_get_descriptor = &upm_es9257_get_descriptor
+};
+
+static const upm_servo_ft sft =
+{
+    .upm_servo_set_angle = &upm_es9257_set_angle
+};
+
+const void* upm_es9257_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_SERVO){
-        upm_servo_ft *sft = malloc(sizeof(*sft));
-        if(sft == NULL){
-            printf("Unable to assign memory to the Servo motor structure");
-            return NULL;
-        }
-        sft->upm_servo_set_angle = upm_es9257_set_angle;
-        return sft;
+        return &sft;
     }
     else if(sensor_type == UPM_SENSOR){
-        upm_sensor_ft *ft = malloc(sizeof(*ft));
-        if(ft == NULL){
-            printf("Unable to assign memory to the Servo motor structure");
-            return NULL;
-        }
-        ft->upm_sensor_init_name = upm_es9257_init_name;
-        ft->upm_sensor_close = upm_es9257_close;
-        ft->upm_sensor_write = upm_es9257_write;
-        ft->upm_sensor_read = upm_es9257_read;
+        return &ft;
     }
     return NULL;
 }
 
 // VA used only temporarily until MRAA implements character based init
-void* upm_es9257_init_name(int num,...){
-    upm_es9257 dev = (upm_es9257) malloc(sizeof(struct _upm_es9257));
-    //
-    va_list pin_list;
-    printf("Coming into the es9257 function\n");
-
-    //
-    va_start(pin_list, num);
-    if(dev == NULL){
-        printf("Unable to assign memory to the Servo motor structure");
-        return NULL;
-    }
-
-    // first argument is the pin number
-    dev->servo_pin = va_arg(pin_list, int);
-    // second is the min pulse width
-    dev->min_pulse_width = va_arg(pin_list, int);
-    // third is the max pulse width
-    dev->max_pulse_width = va_arg(pin_list, int);
-
-    va_end(pin_list);
-    dev->pwm = mraa_pwm_init(dev->servo_pin);
-    if(dev->pwm == NULL){
-        printf("Unable to initialize the PWM pin");
-    }
-
-    upm_es9257_set_angle(dev, 0);
-    return dev;
+void* upm_es9257_init_name(){
+    return NULL;
 }
 
 void* upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width){
@@ -132,7 +106,7 @@ void upm_es9257_close(void* dev){
     free(device);
 }
 
-upm_result_t upm_es9257_write (void* dev, void* data, int len){
+upm_result_t upm_es9257_write (const void* dev, void* data, int len){
     upm_es9257 device = (upm_es9257) dev;
     uint32_t int_data = *((uint32_t *) data);
     if(UPM_ES9257_MAX_ANGLE < int_data || int_data < 0){
@@ -161,7 +135,7 @@ upm_result_t upm_es9257_set_angle(void* dev, int32_t angle){
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_es9257_calc_pulse_travelling(void* dev, int32_t* ret_val, int32_t value){
+upm_result_t upm_es9257_calc_pulse_travelling(const void* dev, int32_t* ret_val, int32_t value){
     upm_es9257 device = (upm_es9257) dev;
     if (value > device->max_pulse_width) {
         *ret_val = device->max_pulse_width;
@@ -196,6 +170,6 @@ int upm_es9257_get_max_pulse_width (void* dev){
     return device->max_pulse_width;
 }
 
-upm_result_t upm_es9257_read(void* dev, void* value, int* len){
+upm_result_t upm_es9257_read(const void* dev, void* value, int len){
     return UPM_ERROR_NOT_IMPLEMENTED;
 }

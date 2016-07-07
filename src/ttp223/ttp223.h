@@ -1,6 +1,6 @@
 /*
  * Author: Sarah Knepper <sarah.knepper@intel.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,27 +31,93 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/gpio.h"
 
+/**
+ * Opaque pointer to the sensor struct
+ */
 typedef struct _upm_ttp223* upm_ttp223;
 
-upm_sensor_descriptor_t upm_ttp223_get_descriptor(void* dev);
+/**
+ * Fetches the descriptor for the sensor
+ *
+ * @param dev pointer to the sensor struct
+ * @return upm_sensor_descriptor_t descriptor associated
+ * with the sensor
+ */
+const upm_sensor_descriptor_t upm_ttp223_get_descriptor();
 
-void* upm_ttp223_get_ft(upm_sensor_t sensor_type);
+/**
+ * Fetches the function tables associated with the sensor
+ *
+ * @param sensor_type the type of sensor
+ * @return void* pointer to the function table requested
+ */
+const void* upm_ttp223_get_ft(upm_sensor_t sensor_type);
 
-void* upm_ttp223_init_name(int num,...);
+/**
+ * Generic init function
+ *
+ * @return void* pointer to the sensor struct
+ */
+void* upm_ttp223_init_name();
 
+/**
+ * Sensor Init function
+ *
+ * @param pin The pin number the sensor is attached to
+ * @return void* pointer to the sensor struct
+ */
 void* upm_ttp223_init(int pin);
 
+/**
+ * Sensor Module close function
+ *
+ * @param dev pointer to the sensor struct
+ */
 void upm_ttp223_close(void* dev);
 
-upm_result_t upm_ttp223_is_pressed(void* dev, uint32_t* value, int num);
+/**
+ * Function to tell if the sensor is pressed
+ *
+ * @param dev pointer to the sensor struct
+ * @param value pointer to store whether the sensor is pressed or not
+ * @param num the touchpad pressed
+ * @result upm_result_t UPM success/error code
+ */
+upm_result_t upm_ttp223_is_pressed(void* dev, bool* value, int num);
 
+/**
+ *
+ */
 upm_result_t upm_ttp223_install_isr(void* dev, mraa_gpio_edge_t edge_level, void (*isr)(void *), void *arg);
 
+/**
+ *
+ */
 upm_result_t upm_ttp223_uninstall_isr(void* dev);
 
-upm_result_t upm_ttp223_read(void* dev, void* data, int* len);
+/**
+ * Generic read function for the sensor. Returns
+ * raw value.
+ *
+ * @param void* pointer to the sensor struct
+ * @param void* value stores the value that was read
+ * @param int len length of the elements of the
+ * value that has been read
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_ttp223_read(const void* dev, void* data, int len);
 
-upm_result_t upm_ttp223_write(void* dev, void* value, int len);
+/**
+ * Generic write function for the sensor.
+ *
+ * @param void* pointer to the sensor struct
+ * @param void* value stores the value to write
+ * @param int len length of the elements of the
+ * value to be written
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_ttp223_write(const void* dev, void* value, int len);
 #endif /* UPM_C_TTP223_TTP223_H_ */
