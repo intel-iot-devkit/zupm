@@ -28,8 +28,24 @@
 extern "C" {
 #endif
 
-#ifdef linux
+#if defined(linux)
+#include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+#endif
+
+#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#include <zephyr.h>
+#include <device.h>
+#include <sys_clock.h>
+
+#if defined(CONFIG_STDOUT_CONSOLE)
+#include <stdio.h>
+#define PRINT           printf
+#else
+#include <misc/printk.h>
+#define PRINT           printk
+#endif
 #endif
 
 /* Get filename w/o path */
@@ -55,23 +71,16 @@ inline const char * to_char(upm_sensor_t category)
     }
 }
 
-static inline void upm_delay(int time){
-#ifdef linux
-    sleep(time);
-#endif
-}
 
-static inline void upm_delay_ms(int time){
-#ifdef linux
-    usleep(1000 * time);
-#endif
-}
+void upm_delay(int time);
 
-static inline void upm_delay_us(int time){
-#ifdef linux
-    usleep(time);
-#endif
-}
+void upm_delay_ms(int time);
+
+void upm_delay_us(int time);
+
+void* upm_malloc(int mem_map, int size);
+
+void upm_free(int mem_map, void* ptr);
 
 #ifdef __cplusplus
 }
