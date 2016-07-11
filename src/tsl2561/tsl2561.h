@@ -1,6 +1,6 @@
 /*
  * Author: Nandkishor Sonar <Nandkishor.Sonar@intel.com>,
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2014 Intel Corporation.
  *
  * LIGHT-TO-DIGITAL CONVERTER [TAOS-TSL2561]
@@ -30,7 +30,8 @@
 #ifndef TSL2561_TSL2561_H_
 #define TSL2561_TSL2561_H_
 #include <stdarg.h>
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/i2c.h"
 
 #define TSL2561_Address          (0x29)  //Device address
 
@@ -89,26 +90,104 @@
 #define LUX_B8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
+/**
+ * Opaque pointer to the sensor struct
+ */
 typedef struct _upm_tsl2561* upm_tsl2561;
 
-upm_sensor_descriptor_t upm_tsl2561_get_descriptor (void* dev);
+/**
+ * Function to get the sensor descriptor
+ *
+ * @param dev void pointer to the sensor struct
+ * @return upm_sensor_descriptor_t descriptor with the
+ * the sensor details
+ */
+const upm_sensor_descriptor_t upm_tsl2561_get_descriptor ();
 
-void* upm_tsl2561_get_ft(upm_sensor_t sensor_type);
+/**
+ * Fetches the function tables associated with the
+ * sensor module
+ *
+ * @param sensor_type the type of sensor
+ * @return void* pointer to the sensor struct
+ */
+const void* upm_tsl2561_get_ft(upm_sensor_t sensor_type);
 
-void* upm_tsl2561_init_name(int num,...);
+/**
+ * Generic Init funciton
+ *
+ * @return pointer to the sensor struct
+ */
+void* upm_tsl2561_init_name();
 
+/**
+ * Sensor Init Function
+ *
+ * @param bus I2C bus
+ * @param dev_address I2C address
+ * @param gain Gain associated with the driver
+ * @param integration_time
+ * @return void* pointer to the sensor struct
+ */
 void* upm_tsl2561_init(int bus, uint8_t dev_address, uint8_t gain, uint8_t integration_time);
 
+/**
+ * Closes the sensor module
+ *
+ * @param dev pointer to the sensor struct
+ */
 void upm_tsl2561_close(void* dev);
 
-upm_result_t upm_tsl2561_get_lux(void* dev, int* lux);
+/**
+ * Gets the Lux value
+ *
+ * @param dev pointer to the sensor struct
+ * @param lux pointer to store the lux value
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_tsl2561_get_lux(const void* dev, float* lux);
 
-upm_result_t upm_tsl2561_i2c_write_reg(upm_tsl2561 dev, uint8_t reg, uint8_t value);
+/**
+ * Write I2C register on the device
+ *
+ * @param dev pointer to the sensor struct
+ * @param reg register to write value to
+ * @param value the value to be written
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_tsl2561_i2c_write_reg(void* dev, uint8_t reg, uint8_t value);
 
-upm_result_t upm_tsl2561_i2c_read_reg(upm_tsl2561 dev, uint8_t reg, uint8_t* data);
+/**
+ * Read from an I2C register from the device
+ *
+ * @param dev pointer to the sensor struct
+ * @param reg register to write value to
+ * @param data Data read in  from the register
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_tsl2561_i2c_read_reg(void* dev, uint8_t reg, uint8_t* data);
 
-upm_result_t upm_tsl2561_read(void* dev, void* data, int* len);
+/**
+ * Generic read function for the sensor. Returns
+ * raw value.
+ *
+ * @param void* pointer to the sensor struct
+ * @param void* value stores the value that was read
+ * @param int len length of the elements of the
+ * value that has been read
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_tsl2561_read(const void* dev, void* data, int len);
 
-upm_result_t upm_tsl2561_write(void* dev, void* data, int len);
+/**
+ * Generic write function for the sensor.
+ *
+ * @param void* pointer to the sensor struct
+ * @param void* value stores the value to write
+ * @param int len length of the elements of the
+ * value to be written
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_tsl2561_write(const void* dev, void* data, int len);
 
 #endif /* TSL2561_TSL2561_H_ */

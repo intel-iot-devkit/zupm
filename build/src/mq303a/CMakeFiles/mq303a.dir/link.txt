@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-mq303a.so.0 -o libupm-mq303a.so.0.7.0 CMakeFiles/mq303a.dir/mq303a.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

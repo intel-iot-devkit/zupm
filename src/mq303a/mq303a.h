@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,7 +24,8 @@
  */
 #ifndef MQ303A_MQ303A_H_
 #define MQ303A_MQ303A_H_
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/aio.h"
 /**
  * @brief MQ303A Alcohol Sensor library
  * @defgroup mq303a libupm-mq303a
@@ -56,21 +57,22 @@
  */
 typedef struct _upm_mq303a* upm_mq303a;
 
+const upm_sensor_descriptor_t upm_mq303a_get_descriptor();
 /**
  * Gets the function tables associated with the sensor
  *
  * @param sensor_type the type of sensor
- * 		  required for the ft to be returned
+ * required for the ft to be returned
  * @return void* pointer to the ft struct
  */
-void* upm_mq303a_get_ft(upm_sensor_t sensor_type);
+const void* upm_mq303a_get_ft(upm_sensor_t sensor_type);
 
 /**
  * MQ303A Name Initialization function
  *
  * @return void* pointer to the sensor struct
  */
-void* upm_mq303a_init_name(int num,...);
+void* upm_mq303a_init_name();
 
 /**
  * MQ303A Initialization function
@@ -116,7 +118,7 @@ upm_result_t upm_mq303a_heater_enable(void* dev, bool enable);
  * value to be written
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mq303a_write(void* dev, void* value, int len);
+upm_result_t upm_mq303a_write(const void* dev, void* value, int len);
 
 /**
  * Generic read function for the sensor. Returns
@@ -128,6 +130,6 @@ upm_result_t upm_mq303a_write(void* dev, void* value, int len);
  * value that has been read
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mq303a_read(void* dev, void* value, int* len);
+upm_result_t upm_mq303a_read(const void* dev, void* value, int len);
 
 #endif /* MQ303A_MQ303A_H_ */

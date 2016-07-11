@@ -1,0 +1,5 @@
+set (libname "loudness")
+set (libdescription "UPM Grove Loudness Sensor Module: loudness")
+set (module_src loudness.c)
+set (module_h loudness.h)
+upm_module_init()

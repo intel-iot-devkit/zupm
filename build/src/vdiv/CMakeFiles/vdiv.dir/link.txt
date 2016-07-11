@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC   -shared -Wl,-soname,libupm-vdiv.so.0 -o libupm-vdiv.so.0.7.0 CMakeFiles/vdiv.dir/vdiv.c.o CMakeFiles/vdiv.dir/vdiv.cxx.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

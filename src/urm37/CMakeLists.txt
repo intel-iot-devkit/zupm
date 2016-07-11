@@ -1,0 +1,5 @@
+set (libname "urm37")
+set (libdescription "UPM Range Finder Sensor Module: urm37")
+set (module_src urm37.c)
+set (module_h urm37.h)
+upm_module_init()

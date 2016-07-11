@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: upm-upm_c_ad8232
+Description: upm lib upm_c_ad8232
+Version: 0.7.0
+
+Libs: -L${libdir} -lupm-upm_c_ad8232
+Cflags: -I${includedir}/upm
+
+Requires: 
+Requires.private: 

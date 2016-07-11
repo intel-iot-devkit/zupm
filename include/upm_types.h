@@ -71,7 +71,10 @@ typedef enum {
     UPM_HUMIDITY,
     UPM_IMU,
     UPM_JOYSTICK,
+    UPM_LED,
     UPM_LIGHT,
+    UPM_MOISTURE,
+    UPM_NFC,
     UPM_PH,
     UPM_POTENTIOMETER,
     UPM_PRESSURE,
@@ -124,6 +127,8 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <types/upm_temperature.h>
 #include <types/upm_touch.h>
 #include <types/upm_voltage.h>
+#include <types/upm_moisture.h>
+#include <types/upm_light.h>
 
 #ifdef __cplusplus
 }

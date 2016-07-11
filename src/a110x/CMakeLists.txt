@@ -1,0 +1,5 @@
+set (libname "a110x")
+set (libdescription "UPM Hall Effect Sensor Module: a110x")
+set (module_src a110x.c)
+set (module_h a110x.h)
+upm_module_init()

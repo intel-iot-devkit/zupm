@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: upm-m24lr64e
+Description: upm lib m24lr64e
+Version: 0.7.0
+
+Libs: -L${libdir} -lupm-m24lr64e
+Cflags: -I${includedir}/upm
+
+Requires: 
+Requires.private: 

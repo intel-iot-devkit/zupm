@@ -25,8 +25,8 @@
 #include "loudness.h"
 
 struct _upm_loudness {
-	mraa_aio_context			aio;
-	uint8_t						pin;
+    mraa_aio_context            aio;
+    uint8_t                     pin;
 };
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
@@ -41,66 +41,66 @@ const char upm_loudness_description[] = " Loudness Sensor";
 const upm_protocol_t upm_loudness_protocol[] = {UPM_ANALOG};
 const upm_sensor_t upm_loudness_category[] = {UPM_AUDIO};
 
-upm_sensor_descriptor_t upm_loudness_get_descriptor(void* dev){
-	upm_sensor_descriptor_t usd;
-	usd.name = upm_loudness_name;
-	usd.description = upm_loudness_description;
-	usd.protocol_size = 1;
-	usd.protocol = upm_loudness_protocol;
-	usd.category_size = 1;
-	usd.category = upm_loudness_category;
-	return usd;
+const upm_sensor_descriptor_t upm_loudness_get_descriptor(){
+    upm_sensor_descriptor_t usd;
+    usd.name = upm_loudness_name;
+    usd.description = upm_loudness_description;
+    usd.protocol_size = 1;
+    usd.protocol = upm_loudness_protocol;
+    usd.category_size = 1;
+    usd.category = upm_loudness_category;
+    return usd;
 }
 
-void* upm_loudness_get_ft(upm_sensor_t sensor_type){
-	if(sensor_type == UPM_SENSOR){
-		struct _upm_sensor_ft *ft = malloc(sizeof(*ft));
-		if(ft == NULL){
-			printf("Unable to assign memory to the  Loudness structure");
-			return NULL;
-		}
-		ft->upm_sensor_init_name = upm_loudness_init_name;
-		ft->upm_sensor_close = upm_loudness_close;
-		ft->upm_sensor_read = upm_loudness_read;
-		ft->upm_sensor_write = upm_loudness_write;
-		return ft;
-	}
-	return NULL;
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_loudness_init_name,
+    .upm_sensor_close = &upm_loudness_close,
+    .upm_sensor_read = &upm_loudness_read,
+    .upm_sensor_write = &upm_loudness_write,
+    .upm_sensor_get_descriptor = &upm_loudness_get_descriptor
+};
+
+const void* upm_loudness_get_ft(upm_sensor_t sensor_type){
+    if(sensor_type == UPM_SENSOR){
+        return &ft;
+    }
+    return NULL;
 }
 
-void* upm_loudness_init_name(int num, ...){
-	return NULL;
+void* upm_loudness_init_name(){
+    return NULL;
 }
 
 void* upm_loudness_init(int pin){
-	upm_loudness dev = (upm_loudness) upm_malloc(UPM_LOUDNESS_MEM_MAP, sizeof(struct _upm_loudness));
+    upm_loudness dev = (upm_loudness) upm_malloc(UPM_LOUDNESS_MEM_MAP, sizeof(struct _upm_loudness));
 
-	dev->pin = pin;
-	dev->aio = mraa_aio_init(dev->pin);
+    dev->pin = pin;
+    dev->aio = mraa_aio_init(dev->pin);
 
-	return dev;
+    return dev;
 }
 
 void upm_loudness_close(void* dev){
-	upm_loudness device = (upm_loudness) dev;
-	mraa_aio_close(device->aio);
-	upm_free(UPM_LOUDNESS_MEM_MAP, dev);
+    upm_loudness device = (upm_loudness) dev;
+    mraa_aio_close(device->aio);
+    upm_free(UPM_LOUDNESS_MEM_MAP, dev);
 }
 
-upm_result_t upm_loudness_read(void* dev, void* value, int* len){
-	upm_loudness device = (upm_loudness) dev;
-	int *val = value;
-	*val = mraa_aio_read(device->aio);
-	return UPM_SUCCESS;
+upm_result_t upm_loudness_read(const void* dev, void* value, int len){
+    upm_loudness device = (upm_loudness) dev;
+    int *val = value;
+    *val = mraa_aio_read(device->aio);
+    return UPM_SUCCESS;
 }
 
-upm_result_t upm_loudness_write(void* dev, void* value, int len){
-	return UPM_ERROR_NOT_IMPLEMENTED;
+upm_result_t upm_loudness_write(const void* dev, void* value, int len){
+    return UPM_ERROR_NOT_IMPLEMENTED;
 }
 
 upm_result_t upm_loudness_get_value(void* dev, int* val){
-	upm_loudness device = (upm_loudness) dev;
-	int len;
-	upm_loudness_read(device, val, &len);
-	return UPM_SUCCESS;
+    upm_loudness device = (upm_loudness) dev;
+    int len;
+    upm_loudness_read(device, val, len);
+    return UPM_SUCCESS;
 }

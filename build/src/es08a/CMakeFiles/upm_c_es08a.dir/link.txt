@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-upm_c_es08a.so.0 -o libupm-upm_c_es08a.so.0.7.0 CMakeFiles/upm_c_es08a.dir/es08a.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

@@ -1,0 +1,5 @@
+set (libname "mq303a")
+set (libdescription "UPM Alcohol Sensor Module: mq303a")
+set (module_src mq303a.c)
+set (module_h mq303a.h)
+upm_module_init()

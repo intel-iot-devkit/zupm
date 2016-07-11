@@ -54,7 +54,7 @@ const upm_sensor_descriptor_t upm_rotary_get_descriptor(void* dev) {
 void* upm_rotary_get_ft(upm_sensor_t sensor_type) {
 
 	if(sensor_type == UPM_SENSOR) {
-		struct _upm_sensor_ft *ft = malloc(sizeof(*ft));
+		upm_sensor_ft *ft = malloc(sizeof(*ft));
 		//ft->upm_sensor_init_name = upm_rotary_init_name;
 		ft->upm_sensor_close = upm_rotary_close;
 		ft->upm_sensor_read = upm_rotary_read;

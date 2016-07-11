@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: upm-upm_c_es9257
+Description: upm lib upm_c_es9257
+Version: 0.7.0
+
+Libs: -L${libdir} -lupm-upm_c_es9257
+Cflags: -I${includedir}/upm
+
+Requires: 
+Requires.private: 

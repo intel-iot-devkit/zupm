@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: upm-flex
+Description: upm lib flex
+Version: 0.7.0
+
+Libs: -L${libdir} -lupm-flex
+Cflags: -I${includedir}/upm
+
+Requires: 
+Requires.private: 

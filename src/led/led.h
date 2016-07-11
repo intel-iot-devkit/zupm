@@ -2,7 +2,7 @@
  * Author: Brendan Le Foll <brendan.le.foll@intel.com>
  * Contributions: Mihai Tudor Panu <mihai.tudor.panu@intel.com>
  * Contributions: Sarah Knepper <sarah.knepper@intel.com>
- * 				  Abhishek Malik <abhishek.malik@intel.com>
+ *                Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,7 +26,8 @@
  */
 #ifndef LED_LED_H_
 #define LED_LED_H_
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/gpio.h"
 /**
  * @type led
  * @con gpio
@@ -49,21 +50,23 @@
  */
 typedef struct _upm_led* upm_led;
 
+const upm_sensor_descriptor_t upm_led_get_descriptor();
+
 /**
  * Gets the function tables associated with the sensor
  *
  * @param sensor_type the type of sensor
- * 		  required for the ft to be returned
+ * required for the ft to be returned
  * @return void* pointer to the ft struct
  */
-void* upm_led_get_ft(upm_sensor_t sensor_type);
+const void* upm_led_get_ft(upm_sensor_t sensor_type);
 
 /**
  * LED Name Initialization function
  *
  * @return void* pointer to the sensor struct
  */
-void* upm_led_init_name(int num,...);
+void* upm_led_init_name();
 
 /**
  * LED Initialization function
@@ -89,7 +92,7 @@ void upm_led_close(void* dev);
  * value to be written
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_led_write(void* dev, void* value, int len);
+upm_result_t upm_led_write(const void* dev, void* value, int len);
 
 /**
  * Generic read function for the sensor. Returns
@@ -101,7 +104,7 @@ upm_result_t upm_led_write(void* dev, void* value, int len);
  * value that has been read
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_led_read(void* dev, void* value, int* len);
+upm_result_t upm_led_read(const void* dev, void* value, int len);
 
 /**
  * Function to turn LED on

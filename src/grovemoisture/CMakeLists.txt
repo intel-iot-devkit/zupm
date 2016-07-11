@@ -1,0 +1,5 @@
+set (libname "moisture")
+set (libdescription "UPM Moisture Sensor Module: moisture")
+set (module_src grovemoisture.c)
+set (module_h grovemoisture.h)
+upm_module_init()

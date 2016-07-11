@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-loudness.so.0 -o libupm-loudness.so.0.7.0 CMakeFiles/loudness.dir/loudness.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

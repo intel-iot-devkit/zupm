@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: upm-tsl2561
+Description: upm lib tsl2561
+Version: 0.7.0
+
+Libs: -L${libdir} -lupm-tsl2561
+Cflags: -I${includedir}/upm
+
+Requires: 
+Requires.private: 

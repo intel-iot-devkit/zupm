@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,7 +26,9 @@
 #ifndef GP2Y0A_GP2Y0A_H_
 #define GP2Y0A_GP2Y0A_H_
 
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/aio.h"
+#include "types/upm_sensor.h"
 
 /**
  * @brief GP2Y0A-based IR Proximity Sensor library
@@ -55,7 +57,11 @@
  */
 typedef struct _upm_gp2y0a* upm_gp2y0a;
 
-void* upm_gp2y0a_init_name(int num,...);
+const void* upm_dfrph_get_ft(upm_sensor_t sensor_type);
+
+const upm_sensor_descriptor_t upm_gp2y0a_get_descriptor();
+
+void* upm_gp2y0a_init_name();
 
 /**
  * GP2Y0A sensor init function
@@ -85,11 +91,11 @@ upm_result_t upm_gp2y0a_get_value(void* dev, float a_ref, uint8_t samples, float
 /*
  * Generic Read function
  */
-upm_result_t upm_gp2y0a_read(void* dev, void* value, int* len);
+upm_result_t upm_gp2y0a_read(const void* dev, void* value, int len);
 
 /*
  * Generic write function
  */
-upm_result_t upm_gp2y0a_write(void* dev, void* value, int len);
+upm_result_t upm_gp2y0a_write(const void* dev, void* value, int len);
 
 #endif /* GP2Y0A_GP2Y0A_H_ */

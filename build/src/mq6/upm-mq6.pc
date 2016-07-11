@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: upm-mq6
+Description: upm lib mq6
+Version: 0.7.0
+
+Libs: -L${libdir} -lupm-mq6
+Cflags: -I${includedir}/upm
+
+Requires: 
+Requires.private: 

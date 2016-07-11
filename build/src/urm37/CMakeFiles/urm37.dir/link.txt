@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-urm37.so.0 -o libupm-urm37.so.0.7.0 CMakeFiles/urm37.dir/urm37.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

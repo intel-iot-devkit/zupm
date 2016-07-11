@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC   -shared -Wl,-soname,libupm-mq7.so.0 -o libupm-mq7.so.0.7.0 CMakeFiles/mq7.dir/mq7.cxx.o CMakeFiles/mq7.dir/mq7.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

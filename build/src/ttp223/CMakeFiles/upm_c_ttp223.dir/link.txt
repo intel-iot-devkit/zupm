@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-upm_c_ttp223.so.0 -o libupm-upm_c_ttp223.so.0.7.0 CMakeFiles/upm_c_ttp223.dir/ttp223.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

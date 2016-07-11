@@ -30,18 +30,16 @@
 #define URM37_H_
 
 #pragma once
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/aio.h"
+#include "mraa/uart.h"
 
-#define URM37_DEFAULT_UART  		0
-#define A_REF						5.0
-#define UPM_URM37_MAX_CMD_LEN		4
-#define UPM_URM37_MAX_RESP_LEN		4
-#define UPM_URM37_WAIT_TIMEOUT	 	1000
-#define UPM_URM37_MAX_RETRIES		1
-
-typedef int upm_urm37_bool;
-#define TRUE 1
-#define FALSE 0
+#define URM37_DEFAULT_UART          0
+#define A_REF                       5.0
+#define UPM_URM37_MAX_CMD_LEN       4
+#define UPM_URM37_MAX_RESP_LEN      4
+#define UPM_URM37_WAIT_TIMEOUT      1000
+#define UPM_URM37_MAX_RETRIES       1
 
 /**
  * @brief DFRobot URM37 Ultrasonic Ranger
@@ -84,51 +82,51 @@ typedef int upm_urm37_bool;
  */
 typedef struct _upm_urm37v4* upm_urm37;;
 
-void* upm_urm37_init_name(int num,...);
+void* upm_urm37_init_name();
 
 /**
-     * URM37 Initializer
-     *
-     * @param a_pin Analog pin to use
-     * @param reset_pin GPIO pin to use for reset
-     * @param trigger_pin GPIO pin to use for triggering a distance measurement
-     * @param a_ref The analog reference voltage, default 5.0
-     * @param uart Default UART to use (0 or 1).
-     * @param mode analog/uart mode
-     */
+ * URM37 Initializer
+ *
+ * @param a_pin Analog pin to use
+ * @param reset_pin GPIO pin to use for reset
+ * @param trigger_pin GPIO pin to use for triggering a distance measurement
+ * @param a_ref The analog reference voltage, default 5.0
+ * @param uart Default UART to use (0 or 1).
+ * @param mode analog/uart mode
+ */
 void* upm_urm37_init(uint8_t a_pin, uint8_t reset_pin, uint8_t trigger_pin, float a_ref, uint8_t uart, upm_protocol_t mode);
 
 /**
-     * URM37 sensor close function
-     */
+ * URM37 sensor close function
+ */
 void upm_urm37_close(void* dev);
 
 /**
-     * Reset the device.  This will take approximately 3 seconds to
-     * complete.
-     *
-     * @param dev sensor struct
-     */
+ * Reset the device.  This will take approximately 3 seconds to
+ * complete.
+ *
+ * @param dev sensor struct
+ */
 upm_result_t upm_urm37_reset(void* dev);
 
 /**
-     * Get the distance measurement.  A return value of 65535.0
-     * in UART mode indicates an invalid measurement.
-     *
-     * @param dev sensor struct
-     * @param distance return value for distance measured
-     * @param dist_unit The measured distance in cm
-     */
+ * Get the distance measurement.  A return value of 65535.0
+ * in UART mode indicates an invalid measurement.
+ *
+ * @param dev sensor struct
+ * @param distance return value for distance measured
+ * @param dist_unit The measured distance in cm
+ */
 upm_result_t upm_urm37_get_distance(void* dev, float* distance, upm_distance_u dist_unit);
 
 /**
-    * Get the temperature measurement.  This is only valid in UART mode.
-    *
-    * @param dev sensor struct
-    * @param temperature The measured temperature in degrees C
-    * @param temp_unit unit of temp in C/F/K
-    *
-    */
+ * Get the temperature measurement.  This is only valid in UART mode.
+ *
+ * @param dev sensor struct
+ * @param temperature The measured temperature in degrees C
+ * @param temp_unit unit of temp in C/F/K
+ *
+ */
 upm_result_t upm_urm37_get_temperature(void* dev, float* temperature, upm_temperature_u temp_unit);
 
 
@@ -137,23 +135,23 @@ upm_result_t upm_urm37_get_mode(void* dev, upm_protocol_t* mode);
 upm_result_t upm_urm37_set_mode(void* dev, upm_protocol_t mode);
 
 /**
-     * In UART mode only, read a value from the EEPROM and return it.
-     *
-     * @param dev sensor struct
-     * @param addr The address in the EEPROM to read.  Valid values
-     * are between 0x00-0x04.
-     * @param return parameter for the EEPROM value at addr
-     */
+ * In UART mode only, read a value from the EEPROM and return it.
+ *
+ * @param dev sensor struct
+ * @param addr The address in the EEPROM to read.  Valid values
+ * are between 0x00-0x04.
+ * @param return parameter for the EEPROM value at addr
+ */
 upm_result_t upm_urm37_read_EEPROM(void* dev, uint8_t addr, uint8_t* value);
 
 /**
-     * In UART mode only, write a value into an address on the EEPROM.
-     *
-     * @param dev sensor struct
-     * @param addr The address in the EEPROM to write.  Valid values
-     * are between 0x00-0x04.
-     * @param value The value to write
-     */
+ * In UART mode only, write a value into an address on the EEPROM.
+ *
+ * @param dev sensor struct
+ * @param addr The address in the EEPROM to write.  Valid values
+ * are between 0x00-0x04.
+ * @param value The value to write
+ */
 upm_result_t upm_urm37_write_EEPROM(void* dev, uint8_t addr, uint8_t value);
 
 // send a serial command and return a 4 byte response (UART mode only)
@@ -162,25 +160,25 @@ upm_result_t upm_urm37_send_command(void* dev, char* cmd, char* response, int le
 //upm_result_t upm_urm37_data_available(void* dev, uint32_t millis, mraa_boolean_t* data_avail);
 
 /**
-     * Reads any available data and returns it in a std::string. Note:
-     * the call blocks until data is available for reading. Use
-     * dataAvailable() to determine whether there is data available
-     * beforehand, to avoid blocking.
-     *
-     * @param dev sensor struct
-     * @param len Maximum length of the data to be returned
-     * @param data The data read
-     */
+ * Reads any available data and returns it in a std::string. Note:
+ * the call blocks until data is available for reading. Use
+ * dataAvailable() to determine whether there is data available
+ * beforehand, to avoid blocking.
+ *
+ * @param dev sensor struct
+ * @param len Maximum length of the data to be returned
+ * @param data The data read
+ */
 upm_result_t upm_urm37_read_data_string(void* dev, uint32_t len, char* data);
 
 /**
-     * Writes the std:string data to the device.  If you are writing a
-     * command, be sure to terminate it with a carriage return (\r)
-     *
-     * @param dev sensor struct
-     * @param data_w Buffer to write to the device
-     * @param len Number of bytes written
-     */
+ * Writes the std:string data to the device.  If you are writing a
+ * command, be sure to terminate it with a carriage return (\r)
+ *
+ * @param dev sensor struct
+ * @param data_w Buffer to write to the device
+ * @param len Number of bytes written
+ */
 upm_result_t upm_urm37_write_data_string(void* dev, const char* data_w, int len);
 
 upm_result_t upm_urm37_get_degrees(void* dev, int* degrees);
@@ -190,11 +188,11 @@ upm_result_t upm_urm37_set_degrees(void* dev, int degrees);
 /*
  * Generic UPM read function
  */
-upm_result_t upm_urm37_read(void* dev, void* value, int* len);
+upm_result_t upm_urm37_read(const void* dev, void* value, int len);
 
 /*
  * Generic UPM write function
  */
-upm_result_t upm_urm37_write(void* dev, void* value, int len);
+upm_result_t upm_urm37_write(const void* dev, void* value, int len);
 
 #endif /* URM37_H_ */

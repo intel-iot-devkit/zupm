@@ -25,9 +25,9 @@
 #include "gp2y0a.h"
 
 struct _upm_gp2y0a {
-	mraa_aio_context			aio;
-	uint8_t						pin;
-	float						a_res;
+    mraa_aio_context            aio;
+    uint8_t                     pin;
+    float                       a_res;
 };
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
@@ -42,72 +42,82 @@ const char upm_gp2y0a_description[] = "Grove 80cm IR Proximity Sensor";
 const upm_protocol_t upm_gp2y0a_protocol[] = {UPM_ANALOG};
 const upm_sensor_t upm_gp2y0a_category[] = {UPM_DISTANCE};
 
-upm_sensor_descriptor_t upm_gp2y0a_get_descriptor(void* dev){
-	upm_sensor_descriptor_t usd;
-	usd.name = upm_gp2y0a_name;
-	usd.description = upm_gp2y0a_description;
-	usd.protocol_size = 1;
-	usd.protocol = upm_gp2y0a_protocol;
-	usd.category_size = 1;
-	usd.category = upm_gp2y0a_category;
-	return usd;
+const upm_sensor_descriptor_t upm_gp2y0a_get_descriptor(){
+    upm_sensor_descriptor_t usd;
+    usd.name = upm_gp2y0a_name;
+    usd.description = upm_gp2y0a_description;
+    usd.protocol_size = 1;
+    usd.protocol = upm_gp2y0a_protocol;
+    usd.category_size = 1;
+    usd.category = upm_gp2y0a_category;
+    return usd;
 }
 
-void* upm_gp2y0a_init_name(int num,...){
-	upm_gp2y0a dev = (upm_gp2y0a) upm_malloc(UPM_GP2Y0A_MEM_MAP, sizeof(struct _upm_gp2y0a));
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_gp2y0a_init_name,
+    .upm_sensor_close = &upm_gp2y0a_close,
+    .upm_sensor_read = &upm_gp2y0a_read,
+    .upm_sensor_write = &upm_gp2y0a_write,
+    .upm_sensor_get_descriptor = &upm_gp2y0a_get_descriptor
+};
 
-	va_list pin_list;
-	va_start(pin_list, num);
-	dev->pin = va_arg(pin_list, int);
-	dev->a_res = va_arg(pin_list, int);
-	dev->aio = mraa_aio_init(dev->pin);
-	if(dev->aio == NULL){
-		return NULL;
-	}
-	return dev;
+const void* upm_gp2y0a_get_ft(upm_sensor_t sensor_type)
+{
+    switch(sensor_type)
+    {
+        case UPM_SENSOR:
+            return &ft;
+        default:
+            return NULL;
+    }
+}
+
+void* upm_gp2y0a_init_name(){
+    return NULL;
 }
 
 void* upm_gp2y0a_init(uint8_t pin, float a_ref){
-	upm_gp2y0a dev = (upm_gp2y0a) upm_malloc(UPM_GP2Y0A_MEM_MAP, sizeof(struct _upm_gp2y0a));
+    upm_gp2y0a dev = (upm_gp2y0a) upm_malloc(UPM_GP2Y0A_MEM_MAP, sizeof(struct _upm_gp2y0a));
 
-	dev->pin = pin;
-	dev->a_res = a_ref;
-	dev->aio = mraa_aio_init(dev->pin);
-	if(dev->aio == NULL){
-		return NULL;
-	}
-	return dev;
+    dev->pin = pin;
+    dev->a_res = a_ref;
+    dev->aio = mraa_aio_init(dev->pin);
+    if(dev->aio == NULL){
+        return NULL;
+    }
+    return dev;
 }
 
 void upm_gp2y0a_close(void* dev){
-	upm_gp2y0a device = (upm_gp2y0a) dev;
-	upm_free(UPM_GP2Y0A_MEM_MAP, device);
+    upm_gp2y0a device = (upm_gp2y0a) dev;
+    upm_free(UPM_GP2Y0A_MEM_MAP, device);
 }
 
-upm_result_t upm_gp2y0a_write(void* dev, void* value, int len){
-	return UPM_ERROR_NOT_IMPLEMENTED;
+upm_result_t upm_gp2y0a_write(const void* dev, void* value, int len){
+    return UPM_ERROR_NOT_IMPLEMENTED;
 }
 
-upm_result_t upm_gp2y0a_read(void* dev, void* value, int* len){
-	upm_gp2y0a device = (upm_gp2y0a) dev;
-	int *val = value;
-	*val = mraa_aio_read(device->aio);
-	return UPM_SUCCESS;
+upm_result_t upm_gp2y0a_read(const void* dev, void* value, int len){
+    upm_gp2y0a device = (upm_gp2y0a) dev;
+    int *val = value;
+    *val = mraa_aio_read(device->aio);
+    return UPM_SUCCESS;
 }
 
 upm_result_t upm_gp2y0a_get_value(void* dev, float a_ref, uint8_t samples, float* value){
-	upm_gp2y0a device = (upm_gp2y0a) dev;
-	int val;
-	int sum = 0;
-	int i = 0;
-	int len;
-	for(i=0; i<samples; i++){
-		//val = mraa_aio_read(device->aio);
-		upm_gp2y0a_read(device, &val, &len);
-		sum += val;
-	}
-	val = sum/samples;
-	float volts = (float)(val * a_ref) / (float)device->a_res;
-	*value = volts;
-	return UPM_SUCCESS;
+    upm_gp2y0a device = (upm_gp2y0a) dev;
+    int val;
+    int sum = 0;
+    int i = 0;
+    int len;
+    for(i=0; i<samples; i++){
+        //val = mraa_aio_read(device->aio);
+        upm_gp2y0a_read(device, &val, len);
+        sum += val;
+    }
+    val = sum/samples;
+    float volts = (float)(val * a_ref) / (float)device->a_res;
+    *value = volts;
+    return UPM_SUCCESS;
 }

@@ -48,7 +48,7 @@ const upm_sensor_descriptor_t upm_ldt0028_get_descriptor(void* dev) {
 void* upm_ldt0028_get_ft(upm_sensor_t sensor_type) {
 
 	if(sensor_type == UPM_SENSOR) {
-		struct _upm_sensor_ft *ft = malloc(sizeof(*ft));
+		upm_sensor_ft *ft = malloc(sizeof(*ft));
 		//ft->upm_sensor_init_name = upm_ldt0028_init_name;
 		ft->upm_sensor_close = upm_ldt0028_close;
 		ft->upm_sensor_read = upm_ldt0028_read;

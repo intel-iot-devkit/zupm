@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,24 +31,83 @@
 #include <unistd.h>
 #include <string.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/aio.h"
 
+/**
+ * Opaque pointer to the sensor struct
+ */
 typedef struct _upm_grove_moisture* upm_grove_moisture;
 
-upm_sensor_descriptor_t upm_grove_moisture_get_descriptor (void* dev);
+/**
+ * Gets the descriptor associated with the sensor driver
+ *
+ * @param void* pointer to the sensor struct
+ * @raturn upm_sensor_descriptor_t descriptor type
+ */
+const upm_sensor_descriptor_t upm_grove_moisture_get_descriptor ();
 
-void* upm_grove_moisture_get_ft(upm_sensor_t sensor_type);
+/**
+ * Gets the function tables associated with the sensor
+ *
+ * @param sensor_type the type of sensor
+ *         required for the ft to be returned
+ * @return void* pointer to the ft struct
+ */
+const void* upm_grove_moisture_get_ft(upm_sensor_t sensor_type);
 
-void* upm_grove_moisture_init_name(int num,...);
+/**
+ * Grove Moisture Name Initialization function
+ *
+ * @return void* pointer to the sensor struct
+ */
+void* upm_grove_moisture_init_name();
 
+/**
+ * Init function
+ *
+ * @param pin analog pin number
+ * @return void* pointer to the sensor struct
+ */
 void* upm_grove_moisture_init(int pin);
 
+/**
+ * Close function
+ *
+ * @param dev pointer to the sensor structure
+ */
 void upm_grove_moisture_close(void* dev);
 
+/**
+ * Get Moisture function.
+ *
+ * @param dev pointer to the sensor struct
+ * @param moisture pointer that will be used to store the
+ * output value from the sensor
+ */
 upm_result_t upm_grove_moisture_get_moisture(void* dev, int* moisture);
 
-upm_result_t upm_grove_moisture_read(void* dev, void* data, int* len);
+/**
+ * Generic write function for the sensor.
+ *
+ * @param void* pointer to the sensor struct
+ * @param void* value stores the value to write
+ * @param int len length of the elements of the
+ * value to be written
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_grove_moisture_read(const void* dev, void* data, int len);
 
-upm_result_t upm_grove_moisture_write(void* dev, void* data, int len);
+/**
+ * Generic read function for the sensor. Returns
+ * raw value.
+ *
+ * @param void* pointer to the sensor struct
+ * @param void* value stores the value that was read
+ * @param int len length of the elements of the
+ * value that has been read
+ * @return upm_result_t UPM success/error code
+ */
+upm_result_t upm_grove_moisture_write(const void* dev, void* data, int len);
 
 #endif /* UPM_C_GROVEMOISTURE_GROVEMOISTURE_H_ */

@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-tsl2561.so.0 -o libupm-tsl2561.so.0.7.0 CMakeFiles/tsl2561.dir/tsl2561.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

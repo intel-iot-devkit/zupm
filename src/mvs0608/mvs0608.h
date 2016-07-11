@@ -1,6 +1,6 @@
 /*
  * Author: Zion Orent <sorent@ics.com>
- * 	       Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,7 +24,8 @@
  */
 #ifndef MVS0608_MVS0608_H_
 #define MVS0608_MVS0608_H_
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/gpio.h"
 /**
  * @brief MVS0608 - Grove Collision Sensor library
  * @ingroup gpio accelerometer
@@ -52,15 +53,16 @@
  */
 typedef struct _upm_mvs0608* upm_mvs0608;
 
+const upm_sensor_descriptor_t upm_mvs0608_get_descriptor();
 
-void* upm_mvs0608_get_ft(upm_sensor_t sensor_type);
+const void* upm_mvs0608_get_ft(upm_sensor_t sensor_type);
 
 /**
  * MVS0608 Name Initialization function
  *
  * @return void* pointer to the sensor struct
  */
-void* upm_mvs0608_init_name(int num, ...);
+void* upm_mvs0608_init_name();
 
 /**
  * MVS0608 Initialization function
@@ -97,7 +99,7 @@ upm_result_t upm_mvs_is_colliding(void* dev, bool* collision_val);
  * value that has been read
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mvs0608_read(void* dev, void* value, int* len);
+upm_result_t upm_mvs0608_read(const void* dev, void* value, int len);
 
 /**
  * Generic write function for the sensor.
@@ -108,6 +110,6 @@ upm_result_t upm_mvs0608_read(void* dev, void* value, int* len);
  * value to be written
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mvs0608_write(void* dev, void* value, int len);
+upm_result_t upm_mvs0608_write(const void* dev, void* value, int len);
 
 #endif /* MVS0608_MVS0608_H_ */

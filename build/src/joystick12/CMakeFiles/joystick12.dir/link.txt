@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC   -shared -Wl,-soname,libupm-joystick12.so.0 -o libupm-joystick12.so.0.7.0 CMakeFiles/joystick12.dir/joystick12.c.o CMakeFiles/joystick12.dir/joystick12.cxx.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

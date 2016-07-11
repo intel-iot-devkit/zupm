@@ -1,6 +1,6 @@
 /*
  * Author: Jon Trulson <jtrulson@ics.com>
- * 		   Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -24,7 +24,8 @@
  */
 #ifndef A110X_A110X_H_
 #define A110X_A110X_H_
-#include "../upm.h"
+#include "upm.h"
+#include "mraa/gpio.h"
 /**
  * @brief A110X Hall Effect library
  * @defgroup a110x libupm-a110x
@@ -61,12 +62,14 @@
  */
 typedef struct _upm_a110x* upm_a110x;
 
+const upm_sensor_descriptor_t upm_a110x_get_descriptor();
+
 /**
  * A110X Name Initialization function
  *
  * @return void* pointer to the sensor struct
  */
-void* upm_a110x_init_name(int num,...);
+void* upm_a110x_init_name();
 
 /**
  * A110X Initialization function
@@ -121,7 +124,7 @@ upm_result_t upm_a110x_uninstall_isr(void* dev);
  * value that has been read
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_a110x_read(void* dev, void* value, int* len);
+upm_result_t upm_a110x_read(const void* dev, void* value, int len);
 
 /**
  * Generic write function for the sensor.
@@ -132,6 +135,6 @@ upm_result_t upm_a110x_read(void* dev, void* value, int* len);
  * value to be written
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_a110x_write(void* dev, void* value, int len);
+upm_result_t upm_a110x_write(const void* dev, void* value, int len);
 
 #endif /* A110X_A110X_H_ */

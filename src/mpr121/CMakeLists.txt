@@ -1,0 +1,5 @@
+set (libname "mpr121")
+set (libdescription "UPM I2C Touch Sensor Modules: mpr121")
+set (module_src mpr121.c)
+set (module_h mpr121.h)
+upm_module_init()

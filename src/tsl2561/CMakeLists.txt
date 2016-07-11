@@ -1,0 +1,5 @@
+set (libname "tsl2561")
+set (libdescription "UPM Grove Digital Light Sensor Module: tsl2561")
+set (module_src tsl2561.c)
+set (module_h tsl2561.h)
+upm_module_init()
