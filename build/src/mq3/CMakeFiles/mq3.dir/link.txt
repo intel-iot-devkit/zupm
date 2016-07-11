@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC   -shared -Wl,-soname,libupm-mq3.so.0 -o libupm-mq3.so.0.7.0 CMakeFiles/mq3.dir/mq3.cxx.o CMakeFiles/mq3.dir/mq3.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

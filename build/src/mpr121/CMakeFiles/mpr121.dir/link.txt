@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-mpr121.so.0 -o libupm-mpr121.so.0.7.0 CMakeFiles/mpr121.dir/mpr121.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-upm_c_ad8232.so.0 -o libupm-upm_c_ad8232.so.0.7.0 CMakeFiles/upm_c_ad8232.dir/ad8232.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

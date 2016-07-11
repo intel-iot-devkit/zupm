@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-moisture.so.0 -o libupm-moisture.so.0.7.0 CMakeFiles/moisture.dir/grovemoisture.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

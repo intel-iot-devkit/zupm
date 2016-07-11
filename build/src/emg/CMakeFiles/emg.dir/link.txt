@@ -1,1 +1,0 @@
-/usr/bin/c++  -fPIC   -shared -Wl,-soname,libupm-emg.so.0 -o libupm-emg.so.0.7.0 CMakeFiles/emg.dir/emg.cxx.o CMakeFiles/emg.dir/emg.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

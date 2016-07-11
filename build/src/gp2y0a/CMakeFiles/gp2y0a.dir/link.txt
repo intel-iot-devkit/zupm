@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-gp2y0a.so.0 -o libupm-gp2y0a.so.0.7.0 CMakeFiles/gp2y0a.dir/gp2y0a.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 

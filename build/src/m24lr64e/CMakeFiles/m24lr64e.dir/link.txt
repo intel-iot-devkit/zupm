@@ -1,1 +1,0 @@
-/usr/bin/cc  -fPIC   -shared -Wl,-soname,libupm-m24lr64e.so.0 -o libupm-m24lr64e.so.0.7.0 CMakeFiles/m24lr64e.dir/m24lr64e.c.o  -L/tmp/mraa/install/lib -lmraa -Wl,-rpath,/tmp/mraa/install/lib: 
