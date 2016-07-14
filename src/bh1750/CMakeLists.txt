@@ -1,0 +1,5 @@
+set (libname "bh1750")
+set (libdescription "UPM BH1750 I2C Digital Light Sensor")
+set (module_src bh1750.c bh1750_fti.c bh1750.cxx)
+set (module_h bh1750.h bh1750.hpp)
+upm_module_init()
