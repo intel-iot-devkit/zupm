@@ -133,6 +133,8 @@ typedef enum {
     upm_m24lr64e_password_3 = 3,
 } sector_select_password;
 
+const void* upm_m24lr64e_get_ft(upm_sensor_t sensor_type);
+
 /*
  * Opaque pointer to the sensor struct
  */

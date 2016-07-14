@@ -82,6 +82,8 @@
  */
 typedef struct _upm_urm37v4* upm_urm37;;
 
+const void* upm_urm37_get_ft(upm_sensor_t sensor_type);
+
 void* upm_urm37_init_name();
 
 /**

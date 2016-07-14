@@ -57,7 +57,7 @@
  */
 typedef struct _upm_gp2y0a* upm_gp2y0a;
 
-const void* upm_dfrph_get_ft(upm_sensor_t sensor_type);
+const void* upm_gp2y0a_get_ft(upm_sensor_t sensor_type);
 
 const upm_sensor_descriptor_t upm_gp2y0a_get_descriptor();
 

@@ -64,6 +64,8 @@ typedef struct _upm_a110x* upm_a110x;
 
 const upm_sensor_descriptor_t upm_a110x_get_descriptor();
 
+const void* upm_a110x_get_ft(upm_sensor_t sensor_type);
+
 /**
  * A110X Name Initialization function
  *
