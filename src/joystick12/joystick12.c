@@ -75,6 +75,8 @@ static const upm_joystick_ft ft_joystick =
     .upm_joystick_get_value_y = &upm_joystick12_get_value_y
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_joystick12_get_ft;
+
 const void* upm_joystick12_get_ft(upm_sensor_t sensor_type)
 {
     switch(sensor_type)

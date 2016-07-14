@@ -44,6 +44,8 @@ static const upm_sensor_ft ft =
     .upm_sensor_get_descriptor = &upm_m24lr64e_get_descriptor
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_m24lr64e_get_ft;
+
 const void* upm_m24lr64e_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_SENSOR){
         return &ft;

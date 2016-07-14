@@ -67,6 +67,8 @@ static const upm_ph_ft ft_ph =
     .upm_ph_get_value = &upm_dfrph_get_value
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_dfrph_get_ft;
+
 const void* upm_dfrph_get_ft(upm_sensor_t sensor_type)
 {
     switch(sensor_type)

@@ -26,7 +26,7 @@
 #include "ldt0028.h"
 
 struct _upm_ldt0028{
-	mraa_aio_context aio;
+    mraa_aio_context aio;
 };
 
 const char upm_ldt0028_name[] = "LDT0028";
@@ -35,85 +35,87 @@ const upm_protocol_t upm_ldt0028_protocol[] = {UPM_ANALOG};
 const upm_protocol_t upm_ldt0028_category[] = {UPM_VIBRATION};
 
 const upm_sensor_descriptor_t upm_ldt0028_get_descriptor(void* dev) {
-	upm_sensor_descriptor_t usd;
-	usd.name = upm_ldt0028_name;
-	usd.description = upm_ldt0028_description;
-	usd.protocol_size = 1;
-	usd.protocol = upm_ldt0028_protocol;
-	usd.category_size = 1;
-	usd.category = upm_ldt0028_category;
-	return usd;
+    upm_sensor_descriptor_t usd;
+    usd.name = upm_ldt0028_name;
+    usd.description = upm_ldt0028_description;
+    usd.protocol_size = 1;
+    usd.protocol = upm_ldt0028_protocol;
+    usd.category_size = 1;
+    usd.category = upm_ldt0028_category;
+    return usd;
 }
+
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_ldt0028_get_ft;
 
 void* upm_ldt0028_get_ft(upm_sensor_t sensor_type) {
 
-	if(sensor_type == UPM_SENSOR) {
-		upm_sensor_ft *ft = malloc(sizeof(*ft));
-		//ft->upm_sensor_init_name = upm_ldt0028_init_name;
-		ft->upm_sensor_close = upm_ldt0028_close;
-		ft->upm_sensor_read = upm_ldt0028_read;
-		ft->upm_sensor_write = upm_ldt0028_write;
-		return ft;
-	}
+    if(sensor_type == UPM_SENSOR) {
+        upm_sensor_ft *ft = malloc(sizeof(*ft));
+        //ft->upm_sensor_init_name = upm_ldt0028_init_name;
+        ft->upm_sensor_close = upm_ldt0028_close;
+        ft->upm_sensor_read = upm_ldt0028_read;
+        ft->upm_sensor_write = upm_ldt0028_write;
+        return ft;
+    }
 
-	if(sensor_type == UPM_VIBRATION) {
-		struct _upm_vibration_ft *vft = malloc(sizeof(*vft));
-		if(vft == NULL){
-			printf("Unable to assign memory");
-			return NULL;
-		}
-		vft->upm_vibration_get_value = upm_ldt0028_get_value;
-		return vft;
-		}
-	return NULL;
+    if(sensor_type == UPM_VIBRATION) {
+        struct _upm_vibration_ft *vft = malloc(sizeof(*vft));
+        if(vft == NULL){
+            printf("Unable to assign memory");
+            return NULL;
+        }
+        vft->upm_vibration_get_value = upm_ldt0028_get_value;
+        return vft;
+    }
+    return NULL;
 }
 
 //void* upm_ldt0028_init_name(...);
 
 void* upm_ldt0028_init(int pin)
 {
-	upm_ldt0028 dev = (upm_ldt0028) malloc(sizeof(struct _upm_ldt0028));
+    upm_ldt0028 dev = (upm_ldt0028) malloc(sizeof(struct _upm_ldt0028));
 
-	if(dev == NULL) return NULL;
+    if(dev == NULL) return NULL;
 
-	dev->aio = mraa_aio_init(pin);
+    dev->aio = mraa_aio_init(pin);
 
-	if(dev->aio == NULL)
-	{
-		free(dev);
-		return NULL;
-	}
-	return dev;
+    if(dev->aio == NULL)
+    {
+        free(dev);
+        return NULL;
+    }
+    return dev;
 }
 
 void upm_ldt0028_close(void* dev)
 {
-	upm_ldt0028 device = (upm_ldt0028) dev;
-	mraa_aio_close(device->aio);
+    upm_ldt0028 device = (upm_ldt0028) dev;
+    mraa_aio_close(device->aio);
 
-	free(dev);
+    free(dev);
 }
 
 upm_result_t upm_ldt0028_read (void* dev, void* value, int len)
 {
-	upm_ldt0028 device = (upm_ldt0028) dev;
+    upm_ldt0028 device = (upm_ldt0028) dev;
 
-	*(int*)value = mraa_aio_read(device->aio);
+    *(int*)value = mraa_aio_read(device->aio);
 
-	return UPM_SUCCESS;
+    return UPM_SUCCESS;
 }
 
 upm_result_t upm_ldt0028_write(void* dev, void* value, int len)
 {
-	return  UPM_ERROR_NOT_SUPPORTED;
+    return  UPM_ERROR_NOT_SUPPORTED;
 }
 
 upm_result_t upm_ldt0028_get_value(void* dev, float* vibval)
 {
-	float val;
+    float val;
 
-	upm_ldt0028 device = (upm_ldt0028) dev;
-	upm_ldt0028_read(device, &val, 0);
+    upm_ldt0028 device = (upm_ldt0028) dev;
+    upm_ldt0028_read(device, &val, 0);
 
-	return UPM_SUCCESS;
+    return UPM_SUCCESS;
 }

@@ -68,6 +68,8 @@ static const upm_switch_ft sft =
     .upm_switch_get_value = &upm_ttp223_is_pressed
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_ttp223_get_ft;
+
 const void* upm_ttp223_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_SWITCH){
         return &sft;

@@ -66,6 +66,8 @@ static const upm_heart_rate_ft hft =
     .upm_heart_rate_get_value = &upm_ad8232_get_value
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_ad8232_get_ft;
+
 const void* upm_ad8232_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_HEART_RATE){
         return &hft;

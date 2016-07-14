@@ -27,8 +27,8 @@
 #include "mic.h"
 
 struct _upm_mic{
-	mraa_aio_context aio;
-	uint16_t analog_pin;
+    mraa_aio_context aio;
+    uint16_t analog_pin;
 };
 
 const char upm_mic_name[] = "Microphone";
@@ -37,93 +37,95 @@ const upm_protocol_t upm_mic_protocol[] = {UPM_ANALOG};
 const upm_protocol_t upm_mic_category[] = {UPM_AUDIO};
 
 const upm_sensor_descriptor_t upm_mic_get_descriptor(void* dev) {
-	upm_sensor_descriptor_t usd;
-	usd.name = upm_mic_name;
-	usd.description = upm_mic_description;
-	usd.protocol_size = 1;
-	usd.protocol = upm_mic_protocol;
-	usd.category_size = 1;
-	usd.category = upm_mic_category;
-	return usd;
+    upm_sensor_descriptor_t usd;
+    usd.name = upm_mic_name;
+    usd.description = upm_mic_description;
+    usd.protocol_size = 1;
+    usd.protocol = upm_mic_protocol;
+    usd.category_size = 1;
+    usd.category = upm_mic_category;
+    return usd;
 }
+
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_mic_get_ft;
 
 void* upm_mic_get_ft(upm_sensor_t sensor_type) {
 
-	if(sensor_type == UPM_SENSOR) {
-		upm_sensor_ft *ft = malloc(sizeof(upm_sensor_ft));
-		if(ft == NULL){
-			printf("Unable to assign memory");
-			return NULL;
-		}
+    if(sensor_type == UPM_SENSOR) {
+        upm_sensor_ft *ft = malloc(sizeof(upm_sensor_ft));
+        if(ft == NULL){
+            printf("Unable to assign memory");
+            return NULL;
+        }
 
-		//ft->upm_sensor_init_name = upm_mic_init_name;
-		ft->upm_sensor_close = upm_mic_close;
-		ft->upm_sensor_read = upm_mic_read;
-		ft->upm_sensor_write = upm_mic_write;
-		return ft;
-		}
+        //ft->upm_sensor_init_name = upm_mic_init_name;
+        ft->upm_sensor_close = upm_mic_close;
+        ft->upm_sensor_read = upm_mic_read;
+        ft->upm_sensor_write = upm_mic_write;
+        return ft;
+    }
 
-	if(sensor_type == UPM_AUDIO) {
-		struct _upm_audio_ft *sft = malloc(sizeof(*sft));
-		if(sft == NULL){
-			printf("Unable to assign memory");
-			return NULL;
-		}
+    if(sensor_type == UPM_AUDIO) {
+        struct _upm_audio_ft *sft = malloc(sizeof(*sft));
+        if(sft == NULL){
+            printf("Unable to assign memory");
+            return NULL;
+        }
 
-		sft->upm_audio_get_value = upm_mic_get_value;
-		return sft;
-	}
-	return NULL;
+        sft->upm_audio_get_value = upm_mic_get_value;
+        return sft;
+    }
+    return NULL;
 }
 
 void* upm_mic_init(int pin)
 {
-	upm_mic dev = (upm_mic) malloc(sizeof(struct _upm_mic));
+    upm_mic dev = (upm_mic) malloc(sizeof(struct _upm_mic));
 
-	if(dev == NULL) return NULL;
+    if(dev == NULL) return NULL;
 
-	dev->analog_pin = pin;
-	dev->aio = mraa_aio_init(dev->analog_pin);
+    dev->analog_pin = pin;
+    dev->aio = mraa_aio_init(dev->analog_pin);
 
-	if(dev->aio == NULL)
-	{
-		printf("unable to initialize the AIO pin");
-		return NULL;
-	}
-	return dev;
+    if(dev->aio == NULL)
+    {
+        printf("unable to initialize the AIO pin");
+        return NULL;
+    }
+    return dev;
 }
 
 //void* upm_mic_init_name(char* protocol, char* params);
 
 void upm_mic_close(void* dev)
 {
-	upm_mic device = (upm_mic) dev;
-	mraa_aio_close(device->aio);
-	free(dev);
+    upm_mic device = (upm_mic) dev;
+    mraa_aio_close(device->aio);
+    free(dev);
 }
 
 /* gives the raw value */
 upm_result_t upm_mic_read(void* dev, void *val, int len)
 {
-	upm_mic device = (upm_mic) dev;
+    upm_mic device = (upm_mic) dev;
 
-	*(float*)val = mraa_aio_read(device->aio);
+    *(float*)val = mraa_aio_read(device->aio);
 
-	return UPM_SUCCESS;
+    return UPM_SUCCESS;
 }
 
 upm_result_t upm_mic_write(void* dev, void *value, int len)
 {
-	return  UPM_ERROR_NOT_SUPPORTED;
+    return  UPM_ERROR_NOT_SUPPORTED;
 }
 
 upm_result_t upm_mic_get_value(void* dev, float *micval, upm_audio_u unit)
 {
-	upm_mic device = (upm_mic) dev;
-	upm_mic_read(device, micval, 0);
+    upm_mic device = (upm_mic) dev;
+    upm_mic_read(device, micval, 0);
 
-	//convert readings to decibels
-	if(unit == DECIBELS) {
-	}
-	return UPM_SUCCESS;
+    //convert readings to decibels
+    if(unit == DECIBELS) {
+    }
+    return UPM_SUCCESS;
 }

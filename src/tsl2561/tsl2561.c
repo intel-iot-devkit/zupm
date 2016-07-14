@@ -67,6 +67,8 @@ static const upm_light_ft lft =
     .upm_light_get_value = &upm_tsl2561_get_lux
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_tsl2561_get_ft;
+
 const void* upm_tsl2561_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_LIGHT){
         return &lft;

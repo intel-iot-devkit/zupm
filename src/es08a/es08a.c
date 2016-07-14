@@ -61,6 +61,8 @@ static const upm_servo_ft sft =
     .upm_servo_set_angle = &upm_es08a_set_angle
 };
 
+const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_es08a_get_ft;
+
 const void* upm_es08a_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_SERVO){
         return &sft;
