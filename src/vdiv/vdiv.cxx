@@ -28,7 +28,7 @@
 
 using namespace upm;
 
-VDIV::VDIV(int pin, float vref) : _dev(upm_vdiv_init(pin)) {}
+VDIV::VDIV(int pin, float vref) : _dev(upm_vdiv_init(pin, vref)) {}
 
 VDIV::~VDIV()
 {

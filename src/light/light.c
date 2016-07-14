@@ -172,7 +172,7 @@ upm_result_t upm_light_get_value(const void* dev, float *value)
     *value = counts * ((upm_light*)dev)->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_light*)dev)->m_count_offset;
+    *value += ((upm_light*)dev)->m_count_offset *((upm_light*)dev)->m_count_scale;
 
     /* Convert the value to lux */
     *value = 10000.0/pow(((max_adc - *value) * 10.0 / *value)*15.0,4.0/3.0);

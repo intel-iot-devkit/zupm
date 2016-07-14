@@ -50,7 +50,7 @@ void* upm_vdiv_init_str(const char* protocol, const char* params);
  * @param pin is Analog pin
  * @return sensor context as void pointer
  */
-void* upm_vdiv_init(int16_t pin);
+void* upm_vdiv_init(int16_t pin, float voltage_ref);
 
 /**
  * Analog sensor destructor

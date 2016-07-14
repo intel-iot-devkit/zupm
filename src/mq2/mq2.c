@@ -172,13 +172,7 @@ upm_result_t upm_mq2_get_value(const void* dev, float *value)
     *value = counts * ((upm_mq2*)dev)->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_mq2*)dev)->m_count_offset;
-
-    /* Normalize the value */
-    *value /= max_adc;
-
-    /* Convert the value to counts */
-    *value = *value * 1;
+    *value += ((upm_mq2*)dev)->m_count_offset *((upm_mq2*)dev)->m_count_scale;
 
     return UPM_SUCCESS;
 }

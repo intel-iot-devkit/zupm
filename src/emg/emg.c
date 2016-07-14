@@ -172,13 +172,7 @@ upm_result_t upm_emg_get_value(const void* dev, float *value)
     *value = counts * ((upm_emg*)dev)->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_emg*)dev)->m_count_offset;
-
-    /* Normalize the value */
-    *value /= max_adc;
-
-    /* Convert the value to counts */
-    *value = *value * 1;
+    *value += ((upm_emg*)dev)->m_count_offset *((upm_emg*)dev)->m_count_scale;
 
     return UPM_SUCCESS;
 }

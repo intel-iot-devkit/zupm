@@ -101,8 +101,7 @@ upm_result_t upm_slide_set_scale(const void* dev, float scale);
 /**
  * Read value from sensor
  * @param dev sensor context pointer
- * @param *value volts value from sensor, units depend on unit enum
- * @param unit Enum which specifies units returned in *value
+ * @param *value volts value from sensor
  * @return Function result code
  */
 upm_result_t upm_slide_get_value(const void* dev, float *value);

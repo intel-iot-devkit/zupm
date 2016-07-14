@@ -171,7 +171,7 @@ upm_result_t upm_dfrph_get_value(const void* dev, float *value)
     *value = counts * ((upm_dfrph*)dev)->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_dfrph*)dev)->m_count_offset;
+    *value += ((upm_dfrph*)dev)->m_count_offset *((upm_dfrph*)dev)->m_count_scale;
 
     /* Normalize the value */
     *value /= max_adc;

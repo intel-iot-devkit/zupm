@@ -42,7 +42,7 @@ typedef struct _upm_vdiv {
     /* mraa aio pin context */
     mraa_aio_context aio;
     /* Analog voltage reference */
-    float m_aRef;
+    float m_voltage_ref;
     /* Raw count offset */
     float m_count_offset;
     /* Raw count scale */
@@ -86,10 +86,10 @@ const void* upm_vdiv_get_ft(upm_sensor_t sensor_type)
 void* upm_vdiv_init_str(const char* protocol, const char* params)
 {
     fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return upm_vdiv_init(0);
+    return upm_vdiv_init(0, 5.0);
 }
 
-void* upm_vdiv_init(int16_t pin)
+void* upm_vdiv_init(int16_t pin, float voltage_ref)
 {
     upm_vdiv* dev = (upm_vdiv*) malloc(sizeof(upm_vdiv));
 
@@ -101,6 +101,7 @@ void* upm_vdiv_init(int16_t pin)
     /* Set the ref, zero the offset */
     dev->m_count_offset = 0.0;
     dev->m_count_scale = 1.0;
+    dev->m_voltage_ref = voltage_ref;
 
     if(dev->aio == NULL) {
         free(dev);
@@ -172,13 +173,13 @@ upm_result_t upm_vdiv_get_value(const void* dev, float *value)
     *value = counts * ((upm_vdiv*)dev)->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_vdiv*)dev)->m_count_offset;
+    *value += ((upm_vdiv*)dev)->m_count_offset * ((upm_vdiv*)dev)->m_count_scale;
 
     /* Normalize the value */
     *value /= max_adc;
 
     /* Convert the value to volts */
-    *value = *value * 1;
+    *value *= ((upm_vdiv*)dev)->m_voltage_ref;
 
     return UPM_SUCCESS;
 }
