@@ -55,8 +55,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_mq4_init_str,
     .upm_sensor_close = &upm_mq4_close,
-    .upm_sensor_read = &upm_mq4_read,
-    .upm_sensor_write = &upm_mq4_write,
     .upm_sensor_get_descriptor = &upm_mq4_get_descriptor
 };
 
@@ -130,22 +128,6 @@ const upm_sensor_descriptor_t upm_mq4_get_descriptor()
     return usd;
 }
 
-upm_result_t upm_mq4_read(const void* dev, void* value, int len)
-{
-    /* Read the adc twice, first adc read can have weird data */
-    mraa_aio_read(((upm_mq4*)dev)->aio);
-    *(int*)value = mraa_aio_read(((upm_mq4*)dev)->aio);
-    if (value < 0)
-        return UPM_ERROR_OPERATION_FAILED;
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq4_write(const void* dev, void* value, int len)
-{
-    return UPM_ERROR_NOT_SUPPORTED;
-}
-
 upm_result_t upm_mq4_set_offset(const void* dev, float offset)
 {
     ((upm_mq4*)dev)->m_count_offset = offset;
@@ -162,8 +144,12 @@ upm_result_t upm_mq4_get_value(const void* dev, float *value)
 {
     int counts = 0;
 
-    /* Read counts from the generic read method */
-    upm_mq4_read(dev, &counts, 1);
+    /* Read counts */
+    int val = mraa_aio_read(((upm_mq4*)dev)->aio);
+    if (val < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+    *value = (float)val;
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_mq4*)dev)->aio)) - 1;

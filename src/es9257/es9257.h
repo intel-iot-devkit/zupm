@@ -109,7 +109,9 @@ upm_result_t upm_es9257_set_angle(void* dev, int32_t angle);
 /*
  * Calculating relative pulse time to the value.
  * */
-upm_result_t upm_es9257_calc_pulse_travelling(const void* dev, int32_t* ret_val, int32_t value);
+upm_result_t upm_es9257_calc_pulse_travelling(const void* dev,
+                                              int32_t* ret_val,
+                                              int32_t value);
 
 /**
  * Sets the minimum pulse width
@@ -138,9 +140,5 @@ int upm_es9257_get_min_pulse_width (void* dev);
  * @return Maximum pulse width
  */
 int upm_es9257_get_max_pulse_width (void* dev);
-
-upm_result_t upm_es9257_write (const void* dev, void* data, int len);
-
-upm_result_t upm_es9257_read(const void* dev, void* value, int len);
 
 #endif /* ES9257_H_ */

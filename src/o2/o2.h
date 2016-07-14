@@ -65,22 +65,6 @@ void upm_o2_close(void* dev);
 const upm_sensor_descriptor_t upm_o2_get_descriptor();
 
 /**
- * Generic sensor read method
- * @param dev sensor device context pointer
- * @param value pointer to value read from hardware
- * @param len length of items to read
- */
-upm_result_t upm_o2_read(const void* dev, void* value, int len);
-
-/**
- * Generic sensor write method
- * @param dev sensor device context pointer
- * @param value pointer to value to write
- * @param len length of items to write
- */
-upm_result_t upm_o2_write(const void* dev, void* value, int len);
-
-/**
  * Set sensor offset.  This offset is applied to the return value:
  *     counts = counts + offset
  * @param dev sensor context pointer

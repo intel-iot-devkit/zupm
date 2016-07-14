@@ -98,26 +98,4 @@ upm_result_t upm_ttp223_install_isr(void* dev, mraa_gpio_edge_t edge_level, void
  */
 upm_result_t upm_ttp223_uninstall_isr(void* dev);
 
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_ttp223_read(const void* dev, void* data, int len);
-
-/**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_ttp223_write(const void* dev, void* value, int len);
 #endif /* UPM_C_TTP223_TTP223_H_ */

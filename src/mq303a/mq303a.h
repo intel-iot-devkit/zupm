@@ -109,27 +109,4 @@ upm_result_t upm_mq303a_get_value(void* dev, int* val);
  */
 upm_result_t upm_mq303a_heater_enable(void* dev, bool enable);
 
-/**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_mq303a_write(const void* dev, void* value, int len);
-
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_mq303a_read(const void* dev, void* value, int len);
-
 #endif /* MQ303A_MQ303A_H_ */

@@ -56,8 +56,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_ad8232_init_name,
     .upm_sensor_close = &upm_ad8232_close,
-    .upm_sensor_read = &upm_ad8232_read,
-    .upm_sensor_write = &upm_ad8232_write,
     //.upm_sensor_get_descriptor = &upm_ad8232_get_descriptor
 };
 
@@ -96,12 +94,14 @@ void* upm_ad8232_init(int lo_plus, int lo_minus, int output, float a_ref){
     dev->gpio_lo_plus = mraa_gpio_init(dev->gpio_lo_plus_pin);
     dev->gpio_lo_minus = mraa_gpio_init(dev->gpio_lo_minus_pin);
 
-    if(dev->aio == NULL || dev->gpio_lo_minus == NULL || dev->gpio_lo_plus == NULL){
+    if (dev->aio == NULL || dev->gpio_lo_minus == NULL ||
+        dev->gpio_lo_plus == NULL){
         printf("The pins did not initialize correctly");
         return NULL;
     }
 
-    if(mraa_gpio_dir(dev->gpio_lo_minus, MRAA_GPIO_IN) != MRAA_SUCCESS || mraa_gpio_dir(dev->gpio_lo_plus, MRAA_GPIO_IN) != MRAA_SUCCESS){
+    if (mraa_gpio_dir(dev->gpio_lo_minus, MRAA_GPIO_IN) != MRAA_SUCCESS ||
+        mraa_gpio_dir(dev->gpio_lo_plus, MRAA_GPIO_IN) != MRAA_SUCCESS){
         printf("Couldn't set the direction for the GPIO pins");
         return NULL;
     }
@@ -122,28 +122,23 @@ void upm_ad8232_close(void* dev){
         free(device);
 }
 
-upm_result_t upm_ad8232_get_value(void* dev, int* value, upm_heart_rate_u rate_unit){
+upm_result_t upm_ad8232_get_value(void* dev, int* value,
+                                  upm_heart_rate_u rate_unit){
+
     upm_ad8232 device = (upm_ad8232) dev;
     int len;
-    upm_ad8232_read(device, value, len);
-    return UPM_SUCCESS;
-}
+    int reading = 0;
 
-upm_result_t upm_ad8232_read(const void* dev, void* data, int len){
-    upm_ad8232 device = (upm_ad8232) dev;
-    int reading;
-    int* int_data = data;
-    if(mraa_gpio_read(device->gpio_lo_minus) || mraa_gpio_read(device->gpio_lo_plus)){
+    if (mraa_gpio_read(device->gpio_lo_minus) ||
+        mraa_gpio_read(device->gpio_lo_plus)) {
         reading = 0;
     }
     else{
         reading = mraa_aio_read(device->aio);
     }
 
-    *int_data = reading;
+    *value = reading;
+
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_ad8232_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}

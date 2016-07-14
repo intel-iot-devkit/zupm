@@ -98,7 +98,7 @@ upm_result_t upm_mpr121_config_an3944(void* dev);
 upm_result_t upm_mpr121_read_buttons(void* dev, uint32_t* states, int num);
 
 /**
- * Internal function used to write multiple bytes to the i2c bus
+ * Function used to write multiple bytes to the i2c bus
  *
  * @param dev sensor struct
  * @param reg i2c register to read from
@@ -107,10 +107,11 @@ upm_result_t upm_mpr121_read_buttons(void* dev, uint32_t* states, int num);
  * @param len length of the values that have to be written to the regs
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mpr121_write_bytes(void* dev, uint8_t reg, uint8_t *buffer, int len);
+upm_result_t upm_mpr121_write_bytes(void* dev, uint8_t reg,
+                                    uint8_t *buffer, int len);
 
 /**
- * Internal function used to read multiple bytes from the i2c bus
+ * Function used to read multiple bytes from the i2c bus
  *
  * @param dev sensor struct
  * @param reg i2c register to read from
@@ -120,29 +121,7 @@ upm_result_t upm_mpr121_write_bytes(void* dev, uint8_t reg, uint8_t *buffer, int
  * @return upm_result_t UPM success/error code
  */
 
-upm_result_t upm_mpr121_read_bytes(void* dev, uint8_t reg, uint8_t *buffer, int len);
-
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_mpr121_read(const void* dev, void* value, int len);
-
-/**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_mpr121_write(const void* dev, void* value, int len);
+upm_result_t upm_mpr121_read_bytes(void* dev, uint8_t reg,
+                                   uint8_t *buffer, int len);
 
 #endif /* MPR121_MPR121_H_ */

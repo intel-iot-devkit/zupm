@@ -58,8 +58,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_mq303a_init_name,
     .upm_sensor_close = &upm_mq303a_close,
-    .upm_sensor_read = &upm_mq303a_read,
-    .upm_sensor_write = &upm_mq303a_write,
     .upm_sensor_get_descriptor = &upm_mq303a_get_descriptor
 };
 
@@ -83,8 +81,10 @@ void* upm_mq303a_init(int pin, int heater_pin){
     dev->gpio_pin = heater_pin;
     dev->aio = mraa_aio_init(dev->aio_pin);
     dev->gpio = mraa_gpio_init(dev->gpio_pin);
+
     if(mraa_gpio_dir(dev->gpio, MRAA_GPIO_OUT) != MRAA_SUCCESS)
         return NULL;
+
     return dev;
 }
 
@@ -98,22 +98,17 @@ upm_result_t upm_mq303a_heater_enable(void* dev, bool enable){
         mraa_gpio_write(device->gpio, 0);
     else
         mraa_gpio_write(device->gpio, 1);
-    return UPM_SUCCESS;
-}
 
-upm_result_t upm_mq303a_read(const void* dev, void* value, int len){
-    upm_mq303a device = (upm_mq303a) dev;
-    int* int_val = value;
-    *int_val = mraa_aio_read(device->aio);
     return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq303a_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
 }
 
 upm_result_t upm_mq303a_get_value(void* dev, int* val){
     upm_mq303a device = (upm_mq303a) dev;
-    int len = 0;
-    return upm_mq303a_read(device, val, len);
+
+    *val = mraa_aio_read(device->aio);
+
+    if (*val < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+    return UPM_SUCCESS;
 }

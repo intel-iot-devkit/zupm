@@ -104,7 +104,9 @@ upm_result_t upm_es08a_set_angle(void* dev, int32_t angle);
 /*
  * Calculating relative pulse time to the value.
  * */
-upm_result_t upm_es08a_calc_pulse_travelling(const void* dev, int32_t* ret_val, int32_t value);
+upm_result_t upm_es08a_calc_pulse_travelling(const void* dev,
+                                             int32_t* ret_val,
+                                             int32_t value);
 
 /**
  * Sets the minimum pulse width
@@ -135,10 +137,6 @@ int upm_es08a_get_min_pulse_width (void* dev);
 int upm_es08a_get_max_pulse_width (void* dev);
 
 void upm_es08a_get_sensor_info();
-
-upm_result_t upm_es08a_read (const void* dev, void* data, int len);
-
-upm_result_t upm_es08a_write (const void* dev, void* data, int len);
 
 #endif /* ES08A_H_ */
 

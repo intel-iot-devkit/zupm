@@ -55,8 +55,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_slide_init_str,
     .upm_sensor_close = &upm_slide_close,
-    .upm_sensor_read = &upm_slide_read,
-    .upm_sensor_write = &upm_slide_write,
     .upm_sensor_get_descriptor = &upm_slide_get_descriptor
 };
 
@@ -160,10 +158,8 @@ upm_result_t upm_slide_set_scale(const void* dev, float scale)
 
 upm_result_t upm_slide_get_value(const void* dev, float *value)
 {
-    int counts = 0;
-
-    /* Read counts from the generic read method */
-    upm_slide_read(dev, &counts, 1);
+    /* Read counts */
+    int counts = mraa_aio_read(((upm_slide*)dev)->aio);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_slide*)dev)->aio)) - 1;

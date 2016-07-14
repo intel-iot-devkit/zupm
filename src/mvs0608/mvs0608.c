@@ -56,8 +56,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_mvs0608_init_name,
     .upm_sensor_close = &upm_mvs0608_close,
-    .upm_sensor_read = &upm_mvs0608_read,
-    .upm_sensor_write = &upm_mvs0608_write,
     .upm_sensor_get_descriptor = &upm_mvs0608_get_descriptor
 };
 
@@ -87,24 +85,15 @@ void upm_mvs0608_close(void* dev){
     upm_free(UPM_MVS0608_MEM_MAP, dev);
 }
 
-upm_result_t upm_mvs0608_read(const void* dev, void* value, int len){
-    upm_mvs0608 device = (upm_mvs0608) dev;
-    int* int_val = value;
-    *int_val = mraa_gpio_read(device->gpio);
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mvs0608_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
 upm_result_t upm_mvs_is_colliding(void* dev, bool* collision_val){
     upm_mvs0608 device = (upm_mvs0608) dev;
-    int value = 0, len = 1;
-    upm_mvs0608_read(device, &value, len);
+
+    int value = mraa_gpio_read(device->gpio);
+
     if(!value)
         *collision_val = true;
     else
         *collision_val = false;
+
     return UPM_SUCCESS;
 }

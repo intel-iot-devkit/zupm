@@ -51,8 +51,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_grove_moisture_init_name,
     .upm_sensor_close = &upm_grove_moisture_close,
-    .upm_sensor_read = &upm_grove_moisture_read,
-    .upm_sensor_write = &upm_grove_moisture_write,
     .upm_sensor_get_descriptor = &upm_grove_moisture_get_descriptor
 };
 
@@ -80,7 +78,7 @@ void* upm_grove_moisture_init_name(){
 void* upm_grove_moisture_init(int pin){
     upm_grove_moisture dev = (upm_grove_moisture) malloc(sizeof(struct _upm_grove_moisture));
     if(dev == NULL){
-        printf("Unable to assign memory to the Servo motor structure\n");
+        printf("Unable to allocate memory for device context\n");
         return NULL;
     }
 
@@ -88,7 +86,7 @@ void* upm_grove_moisture_init(int pin){
     dev->aio = mraa_aio_init(dev->analog_pin);
 
     if(dev->aio == NULL){
-        printf("Unable to open the AIO pin\n");
+        printf("mraa_aio_init() failed.\n");
         return NULL;
     }
 
@@ -104,17 +102,9 @@ void upm_grove_moisture_close(void* dev){
 upm_result_t upm_grove_moisture_get_moisture(void* dev, int* moisture){
     upm_grove_moisture device = (upm_grove_moisture) dev;
     int len;
-    upm_grove_moisture_read(device, moisture, len);
+
+    *moisture = mraa_aio_read(device->aio);
+
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_grove_moisture_read(const void* dev, void* data, int len){
-    upm_grove_moisture device = (upm_grove_moisture) dev;
-    int* int_data = data;
-    *int_data = mraa_aio_read(device->aio);
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_grove_moisture_write(const void* dev, void* data, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}

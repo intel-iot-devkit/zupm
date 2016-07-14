@@ -25,9 +25,9 @@
 #include "a110x.h"
 
 struct _upm_a110x {
-    mraa_gpio_context        gpio;
-    uint8_t                    gpio_pin;
-    bool                    isr_installed;
+    mraa_gpio_context      gpio;
+    uint8_t                gpio_pin;
+    bool                   isr_installed;
 };
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
@@ -46,8 +46,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_a110x_init_name,
     .upm_sensor_close = &upm_a110x_close,
-    .upm_sensor_read = &upm_a110x_read,
-    .upm_sensor_write = &upm_a110x_write,
     .upm_sensor_get_descriptor = &upm_a110x_get_descriptor
 };
 
@@ -90,21 +88,10 @@ void upm_a110x_close(void* dev){
     upm_free(UPM_A110X_MEM_MAP, dev);
 }
 
-upm_result_t upm_a110x_read(const void* dev, void* value, int len){
-    upm_a110x device = (upm_a110x) dev;
-    int* int_val = value;
-    *int_val = mraa_gpio_read(device->gpio);
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_a110x_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
 upm_result_t upm_a110x_magnet_detected(void* dev, bool* res){
     upm_a110x device = (upm_a110x) dev;
-    int val, len;
-    upm_a110x_read(device, &val, len);
+
+    int val = mraa_gpio_read(device->gpio);
     if(val == 0)
         *res = false;
     else
@@ -112,7 +99,8 @@ upm_result_t upm_a110x_magnet_detected(void* dev, bool* res){
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_a110x_install_isr(void* dev, mraa_gpio_edge_t edge_level, void (*isr)(void *), void *arg){
+upm_result_t upm_a110x_install_isr(void* dev, mraa_gpio_edge_t edge_level,
+                                   void (*isr)(void *), void *arg){
     upm_a110x device = (upm_a110x) dev;
     if(device->isr_installed)
         upm_a110x_uninstall_isr(device);

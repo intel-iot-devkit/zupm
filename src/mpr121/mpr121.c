@@ -53,8 +53,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_mpr121_init_name,
     .upm_sensor_close = &upm_mpr121_close,
-    .upm_sensor_read = &upm_mpr121_read,
-    .upm_sensor_write = &upm_mpr121_write,
     .upm_sensor_get_descriptor = &upm_mpr121_get_descriptor
 };
 
@@ -138,10 +136,6 @@ upm_result_t upm_mpr121_read_bytes(void* dev, uint8_t reg, uint8_t *buffer, int 
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_mpr121_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
 upm_result_t upm_mpr121_read(const void* dev, void* value, int len){
     upm_mpr121 device = (upm_mpr121) dev;
     uint16_t* states = value;
@@ -160,20 +154,19 @@ upm_result_t upm_mpr121_read(const void* dev, void* value, int len){
 
 upm_result_t upm_mpr121_read_buttons(void* dev, uint32_t* states, int num){
     upm_mpr121 device = (upm_mpr121) dev;
-    int len;
-    upm_mpr121_read(device, states, len);
-    /*
-       uint8_t rv;
-       uint8_t buffer[2];
+    int len = 2;
+    uint8_t buffer[2];
 
     // read in the 2 bytes at register 0x00-0x01, and setup the member
     // variables accordingly.
-    upm_mpr121_read_bytes(device, 0x00, buffer, 2);
-     *states = (buffer[0] | ((buffer[1] & 0x1f) << 8));
-     if (buffer[1] & 0x80)
-     device->over_current_fault = true;
-     else
-     device->over_current_fault = false;*/
+    upm_mpr121_read_bytes(device, 0x00, buffer, len);
+
+    *states = (buffer[0] | ((buffer[1] & 0x1f) << 8));
+    if (buffer[1] & 0x80)
+        device->over_current_fault = true;
+    else
+        device->over_current_fault = false;
+
     return UPM_SUCCESS;
 }
 

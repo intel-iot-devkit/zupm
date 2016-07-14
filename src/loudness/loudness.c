@@ -56,8 +56,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_loudness_init_name,
     .upm_sensor_close = &upm_loudness_close,
-    .upm_sensor_read = &upm_loudness_read,
-    .upm_sensor_write = &upm_loudness_write,
     .upm_sensor_get_descriptor = &upm_loudness_get_descriptor
 };
 
@@ -89,20 +87,11 @@ void upm_loudness_close(void* dev){
     upm_free(UPM_LOUDNESS_MEM_MAP, dev);
 }
 
-upm_result_t upm_loudness_read(const void* dev, void* value, int len){
-    upm_loudness device = (upm_loudness) dev;
-    int *val = value;
-    *val = mraa_aio_read(device->aio);
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_loudness_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
 upm_result_t upm_loudness_get_value(void* dev, int* val){
     upm_loudness device = (upm_loudness) dev;
     int len;
-    upm_loudness_read(device, val, len);
+
+    *val = mraa_aio_read(device->aio);
+
     return UPM_SUCCESS;
 }

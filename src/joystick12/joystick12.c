@@ -59,8 +59,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_joystick12_init_str,
     .upm_sensor_close = &upm_joystick12_close,
-    .upm_sensor_read = &upm_joystick12_read,
-    .upm_sensor_write = &upm_joystick12_write,
     .upm_sensor_get_descriptor = &upm_joystick12_get_descriptor
 };
 
@@ -142,22 +140,20 @@ const upm_sensor_descriptor_t upm_joystick12_get_descriptor()
     return usd;
 }
 
-upm_result_t upm_joystick12_read(const void* dev, void* value, int len)
+upm_result_t upm_joystick12_read_data(const void* dev, int* values)
 {
     /* Read the adc twice, first adc read can have weird data */
+    /* JET - why? */
     mraa_aio_read(((upm_joystick12*)dev)->ai_x);
     mraa_aio_read(((upm_joystick12*)dev)->ai_y);
-    ((int*)value)[0] = mraa_aio_read(((upm_joystick12*)dev)->ai_x);
-    ((int*)value)[1] = mraa_aio_read(((upm_joystick12*)dev)->ai_y);
-    if (value < 0)
+
+    values[0] = mraa_aio_read(((upm_joystick12*)dev)->ai_x);
+    values[1] = mraa_aio_read(((upm_joystick12*)dev)->ai_y);
+
+    if (values[0] < 0 || values[1] < 0)
         return UPM_ERROR_OPERATION_FAILED;
 
     return UPM_SUCCESS;
-}
-
-upm_result_t upm_joystick12_write(const void* dev, void* value, int len)
-{
-    return UPM_ERROR_NOT_SUPPORTED;
 }
 
 upm_result_t upm_joystick12_set_offset_x(const void* dev, float offset)
@@ -189,7 +185,7 @@ upm_result_t upm_joystick12_get_value_x(const void* dev, float *value)
     int counts[2] = {0,0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read(dev, &counts, 2);
+    upm_joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_x)) - 1;
@@ -208,7 +204,7 @@ upm_result_t upm_joystick12_get_value_y(const void* dev, float *value)
     int counts[2] = {0,0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read(dev, &counts, 2);
+    upm_joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
@@ -227,7 +223,7 @@ upm_result_t upm_joystick12_zero(const void* dev)
     int counts[2] = {0, 0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read(dev, &counts, 2);
+    upm_joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
@@ -243,7 +239,7 @@ upm_result_t upm_joystick12_calibrate_x(const void* dev)
     int counts[2] = {0, 0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read(dev, &counts, 2);
+    upm_joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
@@ -264,7 +260,7 @@ upm_result_t upm_joystick12_calibrate_y(const void* dev)
     int counts[2] = {0, 0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read(dev, &counts, 2);
+    upm_joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;

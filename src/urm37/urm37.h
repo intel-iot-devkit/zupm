@@ -187,14 +187,4 @@ upm_result_t upm_urm37_get_degrees(void* dev, int* degrees);
 
 upm_result_t upm_urm37_set_degrees(void* dev, int degrees);
 
-/*
- * Generic UPM read function
- */
-upm_result_t upm_urm37_read(const void* dev, void* value, int len);
-
-/*
- * Generic UPM write function
- */
-upm_result_t upm_urm37_write(const void* dev, void* value, int len);
-
 #endif /* URM37_H_ */

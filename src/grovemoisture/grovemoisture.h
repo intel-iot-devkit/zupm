@@ -87,27 +87,4 @@ void upm_grove_moisture_close(void* dev);
  */
 upm_result_t upm_grove_moisture_get_moisture(void* dev, int* moisture);
 
-/**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_grove_moisture_read(const void* dev, void* data, int len);
-
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_grove_moisture_write(const void* dev, void* data, int len);
-
 #endif /* UPM_C_GROVEMOISTURE_GROVEMOISTURE_H_ */

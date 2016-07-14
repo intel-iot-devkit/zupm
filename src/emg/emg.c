@@ -55,8 +55,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_emg_init_str,
     .upm_sensor_close = &upm_emg_close,
-    .upm_sensor_read = &upm_emg_read,
-    .upm_sensor_write = &upm_emg_write,
     .upm_sensor_get_descriptor = &upm_emg_get_descriptor
 };
 
@@ -130,22 +128,6 @@ const upm_sensor_descriptor_t upm_emg_get_descriptor()
     return usd;
 }
 
-upm_result_t upm_emg_read(const void* dev, void* value, int len)
-{
-    /* Read the adc twice, first adc read can have weird data */
-    mraa_aio_read(((upm_emg*)dev)->aio);
-    *(int*)value = mraa_aio_read(((upm_emg*)dev)->aio);
-    if (value < 0)
-        return UPM_ERROR_OPERATION_FAILED;
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_emg_write(const void* dev, void* value, int len)
-{
-    return UPM_ERROR_NOT_SUPPORTED;
-}
-
 upm_result_t upm_emg_set_offset(const void* dev, float offset)
 {
     ((upm_emg*)dev)->m_count_offset = offset;
@@ -164,6 +146,8 @@ upm_result_t upm_emg_get_value(const void* dev, float *value)
 
     /* Read counts from the generic read method */
     upm_emg_read(dev, &counts, 1);
+
+    counts = mraa_aio_read(((upm_emg*)dev)->aio);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_emg*)dev)->aio)) - 1;

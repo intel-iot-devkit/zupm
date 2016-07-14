@@ -65,12 +65,11 @@ void upm_joystick12_close(void* dev);
 const upm_sensor_descriptor_t upm_joystick12_get_descriptor();
 
 /**
- * Generic sensor read method
+ * Generic read joystick data method
  * @param dev sensor device context pointer
- * @param value pointer to value read from hardware
- * @param len length of items to read
+ * @param value pointer to an int[2] in which data is returned
  */
-upm_result_t upm_joystick12_read(const void* dev, void* value, int len);
+upm_result_t upm_joystick12_read_data(const void* dev, int* values);
 
 /**
  * Generic sensor write method

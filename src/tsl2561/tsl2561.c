@@ -57,8 +57,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_tsl2561_init_name,
     .upm_sensor_close = &upm_tsl2561_close,
-    .upm_sensor_read = &upm_tsl2561_read,
-    .upm_sensor_write = &upm_tsl2561_write,
     .upm_sensor_get_descriptor = &upm_tsl2561_get_descriptor
 };
 
@@ -68,6 +66,9 @@ static const upm_light_ft lft =
 };
 
 const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_tsl2561_get_ft;
+
+// forward declaration
+upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data);
 
 const void* upm_tsl2561_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_LIGHT){
@@ -134,19 +135,17 @@ void upm_tsl2561_close(void* dev){
 
 upm_result_t upm_tsl2561_get_lux(const void* dev, float* lux){
     upm_tsl2561 device = (upm_tsl2561) dev;
-    int len, lux_val=0;
-    upm_tsl2561_read(device, &lux, len);
+    int lux_val=0;
+
+    upm_tsl2561_compute_lux(device, &lux_val);
+
     *lux = (float) lux_val;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_tsl2561_write(const void* dev, void* data, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
-upm_result_t upm_tsl2561_read(const void* dev, void* data, int len){
+upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data) {
     upm_tsl2561 device = (upm_tsl2561) dev;
-    int* int_data = data;
+
     int lux;
     uint16_t raw_lux_ch_0;
     uint16_t raw_lux_ch_1;

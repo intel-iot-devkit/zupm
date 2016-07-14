@@ -46,8 +46,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_urm37_init_name,
     .upm_sensor_close = &upm_urm37_close,
-    .upm_sensor_read = &upm_urm37_read,
-    .upm_sensor_write = &upm_urm37_write,
 };
 
 static const upm_distance_ft dft =
@@ -79,8 +77,12 @@ void* upm_urm37_init_name(){
     return NULL;
 }
 
-void* upm_urm37_init(uint8_t a_pin, uint8_t reset_pin, uint8_t trigger_pin, float a_ref, uint8_t uart, upm_protocol_t mode){
+void* upm_urm37_init(uint8_t a_pin, uint8_t reset_pin,
+                     uint8_t trigger_pin, float a_ref,
+                     uint8_t uart, upm_protocol_t mode) {
+
     upm_urm37 dev = (upm_urm37) malloc(sizeof(struct _upm_urm37v4));
+
     dev->analog_pin =  a_pin;
     dev->uart_pin = uart;
     dev->reset_pin = reset_pin;
@@ -215,30 +217,23 @@ upm_result_t upm_urm37_send_command(void* dev, char* cmd, char* response, int le
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_urm37_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
-upm_result_t upm_urm37_read(const void* dev, void* value, int len){
+upm_result_t upm_urm37_get_distance(void* dev, float* distance,
+                                    upm_distance_u dist_unit) {
     upm_urm37 device = (upm_urm37) dev;
-    int* int_data = value;
-    mraa_gpio_write(device->gpio_trig_pin, 0);
-    int val = mraa_aio_read(device->aio);
-    mraa_gpio_write(device->gpio_trig_pin, 1);
-    *int_data = val;
-    return UPM_SUCCESS;
-}
 
-upm_result_t upm_urm37_get_distance(void* dev, float* distance, upm_distance_u dist_unit){
-    upm_urm37 device = (upm_urm37) dev;
-    if(device->mode == UPM_ANALOG){
-        int val, len;
+    if (device->mode == UPM_ANALOG){
         // analog mode
-        upm_urm37_read(device, &val, len);
+        int val;
+
+        mraa_gpio_write(device->gpio_trig_pin, 0);
+        val = mraa_aio_read(device->aio);
+        mraa_gpio_write(device->gpio_trig_pin, 1);
+
         float volts = ((float)val * (A_REF / device->a_res)) * 1000.0;
         *distance = volts/6.8;
     }
-    if(device->mode == UPM_UART){
+
+    if (device->mode == UPM_UART){
         // UART mode
         // query distance cmd sequence
         int degrees = device->degrees;

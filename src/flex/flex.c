@@ -55,8 +55,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_flex_init_str,
     .upm_sensor_close = &upm_flex_close,
-    .upm_sensor_read = &upm_flex_read,
-    .upm_sensor_write = &upm_flex_write,
     .upm_sensor_get_descriptor = &upm_flex_get_descriptor
 };
 
@@ -130,22 +128,6 @@ const upm_sensor_descriptor_t upm_flex_get_descriptor()
     return usd;
 }
 
-upm_result_t upm_flex_read(const void* dev, void* value, int len)
-{
-    /* Read the adc twice, first adc read can have weird data */
-    mraa_aio_read(((upm_flex*)dev)->aio);
-    *(int*)value = mraa_aio_read(((upm_flex*)dev)->aio);
-    if (value < 0)
-        return UPM_ERROR_OPERATION_FAILED;
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_flex_write(const void* dev, void* value, int len)
-{
-    return UPM_ERROR_NOT_SUPPORTED;
-}
-
 upm_result_t upm_flex_set_offset(const void* dev, float offset)
 {
     ((upm_flex*)dev)->m_count_offset = offset;
@@ -160,10 +142,10 @@ upm_result_t upm_flex_set_scale(const void* dev, float scale)
 
 upm_result_t upm_flex_get_value(const void* dev, float *value)
 {
-    int counts = 0;
+    int counts = mraa_aio_read(((upm_flex*)dev)->aio);
 
-    /* Read counts from the generic read method */
-    upm_flex_read(dev, &counts, 1);
+    if (counts < 0)
+        return UPM_ERROR_OPERATION_FAILED;
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_flex*)dev)->aio)) - 1;

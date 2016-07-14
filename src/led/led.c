@@ -47,8 +47,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_led_init_name,
     .upm_sensor_close = &upm_led_close,
-    .upm_sensor_read = &upm_led_read,
-    .upm_sensor_write = &upm_led_write,
     .upm_sensor_get_descriptor = &upm_led_get_descriptor
 };
 
@@ -89,35 +87,20 @@ void upm_led_close(void* dev){
     upm_free(UPM_LED_MEM_MAP, dev);
 }
 
-upm_result_t upm_led_write(const void* dev, void* value, int len){
-    upm_led device = (upm_led) dev;
-    int* int_val = value;
-    mraa_result_t ret;
-    if(*int_val >= 1)
-        ret = mraa_gpio_write(device->gpio, 1);
-    else
-        ret = mraa_gpio_write(device->gpio, 0);
-    if(ret != MRAA_SUCCESS)
-        return UPM_ERROR_OPERATION_FAILED;
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_led_read(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
 upm_result_t upm_led_on(void* dev){
     upm_led device = (upm_led) dev;
     int len = 0, val = 1;
-    if(upm_led_write(device, &val, len) != UPM_SUCCESS)
+    if (mraa_gpio_write(device->gpio, 1) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
+
     return UPM_SUCCESS;
 }
 
 upm_result_t upm_led_off(void* dev){
     upm_led device = (upm_led) dev;
     int len = 0, val = 0;
-    if(upm_led_write(device, &val, len) != UPM_SUCCESS)
+    if (mraa_gpio_write(device->gpio, 0) != UPM_SUCCESS)
         return UPM_ERROR_OPERATION_FAILED;
+
     return UPM_SUCCESS;
 }

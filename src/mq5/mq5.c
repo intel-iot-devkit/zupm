@@ -55,8 +55,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_mq5_init_str,
     .upm_sensor_close = &upm_mq5_close,
-    .upm_sensor_read = &upm_mq5_read,
-    .upm_sensor_write = &upm_mq5_write,
     .upm_sensor_get_descriptor = &upm_mq5_get_descriptor
 };
 
@@ -162,8 +160,12 @@ upm_result_t upm_mq5_get_value(const void* dev, float *value)
 {
     int counts = 0;
 
-    /* Read counts from the generic read method */
-    upm_mq5_read(dev, &counts, 1);
+    /* Read counts */
+    int val = mraa_aio_read(((upm_mq5*)dev)->aio);
+    if (val < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+    *value = (float)val;
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_mq5*)dev)->aio)) - 1;

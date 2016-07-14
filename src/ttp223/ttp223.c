@@ -58,8 +58,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_ttp223_init_name,
     .upm_sensor_close = &upm_ttp223_close,
-    .upm_sensor_read = &upm_ttp223_read,
-    .upm_sensor_write = &upm_ttp223_write,
     .upm_sensor_get_descriptor = &upm_ttp223_get_descriptor
 };
 
@@ -104,19 +102,10 @@ void upm_ttp223_close(void* dev){
 }
 
 upm_result_t upm_ttp223_get_value(mraa_gpio_context dev, uint32_t* value){
+
     *value = mraa_gpio_read(dev);
-    return UPM_SUCCESS;
-}
 
-upm_result_t upm_ttp223_read(const void* dev, void* data, int len){
-    upm_ttp223 device = (upm_ttp223) dev;
-    int* int_data = data;
-    *int_data = mraa_gpio_read(device->gpio);
     return UPM_SUCCESS;
-}
-
-upm_result_t upm_ttp223_write(const void* dev, void* value, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
 }
 
 upm_result_t upm_ttp223_is_pressed(void* dev, bool* value, int num){

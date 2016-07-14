@@ -34,8 +34,6 @@ extern "C" {
 typedef struct _upm_sensor_ft {
     void* (*upm_sensor_init_name) (const char* protocol, const char* params);
     void (*upm_sensor_close) (void* dev);
-    upm_result_t (*upm_sensor_read) (const void* dev, void* value, int len);
-    upm_result_t (*upm_sensor_write) (const void* dev, void* value, int len);
     const upm_sensor_descriptor_t (*upm_sensor_get_descriptor) (const void* dev);
 } upm_sensor_ft;
 

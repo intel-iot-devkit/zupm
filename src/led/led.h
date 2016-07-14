@@ -84,29 +84,6 @@ void* upm_led_init(uint8_t pin);
 void upm_led_close(void* dev);
 
 /**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_led_write(const void* dev, void* value, int len);
-
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_led_read(const void* dev, void* value, int len);
-
-/**
  * Function to turn LED on
  *
  * @param void* pointer to the sensor struct

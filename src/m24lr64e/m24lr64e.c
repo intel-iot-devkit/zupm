@@ -39,8 +39,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_m24lr64e_init_name,
     .upm_sensor_close = &upm_m24lr64e_close,
-    .upm_sensor_read = &upm_m24lr64e_read,
-    .upm_sensor_write = &upm_m24lr64e_write,
     .upm_sensor_get_descriptor = &upm_m24lr64e_get_descriptor
 };
 
@@ -263,14 +261,6 @@ upm_result_t upm_m24lr64e_read_bytes(void* dev, uint32_t address, uint8_t* buffe
     return upm_m24lr64e_eeprom_write_bytes(device, address, buffer, len);
 }
 
-upm_result_t upm_m24lr64e_write(const void* dev, void* value, int len){
-    upm_m24lr64e device = (upm_m24lr64e) dev;
-    int address = ((uint8_t *)value)[0];    // MSB
-    address = (address << 8) + ((uint8_t *)value)[1];    // add LSB
-    upm_m24lr64e_eeprom_write_byte(device, address, ((uint8_t *)value)[2]);
-    return UPM_SUCCESS;
-}
-
 upm_result_t upm_m24lr64e_eeprom_write_byte(void* dev, uint32_t address, uint8_t data){
     upm_m24lr64e device = (upm_m24lr64e) dev;
     int pkt_len = 3;
@@ -303,12 +293,6 @@ upm_result_t upm_m24lr64e_eeprom_write_bytes(void* dev, uint32_t address, uint8_
         return UPM_ERROR_OPERATION_FAILED;
     }
     upm_delay_us(UPM_M24LR64E_I2C_WRITE_TIME*1000);
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_m24lr64e_read(const void* dev, void* data, int len){
-    upm_m24lr64e device = (upm_m24lr64e) dev;
-    upm_m24lr64e_eeprom_read_byte(device, 0x0, data);
     return UPM_SUCCESS;
 }
 

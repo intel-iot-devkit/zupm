@@ -106,7 +106,9 @@ upm_result_t upm_a110x_magnet_detected(void* dev, bool* res);
  * @param isr ISR callback function
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_a110x_install_isr(void* dev, mraa_gpio_edge_t edge_level, void (*isr)(void *), void *arg);
+upm_result_t upm_a110x_install_isr(void* dev, 
+                                   mraa_gpio_edge_t edge_level, 
+                                   void (*isr)(void *), void *arg);
 
 /**
  * Uninstalls the previously installed ISR
@@ -122,21 +124,8 @@ upm_result_t upm_a110x_uninstall_isr(void* dev);
  *
  * @param void* pointer to the sensor struct
  * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
  * @return upm_result_t UPM success/error code
  */
 upm_result_t upm_a110x_read(const void* dev, void* value, int len);
-
-/**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_a110x_write(const void* dev, void* value, int len);
 
 #endif /* A110X_A110X_H_ */

@@ -76,8 +76,4 @@ void upm_ad8232_close(void* dev);
 
 upm_result_t upm_ad8232_get_value(void* dev, int* value, upm_heart_rate_u rate_unit);
 
-upm_result_t upm_ad8232_read(const void* dev, void* data, int len);
-
-upm_result_t upm_ad8232_write(const void* dev, void* value, int len);
-
 #endif /* AD8232_H_ */

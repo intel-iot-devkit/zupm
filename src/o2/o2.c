@@ -55,8 +55,6 @@ static const upm_sensor_ft ft_gen =
 {
     .upm_sensor_init_name = &upm_o2_init_str,
     .upm_sensor_close = &upm_o2_close,
-    .upm_sensor_read = &upm_o2_read,
-    .upm_sensor_write = &upm_o2_write,
     .upm_sensor_get_descriptor = &upm_o2_get_descriptor
 };
 
@@ -160,10 +158,8 @@ upm_result_t upm_o2_set_scale(const void* dev, float scale)
 
 upm_result_t upm_o2_get_value(const void* dev, float *value)
 {
-    int counts = 0;
-
-    /* Read counts from the generic read method */
-    upm_o2_read(dev, &counts, 1);
+    /* Read counts */
+    int counts = mraa_aio_read(((upm_o2*)dev)->aio);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
     float max_adc = (1 << mraa_aio_get_bit(((upm_o2*)dev)->aio)) - 1;

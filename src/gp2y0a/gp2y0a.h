@@ -88,14 +88,4 @@ void upm_gp2y0a_close(void* dev);
  */
 upm_result_t upm_gp2y0a_get_value(void* dev, float a_ref, uint8_t samples, float* val);
 
-/*
- * Generic Read function
- */
-upm_result_t upm_gp2y0a_read(const void* dev, void* value, int len);
-
-/*
- * Generic write function
- */
-upm_result_t upm_gp2y0a_write(const void* dev, void* value, int len);
-
 #endif /* GP2Y0A_GP2Y0A_H_ */

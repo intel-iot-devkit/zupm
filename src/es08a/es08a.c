@@ -51,8 +51,6 @@ static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_es08a_init_name,
     .upm_sensor_close = &upm_es08a_halt,
-    .upm_sensor_read = &upm_es08a_read,
-    .upm_sensor_write = &upm_es08a_write,
     .upm_sensor_get_descriptor = &upm_es08a_get_descriptor
 };
 
@@ -104,36 +102,25 @@ void upm_es08a_halt(void* dev){
     free(device);
 }
 
-upm_result_t upm_es08a_read (const void* dev, void* data, int len){
-    return UPM_ERROR_NOT_IMPLEMENTED;
-}
-
-upm_result_t upm_es08a_write (const void* dev, void* data, int len){
+upm_result_t upm_es08a_set_angle(void* dev, int32_t angle){
     upm_es08a device = (upm_es08a) dev;
-    uint32_t int_data = *((uint32_t *)data);
-    if(UPM_ES08A_MAX_ANGLE < int_data || int_data < 0){
+
+    if(UPM_ES08A_MAX_ANGLE < angle || angle < 0){
         printf("The angle specified is either above the max angle or below 0");
         return UPM_ERROR_UNSPECIFIED;
     }
-    printf("setting angle to: %d\n", int_data);
+    printf("setting angle to: %d\n", angle);
 
     mraa_pwm_enable(device->pwm, 1);
     mraa_pwm_period_us(device->pwm, UPM_ES08A_PERIOD);
     int32_t val = 0;
 
-    upm_es08a_calc_pulse_travelling(dev, &val, int_data);
+    upm_es08a_calc_pulse_travelling(dev, &val, angle);
     mraa_pwm_pulsewidth_us(device->pwm, val);
 
     upm_delay(1);
     mraa_pwm_enable(device->pwm, 0);
 
-    return UPM_SUCCESS;
-    //return upm_es08a_set_angle(device, angle);
-}
-
-upm_result_t upm_es08a_set_angle(void* dev, int32_t angle){
-    upm_es08a device = (upm_es08a) dev;
-    upm_es08a_write(device, &angle, 0);
     return UPM_SUCCESS;
 }
 
