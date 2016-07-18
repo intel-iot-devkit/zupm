@@ -52,7 +52,13 @@ const upm_sensor_descriptor_t upm_temperature_get_descriptor(void* dev) {
     return usd;
 }
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_temperature_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_temperature_get_ft;
+}
+#endif
 
 void* upm_temperature_get_ft(upm_sensor_t sensor_type) {
 

@@ -65,7 +65,13 @@ static const upm_light_ft lft =
     .upm_light_get_value = &upm_tsl2561_get_lux
 };
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_tsl2561_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_tsl2561_get_ft;
+}
+#endif
 
 // forward declaration
 upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data);

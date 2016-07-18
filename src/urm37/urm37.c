@@ -58,7 +58,13 @@ static const upm_temperature_ft tft =
     .upm_temperature_get_value = &upm_urm37_get_temperature
 };
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_urm37_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_urm37_get_ft;
+}
+#endif
 
 const void* upm_urm37_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_TEMPERATURE){

@@ -66,7 +66,13 @@ static const upm_raw_ft ft_raw =
     .upm_raw_get_value = &upm_emg_get_value
 };
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_emg_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_emg_get_ft;
+}
+#endif
 
 const void* upm_emg_get_ft(upm_sensor_t sensor_type)
 {

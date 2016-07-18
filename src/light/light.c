@@ -66,7 +66,13 @@ static const upm_light_ft ft_light =
     .upm_light_get_value = &upm_light_get_value
 };
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_light_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_light_get_ft;
+}
+#endif
 
 const void* upm_light_get_ft(upm_sensor_t sensor_type)
 {

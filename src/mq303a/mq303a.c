@@ -61,7 +61,13 @@ static const upm_sensor_ft ft =
     .upm_sensor_get_descriptor = &upm_mq303a_get_descriptor
 };
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_mq303a_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_mq303a_get_ft;
+}
+#endif
 
 const void* upm_mq303a_get_ft(upm_sensor_t sensor_type){
     if(sensor_type == UPM_SENSOR){

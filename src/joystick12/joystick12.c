@@ -73,7 +73,13 @@ static const upm_joystick_ft ft_joystick =
     .upm_joystick_get_value_y = &upm_joystick12_get_value_y
 };
 
-const void* (*upm_get_ft) (upm_sensor_t sensor_type) = &upm_joystick12_get_ft;
+#if defined(FRAMEWORK_BUILD)
+typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+
+upm_get_ft upm_assign_ft(){
+    return upm_joystick12_get_ft;
+}
+#endif
 
 const void* upm_joystick12_get_ft(upm_sensor_t sensor_type)
 {
