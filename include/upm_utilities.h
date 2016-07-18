@@ -51,6 +51,9 @@ extern "C" {
 /* Get filename w/o path */
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
+#if 0
+  // This should be moved into an fti-specific header file, and it
+  // should not be inline.  And of course, should be kept up-to-date :)
 inline const char * to_char(upm_sensor_t category)
 {
     switch(category) {
@@ -70,7 +73,7 @@ inline const char * to_char(upm_sensor_t category)
             return "INVALID";
     }
 }
-
+#endif // 0
 
 void upm_delay(int time);
 
