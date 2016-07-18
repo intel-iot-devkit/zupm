@@ -87,7 +87,8 @@ typedef enum {
     UPM_TIME,
     UPM_VIDEO,
     UPM_VOLTAGE,
-    UPM_WIRELESS
+    UPM_WIRELESS,
+    UPM_STREAM
 } upm_sensor_t;
 
 /* Supported IO protocols via MRAA */
@@ -129,6 +130,7 @@ typedef struct _upm_sensor_ft* (*func_get_upm_sensor_ft)(upm_sensor_t sensor_typ
 #include <types/upm_voltage.h>
 #include <types/upm_moisture.h>
 #include <types/upm_light.h>
+#include <types/upm_stream.h>
 
 #ifdef __cplusplus
 }
