@@ -151,8 +151,6 @@ upm_result_t upm_emg_get_value(const void* dev, float *value)
     int counts = 0;
 
     /* Read counts from the generic read method */
-    upm_emg_read(dev, &counts, 1);
-
     counts = mraa_aio_read(((upm_emg*)dev)->aio);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
