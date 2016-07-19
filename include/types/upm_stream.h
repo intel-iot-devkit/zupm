@@ -30,11 +30,12 @@ extern "C" {
 #endif
 
 struct _upm_stream_ft {
-        upm_result_t (*upm_stream_read) (void* dev, void *buffer,
-                                         int len, int *retval);
-        upm_result_t (*upm_stream_write) (void* dev, void *buffer,
-                                          int len, int *retval);
-	upm_result_t (*upm_stream_data_available) (void* dev, int timeout);
+        /* read up to len bytes into buffer, return number of bytes read */
+        int (*upm_stream_read) (void* dev, void *buffer, int len);
+        /* write up to len bytes from buffer, return number of bytes written */
+        int (*upm_stream_write) (void* dev, void *buffer, int len);
+        /* return true if data is available to be read, false otherwise */
+        bool (*upm_stream_data_available) (void* dev, unsigned int timeout);
 } upm_stream_ft;
 
 #ifdef __cplusplus
