@@ -51,27 +51,6 @@ extern "C" {
 /* Get filename w/o path */
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
-inline const char * to_char(upm_sensor_t category)
-{
-    switch(category) {
-        case UPM_PH:
-            return "PH";
-            break;
-        case UPM_PRESSURE:
-            return "PRESSURE";
-            break;
-        case UPM_SERVO:
-            return "SERVO";
-            break;
-        case UPM_TEMPERATURE:
-            return "TEMPERATURE";
-            break;
-        default:
-            return "INVALID";
-    }
-}
-
-
 void upm_delay(int time);
 
 void upm_delay_ms(int time);
