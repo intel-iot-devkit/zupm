@@ -25,145 +25,86 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mraa/aio.h"
-#include "types/upm_sensor.h"
-#include "types/upm_raw.h"
 #include "mq2.h"
-
-const char upm_mq2_name[] = "MQ2";
-const char upm_mq2_description[] = "Analog gas sensor (mq2) sensor";
-const upm_protocol_t upm_mq2_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_mq2_category[] = {UPM_RAW};
+#include "mraa/aio.h"
 
 /**
- * Analog sensor struct
+ * Driver context structure
  */
-typedef struct _upm_mq2 {
+typedef struct _mq2_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
     /* Analog voltage reference */
     float m_aRef;
+
+    // Used for the FTI
+
     /* Raw count offset */
     float m_count_offset;
     /* Raw count scale */
     float m_count_scale;
-} upm_mq2;
+} *mq2_context;
 
-/* This sensor implementes 2 function tables */
-/* 1. Generic base function table */
-static const upm_sensor_ft ft_gen =
+mq2_context mq2_init(int16_t pin)
 {
-    .upm_sensor_init_name = &upm_mq2_init_str,
-    .upm_sensor_close = &upm_mq2_close,
-    .upm_sensor_get_descriptor = &upm_mq2_get_descriptor
-};
+    mq2_context dev = (mq2_context) malloc(sizeof(struct _mq2_context));
 
-/* 2. RAW function table */
-static const upm_raw_ft ft_raw =
-{
-    .upm_raw_set_offset = &upm_mq2_set_offset,
-    .upm_raw_set_scale = &upm_mq2_set_scale,
-    .upm_raw_get_value = &upm_mq2_get_value
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_mq2_get_ft;
-}
-#endif
-const void* upm_mq2_get_ft(upm_sensor_t sensor_type)
-{
-    switch(sensor_type)
-    {
-        case UPM_SENSOR:
-            return &ft_gen;
-        case UPM_RAW:
-            return &ft_raw;
-        default:
-            return NULL;
-    }
-}
-
-void* upm_mq2_init_str(const char* protocol, const char* params)
-{
-    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return upm_mq2_init(0);
-}
-
-void* upm_mq2_init(int16_t pin)
-{
-    upm_mq2* dev = (upm_mq2*) malloc(sizeof(upm_mq2));
-
-    if(dev == NULL) return NULL;
+    if (dev == NULL)
+      return NULL;
 
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
+
+    if (dev->aio == NULL) {
+        free(dev);
+        return NULL;
+    }
 
     /* Set the ref, zero the offset */
     dev->m_count_offset = 0.0;
     dev->m_count_scale = 1.0;
 
-    if(dev->aio == NULL) {
-        free(dev);
-        return NULL;
-    }
-
     return dev;
 }
 
-void upm_mq2_close(void* dev)
+void mq2_close(mq2_context dev)
 {
-    mraa_aio_close(((upm_mq2*)dev)->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-const upm_sensor_descriptor_t upm_mq2_get_descriptor()
-{
-    /* Fill in the descriptor */
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_mq2_name;
-    usd.description = upm_mq2_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_mq2_protocol;
-    usd.category_size = 1;
-    usd.category = upm_mq2_category;
-
-    return usd;
-}
-
-upm_result_t upm_mq2_set_offset(const void* dev, float offset)
-{
-    ((upm_mq2*)dev)->m_count_offset = offset;
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq2_set_scale(const void* dev, float scale)
-{
-    ((upm_mq2*)dev)->m_count_scale = scale;
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq2_get_value(const void* dev, float *value)
+upm_result_t mq2_get_value(const mq2_context dev, float *value)
 {
     int counts = 0;
 
     /* Read counts */
-    int val = mraa_aio_read(((upm_mq2*)dev)->aio);
+    int val = mraa_aio_read(dev->aio);
     if (val < 0)
         return UPM_ERROR_OPERATION_FAILED;
 
     *value = (float)val;
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_mq2*)dev)->aio)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->aio)) - 1;
 
     /* Apply raw scale */
-    *value = counts * ((upm_mq2*)dev)->m_count_scale;
+    *value = counts * dev->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_mq2*)dev)->m_count_offset *((upm_mq2*)dev)->m_count_scale;
+    *value += dev->m_count_offset * dev->m_count_scale;
 
     return UPM_SUCCESS;
 }
+
+upm_result_t mq2_set_offset(const mq2_context dev, float offset)
+{
+    dev->m_count_offset = offset;
+    return UPM_SUCCESS;
+}
+
+upm_result_t mq2_set_scale(const mq2_context dev, float scale)
+{
+    dev->m_count_scale = scale;
+    return UPM_SUCCESS;
+}
+
