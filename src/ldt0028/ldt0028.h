@@ -32,7 +32,8 @@
 
 #include <mraa/aio.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "upm_fti.h"
 
 typedef struct _upm_ldt0028* upm_ldt0028;
 

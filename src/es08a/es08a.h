@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/pwm.h"
 
 /**

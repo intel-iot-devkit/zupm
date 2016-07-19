@@ -33,7 +33,8 @@
 
 #include <mraa/aio.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "upm_fti.h"
 
 #define UPM_ROTARY_MAX_ANGLE 300
 

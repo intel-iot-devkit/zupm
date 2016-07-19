@@ -32,7 +32,8 @@
 
 #include <mraa/gpio.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "upm_fti.h"
 
 typedef struct _upm_relay* upm_relay;
 

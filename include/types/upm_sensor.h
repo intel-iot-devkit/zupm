@@ -25,6 +25,7 @@
 #define UPM_SENSOR_H_
 
 #include "upm_types.h"
+#include "upm_fti.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -35,6 +35,7 @@
 #ifndef M24LR64E_M24LR64E_H_
 #define M24LR64E_M24LR64E_H_
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/i2c.h"
 
 #define UPM_M24LR64E_I2C_BUS 0

@@ -33,6 +33,7 @@
 #include <unistd.h>
 
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/pwm.h"
 //#include "mraa/pwm.h"
 //#include "types/upm_sensor.h"

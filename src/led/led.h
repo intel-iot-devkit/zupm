@@ -27,7 +27,9 @@
 #ifndef LED_LED_H_
 #define LED_LED_H_
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/gpio.h"
+
 /**
  * @type led
  * @con gpio

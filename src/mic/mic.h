@@ -28,10 +28,11 @@
 #define MIC_H_
 
 #pragma once
-#include<stdlib.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "upm_fti.h"
 
 typedef struct _upm_mic* upm_mic;
 

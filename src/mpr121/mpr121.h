@@ -26,6 +26,7 @@
 #ifndef MPR121_MPR121_H_
 #define MPR121_MPR121_H_
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/i2c.h"
 
 #define MPR121_I2C_BUS     0
