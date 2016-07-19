@@ -32,6 +32,7 @@
 #include <string.h>
 
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/aio.h"
 #include "mraa/gpio.h"
 

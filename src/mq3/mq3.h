@@ -25,6 +25,7 @@
 #pragma once
 
 #include "upm.h"
+#include "upm_fti.h"
 #include "types/upm_sensor.h"
 
 #ifdef __cplusplus

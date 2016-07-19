@@ -31,6 +31,7 @@
 #define TSL2561_TSL2561_H_
 #include <stdarg.h>
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/i2c.h"
 
 #define TSL2561_Address          (0x29)  //Device address

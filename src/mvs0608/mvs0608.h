@@ -25,6 +25,7 @@
 #ifndef MVS0608_MVS0608_H_
 #define MVS0608_MVS0608_H_
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/gpio.h"
 /**
  * @brief MVS0608 - Grove Collision Sensor library

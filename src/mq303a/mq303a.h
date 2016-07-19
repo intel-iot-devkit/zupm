@@ -25,6 +25,7 @@
 #ifndef MQ303A_MQ303A_H_
 #define MQ303A_MQ303A_H_
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/aio.h"
 /**
  * @brief MQ303A Alcohol Sensor library

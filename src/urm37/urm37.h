@@ -31,6 +31,7 @@
 
 #pragma once
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/aio.h"
 #include "mraa/uart.h"
 

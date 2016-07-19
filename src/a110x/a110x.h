@@ -25,6 +25,7 @@
 #ifndef A110X_A110X_H_
 #define A110X_A110X_H_
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/gpio.h"
 /**
  * @brief A110X Hall Effect library

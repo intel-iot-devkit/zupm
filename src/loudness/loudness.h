@@ -27,6 +27,7 @@
 #define LOUDNESS_LOUDNESS_H_
 
 #include "upm.h"
+#include "upm_fti.h"
 #include "mraa/aio.h"
 /**
  * Opaque pointer to the sensor structure
