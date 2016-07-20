@@ -42,6 +42,154 @@ struct _upm_urm37v4 {
     int                 degrees;
 };
 
+//// Demo resource example start
+
+// This (UPM_RESOURCE_SPECIFICATION_T) would be declared in an
+// appropriate FTI-specific header in
+// include/types/upm_fti_resource.h or some such
+
+typedef struct {
+  upm_protocol_t type;
+  int id; // id number (position in resource array starting at 0)
+  bool enabled; // is this resource enabled?
+
+  // here we create a union of structs for each type
+  union {
+    // aio
+    struct {
+      int pin;
+      float aref; // ?
+    } analog;
+
+    // gpio
+    struct {
+      int pin;
+    } gpio;
+
+    // i2c
+    struct {
+      int bus;
+      uint8_t address;
+      int speed; // ?
+    } i2c;
+
+    // spi
+    struct {
+      int bus;
+      int cs;
+      int speed; // ?
+    } spi;
+
+    // uart
+    struct {
+      int bus;
+      int baud;
+    } uart;
+
+    // pwm
+    struct {
+      int pin;
+      // duty-cycle and period?
+    } pwm;
+
+    // ... add others as needed ...
+  } resource;
+} UPM_RESOURCE_SPECIFICATION_T;
+
+// now, initialize them in your .c FTI impl file
+
+// This one initializes 4 resources - an analog pin for data, two
+// gpios for trigger and reset, and a uart for uart mode.  By default
+// the analog and 2 gpio's are enabled (analog mode), and uart is
+// disabled.
+
+#define URM37_MAX_RESOURCES 4
+static UPM_RESOURCE_SPECIFICATION_T resources[URM37_MAX_RESOURCES] = 
+  {
+    {
+      // data read in analog mode
+      .type = UPM_ANALOG,
+      .id = 0,
+      .enabled = true,
+      
+      .resource =
+      {
+        .analog = {
+          .pin = 1,
+          .aref = 5.0,
+        },
+      },
+    },
+
+    {
+      // reset pin
+      .type = UPM_GPIO,
+      .id = 1,
+      .enabled = true,
+
+      .resource =
+      {
+        .gpio = {
+          .pin = 2,
+        },
+      },
+    },
+
+    {
+      // trigger pin
+      .type = UPM_GPIO,
+      .id = 2,
+      .enabled = true,
+
+      .resource =
+      {
+        .gpio = {
+          .pin = 3,
+        },
+      },
+    },
+
+    {
+      // UART spec, for UART operation
+      .type = UPM_UART,
+      .id = 3,
+      .enabled = false, // disabled by default - analog access is used
+
+      .resource =
+      {
+        .uart = {
+          .bus = 0,
+          .baud = 9600,
+        },
+      },
+    },
+  };
+
+
+// For convenience/readability, the developer of the driver could
+// define some macros to reference/index them via id/array position in
+// the code itself:
+
+#define URM37_ANALOG_IN 0
+#define URM37_RESET     1
+#define URM37_TRIGGER   2
+#define URM37_UART      3
+
+// And init the pin with something like (analog pin):
+//
+// mraa_aio_init(resources[URM37_ANALOG_IN].resource.analog.pin);
+//
+// Might be a lot of typing, but you get the idea.
+
+// FTI users could perhaps access individual
+// UPM_RESOURCE_SPECIFICATION_T's via a config specific GFT or
+// upmctl() calls for getting and setting.  Developer would need to
+// make sure that type and id can never be changed by a caller.
+
+
+//// Demo resource example end
+
+
 static const upm_sensor_ft ft =
 {
     .upm_sensor_init_name = &upm_urm37_init_name,
