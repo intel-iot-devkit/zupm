@@ -81,7 +81,7 @@
  * An example using UART mode
  * @snippet urm37-uart.cxx Interesting
  */
-typedef struct _upm_urm37v4* upm_urm37;;
+typedef struct _upm_urm37v4* upm_urm37;
 
 const void* upm_urm37_get_ft(upm_sensor_t sensor_type);
 
@@ -97,7 +97,8 @@ void* upm_urm37_init_name();
  * @param uart Default UART to use (0 or 1).
  * @param mode analog/uart mode
  */
-void* upm_urm37_init(uint8_t a_pin, uint8_t reset_pin, uint8_t trigger_pin, float a_ref, uint8_t uart, upm_protocol_t mode);
+void* upm_urm37_init(uint8_t a_pin, uint8_t reset_pin, uint8_t trigger_pin,
+                     float a_ref, uint8_t uart, upm_protocol_t mode);
 
 /**
  * URM37 sensor close function
