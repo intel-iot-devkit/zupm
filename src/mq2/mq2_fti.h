@@ -24,35 +24,42 @@
 
 #pragma once
 
-#include "upm.h"
+#include "mq2.h"
+
+#include "upm_fti.h"
+#include "types/upm_sensor.h"
+#include "types/upm_raw.h"
+
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// opaque context forward declaration
-typedef struct _mq2_context *mq2_context;
+/**
+ * Get the generic function table for this sensor
+ * @return generic function table struct
+ */
+const void* upm_mq2_get_ft(upm_sensor_t sensor_type);
 
 /**
  * Initialize analog sensor
- * @param pin Analog pin
- * @return sensor context
+ * @param protocol protocol initliazation string
+ * @param params sensor parameter string
+ * @return sensor context as void pointer
  */
-mq2_context mq2_init(int16_t pin);
+void* upm_mq2_init_str(const char* protocol, const char* params);
 
 /**
  * Analog sensor destructor
- * @param sensor context pointer
+ * @param sensor context pointer deallocate memory
  */
-void mq2_close(mq2_context dev);
+void upm_mq2_close(void* dev);
 
 /**
- * Read value from sensor
- * @param dev sensor context pointer
- * @param *value counts value from sensor
- * @return Function result code
+ * Get descriptor for this sensor
+ * @return Sensor descriptor struct
  */
-upm_result_t mq2_get_value(const mq2_context dev, float *value);
+const upm_sensor_descriptor_t upm_mq2_get_descriptor();
 
 /**
  * Set sensor offset.  This offset is applied to the return value:
@@ -61,7 +68,7 @@ upm_result_t mq2_get_value(const mq2_context dev, float *value);
  * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t mq2_set_offset(const mq2_context dev, float offset);
+upm_result_t upm_mq2_set_offset(const void* dev, float offset);
 
 /**
  * Set sensor scale.  This scale is applied to the return value:
@@ -70,8 +77,15 @@ upm_result_t mq2_set_offset(const mq2_context dev, float offset);
  * @param scale count scale value used
  * @return Function result code
  */
-upm_result_t mq2_set_scale(const mq2_context dev, float scale);
+upm_result_t upm_mq2_set_scale(const void* dev, float scale);
 
+/**
+ * Read value from sensor
+ * @param dev sensor context pointer
+ * @param *value counts value from sensor
+ * @return Function result code
+ */
+upm_result_t upm_mq2_get_value(const void* dev, float *value);
 
 #ifdef __cplusplus
 }
