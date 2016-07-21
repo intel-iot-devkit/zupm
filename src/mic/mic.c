@@ -34,9 +34,9 @@ struct _upm_mic{
 const char upm_mic_name[] = "Microphone";
 const char upm_mic_description[] = "Analog Microphone";
 const upm_protocol_t upm_mic_protocol[] = {UPM_ANALOG};
-const upm_protocol_t upm_mic_category[] = {UPM_AUDIO};
+const upm_sensor_t upm_mic_category[] = {UPM_AUDIO};
 
-const upm_sensor_descriptor_t upm_mic_get_descriptor(void* dev) {
+const upm_sensor_descriptor_t upm_mic_get_descriptor() {
     upm_sensor_descriptor_t usd;
     usd.name = upm_mic_name;
     usd.description = upm_mic_description;
@@ -47,39 +47,24 @@ const upm_sensor_descriptor_t upm_mic_get_descriptor(void* dev) {
     return usd;
 }
 
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_mic_init_name,
+    .upm_sensor_close = &upm_mic_close,
+    .upm_sensor_get_descriptor = &upm_mic_get_descriptor
+};
 
-upm_get_ft upm_assign_ft(){
-    return upm_mic_get_ft;
-}
-#endif
+static const upm_audio_ft aft =
+{
+    .upm_audio_get_value = &upm_mic_get_value
+};
 
-void* upm_mic_get_ft(upm_sensor_t sensor_type) {
-
+const void* upm_mic_get_ft(upm_sensor_t sensor_type) {
     if(sensor_type == UPM_SENSOR) {
-        upm_sensor_ft *ft = malloc(sizeof(upm_sensor_ft));
-        if(ft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-
-        //ft->upm_sensor_init_name = upm_mic_init_name;
-        ft->upm_sensor_close = upm_mic_close;
-        ft->upm_sensor_read = upm_mic_read;
-        ft->upm_sensor_write = upm_mic_write;
-        return ft;
+        return &ft;
     }
-
     if(sensor_type == UPM_AUDIO) {
-        struct _upm_audio_ft *sft = malloc(sizeof(*sft));
-        if(sft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-
-        sft->upm_audio_get_value = upm_mic_get_value;
-        return sft;
+        return &aft;
     }
     return NULL;
 }
@@ -101,7 +86,9 @@ void* upm_mic_init(int pin)
     return dev;
 }
 
-//void* upm_mic_init_name(char* protocol, char* params);
+void* upm_mic_init_name(){
+    return NULL;
+}
 
 void upm_mic_close(void* dev)
 {
@@ -110,25 +97,11 @@ void upm_mic_close(void* dev)
     free(dev);
 }
 
-/* gives the raw value */
-upm_result_t upm_mic_read(void* dev, void *val, int len)
-{
-    upm_mic device = (upm_mic) dev;
-
-    *(float*)val = mraa_aio_read(device->aio);
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mic_write(void* dev, void *value, int len)
-{
-    return  UPM_ERROR_NOT_SUPPORTED;
-}
-
 upm_result_t upm_mic_get_value(void* dev, float *micval, upm_audio_u unit)
 {
     upm_mic device = (upm_mic) dev;
-    upm_mic_read(device, micval, 0);
+    *micval =  mraa_aio_read(device->aio);
+    //upm_mic_read(device, micval, 0);
 
     //convert readings to decibels
     if(unit == DECIBELS) {

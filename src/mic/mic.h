@@ -33,22 +33,19 @@
 
 #include "upm.h"
 #include "upm_fti.h"
+#include "mraa/aio.h"
 
 typedef struct _upm_mic* upm_mic;
 
-upm_sensor_descriptor_t upm_mic_get_descriptor(void* dev);
+const upm_sensor_descriptor_t upm_mic_get_descriptor();
 
-void* upm_mic_get_ft(upm_sensor_t sensot_type);
+const void* upm_mic_get_ft(upm_sensor_t sensot_type);
 
 void* upm_mic_init(int pin);
 
-void* upm_mic_init_name(char* protocol, char* params);
+void* upm_mic_init_name();
 
 void upm_mic_close(void* dev);
-
-upm_result_t upm_mic_read(void* dev, void* value, int len);
-
-upm_result_t upm_mic_write(void* dev, void* value, int len);
 
 upm_result_t upm_mic_get_value(void* dev, float* micval, upm_audio_u unit);
 

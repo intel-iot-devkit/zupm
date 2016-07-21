@@ -1,0 +1,5 @@
+set (libname "mic")
+set (libdescription "UPM Mic Sensor Module: mic")
+set (module_src mic.c)
+set (module_h mic.h)
+upm_module_init()
