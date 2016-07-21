@@ -1,0 +1,5 @@
+set (libname "temperature")
+set (libdescription "UPM Temperature Sensor Module: temperature")
+set (module_src Temperature.c)
+set (module_h Temperature.h)
+upm_module_init()

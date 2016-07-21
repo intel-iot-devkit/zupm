@@ -27,7 +27,7 @@
 #include<stdio.h>
 #include <stdlib.h>
 
-#include "temperature.h"
+#include "Temperature.h"
 #include "upm_sensor.h"
 #include "upm.h"
 
@@ -39,9 +39,9 @@ struct _upm_temperature{
 const char upm_temperature_name[] = "Grove Temperature";
 const char upm_temperature_description[] = "Analog Grove Temperature Sensor";
 const upm_protocol_t upm_temperature_protocol[] = {UPM_ANALOG};
-const upm_protocol_t upm_temperature_category[] = {UPM_TEMPERATURE};
+const upm_sensor_t upm_temperature_category[] = {UPM_TEMPERATURE};
 
-const upm_sensor_descriptor_t upm_temperature_get_descriptor(void* dev) {
+const upm_sensor_descriptor_t upm_temperature_get_descriptor() {
     upm_sensor_descriptor_t usd;
     usd.name = upm_temperature_name;
     usd.description = upm_temperature_description;
@@ -52,38 +52,31 @@ const upm_sensor_descriptor_t upm_temperature_get_descriptor(void* dev) {
     return usd;
 }
 
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_temperature_init_name,
+    .upm_sensor_close = &upm_temperature_close,
+    .upm_sensor_get_descriptor = &upm_temperature_get_descriptor
+};
 
-upm_get_ft upm_assign_ft(){
-    return upm_temperature_get_ft;
-}
-#endif
+static const upm_temperature_ft tft =
+{
+    .upm_temperature_get_value = &upm_temperature_get_value_temperature
+};
 
-void* upm_temperature_get_ft(upm_sensor_t sensor_type) {
-
+const void* upm_temperature_get_ft(upm_sensor_t sensor_type) {
     if(sensor_type == UPM_SENSOR) {
-        upm_sensor_ft *ft = malloc(sizeof(*ft));
-        //ft->upm_sensor_init_name = upm_temperature_init_name;
-        ft->upm_sensor_close = upm_temperature_close;
-        ft->upm_sensor_read = upm_temperature_read;
-        ft->upm_sensor_write = upm_temperature_write;
-        return ft;
+        return &ft;
     }
-
     if(sensor_type == UPM_TEMPERATURE) {
-        struct _upm_temperature_ft *tft = malloc(sizeof(*tft));
-        if(tft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-        tft->upm_temperature_get_value = upm_temperature_get_value_temperature;
-        return tft;
+        return &tft;
     }
     return NULL;
 }
 
-//void* upm_temperature_init_name(...);
+void* upm_temperature_init_name(){
+    return NULL;
+}
 
 void* upm_temperature_init(int pin)
 {
@@ -110,28 +103,14 @@ void upm_temperature_close(void* dev)
     free(dev);
 }
 
-upm_result_t upm_temperature_read (void* dev, void* value, int len)
-{
-    upm_temperature device = (upm_temperature) dev;
-
-    *(float*)value = mraa_aio_read(device->aio);
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_temperature_write(void* dev, void* value, int len)
-{
-    return  UPM_ERROR_NOT_SUPPORTED;
-}
-
 upm_result_t upm_temperature_get_value_temperature (void* dev, float* tempval, upm_temperature_u unit)
 {
     upm_temperature device = (upm_temperature) dev;
 
     float val = 0.0;
     float res = 0.0;
-
-    upm_temperature_read(device, &val, 0);
+    val = mraa_aio_read(device->aio);
+    //upm_temperature_read(device, &val, 0);
 
     //resistance = res
     res = (device->m_aRes - val) * 10000.0f/val;

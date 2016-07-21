@@ -30,19 +30,21 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "../upm.h"
+#include "upm.h"
+#include "upm_fti.h"
+#include "mraa/aio.h"
 
 typedef struct _upm_temperature* upm_temperature;
 
+const upm_sensor_descriptor_t upm_temperature_get_descriptor();
+
+const void* upm_temperature_get_ft(upm_sensor_t sensor_type);
+
 void* upm_temperature_init(int pin);
 
-void* upm_temperature_init_name(char* protocol, char* params);
+void* upm_temperature_init_name();
 
 void upm_temperature_close(void* dev);
-
-upm_result_t upm_temperature_read(void* dev, void *value, int len);
-
-upm_result_t upm_temperature_write(void* dev, void *value, int len);
 
 upm_result_t upm_temperature_get_value_temperature(void* dev, float* tempval, upm_temperature_u unit);
 
