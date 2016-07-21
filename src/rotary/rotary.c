@@ -38,9 +38,9 @@ struct _upm_rotary{
 const char upm_rotary_name[] = "Grove Rotary";
 const char upm_rotary_description[] = "Analog Grove Rotary Sensor";
 const upm_protocol_t upm_rotary_protocol[] = {UPM_ANALOG};
-const upm_protocol_t upm_rotary_category[] = {UPM_VOLTAGE, UPM_ANGLE};
+const upm_sensor_t upm_rotary_category[] = {UPM_VOLTAGE, UPM_ANGLE};
 
-const upm_sensor_descriptor_t upm_rotary_get_descriptor(void* dev) {
+const upm_sensor_descriptor_t upm_rotary_get_descriptor() {
     upm_sensor_descriptor_t usd;
     usd.name = upm_rotary_name;
     usd.description = upm_rotary_description;
@@ -51,48 +51,39 @@ const upm_sensor_descriptor_t upm_rotary_get_descriptor(void* dev) {
     return usd;
 }
 
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_rotary_init_name,
+    .upm_sensor_close = &upm_rotary_close,
+    .upm_sensor_get_descriptor = &upm_rotary_get_descriptor
+};
 
-upm_get_ft upm_assign_ft(){
-    return upm_rotary_get_ft;
-}
-#endif
+static const upm_voltage_ft vft =
+{
+    .upm_voltage_get_value = &upm_rotary_get_value_voltage
+};
 
-void* upm_rotary_get_ft(upm_sensor_t sensor_type) {
+static const upm_angle_ft aft =
+{
+    .upm_angle_get_value = &upm_rotary_get_value_angle
+};
 
+const void* upm_rotary_get_ft(upm_sensor_t sensor_type) {
     if(sensor_type == UPM_SENSOR) {
-        upm_sensor_ft *ft = malloc(sizeof(*ft));
-        //ft->upm_sensor_init_name = upm_rotary_init_name;
-        ft->upm_sensor_close = upm_rotary_close;
-        ft->upm_sensor_read = upm_rotary_read;
-        ft->upm_sensor_write = upm_rotary_write;
-        return ft;
+        return &ft;
     }
-
     if(sensor_type == UPM_VOLTAGE) {
-        struct _upm_voltage_ft *vft = malloc(sizeof(*vft));
-        if(vft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-        vft->upm_voltage_get_value = upm_rotary_get_value_voltage;
-        return vft;
+        return &vft;
     }
-
     if(sensor_type == UPM_ANGLE) {
-        struct _upm_angle_ft *aft = malloc(sizeof(*aft));
-        if(aft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-        aft->upm_angle_get_value = upm_rotary_get_value_angle;
-        return aft;
+        return &aft;
     }
     return NULL;
 }
 
-//void* upm_rotary_init_name(...);
+void* upm_rotary_init_name(){
+    return NULL;
+}
 
 void* upm_rotary_init(int pin, float aRef)
 {
@@ -121,30 +112,17 @@ void upm_rotary_close(void* dev)
     free(dev);
 }
 
-upm_result_t upm_rotary_read (void* dev, void* value, int len)
-{
-    upm_rotary device = (upm_rotary) dev;
-
-    *(float*)value = mraa_aio_read(device->aio);
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_rotary_write(void* dev, void* value, int len)
-{
-    return  UPM_ERROR_NOT_SUPPORTED;
-}
-
-upm_result_t upm_rotary_get_value_voltage (void* dev, float* rotval, upm_voltage_u unit)
+upm_result_t upm_rotary_get_value_voltage (const void* dev, float* rotval)
 {
     upm_rotary device = (upm_rotary) dev;
 
     float val = 0.0;
-    upm_rotary_read(device, &val, 0);
+    val = mraa_aio_read(device->aio);
+    //upm_rotary_read(device, &val, 0);
 
-    if(unit == VOLTS) {
+    //if(unit == VOLTS) {
         *rotval = (val/device->m_aRes) * device->m_aRef;
-    }
+    //}
     return UPM_SUCCESS;
 }
 
@@ -153,7 +131,8 @@ upm_result_t upm_rotary_get_value_angle (void* dev, float* rotval, upm_angle_u u
     upm_rotary device = (upm_rotary) dev;
 
     float val = 0.0;
-    upm_rotary_read(device, &val, 0);
+    val = mraa_aio_read(device->aio);
+    //upm_rotary_read(device, &val, 0);
 
     if(unit == DEGREES) {
         *rotval = UPM_ROTARY_MAX_ANGLE * (val/device->m_aRes);

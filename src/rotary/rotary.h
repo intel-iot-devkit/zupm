@@ -40,17 +40,17 @@
 
 typedef struct _upm_rotary* upm_rotary;
 
+const upm_sensor_descriptor_t upm_rotary_get_descriptor();
+
+const void* upm_rotary_get_ft(upm_sensor_t sensor_type);
+
 void* upm_rotary_init(int pin, float aRef);
 
-void* upm_rotary_init_name(char* protocol, char* params);
+void* upm_rotary_init_name();
 
 void upm_rotary_close(void* dev);
 
-upm_result_t upm_rotary_read(void* dev, void *value, int len);
-
-upm_result_t upm_rotary_write(void* dev, void *value, int len);
-
-upm_result_t upm_rotary_get_value_voltage(void* dev, float* rotval, upm_voltage_u unit);
+upm_result_t upm_rotary_get_value_voltage(const void* dev, float* rotval);
 
 upm_result_t upm_rotary_get_value_angle(void* dev, float* rotval, upm_angle_u unit);
 
