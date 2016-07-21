@@ -32,9 +32,9 @@ struct _upm_ldt0028{
 const char upm_ldt0028_name[] = "LDT0028";
 const char upm_ldt0028_description[] = "Grove Piezo Vibration Sensor";
 const upm_protocol_t upm_ldt0028_protocol[] = {UPM_ANALOG};
-const upm_protocol_t upm_ldt0028_category[] = {UPM_VIBRATION};
+const upm_sensor_t upm_ldt0028_category[] = {UPM_VIBRATION};
 
-const upm_sensor_descriptor_t upm_ldt0028_get_descriptor(void* dev) {
+const upm_sensor_descriptor_t upm_ldt0028_get_descriptor() {
     upm_sensor_descriptor_t usd;
     usd.name = upm_ldt0028_name;
     usd.description = upm_ldt0028_description;
@@ -45,38 +45,32 @@ const upm_sensor_descriptor_t upm_ldt0028_get_descriptor(void* dev) {
     return usd;
 }
 
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_ldt0028_init_name,
+    .upm_sensor_close = &upm_ldt0028_close,
+    .upm_sensor_get_descriptor = &upm_ldt0028_get_descriptor
+};
 
-upm_get_ft upm_assign_ft(){
-    return upm_ldt0028_get_ft;
-}
-#endif
+static const upm_vibration_ft vft =
+{
+    .upm_vibration_get_value = upm_ldt0028_get_value
+};
 
-void* upm_ldt0028_get_ft(upm_sensor_t sensor_type) {
-
+const void* upm_ldt0028_get_ft(upm_sensor_t sensor_type) {
     if(sensor_type == UPM_SENSOR) {
-        upm_sensor_ft *ft = malloc(sizeof(*ft));
-        //ft->upm_sensor_init_name = upm_ldt0028_init_name;
-        ft->upm_sensor_close = upm_ldt0028_close;
-        ft->upm_sensor_read = upm_ldt0028_read;
-        ft->upm_sensor_write = upm_ldt0028_write;
-        return ft;
+        return &ft;
     }
 
     if(sensor_type == UPM_VIBRATION) {
-        struct _upm_vibration_ft *vft = malloc(sizeof(*vft));
-        if(vft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-        vft->upm_vibration_get_value = upm_ldt0028_get_value;
-        return vft;
+        return &vft;
     }
     return NULL;
 }
 
-//void* upm_ldt0028_init_name(...);
+void* upm_ldt0028_init_name(){
+    return NULL;
+}
 
 void* upm_ldt0028_init(int pin)
 {
@@ -102,26 +96,10 @@ void upm_ldt0028_close(void* dev)
     free(dev);
 }
 
-upm_result_t upm_ldt0028_read (void* dev, void* value, int len)
-{
-    upm_ldt0028 device = (upm_ldt0028) dev;
-
-    *(int*)value = mraa_aio_read(device->aio);
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_ldt0028_write(void* dev, void* value, int len)
-{
-    return  UPM_ERROR_NOT_SUPPORTED;
-}
-
 upm_result_t upm_ldt0028_get_value(void* dev, float* vibval)
 {
-    float val;
-
     upm_ldt0028 device = (upm_ldt0028) dev;
-    upm_ldt0028_read(device, &val, 0);
+    *vibval = mraa_aio_read(device->aio);
 
     return UPM_SUCCESS;
 }

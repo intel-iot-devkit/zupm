@@ -1,0 +1,5 @@
+set (libname "ldt0028")
+set (libdescription "UPM Piezo Vibration Sensor Module: ldt0028")
+set (module_src ldt0028.c)
+set (module_h ldt0028.h)
+upm_module_init()
