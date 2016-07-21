@@ -32,9 +32,9 @@ struct _upm_relay{
 const char upm_relay_name[] = "Grove Relay";
 const char upm_relay_description[] = "Grove relay Sensor";
 const upm_protocol_t upm_relay_protocol[] = {UPM_GPIO};
-const upm_protocol_t upm_relay_category[] = {UPM_SWITCH};
+const upm_sensor_t upm_relay_category[] = {UPM_SWITCH};
 
-const upm_sensor_descriptor_t upm_relay_get_descriptor(void* dev) {
+const upm_sensor_descriptor_t upm_relay_get_descriptor() {
     upm_sensor_descriptor_t usd;
     usd.name = upm_relay_name;
     usd.description = upm_relay_description;
@@ -45,38 +45,31 @@ const upm_sensor_descriptor_t upm_relay_get_descriptor(void* dev) {
     return usd;
 }
 
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_relay_init_name,
+    .upm_sensor_close = &upm_relay_close,
+    .upm_sensor_get_descriptor = &upm_relay_get_descriptor
+};
 
-upm_get_ft upm_assign_ft(){
-    return upm_relay_get_ft;
-}
-#endif
+static const upm_switch_ft sft =
+{
+    .upm_switch_get_value = &upm_relay_get_value
+};
 
-void* upm_relay_get_ft(upm_sensor_t sensor_type) {
-
+const void* upm_relay_get_ft(upm_sensor_t sensor_type) {
     if(sensor_type == UPM_SENSOR) {
-        upm_sensor_ft *ft = malloc(sizeof(*ft));
-        //ft->upm_sensor_init_name = upm_relay_init_name;
-        ft->upm_sensor_close = upm_relay_close;
-        ft->upm_sensor_read = upm_relay_read;
-        ft->upm_sensor_write = upm_relay_write;
-        return ft;
+        return &ft;
     }
-
     if(sensor_type == UPM_SWITCH) {
-        struct _upm_switch_ft *sft = malloc(sizeof(*sft));
-        if(sft == NULL){
-            printf("Unable to assign memory");
-            return NULL;
-        }
-        sft->upm_switch_get_value = upm_relay_get_value;
-        return sft;
+        return &sft;
     }
     return NULL;
 }
 
-//void* upm_relay_init_name(...);
+void* upm_relay_init_name(){
+    return NULL;
+}
 
 void* upm_relay_init(int pin)
 {
@@ -102,32 +95,19 @@ void upm_relay_close(void* dev)
     free(dev);
 }
 
-upm_result_t upm_relay_read (void* dev, void* value, int len)
-{
-    upm_relay device = (upm_relay) dev;
-    *(bool*) value = mraa_gpio_read(device->gpio);
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_relay_write(void* dev, void* value, int len)
-{
-    upm_relay device = (upm_relay) dev;
-    mraa_gpio_write(device->gpio, value);
-    return UPM_SUCCESS;
-}
-
 upm_result_t upm_relay_on(void* dev)
 {
     upm_relay device = (upm_relay) dev;
-    upm_relay_write(device, 1, 0);
+    //upm_relay_write(device, 1, 0);
+    mraa_gpio_write(device->gpio, 1);
     return UPM_SUCCESS;
 }
 
 upm_result_t upm_relay_off(void* dev)
 {
     upm_relay device = (upm_relay) dev;
-    upm_relay_write(device, 0, 0);
+    //upm_relay_write(device, 0, 0);
+    mraa_gpio_write(device->gpio, 0);
     return UPM_SUCCESS;
 }
 
@@ -135,7 +115,8 @@ bool upm_relay_is_on(void* dev)
 {
     int val;
     upm_relay device = (upm_relay) dev;
-    upm_relay_read (device, &val, 0);
+    //upm_relay_read (device, &val, 0);
+    val = mraa_gpio_read(device->gpio);
     return UPM_SUCCESS;
 }
 
@@ -143,13 +124,15 @@ bool upm_relay_is_off(void* dev)
 {
     int val;
     upm_relay device = (upm_relay) dev;
-    upm_relay_read (device, &val, 0);
+    //upm_relay_read (device, &val, 0);
+    val = mraa_gpio_read(device->gpio);
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_relay_get_value(void* dev, float* val)
+upm_result_t upm_relay_get_value(void* dev, bool* value, int num)
 {
     upm_relay device = (upm_relay) dev;
-    upm_relay_read(device,val,0);
+    //upm_relay_read(device,val,0);
+    *value = mraa_gpio_read(device->gpio);
     return UPM_SUCCESS;
 }

@@ -37,15 +37,15 @@
 
 typedef struct _upm_relay* upm_relay;
 
+const upm_sensor_descriptor_t upm_relay_get_descriptor();
+
+const void* upm_relay_get_ft(upm_sensor_t sensor_type);
+
 void* upm_relay_init(int pin);
 
-void* upm_relay_init_name(char* protocol, char* params);
+void* upm_relay_init_name();
 
 void upm_relay_close(void* dev);
-
-upm_result_t upm_relay_read(void* dev, void *value, int len);
-
-upm_result_t upm_relay_write(void* dev, void *value, int len);
 
 upm_result_t upm_relay_on(void* dev);
 
@@ -55,6 +55,6 @@ bool upm_relay_is_on(void* dev);
 
 bool upm_relay_is_off(void* dev);
 
-upm_result_t upm_relay_get_value(void* dev, float* val);
+upm_result_t upm_relay_get_value(void* dev, bool* value, int num);
 
 #endif /* RELAY_H_ */
