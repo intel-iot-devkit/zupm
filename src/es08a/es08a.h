@@ -25,13 +25,12 @@
 
 #ifndef ES08A_H_
 #define ES08A_H_
-#pragma once
 
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/pwm.h"
 
 /**
@@ -57,19 +56,15 @@
  * @snippet es08a.c Interesting
  */
 
-#define UPM_ES08A_MIN_PULSE_WIDTH             600
-#define UPM_ES08A_MAX_PULSE_WIDTH             2200
-#define UPM_ES08A_PERIOD                      20000
-#define UPM_ES08A_MAX_ANGLE                   180.0
-
-#define UPM_ES08A_HIGH                        1
-#define UPM_ES08A_LOW                         0
+#define ES08A_MIN_PULSE_WIDTH             600
+#define ES08A_MAX_PULSE_WIDTH             2200
+#define ES08A_PERIOD                      20000
+#define ES08A_MAX_ANGLE                   180.0
 
 /*
  * Opaque pointer to the servo motor struct
  */
-//struct _upm_es08a;
-typedef struct _upm_es08a* upm_es08a;
+typedef struct _es08a_context *es08a_context;
 
 /**
  * Instantiates a the servo at the given pin
@@ -77,22 +72,19 @@ typedef struct _upm_es08a* upm_es08a;
  * @param pin Servo pin number
  * @param minPulseWidth Minimum pulse width, in microseconds
  * @param maxPulseWidth Maximum pulse width, in microseconds
- * @param waitAndDisablePwm If 1, PWM is enabled only during the setAngle() execution
- * for a period of 1 second, and then turned back off. If 0, PWM remains on afterward.
+ * @param waitAndDisablePwm If 1, PWM is enabled only during the
+ * setAngle() execution for a period of 1 second, and then turned back
+ * off. If 0, PWM remains on afterward.
  */
 
-const upm_sensor_descriptor_t upm_es08a_get_descriptor ();
 
-const void* upm_es08a_get_ft(upm_sensor_t sensor_type);
-void* upm_es08a_init_name();
-
-// the regular init function
-void* upm_es08a_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
+es08a_context es08a_init(int32_t pin, int32_t min_pulse_width,
+                         int32_t max_pulse_width);
 
 /**
  * Halts PWM for this servo and allows it to move freely.
  */
-void upm_es08a_halt(void* dev);
+void es08a_halt(es08a_context dev);
 
 /**
  * Sets the angle of the servo engine.
@@ -100,44 +92,42 @@ void upm_es08a_halt(void* dev);
  * @param angle Number between 0 and 180
  * @return 0 if successful, non-zero otherwise
  */
-upm_result_t upm_es08a_set_angle(void* dev, int32_t angle);
+upm_result_t es08a_set_angle(es08a_context dev, int32_t angle);
 
 /*
  * Calculating relative pulse time to the value.
  * */
-upm_result_t upm_es08a_calc_pulse_travelling(const void* dev,
-                                             int32_t* ret_val,
-                                             int32_t value);
+upm_result_t es08a_calc_pulse_travelling(const es08a_context dev,
+                                         int32_t* ret_val,
+                                         int32_t value);
 
 /**
  * Sets the minimum pulse width
  *
  * @param width Minimum HIGH signal width
  */
-void upm_es08a_set_min_pulse_width (void* dev, int width);
+void es08a_set_min_pulse_width (es08a_context dev, int width);
 
 /**
  * Sets the maximum pulse width
  *
  * @param width Maximum HIGH signal width
  */
-void upm_es08a_set_max_pulse_width (void* dev, int width);
+void es08a_set_max_pulse_width (es08a_context dev, int width);
 
 /**
  * Returns the minimum pulse width
  *
  * @return Minimum pulse width
  */
-int upm_es08a_get_min_pulse_width (void* dev);
+int es08a_get_min_pulse_width (es08a_context dev);
 
 /**
  * Returns the maximum pulse width
  *
  * @return Maximum pulse width
  */
-int upm_es08a_get_max_pulse_width (void* dev);
-
-void upm_es08a_get_sensor_info();
+int es08a_get_max_pulse_width (es08a_context dev);
 
 #endif /* ES08A_H_ */
 
