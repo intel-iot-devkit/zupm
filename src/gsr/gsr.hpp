@@ -138,7 +138,7 @@ namespace upm {
     float counts(unsigned int samples = 15);
 
   private:
-    void* _dev;
+    gsr_context _dev;
   };
 }
 

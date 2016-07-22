@@ -28,21 +28,21 @@
 
 using namespace upm;
 
-GSR::GSR(int pin, float vref) : _dev(upm_gsr_init(pin)) {}
+GSR::GSR(int pin, float vref) : _dev(gsr_init(pin)) {}
 
 GSR::~GSR()
 {
-    upm_gsr_close(_dev);
+    gsr_close(_dev);
 }
 
 void GSR::setOffset(float offset)
 {
-    upm_gsr_set_offset(_dev, offset);
+    gsr_set_offset(_dev, offset);
 }
 
 void GSR::setScale(float scale)
 {
-    upm_gsr_set_scale(_dev, scale);
+    gsr_set_scale(_dev, scale);
 }
 
 float GSR::counts(unsigned int samples)
@@ -55,7 +55,7 @@ float GSR::counts(unsigned int samples)
     float raw = 0.0;
     while (samples-- > 0)
     {
-        upm_gsr_get_value(_dev, &raw);
+        gsr_get_value(_dev, &raw);
         raw_avg += raw;
     }
 
