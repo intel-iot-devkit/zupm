@@ -28,21 +28,21 @@
 
 using namespace upm;
 
-FLEX::FLEX(int pin, float vref) : _dev(upm_flex_init(pin)) {}
+FLEX::FLEX(int pin, float vref) : _dev(flex_init(pin)) {}
 
 FLEX::~FLEX()
 {
-    upm_flex_close(_dev);
+    flex_close(_dev);
 }
 
 void FLEX::setOffset(float offset)
 {
-    upm_flex_set_offset(_dev, offset);
+    flex_set_offset(_dev, offset);
 }
 
 void FLEX::setScale(float scale)
 {
-    upm_flex_set_scale(_dev, scale);
+    flex_set_scale(_dev, scale);
 }
 
 float FLEX::counts(unsigned int samples)
@@ -55,7 +55,7 @@ float FLEX::counts(unsigned int samples)
     float raw = 0.0;
     while (samples-- > 0)
     {
-        upm_flex_get_value(_dev, &raw);
+        flex_get_value(_dev, &raw);
         raw_avg += raw;
     }
 

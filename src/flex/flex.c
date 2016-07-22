@@ -25,20 +25,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mraa/aio.h"
-#include "types/upm_sensor.h"
-#include "types/upm_raw.h"
 #include "flex.h"
-
-const char upm_flex_name[] = "FLEX";
-const char upm_flex_description[] = "Analog flex sensor";
-const upm_protocol_t upm_flex_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_flex_category[] = {UPM_RAW};
+#include "mraa/aio.h"
 
 /**
  * Analog sensor struct
  */
-typedef struct _upm_flex {
+typedef struct _flex_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
     /* Analog voltage reference */
@@ -47,55 +40,11 @@ typedef struct _upm_flex {
     float m_count_offset;
     /* Raw count scale */
     float m_count_scale;
-} upm_flex;
+} *flex_context;
 
-/* This sensor implementes 2 function tables */
-/* 1. Generic base function table */
-static const upm_sensor_ft ft_gen =
+flex_context flex_init(int16_t pin)
 {
-    .upm_sensor_init_name = &upm_flex_init_str,
-    .upm_sensor_close = &upm_flex_close,
-    .upm_sensor_get_descriptor = &upm_flex_get_descriptor
-};
-
-/* 2. RAW function table */
-static const upm_raw_ft ft_raw =
-{
-    .upm_raw_set_offset = &upm_flex_set_offset,
-    .upm_raw_set_scale = &upm_flex_set_scale,
-    .upm_raw_get_value = &upm_flex_get_value
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_flex_get_ft;
-}
-#endif
-
-const void* upm_flex_get_ft(upm_sensor_t sensor_type)
-{
-    switch(sensor_type)
-    {
-        case UPM_SENSOR:
-            return &ft_gen;
-        case UPM_RAW:
-            return &ft_raw;
-        default:
-            return NULL;
-    }
-}
-
-void* upm_flex_init_str(const char* protocol, const char* params)
-{
-    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return upm_flex_init(0);
-}
-
-void* upm_flex_init(int16_t pin)
-{
-    upm_flex* dev = (upm_flex*) malloc(sizeof(upm_flex));
+    flex_context dev = (flex_context) malloc(sizeof(struct _flex_context));
 
     if(dev == NULL) return NULL;
 
@@ -114,53 +63,36 @@ void* upm_flex_init(int16_t pin)
     return dev;
 }
 
-void upm_flex_close(void* dev)
+void flex_close(flex_context dev)
 {
-    mraa_aio_close(((upm_flex*)dev)->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-const upm_sensor_descriptor_t upm_flex_get_descriptor()
+upm_result_t flex_set_offset(const flex_context dev, float offset)
 {
-    /* Fill in the descriptor */
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_flex_name;
-    usd.description = upm_flex_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_flex_protocol;
-    usd.category_size = 1;
-    usd.category = upm_flex_category;
-
-    return usd;
-}
-
-upm_result_t upm_flex_set_offset(const void* dev, float offset)
-{
-    ((upm_flex*)dev)->m_count_offset = offset;
+    dev->m_count_offset = offset;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_flex_set_scale(const void* dev, float scale)
+upm_result_t flex_set_scale(const flex_context dev, float scale)
 {
-    ((upm_flex*)dev)->m_count_scale = scale;
+    dev->m_count_scale = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_flex_get_value(const void* dev, float *value)
+upm_result_t flex_get_value(const flex_context dev, float *value)
 {
-    int counts = mraa_aio_read(((upm_flex*)dev)->aio);
+    int counts = mraa_aio_read(dev->aio);
 
     if (counts < 0)
         return UPM_ERROR_OPERATION_FAILED;
 
-    /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_flex*)dev)->aio)) - 1;
-
     /* Apply raw scale */
-    *value = counts * ((upm_flex*)dev)->m_count_scale;
+    *value = counts * dev->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_flex*)dev)->m_count_offset *((upm_flex*)dev)->m_count_scale;
+    *value += dev->m_count_offset * dev->m_count_scale;
 
     return UPM_SUCCESS;
 }

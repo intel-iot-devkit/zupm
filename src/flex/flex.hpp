@@ -26,7 +26,6 @@
 #include <iostream>
 #include <string>
 
-#include "mraa/aio.hpp"
 #include "flex.h"
 
 namespace upm {
@@ -138,7 +137,7 @@ namespace upm {
     float counts(unsigned int samples = 15);
 
   private:
-    void* _dev;
+    flex_context _dev;
   };
 }
 

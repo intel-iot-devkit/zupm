@@ -1,6 +1,6 @@
 set (libname "flex")
 set (libdescription "upm counts sensor")
-set (module_src ${libname}.cxx flex.c)
+set (module_src ${libname}.cxx flex.c flex_fti.c)
 set (module_hpp ${libname}.hpp)
 set (module_h ${libname}.hpp flex.h)
 upm_module_init()
