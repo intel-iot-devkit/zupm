@@ -26,7 +26,6 @@
 #include <iostream>
 #include <string>
 
-#include "mraa/aio.hpp"
 #include "dfrph.h"
 
 namespace upm {
@@ -138,7 +137,7 @@ namespace upm {
     float pH(unsigned int samples = 15);
 
   private:
-    void* _dev;
+    dfrph_context _dev;
   };
 }
 

@@ -28,21 +28,21 @@
 
 using namespace upm;
 
-DFRPH::DFRPH(int pin, float vref) : _dev(upm_dfrph_init(pin)) {}
+DFRPH::DFRPH(int pin, float vref) : _dev(dfrph_init(pin)) {}
 
 DFRPH::~DFRPH()
 {
-    upm_dfrph_close(_dev);
+    dfrph_close(_dev);
 }
 
 void DFRPH::setOffset(float offset)
 {
-    upm_dfrph_set_offset(_dev, offset);
+    dfrph_set_offset(_dev, offset);
 }
 
 void DFRPH::setScale(float scale)
 {
-    upm_dfrph_set_scale(_dev, scale);
+    dfrph_set_scale(_dev, scale);
 }
 
 float DFRPH::pH(unsigned int samples)
@@ -55,7 +55,7 @@ float DFRPH::pH(unsigned int samples)
     float ph = 0.0;
     while (samples-- > 0)
     {
-        upm_dfrph_get_value(_dev, &ph);
+        dfrph_get_ph(_dev, &ph);
         ph_avg += ph;
     }
 
