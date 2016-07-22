@@ -24,11 +24,11 @@
  */
 #include "a110x.h"
 
-struct _upm_a110x {
+typedef struct _a110x_context {
     mraa_gpio_context      gpio;
     uint8_t                gpio_pin;
     bool                   isr_installed;
-};
+} *a110x_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_A110X_MEM_MAP, 1, sizeof(struct _upm_a110x));
@@ -37,88 +37,51 @@ const kmemory_map_t UPM_A110X_MEM_MAP;
 #define UPM_A110X_MEM_MAP 0
 #endif
 
-const char upm_a110x_name[] = "A110X";
-const char upm_a110x_description[] = "A110X Hall Effect Sensor";
-const upm_protocol_t upm_a110x_protocol[] = {UPM_GPIO};
-const upm_sensor_t upm_a110x_category[] = {UPM_ELECTRICITY};
+a110x_context a110x_init(uint8_t pin){
+    a110x_context dev = 
+      (a110x_context) upm_malloc(UPM_A110X_MEM_MAP,
+                                 sizeof(struct _a110x_context));
 
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_a110x_init_name,
-    .upm_sensor_close = &upm_a110x_close,
-    .upm_sensor_get_descriptor = &upm_a110x_get_descriptor
-};
+    if (!dev)
+      {
+        return NULL;
+      }
 
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_a110x_get_ft;
-}
-#endif
-
-const void* upm_a110x_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-    return NULL;
-}
-
-const upm_sensor_descriptor_t upm_a110x_get_descriptor(){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_a110x_name;
-    usd.description = upm_a110x_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_a110x_protocol;
-    usd.category_size = 1;
-    usd.category = upm_a110x_category;
-    return usd;
-}
-
-void* upm_a110x_init_name(){
-    return NULL;
-}
-
-void* upm_a110x_init(uint8_t pin){
-    upm_a110x dev = (upm_a110x) upm_malloc(UPM_A110X_MEM_MAP, sizeof(struct _upm_a110x));
     dev->gpio_pin = pin;
     dev->gpio = mraa_gpio_init(dev->gpio_pin);
-    if(mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN) != MRAA_SUCCESS){
+    if (mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN) != MRAA_SUCCESS){
         return NULL;
     }
     dev->isr_installed = false;
     return dev;
 }
 
-void upm_a110x_close(void* dev){
+void a110x_close(a110x_context dev){
     upm_free(UPM_A110X_MEM_MAP, dev);
 }
 
-upm_result_t upm_a110x_magnet_detected(void* dev, bool* res){
-    upm_a110x device = (upm_a110x) dev;
-
-    int val = mraa_gpio_read(device->gpio);
-    if(val == 0)
+upm_result_t a110x_magnet_detected(a110x_context dev, bool* res){
+    int val = mraa_gpio_read(dev->gpio);
+    if (val == 0)
         *res = false;
     else
         *res = true;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_a110x_install_isr(void* dev, mraa_gpio_edge_t edge_level,
-                                   void (*isr)(void *), void *arg){
-    upm_a110x device = (upm_a110x) dev;
-    if(device->isr_installed)
-        upm_a110x_uninstall_isr(device);
+upm_result_t a110x_install_isr(a110x_context dev, 
+                               mraa_gpio_edge_t edge_level,
+                               void (*isr)(void *), void *arg){
+    if (dev->isr_installed)
+        a110x_uninstall_isr(dev);
 
-    mraa_gpio_isr(device->gpio, edge_level, isr, arg);
-    device->isr_installed = true;
+    mraa_gpio_isr(dev->gpio, edge_level, isr, arg);
+    dev->isr_installed = true;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_a110x_uninstall_isr(void* dev){
-    upm_a110x device = (upm_a110x) dev;
-    mraa_gpio_isr_exit(device->gpio);
-    device->isr_installed = false;
+upm_result_t a110x_uninstall_isr(a110x_context dev){
+    mraa_gpio_isr_exit(dev->gpio);
+    dev->isr_installed = false;
     return UPM_SUCCESS;
 }

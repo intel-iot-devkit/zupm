@@ -24,9 +24,10 @@
  */
 #ifndef A110X_A110X_H_
 #define A110X_A110X_H_
+
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/gpio.h"
+
 /**
  * @brief A110X Hall Effect library
  * @defgroup a110x libupm-a110x
@@ -59,74 +60,53 @@
  */
 
 /**
- * Opaque pointer to the sensor structure
+ * Opaque pointer to the device context
  */
-typedef struct _upm_a110x* upm_a110x;
-
-const upm_sensor_descriptor_t upm_a110x_get_descriptor();
-
-const void* upm_a110x_get_ft(upm_sensor_t sensor_type);
-
-/**
- * A110X Name Initialization function
- *
- * @return void* pointer to the sensor struct
- */
-void* upm_a110x_init_name();
+typedef struct _a110x_context *a110x_context;
 
 /**
  * A110X Initialization function
  *
  * @param pin GPIO pin to use
- * @return void* pointer to the sensor struct
+ * @return device context pointer
  */
-void* upm_a110x_init(uint8_t pin);
+a110x_context a110x_init(uint8_t pin);
 
 /**
  * A110X Initialization function
  *
- * @param void* pointer to the sensor struct
+ * @param dev a110x_context pointer
  */
-void upm_a110x_close(void* dev);
+void a110x_close(a110x_context dev);
 
 /**
  * Determines whether a magnetic field of south polarity has been detected
  *
- * @param void* pointer to the sensor struct
+ * @param dev a110x_context pointer
  * @param bool* to note the response
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_a110x_magnet_detected(void* dev, bool* res);
+upm_result_t a110x_magnet_detected(a110x_context dev, bool* res);
 
 /**
  * Installs an interrupt service routine (ISR) to be called when
  * the appropriate magnetic field is detected
  *
- * @param void* pointer to the sensor struct
+ * @param dev a110x_context pointer
  * @param mraa_gpio_edge_t edge trigger level
  * @param isr ISR callback function
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_a110x_install_isr(void* dev, 
-                                   mraa_gpio_edge_t edge_level, 
-                                   void (*isr)(void *), void *arg);
+upm_result_t a110x_install_isr(a110x_context dev, 
+                               mraa_gpio_edge_t edge_level, 
+                               void (*isr)(void *), void *arg);
 
 /**
  * Uninstalls the previously installed ISR
  *
- * @param void* pointer to the sensor struct
+ * @param dev a110x_context pointer
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_a110x_uninstall_isr(void* dev);
-
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_a110x_read(const void* dev, void* value, int len);
+upm_result_t a110x_uninstall_isr(a110x_context dev);
 
 #endif /* A110X_A110X_H_ */
