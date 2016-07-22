@@ -25,162 +25,83 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mraa/aio.h"
-#include "types/upm_sensor.h"
-#include "types/upm_raw.h"
 #include "mq5.h"
-
-const char upm_mq5_name[] = "MQ5";
-const char upm_mq5_description[] = "Analog gas sensor (mq5) sensor";
-const upm_protocol_t upm_mq5_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_mq5_category[] = {UPM_RAW};
+#include "mraa/aio.h"
 
 /**
- * Analog sensor struct
+ * Driver context structure
  */
-typedef struct _upm_mq5 {
+typedef struct _mq5_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
     /* Analog voltage reference */
     float m_aRef;
+
+    // Used for the FTI
+
     /* Raw count offset */
     float m_count_offset;
     /* Raw count scale */
     float m_count_scale;
-} upm_mq5;
+} *mq5_context;
 
-/* This sensor implementes 2 function tables */
-/* 1. Generic base function table */
-static const upm_sensor_ft ft_gen =
+mq5_context mq5_init(int16_t pin)
 {
-    .upm_sensor_init_name = &upm_mq5_init_str,
-    .upm_sensor_close = &upm_mq5_close,
-    .upm_sensor_get_descriptor = &upm_mq5_get_descriptor
-};
+    mq5_context dev = (mq5_context) malloc(sizeof(struct _mq5_context));
 
-/* 2. RAW function table */
-static const upm_raw_ft ft_raw =
-{
-    .upm_raw_set_offset = &upm_mq5_set_offset,
-    .upm_raw_set_scale = &upm_mq5_set_scale,
-    .upm_raw_get_value = &upm_mq5_get_value
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_mq5_get_ft;
-}
-#endif
-
-const void* upm_mq5_get_ft(upm_sensor_t sensor_type)
-{
-    switch(sensor_type)
-    {
-        case UPM_SENSOR:
-            return &ft_gen;
-        case UPM_RAW:
-            return &ft_raw;
-        default:
-            return NULL;
-    }
-}
-
-void* upm_mq5_init_str(const char* protocol, const char* params)
-{
-    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return upm_mq5_init(0);
-}
-
-void* upm_mq5_init(int16_t pin)
-{
-    upm_mq5* dev = (upm_mq5*) malloc(sizeof(upm_mq5));
-
-    if(dev == NULL) return NULL;
+    if (dev == NULL)
+      return NULL;
 
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
+
+    if (dev->aio == NULL) {
+        free(dev);
+        return NULL;
+    }
 
     /* Set the ref, zero the offset */
     dev->m_count_offset = 0.0;
     dev->m_count_scale = 1.0;
 
-    if(dev->aio == NULL) {
-        free(dev);
-        return NULL;
-    }
-
     return dev;
 }
 
-void upm_mq5_close(void* dev)
+void mq5_close(mq5_context dev)
 {
-    mraa_aio_close(((upm_mq5*)dev)->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-const upm_sensor_descriptor_t upm_mq5_get_descriptor()
-{
-    /* Fill in the descriptor */
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_mq5_name;
-    usd.description = upm_mq5_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_mq5_protocol;
-    usd.category_size = 1;
-    usd.category = upm_mq5_category;
-
-    return usd;
-}
-
-upm_result_t upm_mq5_read(const void* dev, void* value, int len)
-{
-    /* Read the adc twice, first adc read can have weird data */
-    mraa_aio_read(((upm_mq5*)dev)->aio);
-    *(int*)value = mraa_aio_read(((upm_mq5*)dev)->aio);
-    if (value < 0)
-        return UPM_ERROR_OPERATION_FAILED;
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq5_write(const void* dev, void* value, int len)
-{
-    return UPM_ERROR_NOT_SUPPORTED;
-}
-
-upm_result_t upm_mq5_set_offset(const void* dev, float offset)
-{
-    ((upm_mq5*)dev)->m_count_offset = offset;
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq5_set_scale(const void* dev, float scale)
-{
-    ((upm_mq5*)dev)->m_count_scale = scale;
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_mq5_get_value(const void* dev, float *value)
+upm_result_t mq5_get_value(const mq5_context dev, float *value)
 {
     int counts = 0;
 
     /* Read counts */
-    int val = mraa_aio_read(((upm_mq5*)dev)->aio);
+    int val = mraa_aio_read(dev->aio);
     if (val < 0)
         return UPM_ERROR_OPERATION_FAILED;
 
     *value = (float)val;
 
-    /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_mq5*)dev)->aio)) - 1;
-
     /* Apply raw scale */
-    *value = counts * ((upm_mq5*)dev)->m_count_scale;
+    *value = counts * dev->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_mq5*)dev)->m_count_offset *((upm_mq5*)dev)->m_count_scale;
+    *value += dev->m_count_offset * dev->m_count_scale;
 
     return UPM_SUCCESS;
 }
+
+upm_result_t mq5_set_offset(const mq5_context dev, float offset)
+{
+    dev->m_count_offset = offset;
+    return UPM_SUCCESS;
+}
+
+upm_result_t mq5_set_scale(const mq5_context dev, float scale)
+{
+    dev->m_count_scale = scale;
+    return UPM_SUCCESS;
+}
+

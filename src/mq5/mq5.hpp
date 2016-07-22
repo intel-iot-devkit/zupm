@@ -129,7 +129,7 @@ namespace upm {
     float counts();
 
   private:
-    void* _dev;
+    mq5_context _dev;
   };
 }
 
