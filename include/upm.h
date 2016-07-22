@@ -35,7 +35,6 @@ extern "C" {
 #include <upm_types.h>
 #include <upm_math.h>
 #include <upm_utilities.h>
-#define FRAMEWORK_BUILD 1
 
 #define upm_perror(...) perror(args, __VA_ARGS__)
 
