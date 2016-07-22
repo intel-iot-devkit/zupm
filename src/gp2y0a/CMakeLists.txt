@@ -1,5 +1,5 @@
 set (libname "gp2y0a")
 set (libdescription "UPM IR Proximity Sensor Module:gp2y0a")
-set (module_src gp2y0a.c)
+set (module_src gp2y0a.c gp2y0a_fti.c)
 set (module_h gp2y0a.h)
 upm_module_init()

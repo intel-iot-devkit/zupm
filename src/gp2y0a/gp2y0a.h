@@ -27,9 +27,12 @@
 #define GP2Y0A_GP2Y0A_H_
 
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/aio.h"
-#include "types/upm_sensor.h"
+
+/**
+ * Opaque pointer to sensor structure
+ */
+typedef struct _gp2y0a_context *gp2y0a_context;
 
 /**
  * @brief GP2Y0A-based IR Proximity Sensor library
@@ -48,21 +51,14 @@
  *
  * @brief API for the GP2Y0A family of IR Proximity Sensors
  *
- * Sensors of this family return an analog voltage corresponding to the distance
- * of an object from the sensor. The voltage is lower when objects
- * are far away; the voltage increases as objects get closer
- * to the sensor.
+ * Sensors of this family return an analog voltage corresponding to
+ * the distance of an object from the sensor. The voltage is lower
+ * when objects are far away; the voltage increases as objects get
+ * closer to the sensor.
  *
  * @image html gp2y0a.jpg
  * @snippet gp2y0a.cxx Interesting
  */
-typedef struct _upm_gp2y0a* upm_gp2y0a;
-
-const void* upm_gp2y0a_get_ft(upm_sensor_t sensor_type);
-
-const upm_sensor_descriptor_t upm_gp2y0a_get_descriptor();
-
-void* upm_gp2y0a_init_name();
 
 /**
  * GP2Y0A sensor init function
@@ -70,14 +66,14 @@ void* upm_gp2y0a_init_name();
  * @param pin Analog pin to use
  * @param a_ref reference voltage
  */
-void* upm_gp2y0a_init(uint8_t pin, float a_ref);
+gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref);
 
 /**
  * GP2Y0A close function
  *
  * @param dev sensor struct
  */
-void upm_gp2y0a_close(void* dev);
+void gp2y0a_close(gp2y0a_context dev);
 
 /**
  * Gets an average voltage value from the sensor
@@ -87,6 +83,7 @@ void upm_gp2y0a_close(void* dev);
  * @param samples Number of samples to average over
  * @return Average voltage reading
  */
-upm_result_t upm_gp2y0a_get_value(void* dev, float a_ref, uint8_t samples, float* val);
+upm_result_t gp2y0a_get_value(gp2y0a_context dev, float a_ref, uint8_t samples,
+                              float* val);
 
 #endif /* GP2Y0A_GP2Y0A_H_ */
