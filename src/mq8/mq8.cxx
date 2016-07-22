@@ -28,27 +28,27 @@
 
 using namespace upm;
 
-MQ8::MQ8(int pin, float vref) : _dev(upm_mq8_init(pin)) {}
+MQ8::MQ8(int pin, float vref) : _dev(mq8_init(pin)) {}
 
 MQ8::~MQ8()
 {
-    upm_mq8_close(_dev);
+    mq8_close(_dev);
 }
 
 void MQ8::setOffset(float offset)
 {
-    upm_mq8_set_offset(_dev, offset);
+    mq8_set_offset(_dev, offset);
 }
 
 void MQ8::setScale(float scale)
 {
-    upm_mq8_set_scale(_dev, scale);
+    mq8_set_scale(_dev, scale);
 }
 
 float MQ8::counts()
 {
     float raw = 0.0;
-    upm_mq8_get_value(_dev, &raw);
+    mq8_get_value(_dev, &raw);
 
     return raw;
 }
