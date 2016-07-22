@@ -25,65 +25,16 @@
 
 #include "grovemoisture.h"
 
-struct _upm_grove_moisture {
+typedef struct _grovemoisture_context {
     mraa_aio_context    aio;
     uint16_t            analog_pin;
-};
+} *grovemoisture_context;
 
-const char upm_grove_moisture_name[] = "Grove Moisture";
-const char upm_grove_moisture_description[] = "Analog Grove Moisture Sensor";
-const upm_protocol_t upm_grove_moisture_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_grove_moisture_category[] = {UPM_MOISTURE};
+grovemoisture_context grovemoisture_init(int pin) {
+    grovemoisture_context dev =
+      (grovemoisture_context) malloc(sizeof(struct _grovemoisture_context));
 
-
-const upm_sensor_descriptor_t upm_grove_moisture_get_descriptor (){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_grove_moisture_name;
-    usd.description = upm_grove_moisture_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_grove_moisture_protocol;
-    usd.category_size = 1;
-    usd.category = upm_grove_moisture_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_grove_moisture_init_name,
-    .upm_sensor_close = &upm_grove_moisture_close,
-    .upm_sensor_get_descriptor = &upm_grove_moisture_get_descriptor
-};
-
-static const upm_moisture_ft mft =
-{
-    .upm_moisture_sensor_get_moisture = &upm_grove_moisture_get_moisture
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_grove_moisture_get_ft;
-}
-#endif
-
-const void* upm_grove_moisture_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_MOISTURE){
-        return &mft;
-    }
-    if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-    return NULL;
-}
-
-void* upm_grove_moisture_init_name(){
-    return NULL;
-}
-
-void* upm_grove_moisture_init(int pin){
-    upm_grove_moisture dev = (upm_grove_moisture) malloc(sizeof(struct _upm_grove_moisture));
-    if(dev == NULL){
+    if (dev == NULL) {
         printf("Unable to allocate memory for device context\n");
         return NULL;
     }
@@ -91,25 +42,25 @@ void* upm_grove_moisture_init(int pin){
     dev->analog_pin = pin;
     dev->aio = mraa_aio_init(dev->analog_pin);
 
-    if(dev->aio == NULL){
+    if (dev->aio == NULL) {
         printf("mraa_aio_init() failed.\n");
+        free(dev);
+
         return NULL;
     }
 
     return dev;
 }
 
-void upm_grove_moisture_close(void* dev){
-    upm_grove_moisture device = (upm_grove_moisture) dev;
-    mraa_aio_close(device->aio);
+void grovemoisture_close(grovemoisture_context dev) {
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-upm_result_t upm_grove_moisture_get_moisture(void* dev, int* moisture){
-    upm_grove_moisture device = (upm_grove_moisture) dev;
-    int len;
+upm_result_t grovemoisture_get_moisture(grovemoisture_context dev,
+                                            int* moisture) {
 
-    *moisture = mraa_aio_read(device->aio);
+    *moisture = mraa_aio_read(dev->aio);
 
     return UPM_SUCCESS;
 }

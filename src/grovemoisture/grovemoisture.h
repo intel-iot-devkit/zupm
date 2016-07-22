@@ -23,46 +23,23 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef UPM_C_GROVEMOISTURE_GROVEMOISTURE_H_
-#define UPM_C_GROVEMOISTURE_GROVEMOISTURE_H_
-
 #pragma once
+
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/aio.h"
 
-/**
- * Opaque pointer to the sensor struct
- */
-typedef struct _upm_grove_moisture* upm_grove_moisture;
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
- * Gets the descriptor associated with the sensor driver
- *
- * @param void* pointer to the sensor struct
- * @raturn upm_sensor_descriptor_t descriptor type
+ * Opaque pointer to sensor structure
  */
-const upm_sensor_descriptor_t upm_grove_moisture_get_descriptor ();
-
-/**
- * Gets the function tables associated with the sensor
- *
- * @param sensor_type the type of sensor
- *         required for the ft to be returned
- * @return void* pointer to the ft struct
- */
-const void* upm_grove_moisture_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Grove Moisture Name Initialization function
- *
- * @return void* pointer to the sensor struct
- */
-void* upm_grove_moisture_init_name();
+typedef struct _grovemoisture_context *grovemoisture_context;
 
 /**
  * Init function
@@ -70,14 +47,14 @@ void* upm_grove_moisture_init_name();
  * @param pin analog pin number
  * @return void* pointer to the sensor struct
  */
-void* upm_grove_moisture_init(int pin);
+grovemoisture_context grovemoisture_init(int pin);
 
 /**
  * Close function
  *
  * @param dev pointer to the sensor structure
  */
-void upm_grove_moisture_close(void* dev);
+void grovemoisture_close(grovemoisture_context dev);
 
 /**
  * Get Moisture function.
@@ -86,6 +63,9 @@ void upm_grove_moisture_close(void* dev);
  * @param moisture pointer that will be used to store the
  * output value from the sensor
  */
-upm_result_t upm_grove_moisture_get_moisture(void* dev, int* moisture);
+upm_result_t grovemoisture_get_moisture(grovemoisture_context dev,
+                                        int* moisture);
 
-#endif /* UPM_C_GROVEMOISTURE_GROVEMOISTURE_H_ */
+#ifdef __cplusplus
+}
+#endif
