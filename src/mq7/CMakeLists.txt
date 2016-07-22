@@ -1,6 +1,6 @@
 set (libname "mq7")
 set (libdescription "upm x_sensorname sensor")
-set (module_src ${libname}.cxx mq7.c)
+set (module_src ${libname}.cxx mq7.c mq7_fti.c)
 set (module_hpp ${libname}.hpp)
 set (module_h ${libname}.hpp mq7.h)
 upm_module_init()

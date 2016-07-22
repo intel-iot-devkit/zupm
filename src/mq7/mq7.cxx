@@ -28,27 +28,27 @@
 
 using namespace upm;
 
-MQ7::MQ7(int pin, float vref) : _dev(upm_mq7_init(pin)) {}
+MQ7::MQ7(int pin, float vref) : _dev(mq7_init(pin)) {}
 
 MQ7::~MQ7()
 {
-    upm_mq7_close(_dev);
+    mq7_close(_dev);
 }
 
 void MQ7::setOffset(float offset)
 {
-    upm_mq7_set_offset(_dev, offset);
+    mq7_set_offset(_dev, offset);
 }
 
 void MQ7::setScale(float scale)
 {
-    upm_mq7_set_scale(_dev, scale);
+    mq7_set_scale(_dev, scale);
 }
 
 float MQ7::counts()
 {
     float raw = 0.0;
-    upm_mq7_get_value(_dev, &raw);
+    mq7_get_value(_dev, &raw);
 
     return raw;
 }
