@@ -25,45 +25,34 @@
 #pragma once
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "types/upm_sensor.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/**
- * Get the generic function table for this sensor
- * @return generic function table struct
- */
-const void* upm_mq3_get_ft(upm_sensor_t sensor_type);
+// opaque context forward declaration
+typedef struct _mq3_context *mq3_context;
 
 /**
  * Initialize analog sensor
- * @param protocol protocol initliazation string
- * @param params sensor parameter string
- * @return sensor context as void pointer
+ * @param pin Analog pin
+ * @return sensor context
  */
-void* upm_mq3_init_str(const char* protocol, const char* params);
-
-/**
- * Initialize analog sensor
- * @param pin is Analog pin
- * @return sensor context as void pointer
- */
-void* upm_mq3_init(int16_t pin);
+mq3_context mq3_init(int16_t pin);
 
 /**
  * Analog sensor destructor
- * @param sensor context pointer deallocate memory
+ * @param sensor context pointer
  */
-void upm_mq3_close(void* dev);
+void mq3_close(mq3_context dev);
 
 /**
- * Get descriptor for this sensor
- * @return Sensor descriptor struct
+ * Read value from sensor
+ * @param dev sensor context pointer
+ * @param *value counts value from sensor
+ * @return Function result code
  */
-const upm_sensor_descriptor_t upm_mq3_get_descriptor();
+upm_result_t mq3_get_value(const mq3_context dev, float *value);
 
 /**
  * Set sensor offset.  This offset is applied to the return value:
@@ -72,7 +61,7 @@ const upm_sensor_descriptor_t upm_mq3_get_descriptor();
  * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t upm_mq3_set_offset(const void* dev, float offset);
+upm_result_t mq3_set_offset(const mq3_context dev, float offset);
 
 /**
  * Set sensor scale.  This scale is applied to the return value:
@@ -81,15 +70,8 @@ upm_result_t upm_mq3_set_offset(const void* dev, float offset);
  * @param scale count scale value used
  * @return Function result code
  */
-upm_result_t upm_mq3_set_scale(const void* dev, float scale);
+upm_result_t mq3_set_scale(const mq3_context dev, float scale);
 
-/**
- * Read value from sensor
- * @param dev sensor context pointer
- * @param *value counts value from sensor
- * @return Function result code
- */
-upm_result_t upm_mq3_get_value(const void* dev, float *value);
 
 #ifdef __cplusplus
 }

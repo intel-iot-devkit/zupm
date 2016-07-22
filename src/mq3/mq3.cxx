@@ -28,27 +28,27 @@
 
 using namespace upm;
 
-MQ3::MQ3(int pin, float vref) : _dev(upm_mq3_init(pin)) {}
+MQ3::MQ3(int pin, float vref) : _dev(mq3_init(pin)) {}
 
 MQ3::~MQ3()
 {
-    upm_mq3_close(_dev);
+    mq3_close(_dev);
 }
 
 void MQ3::setOffset(float offset)
 {
-    upm_mq3_set_offset(_dev, offset);
+    mq3_set_offset(_dev, offset);
 }
 
 void MQ3::setScale(float scale)
 {
-    upm_mq3_set_scale(_dev, scale);
+    mq3_set_scale(_dev, scale);
 }
 
 float MQ3::counts()
 {
     float raw = 0.0;
-    upm_mq3_get_value(_dev, &raw);
+    mq3_get_value(_dev, &raw);
 
     return raw;
 }

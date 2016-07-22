@@ -1,6 +1,6 @@
 set (libname "mq3")
 set (libdescription "upm x_sensorname sensor")
-set (module_src ${libname}.cxx mq3.c)
+set (module_src ${libname}.cxx mq3.c mq3_fti.c)
 set (module_hpp ${libname}.hpp)
 set (module_h ${libname}.hpp mq3.h)
 upm_module_init()
