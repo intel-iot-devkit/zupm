@@ -1,6 +1,6 @@
 /*
  * Author: Yevgeniy Kiveisha <yevgeniy.kiveisha@intel.com>
- *            Abhishek Malik <abhishek.malik@intel.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,17 +26,12 @@
 #ifndef ES9257_H_
 #define ES9257_H_
 
-#pragma once
-
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/pwm.h"
-//#include "mraa/pwm.h"
-//#include "types/upm_sensor.h"
 
 /**
  * @library servo
@@ -61,19 +56,15 @@
  * @snippet es9257.c Interesting
  */
 
-#define UPM_ES9257_MIN_PULSE_WIDTH  475
-#define UPM_ES9257_MAX_PULSE_WIDTH  2100
-#define UPM_ES9257_PERIOD           20000
-#define UPM_ES9257_MAX_ANGLE        180.0
-
-#define UPM_ES9257_HIGH             1
-#define UPM_ES9257_LOW              0
+#define ES9257_MIN_PULSE_WIDTH             600
+#define ES9257_MAX_PULSE_WIDTH             2200
+#define ES9257_PERIOD                      20000
+#define ES9257_MAX_ANGLE                   180.0
 
 /*
  * Opaque pointer to the servo motor struct
  */
-//struct _upm_es9257;
-typedef struct _upm_es9257* upm_es9257;
+typedef struct _es9257_context *es9257_context;
 
 /**
  * Instantiates a the servo at the given pin
@@ -81,23 +72,19 @@ typedef struct _upm_es9257* upm_es9257;
  * @param pin Servo pin number
  * @param minPulseWidth Minimum pulse width, in microseconds
  * @param maxPulseWidth Maximum pulse width, in microseconds
- * @param waitAndDisablePwm If 1, PWM is enabled only during the setAngle() execution
- * for a period of 1 second, and then turned back off. If 0, PWM remains on afterward.
+ * @param waitAndDisablePwm If 1, PWM is enabled only during the
+ * setAngle() execution for a period of 1 second, and then turned back
+ * off. If 0, PWM remains on afterward.
  */
 
-const upm_sensor_descriptor_t upm_es9257_get_descriptor ();
 
-const void* upm_es9257_get_ft(upm_sensor_t sensor_type);
-//upm_es9257 upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
-//void* upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
-void* upm_es9257_init_name();
-
-void* upm_es9257_init(int32_t pin, int32_t min_pulse_width, int32_t max_pulse_width);
+es9257_context es9257_init(int32_t pin, int32_t min_pulse_width,
+                         int32_t max_pulse_width);
 
 /**
  * Halts PWM for this servo and allows it to move freely.
  */
-void upm_es9257_close(void* dev);
+void es9257_halt(es9257_context dev);
 
 /**
  * Sets the angle of the servo engine.
@@ -105,41 +92,42 @@ void upm_es9257_close(void* dev);
  * @param angle Number between 0 and 180
  * @return 0 if successful, non-zero otherwise
  */
-upm_result_t upm_es9257_set_angle(void* dev, int32_t angle);
+upm_result_t es9257_set_angle(es9257_context dev, int32_t angle);
 
 /*
  * Calculating relative pulse time to the value.
  * */
-upm_result_t upm_es9257_calc_pulse_travelling(const void* dev,
-                                              int32_t* ret_val,
-                                              int32_t value);
+upm_result_t es9257_calc_pulse_travelling(const es9257_context dev,
+                                         int32_t* ret_val,
+                                         int32_t value);
 
 /**
  * Sets the minimum pulse width
  *
  * @param width Minimum HIGH signal width
  */
-void upm_es9257_set_min_pulse_width (void* dev, int width);
+void es9257_set_min_pulse_width (es9257_context dev, int width);
 
 /**
  * Sets the maximum pulse width
  *
  * @param width Maximum HIGH signal width
  */
-void upm_es9257_set_max_pulse_width (void* dev, int width);
+void es9257_set_max_pulse_width (es9257_context dev, int width);
 
 /**
  * Returns the minimum pulse width
  *
  * @return Minimum pulse width
  */
-int upm_es9257_get_min_pulse_width (void* dev);
+int es9257_get_min_pulse_width (es9257_context dev);
 
 /**
  * Returns the maximum pulse width
  *
  * @return Maximum pulse width
  */
-int upm_es9257_get_max_pulse_width (void* dev);
+int es9257_get_max_pulse_width (es9257_context dev);
 
 #endif /* ES9257_H_ */
+
