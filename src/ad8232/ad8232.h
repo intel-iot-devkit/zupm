@@ -26,13 +26,11 @@
 #ifndef AD8232_H_
 #define AD8232_H_
 
-#pragma once
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/aio.h"
 #include "mraa/gpio.h"
 
@@ -41,40 +39,15 @@
 /**
  * Opaque pointer to sensor structure
  */
-typedef struct _upm_ad8232* upm_ad8232;
-
-/**
- * Gets the sensor descriptor for AD8232. Heart Rate Monitor.
- *
- * @param void* pointer to the sensor struct
- * @return upm_sensor_descriptor_t descriptor for the sensor
- */
-upm_sensor_descriptor_t upm_ad8232_get_descriptor (void* dev);
-
-/**
- * Gets the function table for the particular sensor.
- *
- * @param upm_sensor_t the type of function table
- * @return void* a void pointer to the ft struct
- */
-const void* upm_ad8232_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Generic init function
- *
- * @return void* pointer to the sensor structure
- */
-void* upm_ad8232_init_name();
+typedef struct _ad8232_context *ad8232_context;
 
 /**
  * Sensor Init function
-
-
  */
-void* upm_ad8232_init(int lo_plus, int lo_minus, int output, float a_ref);
+ad8232_context ad8232_init(int lo_plus, int lo_minus, int output, float a_ref);
 
-void upm_ad8232_close(void* dev);
+void ad8232_close(ad8232_context dev);
 
-upm_result_t upm_ad8232_get_value(void* dev, int* value, upm_heart_rate_u rate_unit);
+upm_result_t ad8232_get_value(ad8232_context dev, int* value);
 
 #endif /* AD8232_H_ */

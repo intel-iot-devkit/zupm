@@ -25,7 +25,7 @@
 
 #include "ad8232.h"
 
-struct _upm_ad8232 {
+typedef struct _ad8232_context {
     mraa_aio_context        aio;
     mraa_gpio_context       gpio_lo_plus;
     mraa_gpio_context       gpio_lo_minus;
@@ -33,60 +33,13 @@ struct _upm_ad8232 {
     uint8_t                 gpio_lo_plus_pin;
     uint8_t                 gpio_lo_minus_pin;
     int                     a_res;
-};
+} *ad8232_context;
 
-const char upm_ad8232_name[] = "AD8232";
-const char upm_ad8232_description[] = "AD8232 Heart Rate Monitor";
-const upm_protocol_t upm_ad8232_protocol[] = {UPM_ANALOG, UPM_GPIO};
-const upm_sensor_t upm_ad8232_category[] = {UPM_HEART_RATE};
+ad8232_context ad8232_init(int lo_plus, int lo_minus, int output,
+                           float a_ref) {
+    ad8232_context dev =
+      (ad8232_context) malloc(sizeof(struct _ad8232_context));
 
-
-upm_sensor_descriptor_t upm_ad8232_get_descriptor (void* dev){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_ad8232_name;
-    usd.description = upm_ad8232_description;
-    usd.protocol_size = 2;
-    usd.protocol = upm_ad8232_protocol;
-    usd.category_size = 1;
-    usd.category = upm_ad8232_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_ad8232_init_name,
-    .upm_sensor_close = &upm_ad8232_close,
-    //.upm_sensor_get_descriptor = &upm_ad8232_get_descriptor
-};
-
-static const upm_heart_rate_ft hft =
-{
-    .upm_heart_rate_get_value = &upm_ad8232_get_value
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_ad8232_get_ft;
-}
-#endif
-
-const void* upm_ad8232_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_HEART_RATE){
-        return &hft;
-    }
-    else if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-}
-
-void* upm_ad8232_init_name(){
-    return NULL;
-}
-
-void* upm_ad8232_init(int lo_plus, int lo_minus, int output, float a_ref){
-    upm_ad8232 dev = (upm_ad8232) malloc(sizeof(struct _upm_ad8232));
     if(dev == NULL){
         printf("Unable to assign memory to the Heart Rate Monitor structure");
         return NULL;
@@ -116,31 +69,26 @@ void* upm_ad8232_init(int lo_plus, int lo_minus, int output, float a_ref){
     return dev;
 }
 
-void upm_ad8232_close(void* dev){
-    upm_ad8232 device = (upm_ad8232) dev;
-    if(device->gpio_lo_minus != NULL)
-        mraa_gpio_close(device->gpio_lo_minus);
-    if(device->gpio_lo_plus != NULL)
-        mraa_gpio_close(device->gpio_lo_plus);
-    if(device->aio != NULL)
-        mraa_aio_close(device->aio);
-    if(device != NULL)
-        free(device);
+void ad8232_close(ad8232_context dev){
+    if (dev->gpio_lo_minus != NULL)
+        mraa_gpio_close(dev->gpio_lo_minus);
+    if (dev->gpio_lo_plus != NULL)
+        mraa_gpio_close(dev->gpio_lo_plus);
+    if (dev->aio != NULL)
+        mraa_aio_close(dev->aio);
+
+    free(dev);
 }
 
-upm_result_t upm_ad8232_get_value(void* dev, int* value,
-                                  upm_heart_rate_u rate_unit){
-
-    upm_ad8232 device = (upm_ad8232) dev;
-    int len;
+upm_result_t ad8232_get_value(ad8232_context dev, int* value) {
     int reading = 0;
 
-    if (mraa_gpio_read(device->gpio_lo_minus) ||
-        mraa_gpio_read(device->gpio_lo_plus)) {
+    if (mraa_gpio_read(dev->gpio_lo_minus) ||
+        mraa_gpio_read(dev->gpio_lo_plus)) {
         reading = 0;
     }
-    else{
-        reading = mraa_aio_read(device->aio);
+    else {
+        reading = mraa_aio_read(dev->aio);
     }
 
     *value = reading;
