@@ -28,21 +28,21 @@
 
 using namespace upm;
 
-EMG::EMG(int pin, float vref) : _dev(upm_emg_init(pin)) {}
+EMG::EMG(int pin, float vref) : _dev(emg_init(pin)) {}
 
 EMG::~EMG()
 {
-    upm_emg_close(_dev);
+    emg_close(_dev);
 }
 
 void EMG::setOffset(float offset)
 {
-    upm_emg_set_offset(_dev, offset);
+    emg_set_offset(_dev, offset);
 }
 
 void EMG::setScale(float scale)
 {
-    upm_emg_set_scale(_dev, scale);
+    emg_set_scale(_dev, scale);
 }
 
 float EMG::counts(unsigned int samples)
@@ -55,7 +55,7 @@ float EMG::counts(unsigned int samples)
     float raw = 0.0;
     while (samples-- > 0)
     {
-        upm_emg_get_value(_dev, &raw);
+        emg_get_value(_dev, &raw);
         raw_avg += raw;
     }
 
