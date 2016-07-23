@@ -26,7 +26,6 @@
 #include <iostream>
 #include <string>
 
-#include "mraa/aio.hpp"
 #include "joystick12.h"
 
 namespace upm {
@@ -161,16 +160,16 @@ namespace upm {
      * Set the x axis scale
      *
      */
-    void calibrate_x();
+    void calibrateX();
 
     /**
      * Set the y axis scale
      *
      */
-    void calibrate_y();
+    void calibrateY();
 
   private:
-    void* _dev;
+    joystick12_context _dev;
   };
 }
 

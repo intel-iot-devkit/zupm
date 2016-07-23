@@ -25,20 +25,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mraa/aio.h"
-#include "types/upm_sensor.h"
-#include "types/upm_joystick.h"
 #include "joystick12.h"
-
-const char upm_joystick12_name[] = "JOYSTICK12";
-const char upm_joystick12_description[] = "Analog joystick sensor";
-const upm_protocol_t upm_joystick12_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_joystick12_category[] = {UPM_JOYSTICK};
+#include "mraa/aio.h"
 
 /**
  * Analog sensor struct
  */
-typedef struct _upm_joystick12 {
+typedef struct _joystick12_context {
     /* mraa ai_x pin context */
     mraa_aio_context ai_x;
     /* mraa ai_y pin context */
@@ -51,58 +44,12 @@ typedef struct _upm_joystick12 {
     float m_count_scale_x;
     /* Raw count scale - y axis */
     float m_count_scale_y;
-} upm_joystick12;
+} *joystick12_context;
 
-/* This sensor implementes 2 function tables */
-/* 1. Generic base function table */
-static const upm_sensor_ft ft_gen =
+joystick12_context joystick12_init(int16_t apin_x, int16_t apin_y)
 {
-    .upm_sensor_init_name = &upm_joystick12_init_str,
-    .upm_sensor_close = &upm_joystick12_close,
-    .upm_sensor_get_descriptor = &upm_joystick12_get_descriptor
-};
-
-/* 2. JOYSTICK function table */
-static const upm_joystick_ft ft_joystick =
-{
-    .upm_joystick_set_offset_x = &upm_joystick12_set_offset_x,
-    .upm_joystick_set_offset_y = &upm_joystick12_set_offset_y,
-    .upm_joystick_set_scale_x = &upm_joystick12_set_scale_x,
-    .upm_joystick_set_scale_y = &upm_joystick12_set_scale_y,
-    .upm_joystick_get_value_x = &upm_joystick12_get_value_x,
-    .upm_joystick_get_value_y = &upm_joystick12_get_value_y
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_joystick12_get_ft;
-}
-#endif
-
-const void* upm_joystick12_get_ft(upm_sensor_t sensor_type)
-{
-    switch(sensor_type)
-    {
-        case UPM_SENSOR:
-            return &ft_gen;
-        case UPM_JOYSTICK:
-            return &ft_joystick;
-        default:
-            return NULL;
-    }
-}
-
-void* upm_joystick12_init_str(const char* protocol, const char* params)
-{
-    fprintf(stderr, "String initialization - not implemented, using ain0 = x ain1 = y: %s\n", __FILENAME__);
-    return upm_joystick12_init(0, 1);
-}
-
-void* upm_joystick12_init(int16_t apin_x, int16_t apin_y)
-{
-    upm_joystick12* dev = (upm_joystick12*) malloc(sizeof(upm_joystick12));
+    joystick12_context dev =
+      (joystick12_context) malloc(sizeof(struct _joystick12_context));
 
     if(dev == NULL) return NULL;
 
@@ -125,36 +72,17 @@ void* upm_joystick12_init(int16_t apin_x, int16_t apin_y)
     return dev;
 }
 
-void upm_joystick12_close(void* dev)
+void joystick12_close(joystick12_context dev)
 {
-    mraa_aio_close(((upm_joystick12*)dev)->ai_x);
-    mraa_aio_close(((upm_joystick12*)dev)->ai_y);
+    mraa_aio_close(dev->ai_x);
+    mraa_aio_close(dev->ai_y);
     free(dev);
 }
 
-const upm_sensor_descriptor_t upm_joystick12_get_descriptor()
+upm_result_t joystick12_read_data(const joystick12_context dev, int* values)
 {
-    /* Fill in the descriptor */
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_joystick12_name;
-    usd.description = upm_joystick12_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_joystick12_protocol;
-    usd.category_size = 1;
-    usd.category = upm_joystick12_category;
-
-    return usd;
-}
-
-upm_result_t upm_joystick12_read_data(const void* dev, int* values)
-{
-    /* Read the adc twice, first adc read can have weird data */
-    /* JET - why? */
-    mraa_aio_read(((upm_joystick12*)dev)->ai_x);
-    mraa_aio_read(((upm_joystick12*)dev)->ai_y);
-
-    values[0] = mraa_aio_read(((upm_joystick12*)dev)->ai_x);
-    values[1] = mraa_aio_read(((upm_joystick12*)dev)->ai_y);
+    values[0] = mraa_aio_read(dev->ai_x);
+    values[1] = mraa_aio_read(dev->ai_y);
 
     if (values[0] < 0 || values[1] < 0)
         return UPM_ERROR_OPERATION_FAILED;
@@ -162,119 +90,122 @@ upm_result_t upm_joystick12_read_data(const void* dev, int* values)
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_set_offset_x(const void* dev, float offset)
+upm_result_t joystick12_set_offset_x(const joystick12_context dev, float offset)
 {
-    ((upm_joystick12*)dev)->m_count_offset_x = offset;
+    dev->m_count_offset_x = offset;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_set_offset_y(const void* dev, float offset)
+upm_result_t joystick12_set_offset_y(const joystick12_context dev, float offset)
 {
-    ((upm_joystick12*)dev)->m_count_offset_y = offset;
+    dev->m_count_offset_y = offset;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_set_scale_x(const void* dev, float scale)
+upm_result_t joystick12_set_scale_x(const joystick12_context dev, float scale)
 {
-    ((upm_joystick12*)dev)->m_count_scale_x = scale;
+    dev->m_count_scale_x = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_set_scale_y(const void* dev, float scale)
+upm_result_t joystick12_set_scale_y(const joystick12_context dev, float scale)
 {
-    ((upm_joystick12*)dev)->m_count_scale_y = scale;
+    dev->m_count_scale_y = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_get_value_x(const void* dev, float *value)
+upm_result_t joystick12_get_value_x(const joystick12_context dev, float *value)
 {
     int counts[2] = {0,0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read_data(dev, counts);
+    joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_x)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->ai_x)) - 1;
 
     /* Apply raw offset */
-    *value = counts[0] + ((upm_joystick12*)dev)->m_count_offset_x;
+    *value = counts[0] + dev->m_count_offset_x;
 
     // Scale to -1.0 +1.0
-    *value =  -2.0 * (((max_adc/2.0 - *value))/max_adc * ((upm_joystick12*)dev)->m_count_scale_x);
+    *value =  -2.0 * (((max_adc/2.0 - *value))/max_adc * dev->m_count_scale_x);
 
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_get_value_y(const void* dev, float *value)
+upm_result_t joystick12_get_value_y(const joystick12_context dev,
+                                        float *value)
 {
     int counts[2] = {0,0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read_data(dev, counts);
+    joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->ai_y)) - 1;
 
     /* Apply raw offset */
-    *value = counts[1] + ((upm_joystick12*)dev)->m_count_offset_y;
+    *value = counts[1] + dev->m_count_offset_y;
 
     // Scale to -1.0 +1.0
-    *value =  -2.0 * (((max_adc/2.0 - *value))/max_adc * ((upm_joystick12*)dev)->m_count_scale_y);
+    *value =  -2.0 * (((max_adc/2.0 - *value))/max_adc * dev->m_count_scale_y);
 
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_zero(const void* dev)
+upm_result_t joystick12_zero(const joystick12_context dev)
 {
     int counts[2] = {0, 0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read_data(dev, counts);
+    joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->ai_y)) - 1;
 
-    ((upm_joystick12*)dev)->m_count_offset_x = max_adc/2.0 - counts[0];
-    ((upm_joystick12*)dev)->m_count_offset_y = max_adc/2.0 - counts[1];
+    dev->m_count_offset_x = max_adc/2.0 - counts[0];
+    dev->m_count_offset_y = max_adc/2.0 - counts[1];
 
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_calibrate_x(const void* dev)
+upm_result_t joystick12_calibrate_x(const joystick12_context dev)
 {
     int counts[2] = {0, 0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read_data(dev, counts);
+    joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->ai_y)) - 1;
 
     float fcounts = counts[0];
 
     /* no need to scale if counts is a max or min value */
     if ((fcounts == 0) || (fcounts == max_adc)) return UPM_SUCCESS;
 
-    //((upm_joystick12*)dev)->m_count_scale_x = .5 * max_adc/fcounts;
-    ((upm_joystick12*)dev)->m_count_scale_x =
-        1.0 / (1.0 - 2 * fcounts/max_adc);
+    dev->m_count_scale_x =
+      1.0 / (1.0 - 2 * fcounts/max_adc);
 
+    return UPM_SUCCESS;
 }
 
-upm_result_t upm_joystick12_calibrate_y(const void* dev)
+upm_result_t joystick12_calibrate_y(const joystick12_context dev)
 {
     int counts[2] = {0, 0};
 
     /* Read counts from the generic read method */
-    upm_joystick12_read_data(dev, counts);
+    joystick12_read_data(dev, counts);
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_joystick12*)dev)->ai_y)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->ai_y)) - 1;
 
     float fcounts = counts[1];
 
     /* no need to scale if counts is a max or min value */
     if ((fcounts == 0) || (fcounts == max_adc)) return UPM_SUCCESS;
 
-    ((upm_joystick12*)dev)->m_count_scale_y = .5 * max_adc/fcounts;
+    dev->m_count_scale_y = .5 * max_adc/fcounts;
+
+    return UPM_SUCCESS;
 }

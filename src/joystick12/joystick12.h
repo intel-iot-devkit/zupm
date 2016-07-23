@@ -25,52 +25,35 @@
 #pragma once
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "types/upm_sensor.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * Get the generic function table for this sensor
- * @return generic function table struct
+ * Opaque pointer to sensor structure
  */
-const void* upm_joystick12_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Initialize analog sensor
- * @param protocol protocol initliazation string
- * @param params sensor parameter string
- * @return sensor context as void pointer
- */
-void* upm_joystick12_init_str(const char* protocol, const char* params);
+typedef struct _joystick12_context *joystick12_context;
 
 /**
  * Initialize analog sensor
  * @param pin is Analog pin
  * @return sensor context as void pointer
  */
-void* upm_joystick12_init(int16_t apin_x, int16_t apin_y);
+joystick12_context joystick12_init(int16_t apin_x, int16_t apin_y);
 
 /**
  * Analog sensor destructor
  * @param sensor context pointer deallocate memory
  */
-void upm_joystick12_close(void* dev);
-
-/**
- * Get descriptor for this sensor
- * @return Sensor descriptor struct
- */
-const upm_sensor_descriptor_t upm_joystick12_get_descriptor();
+void joystick12_close(joystick12_context dev);
 
 /**
  * Generic read joystick data method
  * @param dev sensor device context pointer
  * @param value pointer to an int[2] in which data is returned
  */
-upm_result_t upm_joystick12_read_data(const void* dev, int* values);
+upm_result_t joystick12_read_data(const joystick12_context dev, int* values);
 
 /**
  * Generic sensor write method
@@ -78,7 +61,8 @@ upm_result_t upm_joystick12_read_data(const void* dev, int* values);
  * @param value pointer to value to write
  * @param len length of items to write
  */
-upm_result_t upm_joystick12_write(const void* dev, void* value, int len);
+upm_result_t joystick12_write(const joystick12_context dev, void* value,
+                              int len);
 
 /**
  * Set sensor offset.  This offset is applied to the return value:
@@ -87,7 +71,8 @@ upm_result_t upm_joystick12_write(const void* dev, void* value, int len);
  * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t upm_joystick12_set_offset_x(const void* dev, float offset);
+upm_result_t joystick12_set_offset_x(const joystick12_context dev,
+                                     float offset);
 
 /**
  * Set sensor offset.  This offset is applied to the return value:
@@ -96,7 +81,8 @@ upm_result_t upm_joystick12_set_offset_x(const void* dev, float offset);
  * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t upm_joystick12_set_offset_y(const void* dev, float offset);
+upm_result_t joystick12_set_offset_y(const joystick12_context dev,
+                                     float offset);
 
 /**
  * Set sensor scale.  This scale is applied to the return value:
@@ -105,7 +91,7 @@ upm_result_t upm_joystick12_set_offset_y(const void* dev, float offset);
  * @param scale count scale value used
  * @return Function result code
  */
-upm_result_t upm_joystick12_set_scale_x(const void* dev, float scale);
+upm_result_t joystick12_set_scale_x(const joystick12_context dev, float scale);
 
 /**
  * Set sensor scale.  This scale is applied to the return value:
@@ -114,7 +100,7 @@ upm_result_t upm_joystick12_set_scale_x(const void* dev, float scale);
  * @param scale count scale value used
  * @return Function result code
  */
-upm_result_t upm_joystick12_set_scale_y(const void* dev, float scale);
+upm_result_t joystick12_set_scale_y(const joystick12_context dev, float scale);
 
 /**
  * Read value from sensor
@@ -123,7 +109,7 @@ upm_result_t upm_joystick12_set_scale_y(const void* dev, float scale);
  * @param unit Enum which specifies units returned in *value
  * @return Function result code
  */
-upm_result_t upm_joystick12_get_value_x(const void* dev, float *value);
+upm_result_t joystick12_get_value_x(const joystick12_context dev, float *value);
 
 /**
  * Read value from sensor
@@ -132,28 +118,28 @@ upm_result_t upm_joystick12_get_value_x(const void* dev, float *value);
  * @param unit Enum which specifies units returned in *value
  * @return Function result code
  */
-upm_result_t upm_joystick12_get_value_y(const void* dev, float *value);
+upm_result_t joystick12_get_value_y(const joystick12_context dev, float *value);
 
 /**
  * Zero out the sensor x and y axis
  * @param dev sensor context pointer
  * @return Function result code
  */
-upm_result_t upm_joystick12_zero(const void* dev);
+upm_result_t joystick12_zero(const joystick12_context dev);
 
 /**
  * Set x scale.  Move joystick to min or max x and call calibrate
  * @param dev sensor context pointer
  * @return Function result code
  */
-upm_result_t upm_joystick12_calibrate_x(const void* dev);
+upm_result_t joystick12_calibrate_x(const joystick12_context dev);
 
 /**
  * Set y scale.  Move joystick to min or max y and call calibrate
  * @param dev sensor context pointer
  * @return Function result code
  */
-upm_result_t upm_joystick12_calibrate_y(const void* dev);
+upm_result_t joystick12_calibrate_y(const joystick12_context dev);
 
 #ifdef __cplusplus
 }

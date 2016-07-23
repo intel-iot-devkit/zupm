@@ -29,58 +29,58 @@
 using namespace upm;
 
 JOYSTICK12::JOYSTICK12(int ai_x, int ai_y, float vref) :
-    _dev(upm_joystick12_init(ai_x, ai_y)) {}
+    _dev(joystick12_init(ai_x, ai_y)) {}
 
 JOYSTICK12::~JOYSTICK12()
 {
-    upm_joystick12_close(_dev);
+    joystick12_close(_dev);
 }
 
 void JOYSTICK12::setOffset_x(float offset)
 {
-    upm_joystick12_set_offset_x(_dev, offset);
+    joystick12_set_offset_x(_dev, offset);
 }
 
 void JOYSTICK12::setOffset_y(float offset)
 {
-    upm_joystick12_set_offset_y(_dev, offset);
+    joystick12_set_offset_y(_dev, offset);
 }
 
 void JOYSTICK12::setScale_x(float scale)
 {
-    upm_joystick12_set_scale_x(_dev, scale);
+    joystick12_set_scale_x(_dev, scale);
 }
 
 void JOYSTICK12::setScale_y(float scale)
 {
-    upm_joystick12_set_scale_y(_dev, scale);
+    joystick12_set_scale_y(_dev, scale);
 }
 
 float JOYSTICK12::getXInput()
 {
     float value;
-    upm_joystick12_get_value_x(_dev, &value);
+    joystick12_get_value_x(_dev, &value);
     return value;
 }
 
 float JOYSTICK12::getYInput()
 {
     float value;
-    upm_joystick12_get_value_y(_dev, &value);
+    joystick12_get_value_y(_dev, &value);
     return value;
 }
 
 void JOYSTICK12::zero()
 {
-    upm_joystick12_zero(_dev);
+    joystick12_zero(_dev);
 }
 
-void JOYSTICK12::calibrate_x()
+void JOYSTICK12::calibrateX()
 {
-    upm_joystick12_calibrate_x(_dev);
+    joystick12_calibrate_x(_dev);
 }
 
-void JOYSTICK12::calibrate_y()
+void JOYSTICK12::calibrateY()
 {
-    upm_joystick12_calibrate_y(_dev);
+    joystick12_calibrate_y(_dev);
 }
