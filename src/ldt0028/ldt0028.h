@@ -26,27 +26,22 @@
 #ifndef LDT0028_H_
 #define LDT0028_H_
 
-#pragma once
 #include <stdlib.h>
 #include <unistd.h>
 
+#include "upm.h"
 #include <mraa/aio.h>
 
-#include "upm.h"
-#include "upm_fti.h"
 
-typedef struct _upm_ldt0028* upm_ldt0028;
+/**
+ * Opaque pointer to sensor structure
+ */
+typedef struct _ldt0028_context *ldt0028_context;
 
-const void* upm_ldt0028_get_ft(upm_sensor_t sensor_type);
+ldt0028_context ldt0028_init(int pin);
 
-const upm_sensor_descriptor_t upm_ldt0028_get_descriptor();
+void ldt0028_close(ldt0028_context dev);
 
-void* upm_ldt0028_init(int pin);
-
-void* upm_ldt0028_init_name();
-
-void upm_ldt0028_close(void* dev);
-
-upm_result_t upm_ldt0028_get_value(void* dev, float* vibval);
+upm_result_t ldt0028_get_value(ldt0028_context dev, float* vibval);
 
 #endif /* LDT0028_H_ */

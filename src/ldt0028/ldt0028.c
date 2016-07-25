@@ -25,56 +25,14 @@
 
 #include "ldt0028.h"
 
-struct _upm_ldt0028{
+typedef struct _ldt0028_context {
     mraa_aio_context aio;
-};
+} *ldt0028_context;
 
-const char upm_ldt0028_name[] = "LDT0028";
-const char upm_ldt0028_description[] = "Grove Piezo Vibration Sensor";
-const upm_protocol_t upm_ldt0028_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_ldt0028_category[] = {UPM_VIBRATION};
-
-const upm_sensor_descriptor_t upm_ldt0028_get_descriptor() {
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_ldt0028_name;
-    usd.description = upm_ldt0028_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_ldt0028_protocol;
-    usd.category_size = 1;
-    usd.category = upm_ldt0028_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
+ldt0028_context ldt0028_init(int pin)
 {
-    .upm_sensor_init_name = &upm_ldt0028_init_name,
-    .upm_sensor_close = &upm_ldt0028_close,
-    .upm_sensor_get_descriptor = &upm_ldt0028_get_descriptor
-};
-
-static const upm_vibration_ft vft =
-{
-    .upm_vibration_get_value = upm_ldt0028_get_value
-};
-
-const void* upm_ldt0028_get_ft(upm_sensor_t sensor_type) {
-    if(sensor_type == UPM_SENSOR) {
-        return &ft;
-    }
-
-    if(sensor_type == UPM_VIBRATION) {
-        return &vft;
-    }
-    return NULL;
-}
-
-void* upm_ldt0028_init_name(){
-    return NULL;
-}
-
-void* upm_ldt0028_init(int pin)
-{
-    upm_ldt0028 dev = (upm_ldt0028) malloc(sizeof(struct _upm_ldt0028));
+    ldt0028_context dev =
+      (ldt0028_context) malloc(sizeof(struct _ldt0028_context));
 
     if(dev == NULL) return NULL;
 
@@ -85,21 +43,20 @@ void* upm_ldt0028_init(int pin)
         free(dev);
         return NULL;
     }
+
     return dev;
 }
 
-void upm_ldt0028_close(void* dev)
+void ldt0028_close(ldt0028_context dev)
 {
-    upm_ldt0028 device = (upm_ldt0028) dev;
-    mraa_aio_close(device->aio);
+    mraa_aio_close(dev->aio);
 
     free(dev);
 }
 
-upm_result_t upm_ldt0028_get_value(void* dev, float* vibval)
+upm_result_t ldt0028_get_value(ldt0028_context dev, float* vibval)
 {
-    upm_ldt0028 device = (upm_ldt0028) dev;
-    *vibval = mraa_aio_read(device->aio);
+    *vibval = mraa_aio_read(dev->aio);
 
     return UPM_SUCCESS;
 }
