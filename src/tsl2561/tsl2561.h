@@ -27,12 +27,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef TSL2561_TSL2561_H_
-#define TSL2561_TSL2561_H_
-#include <stdarg.h>
+#ifndef TSL2561_H_
+#define TSL2561_H_
+
+#include <stdint.h>
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/i2c.h"
 
 #define TSL2561_Address          (0x29)  //Device address
 
@@ -94,32 +93,7 @@
 /**
  * Opaque pointer to the sensor struct
  */
-typedef struct _upm_tsl2561* upm_tsl2561;
-
-/**
- * Function to get the sensor descriptor
- *
- * @param dev void pointer to the sensor struct
- * @return upm_sensor_descriptor_t descriptor with the
- * the sensor details
- */
-const upm_sensor_descriptor_t upm_tsl2561_get_descriptor ();
-
-/**
- * Fetches the function tables associated with the
- * sensor module
- *
- * @param sensor_type the type of sensor
- * @return void* pointer to the sensor struct
- */
-const void* upm_tsl2561_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Generic Init funciton
- *
- * @return pointer to the sensor struct
- */
-void* upm_tsl2561_init_name();
+typedef struct _tsl2561_context *tsl2561_context;
 
 /**
  * Sensor Init Function
@@ -130,14 +104,15 @@ void* upm_tsl2561_init_name();
  * @param integration_time
  * @return void* pointer to the sensor struct
  */
-void* upm_tsl2561_init(int bus, uint8_t dev_address, uint8_t gain, uint8_t integration_time);
+tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,
+                             uint8_t integration_time);
 
 /**
  * Closes the sensor module
  *
  * @param dev pointer to the sensor struct
  */
-void upm_tsl2561_close(void* dev);
+void tsl2561_close(tsl2561_context dev);
 
 /**
  * Gets the Lux value
@@ -146,7 +121,7 @@ void upm_tsl2561_close(void* dev);
  * @param lux pointer to store the lux value
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_tsl2561_get_lux(const void* dev, float* lux);
+upm_result_t tsl2561_get_lux(const tsl2561_context, float* lux);
 
 /**
  * Write I2C register on the device
@@ -156,7 +131,8 @@ upm_result_t upm_tsl2561_get_lux(const void* dev, float* lux);
  * @param value the value to be written
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_tsl2561_i2c_write_reg(void* dev, uint8_t reg, uint8_t value);
+upm_result_t tsl2561_i2c_write_reg(tsl2561_context dev, uint8_t reg,
+                                   uint8_t value);
 
 /**
  * Read from an I2C register from the device
@@ -166,7 +142,8 @@ upm_result_t upm_tsl2561_i2c_write_reg(void* dev, uint8_t reg, uint8_t value);
  * @param data Data read in  from the register
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_tsl2561_i2c_read_reg(void* dev, uint8_t reg, uint8_t* data);
+upm_result_t tsl2561_i2c_read_reg(tsl2561_context dev, uint8_t reg,
+                                  uint8_t* data);
 
 
-#endif /* TSL2561_TSL2561_H_ */
+#endif /* TSL2561_H_ */

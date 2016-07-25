@@ -28,70 +28,26 @@
  */
 
 #include "tsl2561.h"
+#include "mraa/i2c.h"
 
-struct _upm_tsl2561 {
+typedef struct _tsl2561_context {
     mraa_i2c_context    i2c;
     int                 bus;
     uint8_t             address;
     uint8_t             gain;
     uint8_t             integration_time;
-};
-
-const char upm_tsl2561_name[] = "TSL2561";
-const char upm_tsl2561_description[] = "Grove Digital Light Sensor";
-const upm_protocol_t upm_tsl2561_protocol[] = {UPM_I2C};
-const upm_sensor_t upm_tsl2561_category[] = {UPM_LIGHT};
-
-const upm_sensor_descriptor_t upm_tsl2561_get_descriptor (){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_tsl2561_name;
-    usd.description = upm_tsl2561_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_tsl2561_protocol;
-    usd.category_size = 1;
-    usd.category = upm_tsl2561_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_tsl2561_init_name,
-    .upm_sensor_close = &upm_tsl2561_close,
-    .upm_sensor_get_descriptor = &upm_tsl2561_get_descriptor
-};
-
-static const upm_light_ft lft =
-{
-    .upm_light_get_value = &upm_tsl2561_get_lux
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_tsl2561_get_ft;
-}
-#endif
+} *tsl2561_context;
 
 // forward declaration
-upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data);
+upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data);
 
-const void* upm_tsl2561_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_LIGHT){
-        return &lft;
-    }
-    else if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-    return NULL;
-}
+tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,
+                             uint8_t integration_time){
+    tsl2561_context dev =
+      (tsl2561_context)malloc(sizeof(struct _tsl2561_context));
 
-void* upm_tsl2561_init_name(){
-    return NULL;
-}
-
-void* upm_tsl2561_init(int bus, uint8_t dev_address, uint8_t gain, uint8_t integration_time){
-    upm_tsl2561 dev = (upm_tsl2561) malloc(sizeof(struct _upm_tsl2561));
+    if (!dev)
+        return NULL;
 
     dev->bus = bus;
     dev->address = dev_address;
@@ -101,14 +57,23 @@ void* upm_tsl2561_init(int bus, uint8_t dev_address, uint8_t gain, uint8_t integ
     dev->i2c = mraa_i2c_init(dev->bus);
     if(dev->i2c == NULL){
         printf("The i2c context could not be initialized\n");
+        free(dev);
         return NULL;
     }
 
-    mraa_i2c_address(dev->i2c, dev->address);
+    if (mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS)
+        {
+            printf("mraa_i2c_address failed\n");
+            mraa_i2c_stop(dev->i2c);
+            free(dev);
+            return NULL;
+        }
 
     // POWER UP.
     if(mraa_i2c_write_byte_data(dev->i2c, CONTROL_POWERON, REGISTER_Control) != MRAA_SUCCESS){
         printf("Unable to power up tsl2561\n");
+        mraa_i2c_stop(dev->i2c);
+        free(dev);
         return NULL;
     }
 
@@ -117,12 +82,16 @@ void* upm_tsl2561_init(int bus, uint8_t dev_address, uint8_t gain, uint8_t integ
 
     // Gain & Integration time.
     if(mraa_i2c_write_byte_data(dev->i2c, (dev->gain | dev->integration_time), REGISTER_Timing) != MRAA_SUCCESS){
+        mraa_i2c_stop(dev->i2c);
+        free(dev);
         printf("Unable to set gain/time\n");
         return NULL;
     }
 
     // Set interrupt threshold to default.
     if(mraa_i2c_write_byte_data(dev->i2c, 0x00, REGISTER_Interrupt) != MRAA_SUCCESS){
+        mraa_i2c_stop(dev->i2c);
+        free(dev);
         printf("Unable to set gain/time\n");
         return NULL;
     }
@@ -131,50 +100,95 @@ void* upm_tsl2561_init(int bus, uint8_t dev_address, uint8_t gain, uint8_t integ
     return dev;
 }
 
-void upm_tsl2561_close(void* dev){
-    upm_tsl2561 device = (upm_tsl2561) dev;
-    if(mraa_i2c_write_byte_data(device->i2c, CONTROL_POWEROFF, REGISTER_Control) != MRAA_SUCCESS){
+void tsl2561_close(tsl2561_context dev){
+    if (mraa_i2c_write_byte_data(dev->i2c, CONTROL_POWEROFF,
+                                 REGISTER_Control) != MRAA_SUCCESS){
         printf("Unable turn off device\n");
     }
-    free(device);
+
+    mraa_i2c_stop(dev->i2c);
+    free(dev);
 }
 
-upm_result_t upm_tsl2561_get_lux(const void* dev, float* lux){
-    upm_tsl2561 device = (upm_tsl2561) dev;
+upm_result_t tsl2561_get_lux(const tsl2561_context dev, float* lux){
     int lux_val=0;
 
-    upm_tsl2561_compute_lux(device, &lux_val);
+    tsl2561_compute_lux(dev, &lux_val);
 
     *lux = (float) lux_val;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data) {
-    upm_tsl2561 device = (upm_tsl2561) dev;
+upm_result_t tsl2561_i2c_write_reg(tsl2561_context dev, uint8_t reg,
+                                   uint8_t value){
+    // Start transmission to device
+    if(mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS){
+        printf("Failure in setting i2c address\n");
+        return UPM_ERROR_OPERATION_FAILED;
+    }
 
+    // Write register to I2C
+    if(mraa_i2c_write_byte(dev->i2c, reg) != MRAA_SUCCESS){
+        printf("Unable to write address on i2c bus\n");
+        return UPM_ERROR_OPERATION_FAILED;
+    }
+
+    // Write value to I2C
+    if(mraa_i2c_write_byte(dev->i2c, value) != MRAA_SUCCESS){
+        printf("Unable to write data on i2c bus\n");
+        return UPM_ERROR_OPERATION_FAILED;
+    }
+
+    upm_delay_ms(100000);
+    return UPM_SUCCESS;
+}
+
+upm_result_t tsl2561_i2c_read_reg(tsl2561_context dev, uint8_t reg,
+                                  uint8_t* data){
+   // Start transmission to dev
+    if(mraa_i2c_address(dev->i2c, dev->address) != MRAA_SUCCESS){
+        printf("Failure in setting i2c address\n");
+        return UPM_ERROR_OPERATION_FAILED;
+    }
+
+    // Send address of register to be read.
+    if(mraa_i2c_write_byte(dev->i2c, reg) != MRAA_SUCCESS){
+        printf("Unable to write address on i2c bus\n");
+        return UPM_ERROR_OPERATION_FAILED;
+    }
+
+    // Read byte.
+    *data = mraa_i2c_read_byte(dev->i2c);
+
+    //printf("read some value from the sensor: %d\n", *data);
+    upm_delay_ms(100);
+    return UPM_SUCCESS;
+}
+
+upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data) {
     int lux;
     uint16_t raw_lux_ch_0;
     uint16_t raw_lux_ch_1;
     uint8_t ch0_low, ch0_high, ch1_low, ch1_high;
 
-    if(upm_tsl2561_i2c_read_reg(device, REGISTER_Channal0L, &ch0_low) != UPM_SUCCESS){
+    if (tsl2561_i2c_read_reg(dev, REGISTER_Channal0L, &ch0_low) != UPM_SUCCESS){
         printf("Unable to read channel0L in getRawLux()\n");
         return UPM_ERROR_OPERATION_FAILED;
     }
 
-    if(upm_tsl2561_i2c_read_reg(device, REGISTER_Channal0H, &ch0_high) != UPM_SUCCESS){
+    if(tsl2561_i2c_read_reg(dev, REGISTER_Channal0H, &ch0_high) != UPM_SUCCESS){
         printf("Unable to read channel0L in getRawLux()\n");
         return UPM_ERROR_OPERATION_FAILED;
     }
     printf("ch0_low: %d, ch0_high: %d, ch1_low: %d, ch1_high: %d\n", ch0_low, ch0_high, ch1_low, ch1_high);
     raw_lux_ch_0 = ch0_high*256 + ch0_low;
 
-    if(upm_tsl2561_i2c_read_reg(device, REGISTER_Channal1L, &ch1_low) != UPM_SUCCESS){
+    if(tsl2561_i2c_read_reg(dev, REGISTER_Channal1L, &ch1_low) != UPM_SUCCESS){
         printf("Unable to read channel0L in getRawLux()\n");
         return UPM_ERROR_OPERATION_FAILED;
     }
 
-    if(upm_tsl2561_i2c_read_reg(device, REGISTER_Channal1H, &ch1_high) != UPM_SUCCESS){
+    if(tsl2561_i2c_read_reg(dev, REGISTER_Channal1H, &ch1_high) != UPM_SUCCESS){
         printf("Unable to read channel0L in getRawLux()\n");
         return UPM_ERROR_OPERATION_FAILED;
     }
@@ -182,7 +196,7 @@ upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data) {
 
     uint64_t scale = 0;
 
-    switch(device->integration_time){
+    switch(dev->integration_time){
         case 0: // 13.7 msec
             scale = LUX_CHSCALE_TINT0;
             break;
@@ -195,7 +209,7 @@ upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data) {
     }
 
     // scale if gain is NOT 16X
-    if(!device->gain)
+    if(!dev->gain)
         scale = scale << 4;
 
     uint64_t channel1 = 0;
@@ -257,48 +271,3 @@ upm_result_t upm_tsl2561_compute_lux(const void* dev, int *int_data) {
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_tsl2561_i2c_write_reg(void* dev, uint8_t reg, uint8_t value){
-    upm_tsl2561 device = (upm_tsl2561) dev;
-    // Start transmission to device
-    if(mraa_i2c_address(device->i2c, device->address) != MRAA_SUCCESS){
-        printf("Failure in setting i2c address\n");
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
-    // Write register to I2C
-    if(mraa_i2c_write_byte(device->i2c, reg) != MRAA_SUCCESS){
-        printf("Unable to write address on i2c bus\n");
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
-    // Write value to I2C
-    if(mraa_i2c_write_byte(device->i2c, value) != MRAA_SUCCESS){
-        printf("Unable to write data on i2c bus\n");
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
-    upm_delay_ms(100000);
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_tsl2561_i2c_read_reg(void* dev, uint8_t reg, uint8_t* data){
-   upm_tsl2561 device = (upm_tsl2561) dev;
-   // Start transmission to device
-    if(mraa_i2c_address(device->i2c, device->address) != MRAA_SUCCESS){
-        printf("Failure in setting i2c address\n");
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
-    // Send address of register to be read.
-    if(mraa_i2c_write_byte(device->i2c, reg) != MRAA_SUCCESS){
-        printf("Unable to write address on i2c bus\n");
-        return UPM_ERROR_OPERATION_FAILED;
-    }
-
-    // Read byte.
-    *data = mraa_i2c_read_byte(device->i2c);
-
-    //printf("read some value from the sensor: %d\n", *data);
-    upm_delay_ms(100);
-    return UPM_SUCCESS;
-}
