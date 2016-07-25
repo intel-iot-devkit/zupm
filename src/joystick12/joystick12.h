@@ -56,15 +56,6 @@ void joystick12_close(joystick12_context dev);
 upm_result_t joystick12_read_data(const joystick12_context dev, int* values);
 
 /**
- * Generic sensor write method
- * @param dev sensor device context pointer
- * @param value pointer to value to write
- * @param len length of items to write
- */
-upm_result_t joystick12_write(const joystick12_context dev, void* value,
-                              int len);
-
-/**
  * Set sensor offset.  This offset is applied to the return value:
  *     counts = counts + offset
  * @param dev sensor context pointer
