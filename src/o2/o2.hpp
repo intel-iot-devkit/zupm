@@ -26,7 +26,6 @@
 #include <iostream>
 #include <string>
 
-#include "mraa/aio.hpp"
 #include "o2.h"
 
 namespace upm {
@@ -131,7 +130,7 @@ namespace upm {
     float counts(unsigned int samples = 15);
 
   private:
-    void* _dev;
+    o2_context _dev;
   };
 }
 

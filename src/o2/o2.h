@@ -25,45 +25,28 @@
 #pragma once
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "types/upm_sensor.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * Get the generic function table for this sensor
- * @return generic function table struct
+ * Opaque pointer to the sensor context
  */
-const void* upm_o2_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Initialize analog sensor
- * @param protocol protocol initliazation string
- * @param params sensor parameter string
- * @return sensor context as void pointer
- */
-void* upm_o2_init_str(const char* protocol, const char* params);
+typedef struct _o2_context *o2_context;
 
 /**
  * Initialize analog sensor
  * @param pin is Analog pin
  * @return sensor context as void pointer
  */
-void* upm_o2_init(int16_t pin);
+o2_context o2_init(int16_t pin);
 
 /**
  * Analog sensor destructor
  * @param sensor context pointer deallocate memory
  */
-void upm_o2_close(void* dev);
-
-/**
- * Get descriptor for this sensor
- * @return Sensor descriptor struct
- */
-const upm_sensor_descriptor_t upm_o2_get_descriptor();
+void o2_close(o2_context dev);
 
 /**
  * Set sensor offset.  This offset is applied to the return value:
@@ -72,7 +55,7 @@ const upm_sensor_descriptor_t upm_o2_get_descriptor();
  * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t upm_o2_set_offset(const void* dev, float offset);
+upm_result_t o2_set_offset(const o2_context dev, float offset);
 
 /**
  * Set sensor scale.  This scale is applied to the return value:
@@ -81,7 +64,7 @@ upm_result_t upm_o2_set_offset(const void* dev, float offset);
  * @param scale count scale value used
  * @return Function result code
  */
-upm_result_t upm_o2_set_scale(const void* dev, float scale);
+upm_result_t o2_set_scale(const o2_context dev, float scale);
 
 /**
  * Read value from sensor
@@ -89,7 +72,7 @@ upm_result_t upm_o2_set_scale(const void* dev, float scale);
  * @param *value counts value from sensor
  * @return Function result code
  */
-upm_result_t upm_o2_get_value(const void* dev, float *value);
+upm_result_t o2_get_value(const o2_context dev, float *value);
 
 #ifdef __cplusplus
 }

@@ -28,21 +28,21 @@
 
 using namespace upm;
 
-O2::O2(int pin, float vref) : _dev(upm_o2_init(pin)) {}
+O2::O2(int pin, float vref) : _dev(o2_init(pin)) {}
 
 O2::~O2()
 {
-    upm_o2_close(_dev);
+    o2_close(_dev);
 }
 
 void O2::setOffset(float offset)
 {
-    upm_o2_set_offset(_dev, offset);
+    o2_set_offset(_dev, offset);
 }
 
 void O2::setScale(float scale)
 {
-    upm_o2_set_scale(_dev, scale);
+    o2_set_scale(_dev, scale);
 }
 
 float O2::counts(unsigned int samples)
@@ -55,7 +55,7 @@ float O2::counts(unsigned int samples)
     float raw = 0.0;
     while (samples-- > 0)
     {
-        upm_o2_get_value(_dev, &raw);
+        o2_get_value(_dev, &raw);
         raw_avg += raw;
     }
 
