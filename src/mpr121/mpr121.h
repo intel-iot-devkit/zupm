@@ -23,11 +23,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MPR121_MPR121_H_
-#define MPR121_MPR121_H_
+#ifndef MPR121_H_
+#define MPR121_H_
+
+#include <stdint.h>
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/i2c.h"
 
 #define MPR121_I2C_BUS     0
 #define MPR121_DEFAULT_I2C_ADDR    0x5a
@@ -35,30 +35,7 @@
 /**
  * Opaque pointer for sensor struct
  */
-typedef struct _upm_mpr121* upm_mpr121;
-
-/**
- * Returns sensor descriptor
- *
- * @param dev sensor structure
- * @return upm_sensor_descriptor_t descriptor for the sensor
- */
-const upm_sensor_descriptor_t upm_mpr121_get_descriptor ();
-
-/**
- * Gets function table
- *
- * @param sensor_type type of ft requested
- * @return void* pointer to the function table
- */
-const void* upm_mpr121_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Generic Init function
- *
- * @return void* pointer to the sensor struct
- */
-void* upm_mpr121_init_name();
+typedef struct _mpr121_context *mpr121_context;
 
 /**
  * MPR121 Init function
@@ -67,14 +44,14 @@ void* upm_mpr121_init_name();
  * @param address i2c address of the sensor
  * @return void* pointer to the sensor struct
  */
-void* upm_mpr121_init(int bus, uint8_t address);
+mpr121_context upm_mpr121_init(int bus, uint8_t address);
 
 /**
  * MPR121 Close function
  *
  * @param dev pointer to sensor struct
  */
-void upm_mpr121_close(void* dev);
+void mpr121_close(mpr121_context dev);
 
 /**
  * Sets up a default configuration, based on Application Note 3944
@@ -86,7 +63,7 @@ void upm_mpr121_close(void* dev);
  * @param dev pointer to the sensor struct
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mpr121_config_an3944(void* dev);
+upm_result_t mpr121_config_an3944(mpr121_context dev);
 
 /**
  * Function to read the individual button values
@@ -96,7 +73,7 @@ upm_result_t upm_mpr121_config_an3944(void* dev);
  * @param num used to retrieve the state of a particular button
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mpr121_read_buttons(void* dev, uint32_t* states, int num);
+upm_result_t mpr121_read_buttons(mpr121_context dev, uint32_t* states, int num);
 
 /**
  * Function used to write multiple bytes to the i2c bus
@@ -108,8 +85,8 @@ upm_result_t upm_mpr121_read_buttons(void* dev, uint32_t* states, int num);
  * @param len length of the values that have to be written to the regs
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mpr121_write_bytes(void* dev, uint8_t reg,
-                                    uint8_t *buffer, int len);
+upm_result_t mpr121_write_bytes(mpr121_context dev, uint8_t reg,
+                                uint8_t *buffer, int len);
 
 /**
  * Function used to read multiple bytes from the i2c bus
@@ -122,7 +99,7 @@ upm_result_t upm_mpr121_write_bytes(void* dev, uint8_t reg,
  * @return upm_result_t UPM success/error code
  */
 
-upm_result_t upm_mpr121_read_bytes(void* dev, uint8_t reg,
-                                   uint8_t *buffer, int len);
+upm_result_t mpr121_read_bytes(mpr121_context dev, uint8_t reg,
+                               uint8_t *buffer, int len);
 
-#endif /* MPR121_MPR121_H_ */
+#endif /* MPR121_H_ */
