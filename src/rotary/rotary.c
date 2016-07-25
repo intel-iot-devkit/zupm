@@ -24,121 +24,63 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
+
+#include <mraa/aio.h>
 
 #include "rotary.h"
 
-struct _upm_rotary{
+typedef struct _rotary_context {
     mraa_aio_context aio;
     float m_aRef;
     int16_t m_aRes;
-};
+} *rotary_context;
 
-const char upm_rotary_name[] = "Grove Rotary";
-const char upm_rotary_description[] = "Analog Grove Rotary Sensor";
-const upm_protocol_t upm_rotary_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_rotary_category[] = {UPM_VOLTAGE, UPM_ANGLE};
-
-const upm_sensor_descriptor_t upm_rotary_get_descriptor() {
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_rotary_name;
-    usd.description = upm_rotary_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_rotary_protocol;
-    usd.category_size = 1;
-    usd.category = upm_rotary_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
+rotary_context rotary_init(int pin, float aRef)
 {
-    .upm_sensor_init_name = &upm_rotary_init_name,
-    .upm_sensor_close = &upm_rotary_close,
-    .upm_sensor_get_descriptor = &upm_rotary_get_descriptor
-};
-
-static const upm_voltage_ft vft =
-{
-    .upm_voltage_get_value = &upm_rotary_get_value_voltage
-};
-
-static const upm_angle_ft aft =
-{
-    .upm_angle_get_value = &upm_rotary_get_value_angle
-};
-
-const void* upm_rotary_get_ft(upm_sensor_t sensor_type) {
-    if(sensor_type == UPM_SENSOR) {
-        return &ft;
-    }
-    if(sensor_type == UPM_VOLTAGE) {
-        return &vft;
-    }
-    if(sensor_type == UPM_ANGLE) {
-        return &aft;
-    }
-    return NULL;
-}
-
-void* upm_rotary_init_name(){
-    return NULL;
-}
-
-void* upm_rotary_init(int pin, float aRef)
-{
-    upm_rotary dev = (upm_rotary) malloc(sizeof(struct _upm_rotary));
+    rotary_context dev = (rotary_context)malloc(sizeof(struct _rotary_context));
 
     if(dev == NULL) return NULL;
 
     dev->aio = mraa_aio_init(pin);
+
+    if(dev->aio == NULL){
+        free(dev);
+        return NULL;
+    }
 
     dev->m_aRef = aRef;
 
     // get adc bit range
     dev->m_aRes = (1 << mraa_aio_get_bit(dev->aio));
 
-    if(dev->aio == NULL){
-        free(dev);
-        return NULL;
-    }
     return dev;
 }
 
-void upm_rotary_close(void* dev)
+void rotary_close(rotary_context dev)
 {
-    upm_rotary device = (upm_rotary) dev;
-    mraa_aio_close(device->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-upm_result_t upm_rotary_get_value_voltage (const void* dev, float* rotval)
+upm_result_t rotary_get_value_voltage (const rotary_context dev,
+                                       float* volts)
 {
-    upm_rotary device = (upm_rotary) dev;
-
     float val = 0.0;
-    val = mraa_aio_read(device->aio);
-    //upm_rotary_read(device, &val, 0);
+    val = mraa_aio_read(dev->aio);
+    *volts = (dev->m_aRef / dev->m_aRes) * (float)val;
 
-    //if(unit == VOLTS) {
-        *rotval = (val/device->m_aRes) * device->m_aRef;
-    //}
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_rotary_get_value_angle (void* dev, float* rotval, upm_angle_u unit)
+upm_result_t rotary_get_value_angle (rotary_context dev, float* rotval)
 {
-    upm_rotary device = (upm_rotary) dev;
-
     float val = 0.0;
-    val = mraa_aio_read(device->aio);
-    //upm_rotary_read(device, &val, 0);
+    val = mraa_aio_read(dev->aio);
 
-    if(unit == DEGREES) {
-        *rotval = UPM_ROTARY_MAX_ANGLE * (val/device->m_aRes);
-    }
-    else if (unit == RADIANS){
-        *rotval = UPM_ROTARY_MAX_ANGLE * (val/device->m_aRes) * M_PI/180.0;
-    }
+    // return degrees
+    *rotval = val * (float)ROTARY_MAX_ANGLE / dev->m_aRes;
+
     return UPM_SUCCESS;
 }

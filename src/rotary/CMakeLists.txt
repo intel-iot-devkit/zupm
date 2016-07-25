@@ -1,5 +1,5 @@
 set (libname "rotary")
 set (libdescription "UPM Rotary Angle Sensor Module: rotary")
-set (module_src rotary.c)
+set (module_src rotary.c rotary_fti.c)
 set (module_h rotary.h)
 upm_module_init()

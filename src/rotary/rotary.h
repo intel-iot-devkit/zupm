@@ -27,31 +27,22 @@
 #ifndef ROTARY_H_
 #define ROTARY_H_
 
-#pragma once
-#include <stdlib.h>
 #include <unistd.h>
-
-#include <mraa/aio.h>
 
 #include "upm.h"
 #include "upm_fti.h"
 
-#define UPM_ROTARY_MAX_ANGLE 300
+#define ROTARY_MAX_ANGLE 300
 
-typedef struct _upm_rotary* upm_rotary;
+typedef struct _rotary_context* rotary_context;
 
-const upm_sensor_descriptor_t upm_rotary_get_descriptor();
+rotary_context rotary_init(int pin, float aRef);
 
-const void* upm_rotary_get_ft(upm_sensor_t sensor_type);
+void rotary_close(rotary_context dev);
 
-void* upm_rotary_init(int pin, float aRef);
+upm_result_t rotary_get_value_voltage(const rotary_context dev, float* volts);
 
-void* upm_rotary_init_name();
-
-void upm_rotary_close(void* dev);
-
-upm_result_t upm_rotary_get_value_voltage(const void* dev, float* rotval);
-
-upm_result_t upm_rotary_get_value_angle(void* dev, float* rotval, upm_angle_u unit);
+// degrees only
+upm_result_t rotary_get_value_angle(rotary_context dev, float* rotval);
 
 #endif /* ROTARY_H_ */
