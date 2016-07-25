@@ -22,14 +22,16 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#include "mq303a.h"
 
-struct _upm_mq303a {
+#include "mq303a.h"
+#include "mraa/aio.h"
+
+typedef struct _mq303a_context {
     mraa_gpio_context       gpio;
     mraa_aio_context        aio;
     uint8_t                 gpio_pin;
     uint8_t                 aio_pin;
-};
+} *mq303a_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_MQ303A_MEM_MAP, 1, sizeof(struct _upm_mq303a));
@@ -38,50 +40,13 @@ const kmemory_map_t UPM_MQ303A_MEM_MAP;
 #define UPM_MQ303A_MEM_MAP 0
 #endif
 
-const char upm_mq303a_name[] = "MQ303A";
-const char upm_mq303a_description[] = "MQ303A";
-const upm_protocol_t upm_mq303a_protocol[] = {UPM_GPIO, UPM_ANALOG};
-const upm_sensor_t upm_mq303a_category[] = {UPM_GAS};
+mq303a_context upm_mq303a_init(int pin, int heater_pin){
+    mq303a_context dev =
+      (mq303a_context)upm_malloc(UPM_MQ303A_MEM_MAP,
+                                 sizeof(struct _mq303a_context));
 
-const upm_sensor_descriptor_t upm_mq303a_get_descriptor(){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_mq303a_name;
-    usd.description = upm_mq303a_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_mq303a_protocol;
-    usd.category_size = 1;
-    usd.category = upm_mq303a_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_mq303a_init_name,
-    .upm_sensor_close = &upm_mq303a_close,
-    .upm_sensor_get_descriptor = &upm_mq303a_get_descriptor
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_mq303a_get_ft;
-}
-#endif
-
-const void* upm_mq303a_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-    return NULL;
-}
-
-void* upm_mq303a_init_name(){
-    return NULL;
-}
-
-void* upm_mq303a_init(int pin, int heater_pin){
-    upm_mq303a dev = (upm_mq303a) upm_malloc(UPM_MQ303A_MEM_MAP, sizeof(struct _upm_mq303a));
+    if (!dev)
+      return NULL;
 
     dev->aio_pin = pin;
     dev->gpio_pin = heater_pin;
@@ -89,29 +54,29 @@ void* upm_mq303a_init(int pin, int heater_pin){
     dev->gpio = mraa_gpio_init(dev->gpio_pin);
 
     if(mraa_gpio_dir(dev->gpio, MRAA_GPIO_OUT) != MRAA_SUCCESS)
+      {
+        upm_free(UPM_MQ303A_MEM_MAP, dev);
         return NULL;
+      }
 
     return dev;
 }
 
-void upm_mq303a_close(void* dev){
+void mq303a_close(mq303a_context dev){
     upm_free(UPM_MQ303A_MEM_MAP, dev);
 }
 
-upm_result_t upm_mq303a_heater_enable(void* dev, bool enable){
-    upm_mq303a device = (upm_mq303a) dev;
+upm_result_t mq303a_heater_enable(mq303a_context dev, bool enable){
     if(enable)
-        mraa_gpio_write(device->gpio, 0);
+        mraa_gpio_write(dev->gpio, 0);
     else
-        mraa_gpio_write(device->gpio, 1);
+        mraa_gpio_write(dev->gpio, 1);
 
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_mq303a_get_value(void* dev, int* val){
-    upm_mq303a device = (upm_mq303a) dev;
-
-    *val = mraa_aio_read(device->aio);
+upm_result_t mq303a_get_value(mq303a_context dev, int* val){
+    *val = mraa_aio_read(dev->aio);
 
     if (*val < 0)
         return UPM_ERROR_OPERATION_FAILED;

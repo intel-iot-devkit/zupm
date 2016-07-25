@@ -24,9 +24,9 @@
  */
 #ifndef MQ303A_MQ303A_H_
 #define MQ303A_MQ303A_H_
+
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/aio.h"
+
 /**
  * @brief MQ303A Alcohol Sensor library
  * @defgroup mq303a libupm-mq303a
@@ -53,27 +53,10 @@
  * @snippet mq303a.cxx Interesting
  */
 
-/*
- * Opaque pointer to the sensor structure
- */
-typedef struct _upm_mq303a* upm_mq303a;
-
-const upm_sensor_descriptor_t upm_mq303a_get_descriptor();
 /**
- * Gets the function tables associated with the sensor
- *
- * @param sensor_type the type of sensor
- * required for the ft to be returned
- * @return void* pointer to the ft struct
+ * Opaque pointer to the sensor context
  */
-const void* upm_mq303a_get_ft(upm_sensor_t sensor_type);
-
-/**
- * MQ303A Name Initialization function
- *
- * @return void* pointer to the sensor struct
- */
-void* upm_mq303a_init_name();
+typedef struct _mq303a_context *mq303a_context;
 
 /**
  * MQ303A Initialization function
@@ -82,14 +65,14 @@ void* upm_mq303a_init_name();
  * @param heaterPin Digital pin mapped to the analog pin to use
  * @return void* pointer to the sensor struct
  */
-void* upm_mq303a_init(int pin, int heater_pin);
+mq303a_context mq303a_init(int pin, int heater_pin);
 
 /**
  * MQ303A Initialization function
  *
  * @param void* pointer to the sensor struct
  */
-void upm_mq303a_close(void* dev);
+void mq303a_close(mq303a_context dev);
 
 /**
  * This function gets the value of the alcohol content
@@ -98,7 +81,7 @@ void upm_mq303a_close(void* dev);
  * @param *val pointer to store the reading
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mq303a_get_value(void* dev, int* val);
+upm_result_t mq303a_get_value(mq303a_context dev, int* val);
 
 /**
  * This function enables/disables the heater
@@ -108,6 +91,6 @@ upm_result_t upm_mq303a_get_value(void* dev, int* val);
  * @param bool to turn on/off heater
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mq303a_heater_enable(void* dev, bool enable);
+upm_result_t mq303a_heater_enable(mq303a_context dev, bool enable);
 
 #endif /* MQ303A_MQ303A_H_ */
