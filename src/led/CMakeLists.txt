@@ -1,5 +1,5 @@
 set (libname "led")
 set (libdescription "UPM LED Sensor Module: led")
-set (module_src led.c)
+set (module_src led.c led_fti.c)
 set (module_h led.h)
 upm_module_init()
