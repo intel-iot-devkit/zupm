@@ -28,21 +28,21 @@
 
 using namespace upm;
 
-LIGHT::LIGHT(int pin, float vref) : _dev(upm_light_init(pin)) {}
+LIGHT::LIGHT(int pin, float vref) : _dev(light_init(pin)) {}
 
 LIGHT::~LIGHT()
 {
-    upm_light_close(_dev);
+    light_close(_dev);
 }
 
 void LIGHT::setOffset(float offset)
 {
-    upm_light_set_offset(_dev, offset);
+    light_set_offset(_dev, offset);
 }
 
 void LIGHT::setScale(float scale)
 {
-    upm_light_set_scale(_dev, scale);
+    light_set_scale(_dev, scale);
 }
 
 float LIGHT::lux(unsigned int samples)
@@ -55,7 +55,7 @@ float LIGHT::lux(unsigned int samples)
     float light = 0.0;
     while (samples-- > 0)
     {
-        upm_light_get_value(_dev, &light);
+        light_get_value(_dev, &light);
         light_avg += light;
     }
 

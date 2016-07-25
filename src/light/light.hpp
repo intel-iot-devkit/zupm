@@ -138,7 +138,7 @@ namespace upm {
     float lux(unsigned int samples = 15);
 
   private:
-    void* _dev;
+    light_context _dev;
   };
 }
 

@@ -1,6 +1,6 @@
 set (libname "light")
 set (libdescription "upm lux sensor")
-set (module_src ${libname}.cxx light.c)
+set (module_src ${libname}.cxx light.c light_fti.c)
 set (module_hpp ${libname}.hpp)
 set (module_h ${libname}.hpp light.h)
 upm_module_init()
