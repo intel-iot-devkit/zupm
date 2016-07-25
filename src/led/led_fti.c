@@ -24,63 +24,54 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef LED_LED_H_
-#define LED_LED_H_
+#include "led.h"
+#include "upm_fti.h"
 
-#include <stdint.h>
-#include "upm.h"
-
-/**
- * @type led
- * @con gpio
- * @kit gsk
- *
- * @brief API for the Grove LED
- *
- * UPM module for the Grove LED (or other similar light-emitting diodes).
- * An LED is a small lightbulb that emits light in
- * response to a small current. The longer wire of an LED connects
- * to the positive seat (anode); the shorter wire connects to the
- * negative seat (cathode). The flat side of the bulb corresponds
- * to the cathode, while the rounded side corresponds to the anode.
- *
- * @image html groveled.jpg
+/** 
+ * This file implements the Function Table Interface (FTI) for this sensor
  */
 
-/**
- * Opaque pointer to the sensor context
- */
-typedef struct _led_context *led_context;
+const char upm_led_name[] = "LED";
+const char upm_led_description[] = "LED";
+const upm_protocol_t upm_led_protocol[] = {UPM_GPIO};
+const upm_sensor_t upm_led_category[] = {UPM_LED};
 
-/**
- * LED Initialization function
- *
- * @param pin GPIO pin to use
- * @return The sensor context
- */
-led_context led_init(uint8_t pin);
+// forward declarations
+const upm_sensor_descriptor_t upm_led_get_descriptor();
+const void* upm_led_get_ft(upm_sensor_t sensor_type);
+void* upm_led_init_name();
+void upm_led_close(void* dev);
 
-/**
- * MQ303A Initialization function
- *
- * @param The sensor context
- */
-void led_close(led_context dev);
+static const upm_sensor_ft ft =
+{
+    .upm_sensor_init_name = &upm_led_init_name,
+    .upm_sensor_close = &upm_led_close,
+    .upm_sensor_get_descriptor = &upm_led_get_descriptor
+};
 
-/**
- * Function to turn LED on
- *
- * @param The sensor context
- * @return upm_result_t UPM success/error code
- */
-upm_result_t led_on(led_context dev);
+const void* upm_led_get_ft(upm_sensor_t sensor_type){
+    if(sensor_type == UPM_SENSOR){
+        return &ft;
+    }
+    return NULL;
+}
 
-/**
- * Function to turn LED off
- *
- * @param The sensor context
- * @return upm_result_t UPM success/error code
- */
-upm_result_t led_off(led_context dev);
+const upm_sensor_descriptor_t upm_led_get_descriptor(){
+    upm_sensor_descriptor_t usd;
+    usd.name = upm_led_name;
+    usd.description = upm_led_description;
+    usd.protocol_size = 1;
+    usd.protocol = upm_led_protocol;
+    usd.category_size = 1;
+    usd.category = upm_led_category;
+    return usd;
+}
 
-#endif /* LED_LED_H_ */
+void* upm_led_init_name(){
+    return NULL;
+}
+
+void upm_led_close(void* dev) {
+    led_close((led_context)dev);
+}
+
