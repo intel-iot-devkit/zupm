@@ -25,53 +25,16 @@
  */
 
 #include "mic.h"
+#include "mraa/aio.h"
 
-struct _upm_mic{
+typedef struct _mic_context {
     mraa_aio_context aio;
     uint16_t analog_pin;
-};
+} *mic_context;
 
-const char upm_mic_name[] = "Microphone";
-const char upm_mic_description[] = "Analog Microphone";
-const upm_protocol_t upm_mic_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_mic_category[] = {UPM_AUDIO};
-
-const upm_sensor_descriptor_t upm_mic_get_descriptor() {
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_mic_name;
-    usd.description = upm_mic_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_mic_protocol;
-    usd.category_size = 1;
-    usd.category = upm_mic_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
+mic_context upm_mic_init(int pin)
 {
-    .upm_sensor_init_name = &upm_mic_init_name,
-    .upm_sensor_close = &upm_mic_close,
-    .upm_sensor_get_descriptor = &upm_mic_get_descriptor
-};
-
-static const upm_audio_ft aft =
-{
-    .upm_audio_get_value = &upm_mic_get_value
-};
-
-const void* upm_mic_get_ft(upm_sensor_t sensor_type) {
-    if(sensor_type == UPM_SENSOR) {
-        return &ft;
-    }
-    if(sensor_type == UPM_AUDIO) {
-        return &aft;
-    }
-    return NULL;
-}
-
-void* upm_mic_init(int pin)
-{
-    upm_mic dev = (upm_mic) malloc(sizeof(struct _upm_mic));
+    mic_context dev = (mic_context)malloc(sizeof(struct _mic_context));
 
     if(dev == NULL) return NULL;
 
@@ -81,30 +44,21 @@ void* upm_mic_init(int pin)
     if(dev->aio == NULL)
     {
         printf("unable to initialize the AIO pin");
+        free(dev);
         return NULL;
     }
+
     return dev;
 }
 
-void* upm_mic_init_name(){
-    return NULL;
-}
-
-void upm_mic_close(void* dev)
+void mic_close(mic_context dev)
 {
-    upm_mic device = (upm_mic) dev;
-    mraa_aio_close(device->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-upm_result_t upm_mic_get_value(void* dev, float *micval, upm_audio_u unit)
+upm_result_t mic_get_value(mic_context dev, float *micval)
 {
-    upm_mic device = (upm_mic) dev;
-    *micval =  mraa_aio_read(device->aio);
-    //upm_mic_read(device, micval, 0);
-
-    //convert readings to decibels
-    if(unit == DECIBELS) {
-    }
+    *micval =  mraa_aio_read(dev->aio);
     return UPM_SUCCESS;
 }

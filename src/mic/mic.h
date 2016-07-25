@@ -32,21 +32,16 @@
 #include <unistd.h>
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/aio.h"
 
-typedef struct _upm_mic* upm_mic;
+/**
+ * Opaque pointer to the sensor context
+ */
+typedef struct _mic_context *mic_context;
 
-const upm_sensor_descriptor_t upm_mic_get_descriptor();
+mic_context mic_init(int pin);
 
-const void* upm_mic_get_ft(upm_sensor_t sensot_type);
+void mic_close(mic_context dev);
 
-void* upm_mic_init(int pin);
-
-void* upm_mic_init_name();
-
-void upm_mic_close(void* dev);
-
-upm_result_t upm_mic_get_value(void* dev, float* micval, upm_audio_u unit);
+upm_result_t mic_get_value(mic_context dev, float* micval);
 
 #endif /* MIC_H_ */
