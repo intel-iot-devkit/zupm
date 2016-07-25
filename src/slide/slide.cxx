@@ -28,27 +28,27 @@
 
 using namespace upm;
 
-SLIDE::SLIDE(int pin, float vref) : _dev(upm_slide_init(pin)) {}
+SLIDE::SLIDE(int pin, float vref) : _dev(slide_init(pin)) {}
 
 SLIDE::~SLIDE()
 {
-    upm_slide_close(_dev);
+    slide_close(_dev);
 }
 
 void SLIDE::setOffset(float offset)
 {
-    upm_slide_set_offset(_dev, offset);
+    slide_set_offset(_dev, offset);
 }
 
 void SLIDE::setScale(float scale)
 {
-    upm_slide_set_scale(_dev, scale);
+    slide_set_scale(_dev, scale);
 }
 
 float SLIDE::volts()
 {
     float voltage = 0.0;
-    upm_slide_get_value(_dev, &voltage);
+    slide_get_value(_dev, &voltage);
 
     return voltage;
 }

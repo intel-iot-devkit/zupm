@@ -26,7 +26,6 @@
 #include <iostream>
 #include <string>
 
-#include "mraa/aio.hpp"
 #include "slide.h"
 
 namespace upm {
@@ -129,7 +128,7 @@ namespace upm {
     void setScale(float scale);
 
   private:
-    void* _dev;
+    slide_context _dev;
   };
 }
 

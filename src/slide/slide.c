@@ -25,20 +25,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mraa/aio.h"
-#include "types/upm_sensor.h"
-#include "types/upm_voltage.h"
 #include "slide.h"
-
-const char upm_slide_name[] = "SLIDE";
-const char upm_slide_description[] = "Analog slide sensor";
-const upm_protocol_t upm_slide_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_slide_category[] = {UPM_VOLTAGE};
+#include "mraa/aio.h"
 
 /**
  * Analog sensor struct
  */
-typedef struct _upm_slide {
+typedef struct _slide_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
     /* Analog voltage reference */
@@ -47,134 +40,57 @@ typedef struct _upm_slide {
     float m_count_offset;
     /* Raw count scale */
     float m_count_scale;
-} upm_slide;
+} *slide_context;
 
-/* This sensor implementes 2 function tables */
-/* 1. Generic base function table */
-static const upm_sensor_ft ft_gen =
+slide_context slide_init(int16_t pin)
 {
-    .upm_sensor_init_name = &upm_slide_init_str,
-    .upm_sensor_close = &upm_slide_close,
-    .upm_sensor_get_descriptor = &upm_slide_get_descriptor
-};
-
-/* 2. VOLTAGE function table */
-static const upm_voltage_ft ft_voltage =
-{
-    .upm_voltage_set_offset = &upm_slide_set_offset,
-    .upm_voltage_set_scale = &upm_slide_set_scale,
-    .upm_voltage_get_value = &upm_slide_get_value
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_slide_get_ft;
-}
-#endif
-
-const void* upm_slide_get_ft(upm_sensor_t sensor_type)
-{
-    switch(sensor_type)
-    {
-        case UPM_SENSOR:
-            return &ft_gen;
-        case UPM_VOLTAGE:
-            return &ft_voltage;
-        default:
-            return NULL;
-    }
-}
-
-void* upm_slide_init_str(const char* protocol, const char* params)
-{
-    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return upm_slide_init(0);
-}
-
-void* upm_slide_init(int16_t pin)
-{
-    upm_slide* dev = (upm_slide*) malloc(sizeof(upm_slide));
+    slide_context dev = (slide_context) malloc(sizeof(struct _slide_context));
 
     if(dev == NULL) return NULL;
 
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
 
-    /* Set the ref, zero the offset */
-    dev->m_count_offset = 0.0;
-    dev->m_count_scale = 1.0;
-
     if(dev->aio == NULL) {
         free(dev);
         return NULL;
     }
 
+    /* Set the ref, zero the offset */
+    dev->m_count_offset = 0.0;
+    dev->m_count_scale = 1.0;
+
     return dev;
 }
 
-void upm_slide_close(void* dev)
+void slide_close(slide_context dev)
 {
-    mraa_aio_close(((upm_slide*)dev)->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-const upm_sensor_descriptor_t upm_slide_get_descriptor()
+upm_result_t slide_set_offset(const slide_context dev, float offset)
 {
-    /* Fill in the descriptor */
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_slide_name;
-    usd.description = upm_slide_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_slide_protocol;
-    usd.category_size = 1;
-    usd.category = upm_slide_category;
-
-    return usd;
-}
-
-upm_result_t upm_slide_read(const void* dev, void* value, int len)
-{
-    /* Read the adc twice, first adc read can have weird data */
-    mraa_aio_read(((upm_slide*)dev)->aio);
-    *(int*)value = mraa_aio_read(((upm_slide*)dev)->aio);
-    if (value < 0)
-        return UPM_ERROR_OPERATION_FAILED;
-
+    dev->m_count_offset = offset;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_slide_write(const void* dev, void* value, int len)
+upm_result_t slide_set_scale(const slide_context dev, float scale)
 {
-    return UPM_ERROR_NOT_SUPPORTED;
-}
-
-upm_result_t upm_slide_set_offset(const void* dev, float offset)
-{
-    ((upm_slide*)dev)->m_count_offset = offset;
+    dev->m_count_scale = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_slide_set_scale(const void* dev, float scale)
-{
-    ((upm_slide*)dev)->m_count_scale = scale;
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_slide_get_value(const void* dev, float *value)
+upm_result_t slide_get_value(const slide_context dev, float *value)
 {
     /* Read counts */
-    int counts = mraa_aio_read(((upm_slide*)dev)->aio);
-
-    /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_slide*)dev)->aio)) - 1;
+    int counts = mraa_aio_read(dev->aio);
 
     /* Apply raw scale */
-    *value = counts * ((upm_slide*)dev)->m_count_scale;
+    *value = counts * dev->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_slide*)dev)->m_count_offset * ((upm_slide*)dev)->m_count_scale;
+    *value += dev->m_count_offset * dev->m_count_scale;
 
     return UPM_SUCCESS;
 }
