@@ -26,26 +26,19 @@
 #ifndef TEMPERATURE_H_
 #define TEMPERATURE_H_
 
-#pragma once
 #include <stdlib.h>
 #include <unistd.h>
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/aio.h"
 
-typedef struct _upm_temperature* upm_temperature;
+typedef struct _temperature_context *temperature_context;
 
-const upm_sensor_descriptor_t upm_temperature_get_descriptor();
+temperature_context temperature_init(int pin);
 
-const void* upm_temperature_get_ft(upm_sensor_t sensor_type);
+void temperature_close(temperature_context dev);
 
-void* upm_temperature_init(int pin);
-
-void* upm_temperature_init_name();
-
-void upm_temperature_close(void* dev);
-
-upm_result_t upm_temperature_get_value_temperature(void* dev, float* tempval, upm_temperature_u unit);
+// celsius
+upm_result_t temperature_get_value(temperature_context dev,
+                                   float* tempval);
 
 #endif /* TEMPERATURE_H_ */

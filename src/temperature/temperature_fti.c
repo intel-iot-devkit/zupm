@@ -27,19 +27,26 @@
 #include<stdio.h>
 #include <stdlib.h>
 
-#include "Temperature.h"
+#include "temperature.h"
+#include "upm_fti.h"
 #include "upm_sensor.h"
-#include "upm.h"
 
-struct _upm_temperature{
-    mraa_aio_context aio;
-    int16_t m_aRes;
-};
+/** 
+ * This file implements the Function Table Interface (FTI) for this sensor
+ */
 
 const char upm_temperature_name[] = "Grove Temperature";
 const char upm_temperature_description[] = "Analog Grove Temperature Sensor";
 const upm_protocol_t upm_temperature_protocol[] = {UPM_ANALOG};
 const upm_sensor_t upm_temperature_category[] = {UPM_TEMPERATURE};
+
+// forward declarations
+const upm_sensor_descriptor_t upm_temperature_get_descriptor();
+const void* upm_temperature_get_ft(upm_sensor_t sensor_type);
+upm_result_t upm_temperature_get_value_temperature(void* dev, float* tempval,
+                                                   upm_temperature_u unit);
+void* upm_temperature_init_name();
+void upm_temperature_close(void* dev);
 
 const upm_sensor_descriptor_t upm_temperature_get_descriptor() {
     upm_sensor_descriptor_t usd;
@@ -78,52 +85,34 @@ void* upm_temperature_init_name(){
     return NULL;
 }
 
-void* upm_temperature_init(int pin)
-{
-    upm_temperature dev = (upm_temperature) malloc(sizeof(struct _upm_temperature));
-
-    if(dev == NULL) return NULL;
-
-    dev->aio = mraa_aio_init(pin);
-
-    dev->m_aRes = (1 << mraa_aio_get_bit(dev->aio));
-
-    if(dev->aio == NULL)
-    {
-        free(dev);
-        return NULL;
-    }
-    return dev;
-}
-
 void upm_temperature_close(void* dev)
 {
-    upm_temperature device = (upm_temperature) dev;
-    mraa_aio_close(device->aio);
-    free(dev);
+    temperature_close((temperature_context)dev);
 }
 
-upm_result_t upm_temperature_get_value_temperature (void* dev, float* tempval, upm_temperature_u unit)
+upm_result_t upm_temperature_get_value_temperature(void* dev, float* tempval,
+                                                   upm_temperature_u unit)
 {
-    upm_temperature device = (upm_temperature) dev;
+    float temp = 0.0;
+    upm_result_t rv = temperature_get_value((temperature_context)dev, &temp);
 
-    float val = 0.0;
-    float res = 0.0;
-    val = mraa_aio_read(device->aio);
-    //upm_temperature_read(device, &val, 0);
+    if (rv != UPM_SUCCESS)
+        return rv;
 
-    //resistance = res
-    res = (device->m_aRes - val) * 10000.0f/val;
+    switch (unit)
+        {
+        case CELSIUS:
+            *tempval = temp;
+            return UPM_SUCCESS;
 
-    if (unit == KELVIN){
-        *tempval = 1.0f/(log(res/10000.0f)/3975.0f + 1.0f/298.15f);
-    }
-    else if(unit == CELSIUS) {
-        *tempval = 1.0f/(log(res/10000.0f)/3975.0f + 1.0f/298.15f)-273.15f;
-    }
-    else if (unit == FAHRENHEIT){
-        *tempval = (1.0f/(log(res/10000.0f)/3975.0f + 1.0f/298.15f)-273.15f) * 1.8f + 32.0f;
-    }
+        case KELVIN:
+            *tempval = temp + 273.15;
+            return UPM_SUCCESS;
 
-    return UPM_SUCCESS;
+        case FAHRENHEIT:
+            *tempval = temp * (9.0/5.0) + 32.0;
+            return UPM_SUCCESS;
+        }
+
+    return UPM_ERROR_INVALID_PARAMETER;
 }
