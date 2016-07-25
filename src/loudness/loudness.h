@@ -27,22 +27,11 @@
 #define LOUDNESS_LOUDNESS_H_
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/aio.h"
-/**
- * Opaque pointer to the sensor structure
- */
-typedef struct _upm_loudness* upm_loudness;
-
-const void* upm_loudness_get_ft(upm_sensor_t sensor_type);
-const upm_sensor_descriptor_t upm_loudness_get_descriptor();
 
 /**
- * Loudness Name Initialization function
- *
- * @return void* pointer to the sensor struct
+ * Opaque pointer to the sensor context
  */
-void* upm_loudness_init_name();
+typedef struct _loudness_context *loudness_context;
 
 /**
  * Loudness Initialization function
@@ -50,14 +39,14 @@ void* upm_loudness_init_name();
  * @param pin AIO pin to use
  * @return void* pointer to the sensor struct
  */
-void* upm_loudness_init(int pin);
+loudness_context loudness_init(int pin);
 
 /**
- * Loudness Initialization function
+ * Loudness destructor
  *
  * @param void* pointer to the sensor struct
  */
-void upm_loudness_close(void* dev);
+void loudness_close(loudness_context dev);
 
 /**
  * Function gets the loudness raw value (currently)
@@ -66,6 +55,6 @@ void upm_loudness_close(void* dev);
  * @param int* pointer to store the loudness value.
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_loudness_get_value(void* dev, int* val);
+upm_result_t loudness_get_value(loudness_context dev, int* val);
 
 #endif /* LOUDNESS_LOUDNESS_H_ */

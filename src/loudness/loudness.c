@@ -23,11 +23,12 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "loudness.h"
+#include "mraa/aio.h"
 
-struct _upm_loudness {
+typedef struct _loudness_context {
     mraa_aio_context            aio;
     uint8_t                     pin;
-};
+} *loudness_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_LOUDNESS_MAP, 1, sizeof(struct _upm_loudness));
@@ -36,68 +37,33 @@ const kmemory_map_t UPM_LOUDNESS_MEM_MAP;
 #define UPM_LOUDNESS_MEM_MAP 0
 #endif
 
-const char upm_loudness_name[] = "loudness";
-const char upm_loudness_description[] = " Loudness Sensor";
-const upm_protocol_t upm_loudness_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_loudness_category[] = {UPM_AUDIO};
+loudness_context upm_loudness_init(int pin) {
+    loudness_context dev =
+      (loudness_context)upm_malloc(UPM_LOUDNESS_MEM_MAP,
+                                   sizeof(struct _loudness_context));
 
-const upm_sensor_descriptor_t upm_loudness_get_descriptor(){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_loudness_name;
-    usd.description = upm_loudness_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_loudness_protocol;
-    usd.category_size = 1;
-    usd.category = upm_loudness_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_loudness_init_name,
-    .upm_sensor_close = &upm_loudness_close,
-    .upm_sensor_get_descriptor = &upm_loudness_get_descriptor
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_loudness_get_ft;
-}
-#endif
-
-const void* upm_loudness_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-    return NULL;
-}
-
-void* upm_loudness_init_name(){
-    return NULL;
-}
-
-void* upm_loudness_init(int pin){
-    upm_loudness dev = (upm_loudness) upm_malloc(UPM_LOUDNESS_MEM_MAP, sizeof(struct _upm_loudness));
+    if (!dev)
+      return NULL;
 
     dev->pin = pin;
     dev->aio = mraa_aio_init(dev->pin);
 
+    if (!dev->aio)
+      {
+        free(dev);
+        return NULL;
+      }
+
     return dev;
 }
 
-void upm_loudness_close(void* dev){
-    upm_loudness device = (upm_loudness) dev;
-    mraa_aio_close(device->aio);
+void loudness_close(loudness_context dev) {
+    mraa_aio_close(dev->aio);
     upm_free(UPM_LOUDNESS_MEM_MAP, dev);
 }
 
-upm_result_t upm_loudness_get_value(void* dev, int* val){
-    upm_loudness device = (upm_loudness) dev;
-    int len;
-
-    *val = mraa_aio_read(device->aio);
+upm_result_t loudness_get_value(loudness_context dev, int* val) {
+    *val = mraa_aio_read(dev->aio);
 
     return UPM_SUCCESS;
 }
