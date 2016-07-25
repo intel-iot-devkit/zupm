@@ -1,5 +1,5 @@
 set (libname "mvs0608")
 set (libdescription "UPM Grove Collision Sensor Module: mvs0608")
-set (module_src mvs0608.c)
+set (module_src mvs0608.c mvs0608_fti.c)
 set (module_h mvs0608.h)
 upm_module_init()

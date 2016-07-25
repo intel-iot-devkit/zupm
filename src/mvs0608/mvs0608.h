@@ -22,11 +22,10 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef MVS0608_MVS0608_H_
-#define MVS0608_MVS0608_H_
+#ifndef MVS0608_H_
+#define MVS0608_H_
+
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/gpio.h"
 /**
  * @brief MVS0608 - Grove Collision Sensor library
  * @ingroup gpio accelerometer
@@ -50,20 +49,9 @@
  */
 
 /**
- * Opaque pointer to the sensor structure
+ * Opaque pointer to the sensor context
  */
-typedef struct _upm_mvs0608* upm_mvs0608;
-
-const upm_sensor_descriptor_t upm_mvs0608_get_descriptor();
-
-const void* upm_mvs0608_get_ft(upm_sensor_t sensor_type);
-
-/**
- * MVS0608 Name Initialization function
- *
- * @return void* pointer to the sensor struct
- */
-void* upm_mvs0608_init_name();
+typedef struct _mvs0608_context *mvs0608_context;
 
 /**
  * MVS0608 Initialization function
@@ -71,14 +59,14 @@ void* upm_mvs0608_init_name();
  * @param pin number
  * @return void* pointer to the sensor struct
  */
-void* upm_mvs0608_init(int pin);
+mvs0608_context mvs0608_init(int pin);
 
 /**
  * MVS0608 Initialization function
  *
  * @param void* pointer to the sensor struct
  */
-void upm_mvs0608_close(void* dev);
+void mvs0608_close(mvs0608_context dev);
 
 /**
  * This function tells you whether the sensor has
@@ -88,29 +76,6 @@ void upm_mvs0608_close(void* dev);
  * @param bool* pointer to hold the collision value
  * @return upm_result_t UPM success/error code
  */
-upm_result_t upm_mvs_is_colliding(void* dev, bool* collision_val);
+upm_result_t mvs0608_is_colliding(mvs0608_context dev, bool* collision_val);
 
-/**
- * Generic read function for the sensor. Returns
- * raw value.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value that was read
- * @param int len length of the elements of the
- * value that has been read
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_mvs0608_read(const void* dev, void* value, int len);
-
-/**
- * Generic write function for the sensor.
- *
- * @param void* pointer to the sensor struct
- * @param void* value stores the value to write
- * @param int len length of the elements of the
- * value to be written
- * @return upm_result_t UPM success/error code
- */
-upm_result_t upm_mvs0608_write(const void* dev, void* value, int len);
-
-#endif /* MVS0608_MVS0608_H_ */
+#endif /* MVS0608_H_ */
