@@ -1,5 +1,5 @@
 set (libname "relay")
 set (libdescription "UPM Relay Module: relay")
-set (module_src relay.c)
+set (module_src relay.c relay_fti.c)
 set (module_h relay.h)
 upm_module_init()

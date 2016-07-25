@@ -30,31 +30,20 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <mraa/gpio.h>
-
 #include "upm.h"
-#include "upm_fti.h"
 
-typedef struct _upm_relay* upm_relay;
+typedef struct _relay_context *relay_context;
 
-const upm_sensor_descriptor_t upm_relay_get_descriptor();
+relay_context relay_init(int pin);
 
-const void* upm_relay_get_ft(upm_sensor_t sensor_type);
+void relay_close(relay_context dev);
 
-void* upm_relay_init(int pin);
+upm_result_t relay_on(relay_context dev);
 
-void* upm_relay_init_name();
+upm_result_t relay_off(relay_context dev);
 
-void upm_relay_close(void* dev);
+bool relay_is_on(relay_context dev);
 
-upm_result_t upm_relay_on(void* dev);
-
-upm_result_t upm_relay_off(void* dev);
-
-bool upm_relay_is_on(void* dev);
-
-bool upm_relay_is_off(void* dev);
-
-upm_result_t upm_relay_get_value(void* dev, bool* value, int num);
+bool relay_is_off(relay_context dev);
 
 #endif /* RELAY_H_ */
