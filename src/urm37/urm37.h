@@ -29,18 +29,15 @@
 #ifndef URM37_H_
 #define URM37_H_
 
-#pragma once
+#include <stdint.h>
 #include "upm.h"
-#include "upm_fti.h"
-#include "mraa/aio.h"
-#include "mraa/uart.h"
 
-#define URM37_DEFAULT_UART          0
-#define A_REF                       5.0
-#define UPM_URM37_MAX_CMD_LEN       4
-#define UPM_URM37_MAX_RESP_LEN      4
-#define UPM_URM37_WAIT_TIMEOUT      1000
-#define UPM_URM37_MAX_RETRIES       1
+#define URM37_DEFAULT_UART      0
+#define A_REF                   5.0
+#define URM37_MAX_CMD_LEN       4
+#define URM37_MAX_RESP_LEN      4
+#define URM37_WAIT_TIMEOUT      1000
+#define URM37_MAX_RETRIES       1
 
 /**
  * @brief DFRobot URM37 Ultrasonic Ranger
@@ -81,11 +78,11 @@
  * An example using UART mode
  * @snippet urm37-uart.cxx Interesting
  */
-typedef struct _upm_urm37v4* upm_urm37;;
 
-const void* upm_urm37_get_ft(upm_sensor_t sensor_type);
-
-void* upm_urm37_init_name();
+/**
+ * Opaque pointer to the sensor context
+ */
+typedef struct _urm37_context *urm37_context;
 
 /**
  * URM37 Initializer
@@ -97,12 +94,14 @@ void* upm_urm37_init_name();
  * @param uart Default UART to use (0 or 1).
  * @param mode analog/uart mode
  */
-void* upm_urm37_init(uint8_t a_pin, uint8_t reset_pin, uint8_t trigger_pin, float a_ref, uint8_t uart, upm_protocol_t mode);
+urm37_context urm37_init(uint8_t a_pin, uint8_t reset_pin,
+                         uint8_t trigger_pin, float a_ref, 
+                         uint8_t uart, bool analog_mode);
 
 /**
  * URM37 sensor close function
  */
-void upm_urm37_close(void* dev);
+void urm37_close(urm37_context dev);
 
 /**
  * Reset the device.  This will take approximately 3 seconds to
@@ -110,7 +109,7 @@ void upm_urm37_close(void* dev);
  *
  * @param dev sensor struct
  */
-upm_result_t upm_urm37_reset(void* dev);
+upm_result_t urm37_reset(urm37_context dev);
 
 /**
  * Get the distance measurement.  A return value of 65535.0
@@ -120,22 +119,16 @@ upm_result_t upm_urm37_reset(void* dev);
  * @param distance return value for distance measured
  * @param dist_unit The measured distance in cm
  */
-upm_result_t upm_urm37_get_distance(void* dev, float* distance, upm_distance_u dist_unit);
+upm_result_t urm37_get_distance(urm37_context dev, float* distance);
 
 /**
  * Get the temperature measurement.  This is only valid in UART mode.
  *
  * @param dev sensor struct
  * @param temperature The measured temperature in degrees C
- * @param temp_unit unit of temp in C/F/K
  *
  */
-upm_result_t upm_urm37_get_temperature(void* dev, float* temperature, upm_temperature_u temp_unit);
-
-
-upm_result_t upm_urm37_get_mode(void* dev, upm_protocol_t* mode);
-
-upm_result_t upm_urm37_set_mode(void* dev, upm_protocol_t mode);
+upm_result_t urm37_get_temperature(urm37_context dev, float* temperature);
 
 /**
  * In UART mode only, read a value from the EEPROM and return it.
@@ -145,7 +138,7 @@ upm_result_t upm_urm37_set_mode(void* dev, upm_protocol_t mode);
  * are between 0x00-0x04.
  * @param return parameter for the EEPROM value at addr
  */
-upm_result_t upm_urm37_read_EEPROM(void* dev, uint8_t addr, uint8_t* value);
+upm_result_t urm37_read_EEPROM(urm37_context dev, uint8_t addr, uint8_t* value);
 
 /**
  * In UART mode only, write a value into an address on the EEPROM.
@@ -155,12 +148,13 @@ upm_result_t upm_urm37_read_EEPROM(void* dev, uint8_t addr, uint8_t* value);
  * are between 0x00-0x04.
  * @param value The value to write
  */
-upm_result_t upm_urm37_write_EEPROM(void* dev, uint8_t addr, uint8_t value);
+upm_result_t urm37_write_EEPROM(urm37_context dev, uint8_t addr, uint8_t value);
 
 // send a serial command and return a 4 byte response (UART mode only)
-upm_result_t upm_urm37_send_command(void* dev, char* cmd, char* response, int len);
+upm_result_t urm37_send_command(urm37_context dev, char* cmd, char* response,
+                                int len);
 
-//upm_result_t upm_urm37_data_available(void* dev, uint32_t millis, mraa_boolean_t* data_avail);
+bool urm37_data_available(urm37_context dev, uint32_t millis);
 
 /**
  * Reads any available data and returns it in a std::string. Note:
@@ -172,7 +166,8 @@ upm_result_t upm_urm37_send_command(void* dev, char* cmd, char* response, int le
  * @param len Maximum length of the data to be returned
  * @param data The data read
  */
-upm_result_t upm_urm37_read_data_string(void* dev, uint32_t len, char* data);
+upm_result_t urm37_read_data_string(urm37_context dev, uint32_t len,
+                                    char* data);
 
 /**
  * Writes the std:string data to the device.  If you are writing a
@@ -182,10 +177,11 @@ upm_result_t upm_urm37_read_data_string(void* dev, uint32_t len, char* data);
  * @param data_w Buffer to write to the device
  * @param len Number of bytes written
  */
-upm_result_t upm_urm37_write_data_string(void* dev, const char* data_w, int len);
+upm_result_t urm37_write_data_string(urm37_context dev, const char* data_w,
+                                     int len);
 
-upm_result_t upm_urm37_get_degrees(void* dev, int* degrees);
+upm_result_t urm37_get_degrees(urm37_context dev, int* degrees);
 
-upm_result_t upm_urm37_set_degrees(void* dev, int degrees);
+upm_result_t urm37_set_degrees(urm37_context dev, int degrees);
 
 #endif /* URM37_H_ */
