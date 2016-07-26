@@ -23,46 +23,20 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef UPM_C_TTP223_TTP223_H_
-#define UPM_C_TTP223_TTP223_H_
+#ifndef TTP223_H_
+#define TTP223_H_
 
-#pragma once
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
 
 #include "upm.h"
-#include "upm_fti.h"
 #include "mraa/gpio.h"
 
 /**
  * Opaque pointer to the sensor struct
  */
-typedef struct _upm_ttp223* upm_ttp223;
-
-/**
- * Fetches the descriptor for the sensor
- *
- * @param dev pointer to the sensor struct
- * @return upm_sensor_descriptor_t descriptor associated
- * with the sensor
- */
-const upm_sensor_descriptor_t upm_ttp223_get_descriptor();
-
-/**
- * Fetches the function tables associated with the sensor
- *
- * @param sensor_type the type of sensor
- * @return void* pointer to the function table requested
- */
-const void* upm_ttp223_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Generic init function
- *
- * @return void* pointer to the sensor struct
- */
-void* upm_ttp223_init_name();
+typedef struct _ttp223_context *ttp223_context;
 
 /**
  * Sensor Init function
@@ -70,33 +44,34 @@ void* upm_ttp223_init_name();
  * @param pin The pin number the sensor is attached to
  * @return void* pointer to the sensor struct
  */
-void* upm_ttp223_init(int pin);
+ttp223_context upm_ttp223_init(int pin);
 
 /**
  * Sensor Module close function
  *
  * @param dev pointer to the sensor struct
  */
-void upm_ttp223_close(void* dev);
+void ttp223_close(ttp223_context dev);
 
 /**
  * Function to tell if the sensor is pressed
  *
  * @param dev pointer to the sensor struct
  * @param value pointer to store whether the sensor is pressed or not
- * @param num the touchpad pressed
  * @result upm_result_t UPM success/error code
  */
-upm_result_t upm_ttp223_is_pressed(void* dev, bool* value, int num);
+upm_result_t ttp223_is_pressed(ttp223_context dev, bool* value);
 
 /**
  *
  */
-upm_result_t upm_ttp223_install_isr(void* dev, mraa_gpio_edge_t edge_level, void (*isr)(void *), void *arg);
+upm_result_t ttp223_install_isr(ttp223_context dev,
+                                mraa_gpio_edge_t edge_level,
+                                void (*isr)(void *), void *arg);
 
 /**
  *
  */
-upm_result_t upm_ttp223_uninstall_isr(void* dev);
+upm_result_t ttp223_uninstall_isr(ttp223_context);
 
-#endif /* UPM_C_TTP223_TTP223_H_ */
+#endif /* TTP223_H_ */

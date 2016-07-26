@@ -25,72 +25,24 @@
 
 #include "ttp223.h"
 
-struct _upm_ttp223 {
+typedef struct _ttp223_context {
     mraa_gpio_context       gpio;
     uint8_t                 gpio_pin;
     bool                    isr_installed;
-};
+} *ttp223_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_TTP223_MEM_MAP, 1, sizeof(struct _upm_ttp223));
+DEFINE_MEM_MAP(UPM_TTP223_MEM_MAP, 1, sizeof(struct _ttp223_context));
 const kmemory_map_t UPM_TTP223_MEM_MAP;
 #elif defined(linux)
 #define UPM_TTP223_MEM_MAP 0
 #endif
 
-const char upm_ttp223_name[] = "TTP223";
-const char upm_ttp223_description[] = "TTP223 Touch Detector Sensor";
-const upm_protocol_t upm_ttp223_protocol[] = {UPM_GPIO};
-const upm_sensor_t upm_ttp223_category[] = {UPM_SWITCH};
+ttp223_context ttp223_init(int pin){
+    ttp223_context dev = 
+      (ttp223_context) malloc(sizeof(struct _ttp223_context));
 
-const upm_sensor_descriptor_t upm_ttp223_get_descriptor(){
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_ttp223_name;
-    usd.description = upm_ttp223_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_ttp223_protocol;
-    usd.category_size = 1;
-    usd.category = upm_ttp223_category;
-    return usd;
-}
-
-static const upm_sensor_ft ft =
-{
-    .upm_sensor_init_name = &upm_ttp223_init_name,
-    .upm_sensor_close = &upm_ttp223_close,
-    .upm_sensor_get_descriptor = &upm_ttp223_get_descriptor
-};
-
-static const upm_switch_ft sft =
-{
-    .upm_switch_get_value = &upm_ttp223_is_pressed
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_ttp223_get_ft;
-}
-#endif
-
-const void* upm_ttp223_get_ft(upm_sensor_t sensor_type){
-    if(sensor_type == UPM_SWITCH){
-        return &sft;
-    }
-    else if(sensor_type == UPM_SENSOR){
-        return &ft;
-    }
-    return NULL;
-}
-
-void* upm_ttp223_init_name(){
-    return NULL;
-}
-
-void* upm_ttp223_init(int pin){
-    upm_ttp223 dev = (upm_ttp223) malloc(sizeof(struct _upm_ttp223));
-    if(dev == NULL){
+    if (dev == NULL) {
         printf("Unable to allocate space for the sensor struct\n");
         return NULL;
     }
@@ -100,48 +52,42 @@ void* upm_ttp223_init(int pin){
     dev->gpio = mraa_gpio_init(dev->gpio_pin);
     mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN);
     dev->isr_installed = false;
+
     return dev;
 }
 
-void upm_ttp223_close(void* dev){
-//        upm_free(UPM_TTP223_MEM_MAP, dev);
+void ttp223_close(ttp223_context dev){
+  mraa_gpio_close(dev->gpio);
+  free(dev);
 }
 
-upm_result_t upm_ttp223_get_value(mraa_gpio_context dev, uint32_t* value){
+upm_result_t ttp223_is_pressed(ttp223_context dev, bool* value) {
+    int ret = mraa_gpio_read(dev->gpio);
 
-    *value = mraa_gpio_read(dev);
-
-    return UPM_SUCCESS;
-}
-
-upm_result_t upm_ttp223_is_pressed(void* dev, bool* value, int num){
-    upm_ttp223 device = (upm_ttp223) dev;
-    if(num != 1){
-        printf("Sorry this sensor driver supports only one touch pad\n");
-        return UPM_ERROR_OUT_OF_RANGE;
-    }
-    uint32_t ret = false;
-    upm_ttp223_get_value(device->gpio, &ret);
-    if(ret == 1)
+    if (ret > 0)
         *value = true;
     else
         *value = false;
+
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_ttp223_install_isr(void* dev, mraa_gpio_edge_t edge_level, void (*isr)(void *), void *arg){
-    upm_ttp223 device = (upm_ttp223) dev;
-    if(device->isr_installed)
-        upm_ttp223_uninstall_isr(device);
+upm_result_t upm_ttp223_install_isr(ttp223_context dev,
+                                    mraa_gpio_edge_t edge_level,
+                                    void (*isr)(void *), void *arg){
+    ttp223_uninstall_isr(dev);
 
-    mraa_gpio_isr(device->gpio, edge_level, isr, arg);
-    device->isr_installed = true;
+    mraa_gpio_isr(dev->gpio, edge_level, isr, arg);
+    dev->isr_installed = true;
+
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_ttp223_uninstall_isr(void* dev){
-    upm_ttp223 device = (upm_ttp223) dev;
-    mraa_gpio_isr_exit(device->gpio);
-    device->isr_installed = false;
+upm_result_t ttp223_uninstall_isr(ttp223_context dev){
+    if (dev->isr_installed)
+        mraa_gpio_isr_exit(dev->gpio);
+
+    dev->isr_installed = false;
+
     return UPM_SUCCESS;
 }
