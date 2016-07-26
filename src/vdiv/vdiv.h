@@ -25,45 +25,28 @@
 #pragma once
 
 #include "upm.h"
-#include "upm_fti.h"
-#include "types/upm_sensor.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * Get the generic function table for this sensor
- * @return generic function table struct
+ * Opaque pointer to the sensor context
  */
-const void* upm_vdiv_get_ft(upm_sensor_t sensor_type);
-
-/**
- * Initialize analog sensor
- * @param protocol protocol initliazation string
- * @param params sensor parameter string
- * @return sensor context as void pointer
- */
-void* upm_vdiv_init_str(const char* protocol, const char* params);
+typedef struct _vdiv_context *vdiv_context;
 
 /**
  * Initialize analog sensor
  * @param pin is Analog pin
  * @return sensor context as void pointer
  */
-void* upm_vdiv_init(int16_t pin, float voltage_ref);
+vdiv_context vdiv_init(int16_t pin, float voltage_ref);
 
 /**
  * Analog sensor destructor
  * @param sensor context pointer deallocate memory
  */
-void upm_vdiv_close(void* dev);
-
-/**
- * Get descriptor for this sensor
- * @return Sensor descriptor struct
- */
-const upm_sensor_descriptor_t upm_vdiv_get_descriptor();
+void vdiv_close(vdiv_context dev);
 
 /**
  * Set sensor offset.  This offset is applied to the return value:
@@ -72,7 +55,7 @@ const upm_sensor_descriptor_t upm_vdiv_get_descriptor();
  * @param offset count offset value used
  * @return Function result code
  */
-upm_result_t upm_vdiv_set_offset(const void* dev, float offset);
+upm_result_t vdiv_set_offset(const vdiv_context dev, float offset);
 
 /**
  * Set sensor scale.  This scale is applied to the return value:
@@ -81,16 +64,15 @@ upm_result_t upm_vdiv_set_offset(const void* dev, float offset);
  * @param scale count scale value used
  * @return Function result code
  */
-upm_result_t upm_vdiv_set_scale(const void* dev, float scale);
+upm_result_t vdiv_set_scale(const vdiv_context dev, float scale);
 
 /**
  * Read value from sensor
  * @param dev sensor context pointer
  * @param *value volts value from sensor, units depend on unit enum
- * @param unit Enum which specifies units returned in *value
  * @return Function result code
  */
-upm_result_t upm_vdiv_get_value(const void* dev, float *value);
+upm_result_t vdiv_get_value(const vdiv_context dev, float *value);
 
 #ifdef __cplusplus
 }

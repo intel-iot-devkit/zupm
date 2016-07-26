@@ -25,20 +25,13 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "mraa/aio.h"
-#include "types/upm_sensor.h"
-#include "types/upm_voltage.h"
 #include "vdiv.h"
-
-const char upm_vdiv_name[] = "VDIV";
-const char upm_vdiv_description[] = "Analog voltage divider sensor";
-const upm_protocol_t upm_vdiv_protocol[] = {UPM_ANALOG};
-const upm_sensor_t upm_vdiv_category[] = {UPM_VOLTAGE};
+#include "mraa/aio.h"
 
 /**
  * Analog sensor struct
  */
-typedef struct _upm_vdiv {
+typedef struct _vdiv_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
     /* Analog voltage reference */
@@ -47,128 +40,72 @@ typedef struct _upm_vdiv {
     float m_count_offset;
     /* Raw count scale */
     float m_count_scale;
-} upm_vdiv;
+} *vdiv_context;
 
-/* This sensor implementes 2 function tables */
-/* 1. Generic base function table */
-static const upm_sensor_ft ft_gen =
+vdiv_context vdiv_init(int16_t pin, float voltage_ref)
 {
-    .upm_sensor_init_name = &upm_vdiv_init_str,
-    .upm_sensor_close = &upm_vdiv_close,
-    .upm_sensor_get_descriptor = &upm_vdiv_get_descriptor
-};
+    vdiv_context dev = (vdiv_context)malloc(sizeof(struct _vdiv_context));
 
-/* 2. VOLTAGE function table */
-static const upm_voltage_ft ft_voltage =
-{
-    .upm_voltage_set_offset = &upm_vdiv_set_offset,
-    .upm_voltage_set_scale = &upm_vdiv_set_scale,
-    .upm_voltage_get_value = &upm_vdiv_get_value
-};
-
-#if defined(FRAMEWORK_BUILD)
-typedef const void* (*upm_get_ft) (upm_sensor_t sensor_type);
-
-upm_get_ft upm_assign_ft(){
-    return upm_vdiv_get_ft;
-}
-#endif
-
-const void* upm_vdiv_get_ft(upm_sensor_t sensor_type)
-{
-    switch(sensor_type)
-    {
-        case UPM_SENSOR:
-            return &ft_gen;
-        case UPM_VOLTAGE:
-            return &ft_voltage;
-        default:
-            return NULL;
-    }
-}
-
-void* upm_vdiv_init_str(const char* protocol, const char* params)
-{
-    fprintf(stderr, "String initialization - not implemented, using ain0: %s\n", __FILENAME__);
-    return upm_vdiv_init(0, 5.0);
-}
-
-void* upm_vdiv_init(int16_t pin, float voltage_ref)
-{
-    upm_vdiv* dev = (upm_vdiv*) malloc(sizeof(upm_vdiv));
-
-    if(dev == NULL) return NULL;
+    if (dev == NULL) return NULL;
 
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
+
+    if (dev->aio == NULL) {
+        free(dev);
+        return NULL;
+    }
 
     /* Set the ref, zero the offset */
     dev->m_count_offset = 0.0;
     dev->m_count_scale = 1.0;
     dev->m_voltage_ref = voltage_ref;
 
-    if(dev->aio == NULL) {
-        free(dev);
-        return NULL;
-    }
-
     return dev;
 }
 
-void upm_vdiv_close(void* dev)
+void vdiv_close(vdiv_context dev)
 {
-    mraa_aio_close(((upm_vdiv*)dev)->aio);
+    mraa_aio_close(dev->aio);
     free(dev);
 }
 
-const upm_sensor_descriptor_t upm_vdiv_get_descriptor()
+upm_result_t vdiv_set_offset(const vdiv_context dev, float offset)
 {
-    /* Fill in the descriptor */
-    upm_sensor_descriptor_t usd;
-    usd.name = upm_vdiv_name;
-    usd.description = upm_vdiv_description;
-    usd.protocol_size = 1;
-    usd.protocol = upm_vdiv_protocol;
-    usd.category_size = 1;
-    usd.category = upm_vdiv_category;
-
-    return usd;
-}
-
-upm_result_t upm_vdiv_set_offset(const void* dev, float offset)
-{
-    ((upm_vdiv*)dev)->m_count_offset = offset;
+    dev->m_count_offset = offset;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_vdiv_set_scale(const void* dev, float scale)
+upm_result_t vdiv_set_scale(const vdiv_context dev, float scale)
 {
-    ((upm_vdiv*)dev)->m_count_scale = scale;
+    dev->m_count_scale = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t upm_vdiv_get_value(const void* dev, float *value)
+upm_result_t vdiv_get_value(const vdiv_context dev, float *value)
 {
+    // JET - this is wrong.
+
     /* Read counts */
-    int counts = mraa_aio_read(((upm_vdiv*)dev)->aio);
+    int counts = mraa_aio_read(dev->aio);
 
     if (counts < 0)
         return UPM_ERROR_OPERATION_FAILED;
 
     /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(((upm_vdiv*)dev)->aio)) - 1;
+    float max_adc = (1 << mraa_aio_get_bit(dev->aio)) - 1;
 
     /* Apply raw scale */
-    *value = counts * ((upm_vdiv*)dev)->m_count_scale;
+    *value = counts * dev->m_count_scale;
 
     /* Apply raw offset */
-    *value += ((upm_vdiv*)dev)->m_count_offset * ((upm_vdiv*)dev)->m_count_scale;
+    *value += dev->m_count_offset * dev->m_count_scale;
 
     /* Normalize the value */
     *value /= max_adc;
 
     /* Convert the value to volts */
-    *value *= ((upm_vdiv*)dev)->m_voltage_ref;
+    *value *= dev->m_voltage_ref;
 
     return UPM_SUCCESS;
 }

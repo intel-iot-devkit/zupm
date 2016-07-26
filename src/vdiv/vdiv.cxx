@@ -28,27 +28,27 @@
 
 using namespace upm;
 
-VDIV::VDIV(int pin, float vref) : _dev(upm_vdiv_init(pin, vref)) {}
+VDIV::VDIV(int pin, float vref) : _dev(vdiv_init(pin, vref)) {}
 
 VDIV::~VDIV()
 {
-    upm_vdiv_close(_dev);
+    vdiv_close(_dev);
 }
 
 void VDIV::setOffset(float offset)
 {
-    upm_vdiv_set_offset(_dev, offset);
+    vdiv_set_offset(_dev, offset);
 }
 
 void VDIV::setScale(float scale)
 {
-    upm_vdiv_set_scale(_dev, scale);
+    vdiv_set_scale(_dev, scale);
 }
 
 float VDIV::volts()
 {
     float voltage = 0.0;
-    upm_vdiv_get_value(_dev, &voltage);
+    vdiv_get_value(_dev, &voltage);
 
     return voltage;
 }
