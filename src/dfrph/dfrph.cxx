@@ -53,7 +53,7 @@ float DFRPH::pH(unsigned int samples)
     if (samples == 0) samples = 1;
 
     float ph = 0.0;
-    while (samples-- > 0)
+    for (int i =0; i < samples; i++)
     {
         dfrph_get_ph(_dev, &ph);
         ph_avg += ph;

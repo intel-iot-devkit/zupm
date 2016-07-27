@@ -105,13 +105,6 @@ namespace upm {
     ~DFRPH();
 
     /**
-     * Returns the voltage detected on the analog pin
-     *
-     * @return The detected voltage
-     */
-    float volts();
-
-    /**
      * Specifies the offset determined from calibration.  The default
      * is 0.0.
      *

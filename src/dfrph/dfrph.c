@@ -34,8 +34,6 @@
 typedef struct _dfrph_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
     /* Raw count offset */
     float m_count_offset;
     /* Raw count scale */
@@ -84,6 +82,8 @@ upm_result_t dfrph_set_scale(const dfrph_context dev, float scale)
 
 upm_result_t dfrph_get_ph(const dfrph_context dev, float *value)
 {
+    /* Throw away first analog read (can be slightly off) */
+    mraa_aio_read(dev->aio);
     /* Read counts */
     int counts = mraa_aio_read(dev->aio);
 
