@@ -59,9 +59,9 @@ joystick12_context joystick12_init(int16_t apin_x, int16_t apin_y)
 
     /* Set the ref, zero the offset */
     dev->m_count_offset_x = 0.0;
-    dev->m_count_scale_x = 1.0;
+    dev->m_count_scale_x = 2.0;
     dev->m_count_offset_y = 0.0;
-    dev->m_count_scale_y = 1.0;
+    dev->m_count_scale_y = 2.0;
 
     if((dev->ai_x == NULL) || (dev->ai_y == NULL))
     {
@@ -81,7 +81,11 @@ void joystick12_close(joystick12_context dev)
 
 upm_result_t joystick12_read_data(const joystick12_context dev, int* values)
 {
+    /* Throw away first read */
+    mraa_aio_read(dev->ai_x);
     values[0] = mraa_aio_read(dev->ai_x);
+    /* Throw away first read */
+    mraa_aio_read(dev->ai_y);
     values[1] = mraa_aio_read(dev->ai_y);
 
     if (values[0] < 0 || values[1] < 0)
@@ -127,14 +131,17 @@ upm_result_t joystick12_get_value_x(const joystick12_context dev, float *value)
     /* Apply raw offset */
     *value = counts[0] + dev->m_count_offset_x;
 
-    // Scale to -1.0 +1.0
+    // Scale to +/- 1.0
     *value =  -2.0 * (((max_adc/2.0 - *value))/max_adc * dev->m_count_scale_x);
+
+    // Clip to +/- 1.0
+    if (*value > 1.0) *value = 1.0;
+    else if (*value < -1.0) *value = -1.0;
 
     return UPM_SUCCESS;
 }
 
-upm_result_t joystick12_get_value_y(const joystick12_context dev,
-                                        float *value)
+upm_result_t joystick12_get_value_y(const joystick12_context dev, float *value)
 {
     int counts[2] = {0,0};
 
@@ -147,8 +154,12 @@ upm_result_t joystick12_get_value_y(const joystick12_context dev,
     /* Apply raw offset */
     *value = counts[1] + dev->m_count_offset_y;
 
-    // Scale to -1.0 +1.0
+    // Scale to +/- 1.0
     *value =  -2.0 * (((max_adc/2.0 - *value))/max_adc * dev->m_count_scale_y);
+
+    // Clip to +/- 1.0
+    if (*value > 1.0) *value = 1.0;
+    else if (*value < -1.0) *value = -1.0;
 
     return UPM_SUCCESS;
 }
@@ -185,7 +196,8 @@ upm_result_t joystick12_calibrate_x(const joystick12_context dev)
     if ((fcounts == 0) || (fcounts == max_adc)) return UPM_SUCCESS;
 
     dev->m_count_scale_x =
-      1.0 / (1.0 - 2 * fcounts/max_adc);
+      1.0 / (1.0 - 2.0 * fcounts/max_adc);
+    dev->m_count_scale_x = fabs(dev->m_count_scale_x);
 
     return UPM_SUCCESS;
 }
@@ -205,7 +217,9 @@ upm_result_t joystick12_calibrate_y(const joystick12_context dev)
     /* no need to scale if counts is a max or min value */
     if ((fcounts == 0) || (fcounts == max_adc)) return UPM_SUCCESS;
 
-    dev->m_count_scale_y = .5 * max_adc/fcounts;
+    dev->m_count_scale_y =
+      1.0 / (1.0 - 2.0 * fcounts/max_adc);
+    dev->m_count_scale_y = fabs(dev->m_count_scale_y);
 
     return UPM_SUCCESS;
 }
