@@ -61,8 +61,8 @@ void temperature_close(temperature_context dev)
     free(dev);
 }
 
-upm_result_t temperature_get_value_(temperature_context dev,
-                                    float* tempval)
+upm_result_t temperature_get_value(temperature_context dev,
+                                   float* tempval)
 {
     float val = 0.0;
     val = (float)mraa_aio_read(dev->aio);
