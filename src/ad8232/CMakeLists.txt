@@ -1,4 +1,4 @@
-set (libname "upm_c_ad8232")
+set (libname "ad8232")
 set (libdescription "UPM Heart Rate Monitor Driver: ad8232")
 set (module_src ad8232.c ad8232_fti.c)
 set (module_h ad8232.h)

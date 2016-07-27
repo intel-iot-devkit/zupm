@@ -1,4 +1,4 @@
-set (libname "upm_c_es9257")
+set (libname "es9257")
 set (libdescription "UPM Servo C Driver: es9257")
 set (module_src es9257.c es9257_fti.c)
 set (module_h es9257.h)
