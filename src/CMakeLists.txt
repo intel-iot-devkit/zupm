@@ -241,16 +241,17 @@ if (SWIG_FOUND)
 endif()
 
 macro(upm_module_init)
+
+  # First pass, check for C files.
+  foreach(srcfile ${module_src})
+    set (found_c_source false)
+    if (${srcfile} MATCHES ".*c$" )
+      set (found_c_source true)
+    endif()
+  endforeach(srcfile)
+
   # Remove .cxx files if C only
   if (NOT BUILDCPP)
-    # First pass, check for C files.  If none, skip
-    foreach(srcfile ${module_src})
-        set (found_c_source false)
-        if (${srcfile} MATCHES ".*c$" )
-            set (found_c_source true)
-        endif()
-    endforeach(srcfile)
-
     if (found_c_source)
         message (INFO " Building C-only library: ${libname}")
         foreach(srcfile ${module_src})
@@ -261,14 +262,34 @@ macro(upm_module_init)
     endif()
   endif ()
 
+  # Remove *_fti.c files if C files are present and NOT BUILDFTI
+  if (NOT BUILDFTI)
+    if (found_c_source)
+        message (INFO " Disabling FTI implementation: ${libname}")
+        foreach(srcfile ${module_src})
+            if (${srcfile} MATCHES ".*_fti\\.c" )
+                list(REMOVE_ITEM module_src ${srcfile})
+            endif()
+        endforeach(srcfile)
+    endif()
+  endif ()
 
   link_directories (${MRAA_LIBDIR})
   add_library (${libname} SHARED ${module_src})
   foreach (linkflag ${ARGN})
     target_link_libraries (${libname} ${linkflag})
   endforeach ()
-  include_directories (${MRAA_INCLUDE_DIRS} . .. ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/include/types)
+  include_directories (${MRAA_INCLUDE_DIRS} . .. ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/include/types ${CMAKE_SOURCE_DIR}/src/utilities)
   target_link_libraries (${libname} ${MRAA_LIBRARIES})
+
+  # add linkage and dependencies for the upm_utilities lib, except for
+  # the utilities library itself
+  if (NOT ${libname} MATCHES "utilities")
+    set (reqlibname "${reqlibname} upm-utilities")
+    add_dependencies(${libname} utilities)
+    target_link_libraries(${libname} utilities)
+  endif()
+
   set_target_properties(
     ${libname}
     PROPERTIES PREFIX "libupm-"
