@@ -32,29 +32,8 @@
 #include <stdint.h>
 #include "upm.h"
 
-#define URM37_DEFAULT_UART      0
-#define A_REF                   5.0
-#define URM37_MAX_CMD_LEN       4
-#define URM37_MAX_RESP_LEN      4
-#define URM37_WAIT_TIMEOUT      1000
-#define URM37_MAX_RETRIES       1
-
 /**
- * @brief DFRobot URM37 Ultrasonic Ranger
- * @defgroup urm37 libupm-urm37
- * @ingroup dfrobot uart gpio ainput sound
- */
-
-/**
- * @library urm37
- * @sensor urm37
- * @comname DFRobot URM37 Ultrasonic Ranger
- * @type sound
- * @man dfrobot
- * @con uart ainput gpio
- * @web http://www.dfrobot.com/index.php?route=product/product&product_id=53
- *
- * @brief API for the DFRobot URM37 Ultrasonic Ranger
+ * @brief UPM C API for the DFRobot URM37 Ultrasonic Ranger
  *
  * The driver was tested with the DFRobot URM37 Ultrasonic Ranger,
  * V4.  It has a range of between 5 and 500 centimeters (cm).  It
@@ -72,11 +51,10 @@
  *
  * (https://www.dfrobot.com/wiki/index.php?title=URM37_V4.0_Ultrasonic_Sensor_%28SKU:SEN0001%29)
  *
- * @image html urm37.jpg
  * An example using analog mode
- * @snippet urm37.cxx Interesting
+ * @snippet urm37.c Interesting
  * An example using UART mode
- * @snippet urm37-uart.cxx Interesting
+ * @snippet urm37-uart.c Interesting
  */
 
 /**
@@ -87,12 +65,13 @@ typedef struct _urm37_context *urm37_context;
 /**
  * URM37 Initializer
  *
- * @param a_pin Analog pin to use
+ * @param a_pin Analog pin to use. Ignored in UART mode.
  * @param reset_pin GPIO pin to use for reset
- * @param trigger_pin GPIO pin to use for triggering a distance measurement
- * @param a_ref The analog reference voltage, default 5.0
- * @param uart Default UART to use (0 or 1).
- * @param mode analog/uart mode
+ * @param trigger_pin GPIO pin to use for triggering a distance
+ * measurement. Ignored in UART mode.
+ * @param a_ref The analog reference voltage. Ignored in UART mode.
+ * @param uart Default UART to use (0 or 1). Ignored in analog mode.
+ * @param mode true for analog mode, false otherwise.
  */
 urm37_context urm37_init(uint8_t a_pin, uint8_t reset_pin,
                          uint8_t trigger_pin, float a_ref, 
@@ -107,7 +86,7 @@ void urm37_close(urm37_context dev);
  * Reset the device.  This will take approximately 3 seconds to
  * complete.
  *
- * @param dev sensor struct
+ * @param dev sensor context
  */
 upm_result_t urm37_reset(urm37_context dev);
 
@@ -115,17 +94,25 @@ upm_result_t urm37_reset(urm37_context dev);
  * Get the distance measurement.  A return value of 65535.0
  * in UART mode indicates an invalid measurement.
  *
- * @param dev sensor struct
- * @param distance return value for distance measured
- * @param dist_unit The measured distance in cm
+ * @param dev sensor context
+ * @param distance A pointer to a float that will contain the distance
+ * in CM if the measurement is successful.
+ * @param degrees In UART mode, this specifies the degrees to turn an
+ * attached PWM servo connected to the MOTO output on the URM37.
+ * Valid values are 0-270.  This option is ignored in analog mode.  If
+ * you are not using this functionality, just pass 0.
+ * @return UPM status code
  */
-upm_result_t urm37_get_distance(urm37_context dev, float* distance);
+upm_result_t urm37_get_distance(urm37_context dev, float *distance,
+                                int degrees);
 
 /**
  * Get the temperature measurement.  This is only valid in UART mode.
  *
- * @param dev sensor struct
- * @param temperature The measured temperature in degrees C
+ * @param dev sensor context
+ * @param temperature A float pointer containing the measured
+ * temperature in degrees C
+ * @return UPM status code
  *
  */
 upm_result_t urm37_get_temperature(urm37_context dev, float* temperature);
@@ -133,55 +120,33 @@ upm_result_t urm37_get_temperature(urm37_context dev, float* temperature);
 /**
  * In UART mode only, read a value from the EEPROM and return it.
  *
- * @param dev sensor struct
+ * @param dev sensor context
  * @param addr The address in the EEPROM to read.  Valid values
  * are between 0x00-0x04.
- * @param return parameter for the EEPROM value at addr
+ * @param value A pointer containing the returned value.
+ * @return UPM status code
  */
 upm_result_t urm37_read_EEPROM(urm37_context dev, uint8_t addr, uint8_t* value);
 
 /**
  * In UART mode only, write a value into an address on the EEPROM.
  *
- * @param dev sensor struct
+ * @param dev sensor context
  * @param addr The address in the EEPROM to write.  Valid values
  * are between 0x00-0x04.
  * @param value The value to write
+ * @return UPM status code
  */
 upm_result_t urm37_write_EEPROM(urm37_context dev, uint8_t addr, uint8_t value);
 
-// send a serial command and return a 4 byte response (UART mode only)
-upm_result_t urm37_send_command(urm37_context dev, char* cmd, char* response,
-                                int len);
-
-bool urm37_data_available(urm37_context dev, uint32_t millis);
-
 /**
- * Reads any available data and returns it in a std::string. Note:
- * the call blocks until data is available for reading. Use
- * dataAvailable() to determine whether there is data available
- * beforehand, to avoid blocking.
+ * In UART mode only, send a 4-byte command, and return a 4-byte response.
  *
- * @param dev sensor struct
- * @param len Maximum length of the data to be returned
- * @param data The data read
+ * @param dev sensor context
+ * @param cmd A 4-byte command to transmit
+ * @param response The 4-byte response
+ * @return UPM response code (success, failure, or timeout)
  */
-upm_result_t urm37_read_data_string(urm37_context dev, uint32_t len,
-                                    char* data);
-
-/**
- * Writes the std:string data to the device.  If you are writing a
- * command, be sure to terminate it with a carriage return (\r)
- *
- * @param dev sensor struct
- * @param data_w Buffer to write to the device
- * @param len Number of bytes written
- */
-upm_result_t urm37_write_data_string(urm37_context dev, const char* data_w,
-                                     int len);
-
-upm_result_t urm37_get_degrees(urm37_context dev, int* degrees);
-
-upm_result_t urm37_set_degrees(urm37_context dev, int degrees);
+upm_result_t urm37_send_command(urm37_context dev, char* cmd, char* response);
 
 #endif /* URM37_H_ */

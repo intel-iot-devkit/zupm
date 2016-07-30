@@ -33,15 +33,20 @@
  * This file implements the Function Table Interface (FTI) for this sensor
  */
 
+const char upm_light_name[] = "URM37";
+const char upm_light_description[] = "Ultrasonic Ranger";
+// problem here is it's an either/or analog vs. uart.  So we will just
+// only support analog for now
+// 1st gpio is reset, 2nd is trigger
+const upm_protocol_t upm_light_protocol[] = {UPM_ANALOG, UPM_GPIO, UPM_GPIO};
+const upm_sensor_t upm_light_category[] = {UPM_DISTANCE};
+
 // forward declarations
 const void* upm_urm37_get_ft(upm_sensor_t sensor_type);
 void* upm_urm37_init_name();
 void upm_urm37_close(void* dev);
 upm_result_t upm_urm37_get_distance(void* dev, float* distance,
-                                    upm_distance_u dist_unit);
-upm_result_t upm_urm37_get_temperature(void* dev, float* temperature,
-                                       upm_temperature_u temp_unit);
-
+                                    upm_distance_u unit);
 
 static const upm_sensor_ft ft =
 {
@@ -54,41 +59,51 @@ static const upm_distance_ft dft =
     .upm_distance_get_value = &upm_urm37_get_distance
 };
 
-static const upm_temperature_ft tft =
+const void* upm_urm37_get_ft(upm_sensor_t sensor_type)
 {
-    .upm_temperature_get_value = &upm_urm37_get_temperature
-};
+  switch(sensor_type)
+    {
+    case UPM_SENSOR:
+      return &ft;
+      
+    case UPM_DISTANCE:
+      return &dft;
+      
+    default:
+      return NULL;
+    }
+}
 
-const void* upm_urm37_get_ft(upm_sensor_t sensor_type){
-    if (sensor_type == UPM_TEMPERATURE){
-        return &tft;
-    }
-    else if (sensor_type == UPM_DISTANCE){;
-        return &dft;
-    }
-    else if (sensor_type == UPM_SENSOR){
-        return &ft;
-    }
+void* upm_urm37_init_name()
+{
     return NULL;
 }
 
-void* upm_urm37_init_name(){
-    return NULL;
-}
 
-
-void upm_urm37_close(void* dev){
+void upm_urm37_close(void* dev)
+{
     urm37_close((urm37_context)dev);
 }
 
 upm_result_t upm_urm37_get_distance(void* dev, float* distance,
-                                    upm_distance_u dist_unit) {
-    // only cm for now
-    return urm37_get_distance((urm37_context)dev, distance);
+                                    upm_distance_u unit)
+{
+  // only cm returned by sensor
+  float dist;
+  urm37_get_distance((urm37_context)dev, &dist, 0);
+
+  switch(unit)
+    {
+    case CENTIMETER:
+      *distance = dist;
+      return UPM_SUCCESS;
+
+    case INCH:
+      *distance = dist / 2.54;
+      return UPM_SUCCESS;
+
+    default:
+      return UPM_ERROR_INVALID_PARAMETER;
+    }
 }
 
-upm_result_t upm_urm37_get_temperature(void* dev, float* temperature,
-                                       upm_temperature_u temp_unit){
-    // only C for now
-    return urm37_get_temperature((urm37_context)dev, temperature);
-}
