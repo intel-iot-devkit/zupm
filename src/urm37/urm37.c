@@ -30,6 +30,7 @@
 
 #include "urm37.h"
 #include "mraa/aio.h"
+#include "mraa/gpio.h"
 #include "mraa/uart.h"
 
 #include "upm_utilities.h"
