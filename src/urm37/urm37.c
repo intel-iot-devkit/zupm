@@ -36,7 +36,7 @@
 
 #define URM37_MAX_DATA_LEN      4
 #define URM37_WAIT_TIMEOUT      1000
-#define URM37_MAX_RETRIES       1
+#define URM37_MAX_RETRIES       10
 
 typedef struct _urm37_context {
   mraa_aio_context    aio;
@@ -179,12 +179,13 @@ static int urm37_write_data(urm37_context dev, const char* data)
 
 upm_result_t urm37_send_command(urm37_context dev, char* cmd, char* response)
 {
-  if (dev->is_analog_mode) {
-    printf("%s: UART commands are not available in analog mode\n",
-           __FUNCTION__);
-
-    return UPM_ERROR_NOT_SUPPORTED;
-  }
+  if (dev->is_analog_mode)
+    {
+      printf("%s: UART commands are not available in analog mode\n",
+             __FUNCTION__);
+      
+      return UPM_ERROR_NOT_SUPPORTED;
+    }
 
   int tries = 0;
 
@@ -201,6 +202,7 @@ upm_result_t urm37_send_command(urm37_context dev, char* cmd, char* response)
 
       if (!urm37_data_available(dev, URM37_WAIT_TIMEOUT))
         {
+          // timeout, retry...
           continue;
         }
 
@@ -248,6 +250,7 @@ upm_result_t urm37_get_distance(urm37_context dev, float *distance,
       // analog mode
       int val;
 
+      // send the trigger pulse and sample
       mraa_gpio_write(dev->gpio_trigger, 0);
       val = mraa_aio_read(dev->aio);
       mraa_gpio_write(dev->gpio_trigger, 1);
@@ -330,7 +333,7 @@ upm_result_t urm37_get_temperature(urm37_context dev, float* temperature)
   return UPM_SUCCESS;
 }
 
-upm_result_t urm37_read_EEPROM(urm37_context dev, uint8_t addr, uint8_t* value)
+upm_result_t urm37_read_eeprom(urm37_context dev, uint8_t addr, uint8_t* value)
 {
   if (dev->is_analog_mode)
     {
@@ -364,7 +367,7 @@ upm_result_t urm37_read_EEPROM(urm37_context dev, uint8_t addr, uint8_t* value)
   return UPM_SUCCESS;
 }
 
-upm_result_t urm37_write_EEPROM(urm37_context dev, uint8_t addr, uint8_t value)
+upm_result_t urm37_write_eeprom(urm37_context dev, uint8_t addr, uint8_t value)
 {
   if (dev->is_analog_mode)
     {

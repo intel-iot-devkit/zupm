@@ -32,6 +32,10 @@
 #include <stdint.h>
 #include "upm.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @brief UPM C API for the DFRobot URM37 Ultrasonic Ranger
  *
@@ -126,7 +130,7 @@ upm_result_t urm37_get_temperature(urm37_context dev, float* temperature);
  * @param value A pointer containing the returned value.
  * @return UPM status code
  */
-upm_result_t urm37_read_EEPROM(urm37_context dev, uint8_t addr, uint8_t* value);
+upm_result_t urm37_read_eeprom(urm37_context dev, uint8_t addr, uint8_t* value);
 
 /**
  * In UART mode only, write a value into an address on the EEPROM.
@@ -137,7 +141,7 @@ upm_result_t urm37_read_EEPROM(urm37_context dev, uint8_t addr, uint8_t* value);
  * @param value The value to write
  * @return UPM status code
  */
-upm_result_t urm37_write_EEPROM(urm37_context dev, uint8_t addr, uint8_t value);
+upm_result_t urm37_write_eeprom(urm37_context dev, uint8_t addr, uint8_t value);
 
 /**
  * In UART mode only, send a 4-byte command, and return a 4-byte response.
@@ -148,5 +152,9 @@ upm_result_t urm37_write_EEPROM(urm37_context dev, uint8_t addr, uint8_t value);
  * @return UPM response code (success, failure, or timeout)
  */
 upm_result_t urm37_send_command(urm37_context dev, char* cmd, char* response);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* URM37_H_ */

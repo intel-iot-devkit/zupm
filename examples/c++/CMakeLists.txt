@@ -51,7 +51,7 @@ endmacro()
 # Note special case for grove based examples
 macro(add_example example_name)
   set(example_src "${example_name}.cxx")
-  set(example_bin "${example_name}-example")
+  set(example_bin "${example_name}-example-cxx")
   get_module_name(${example_name} module_name)
   set(module_dir "${PROJECT_SOURCE_DIR}/src/${module_name}")
   if (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${example_src}"
@@ -79,13 +79,18 @@ include_directories (${MRAA_INCLUDE_DIRS})
 include_directories (${CMAKE_SOURCE_DIR}/src/utilities)
 link_directories (${MRAA_LIBDIR})
 
+# UPM include directory
+include_directories (${PROJECT_SOURCE_DIR}/include)
+
 # If your sample source file matches the name of the module it tests, add it here
 # Exceptions are as follows:
 #  string after first '-' is ignored (e.g. nrf24l01-transmitter maps to nrf24l01)
 #  mq? will use module gas
 #  grove* will use module grove
 
-#add_example (hmc5883l)
+add_example (urm37)
+add_example (urm37-uart)
+
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)
 
