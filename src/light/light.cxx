@@ -53,7 +53,7 @@ float LIGHT::lux(unsigned int samples)
     if (samples == 0) samples = 1;
 
     float light = 0.0;
-    while (samples-- > 0)
+    for(int i = 0; i < samples; i++)
     {
         light_get_value(_dev, &light);
         light_avg += light;

@@ -53,7 +53,7 @@ float O2::counts(unsigned int samples)
     if (samples == 0) samples = 1;
 
     float raw = 0.0;
-    while (samples-- > 0)
+    for(int i = 0; i < samples; i++)
     {
         o2_get_value(_dev, &raw);
         raw_avg += raw;
