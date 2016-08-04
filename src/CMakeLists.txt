@@ -64,7 +64,13 @@ macro(upm_SWIG_PYTHON)
          ${CMAKE_CURRENT_BINARY_DIR}/pyupm_${libname}.py
          DESTINATION ${LIB_INSTALL_DIR}/python${PYTHON_VERSION_MAJOR}.${PYTHON_VERSION_MINOR}/site-packages/
          COMPONENT ${libname})
+
+    # account for the upm_utilities library
+    set_target_properties(${SWIG_MODULE_pyupm_${libname}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
+    swig_link_libraries (pyupm_${libname} utilities)
+
   endif()
+
 endmacro()
 
 macro(upm_SWIG_NODE)
@@ -126,7 +132,13 @@ macro(upm_SWIG_NODE)
     createpackagejson(${libname})
     install (FILES ${CMAKE_CURRENT_BINARY_DIR}/jsupm_${libname}.node
          DESTINATION ${NODE_MODULE_INSTALL_PATH} COMPONENT ${libname})
+
+    # account for the upm_utilities library
+    set_target_properties(${SWIG_MODULE_jsupm_${libname}_REAL_NAME} PROPERTIES SKIP_BUILD_RPATH TRUE)
+    swig_link_libraries (jsupm_${libname} utilities)
+
   endif()
+
 endmacro()
 
 macro(upm_SWIG_JAVA)
@@ -175,7 +187,11 @@ macro(upm_SWIG_JAVA)
         COMMAND ${JAR} cvf upm_${libname}.jar upm_${libname}
     )
 
+    # account for the upm_utilities library
+    swig_link_libraries (javaupm_${libname} utilities)
+
   endif()
+
 endmacro()
 
 macro(upm_doxygen)
