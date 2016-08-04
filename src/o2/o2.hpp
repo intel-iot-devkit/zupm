@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Zion Orent <zorent@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,81 +23,40 @@
  */
 #pragma once
 
-#include <iostream>
 #include <string>
-
-#include "o2.h"
+#include <mraa/aio.h>
+#include <o2.h>
 
 namespace upm {
-  /**
-   * @brief DFRobot counts sensors
-   * @defgroup o2 libupm-o2
-   * @ingroup dfrobot liquid analog
-   */
+/**
+ * @brief O2 Oxygen Gas Sensor library
+ * @defgroup groveo2 libupm-groveo2
+ * @ingroup seeed analog gaseous
+ */
 
-  /**
-   * @library o2
-   * @sensor o2
-   * @comname DFRobot counts Sensors
-   * @type liquid
-   * @man dfrobot 
-   * @web http://www.dfrobot.com/index.rawp?route=product/product&product_id=1110
-   * @con analog
-   *
-   * @brief API for the DFRobot counts Sensors
-   *
-   * This sensor family returns an analog voltage proportional to the
-   * acidity or alkalinity of a liquid -- it's counts value.
-   *
-   * This driver was developed using the DFRobot Analog counts meter and
-   * the DFRobot Analog counts Meter Pro.
-   *
-   *
-   * Calibration instructions, taken and slightly reworded from the
-   *  DFRobot wiki at:
-   *  http://dfrobot.com/wiki/index.rawp/PH_meter%28SKU:_SEN0161%29
-   *
-   *  1) Connect equipment: the counts electrode is connected to the BNC
-   *  connector on the counts meter board, and then the counts meter board is
-   *  connected to the analog port 0 of the controller. When the
-   *  controller gets power, you will see the blue LED on board is on.
-   *
-   *  2) Put the counts electrode into the standard solution whose counts
-   *  value is 7.00.  Run the o2 example and note the counts output
-   *  value.  Compare the value with 7.00, and calculate the
-   *  difference.  This is the value you should supply to the
-   *  setOffset() method.
-   *
-   *  3) Put the counts electrode into the counts standard solution whose
-   *  value is 4.00. Then wait about one minute, and adjust the
-   *  potentiometer on the interface board.  Let the value stabilise
-   *  at around 4.00. At this time,the acidic calibration has been
-   *  completed and you can measure the counts value of an acidic
-   *  solution.
-   *
-   *  4) According to the linear characteristics of counts electrode
-   *  itself, after the above calibration,you can directly measure the
-   *  counts value of the alkaline solution. If you want to get better
-   *  accuracy, you can recalibrate it. Alkaline calibration use the
-   *  standard solution whose counts value is 9.18.  Also adjust the
-   *  potentiometer and let the value stabilise at around 9.18. After
-   *  this calibration, you can measure the counts value of an alkaline
-   *  solution.
-   *
-   * @image html o2.jpg
-   * @snippet o2.cxx Interesting
-   */
-
-  class O2 {
-  public:
-
+/**
+ * @library groveo2
+ * @sensor groveo2
+ * @comname O2 Sensor
+ * @type gaseous
+ * @man seeed
+ * @con analog
+ *
+ * @brief API for the O2 Oxygen Gas Sensor
+ *
+ * The O2 Oxygen Gas sensor measures the oxygen concentration in the air
+ *
+ * @image html groveo2.jpg
+ * @snippet groveo2.cxx Interesting
+ */
+class O2 {
+public:
     /**
-     * O2 constructor
+     *  O2 Oxygen Gas sensor constructor
      *
      * @param pin Analog pin to use
-     * @param vref Analog reference voltage; default is 5.0 V
      */
-    O2(int pin, float vref = 5.0);
+    O2(int pin);
 
     /**
      * O2 destructor
@@ -105,33 +64,69 @@ namespace upm {
     ~O2();
 
     /**
-     * Specifies the offset determined from calibration.  The default
-     * is 0.0.
+     * Set adc voltage reference
      *
-     * @param offset The offset value to use
+     * @return Raw counts
      */
-    void setOffset(float offset);
+    void setAref(float aref);
 
     /**
-     * Specifies the scale determined from calibration.  The default
-     * is 1.0.
+     * Get adc voltage reference
      *
-     * @param scale The scale value to use
+     * @return Current adc vref
      */
-    void setScale(float scale);
+    float getAref();
 
     /**
-     * Take a number of samples and return the detected counts value.  The
-     * default number of samples is 15.
+     * Set raw adc count offset
      *
-     * @param samples The number of samples to average over, default 15
-     * @return The counts value detected
+     * @return Raw counts
      */
-    float counts(unsigned int samples = 15);
+    void setRawOffset(float raw_offset);
 
-  private:
-    o2_context _dev;
-  };
+    /**
+     * Get sensor offset
+     *
+     * @return Current sensor offset
+     */
+    float getRawOffset();
+
+    /**
+     * Set raw adc count offset
+     *
+     * @return Raw counts
+     */
+    void setRawScale(float raw_scale);
+
+    /**
+     * Get sensor scale
+     *
+     * @return Current sensor scale
+     */
+    float getRawScale();
+
+    /**
+     * Measures raw sensor counts from the sensor
+     *
+     * @return Raw counts
+     */
+    int countValue();
+
+    /**
+     * Measures voltage from the sensor
+     *
+     * @return Oxygen concentration as voltage
+     */
+    float voltageValue();
+
+    /**
+     * Measures O2 percent from the sensor
+     *
+     * @return Oxygen concentration (%)
+     */
+    float o2Value();
+
+private:
+    o2_context m_dev;
+};
 }
-
-

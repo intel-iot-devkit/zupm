@@ -37,9 +37,9 @@ typedef struct _o2_context {
     /* Analog voltage reference */
     float m_aRef;
     /* Raw count offset */
-    float m_count_offset;
+    float m_raw_offset;
     /* Raw count scale */
-    float m_count_scale;
+    float m_raw_scale;
 } *o2_context;
 
 o2_context o2_init(int16_t pin)
@@ -55,9 +55,10 @@ o2_context o2_init(int16_t pin)
         return NULL;
     }
 
-    /* Set the ref, zero the offset */
-    dev->m_count_offset = 0.0;
-    dev->m_count_scale = 1.0;
+    /* Set defaults */
+    dev->m_aRef = 5.0;
+    dev->m_raw_offset = 0.0;
+    dev->m_raw_scale = 1.0;
 
     return dev;
 }
@@ -68,28 +69,82 @@ void o2_close(o2_context dev)
     free(dev);
 }
 
+upm_result_t o2_set_aref(const o2_context dev, float aref)
+{
+    dev->m_aRef = aref;
+    return UPM_SUCCESS;
+}
+
+float o2_get_aref(const o2_context dev)
+{
+    return dev->m_aRef;
+}
+
 upm_result_t o2_set_offset(const o2_context dev, float offset)
 {
-    dev->m_count_offset = offset;
+    dev->m_raw_offset = offset;
     return UPM_SUCCESS;
+}
+
+float o2_get_offset(const o2_context dev)
+{
+    return dev->m_raw_offset;
 }
 
 upm_result_t o2_set_scale(const o2_context dev, float scale)
 {
-    dev->m_count_scale = scale;
+    dev->m_raw_scale = scale;
+    return UPM_SUCCESS;
+}
+
+float o2_get_scale(const o2_context dev)
+{
+    return dev->m_raw_scale;
+}
+
+upm_result_t o2_get_counts(const o2_context dev, int *value)
+{
+    /* Read counts */
+    *value = mraa_aio_read(dev->aio);
+    if (*value < 0) return UPM_ERROR_OPERATION_FAILED;
     return UPM_SUCCESS;
 }
 
 upm_result_t o2_get_value(const o2_context dev, float *value)
 {
     /* Read counts */
-    int counts = mraa_aio_read(dev->aio);
+    int counts = 0;
+    upm_result_t result = o2_get_counts(dev, &counts);
+    *value = counts;
 
     /* Apply raw scale */
-    *value = counts * dev->m_count_scale;
+    *value = counts * dev->m_raw_scale;
 
     /* Apply raw offset */
-    *value += dev->m_count_offset * dev->m_count_scale;
+    *value += dev->m_raw_offset * dev->m_raw_scale;
+
+    /* Normalize to max adc */
+    *value /= (1 << mraa_aio_get_bit(dev->aio));
+
+    /* Convert to %oxygen
+       Datasheet for grove o2 shows a linear response for the sensor.  Assuming
+       20.5% oxygen @ 25 celsius, with an gain = 1 + 12k/100 = 121, a
+       dynamic range of 0->25% oxygen, and opamp rails of 0->3.3v (the grove o2
+       sensor uses a high-accuracy 3.3v regulator),
+     */
+    *value *= 25 * dev->m_aRef/3.3;
+
+    return result;
+}
+
+upm_result_t o2_get_voltage(const o2_context dev, float *value)
+{
+    /* Read normalized adc value */
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0.0) return UPM_ERROR_OPERATION_FAILED;
+
+    /* Convert normalized value to voltage via aRef */
+    *value *= dev->m_aRef;
 
     return UPM_SUCCESS;
 }

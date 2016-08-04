@@ -1,5 +1,5 @@
 /*
- * Author: Jon Trulson <jtrulson@ics.com>
+ * Author: Zion Orent <zorent@ics.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -23,41 +23,82 @@
  */
 
 #include <iostream>
+#include <string>
+#include <stdexcept>
 
 #include "o2.hpp"
 
 using namespace upm;
+using namespace std;
 
-O2::O2(int pin, float vref) : _dev(o2_init(pin)) {}
+O2::O2(int pin)
+{
+    if ( !(m_dev = o2_init(pin)) )
+    {
+        throw std::invalid_argument(std::string(__FUNCTION__) +
+                ": o2_init() failed, invalid pin?");
+        return;
+    }
+}
 
 O2::~O2()
 {
-    o2_close(_dev);
+    o2_close(m_dev);
 }
 
-void O2::setOffset(float offset)
+void O2::setAref(float aref)
 {
-    o2_set_offset(_dev, offset);
+    o2_set_aref(m_dev, aref);
 }
 
-void O2::setScale(float scale)
+float O2::getAref()
 {
-    o2_set_scale(_dev, scale);
+    return o2_get_aref(m_dev);
 }
 
-float O2::counts(unsigned int samples)
+void O2::setRawOffset(float raw_offset)
 {
-    float raw_avg = 0.0;
+    o2_set_offset(m_dev, raw_offset);
+}
 
-    // Read at least 1 sample
-    if (samples == 0) samples = 1;
+float O2::getRawOffset()
+{
+    o2_get_offset(m_dev);
+}
 
-    float raw = 0.0;
-    for(int i = 0; i < samples; i++)
-    {
-        o2_get_value(_dev, &raw);
-        raw_avg += raw;
-    }
+void O2::setRawScale(float raw_scale)
+{
+    o2_set_scale(m_dev, raw_scale);
+}
 
-    return raw_avg/samples;
+float O2::getRawScale()
+{
+    o2_get_scale(m_dev);
+}
+
+int O2::countValue()
+{
+    int val = 0;
+    if (o2_get_counts(m_dev, &val) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) + ": failed");
+
+    return val;
+}
+
+float O2::voltageValue()
+{
+    float val = 0.0;
+    if (o2_get_voltage(m_dev, &val) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) + ": failed");
+
+    return val;
+}
+
+float O2::o2Value()
+{
+    float val = 0.0;
+    if (o2_get_value(m_dev, &val) != UPM_SUCCESS)
+        throw std::runtime_error(std::string(__FUNCTION__) + ": failed");
+
+    return val;
 }
