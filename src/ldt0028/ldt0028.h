@@ -34,9 +34,11 @@
 
 
 /**
- * Opaque pointer to sensor structure
+ * device context
  */
-typedef struct _ldt0028_context *ldt0028_context;
+typedef struct _ldt0028_context {
+    mraa_aio_context aio;
+} *ldt0028_context;
 
 ldt0028_context ldt0028_init(int pin);
 

@@ -25,10 +25,6 @@
 
 #include "ldt0028.h"
 
-typedef struct _ldt0028_context {
-    mraa_aio_context aio;
-} *ldt0028_context;
-
 ldt0028_context ldt0028_init(int pin)
 {
     ldt0028_context dev =
