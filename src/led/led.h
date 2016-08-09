@@ -29,6 +29,7 @@
 
 #include <stdint.h>
 #include "upm.h"
+#include "mraa/gpio.h"
 
 /**
  * @type led
@@ -48,9 +49,12 @@
  */
 
 /**
- * Opaque pointer to the sensor context
+ * device context
  */
-typedef struct _led_context *led_context;
+typedef struct _led_context {
+    mraa_gpio_context        gpio;
+    uint8_t                  led_pin;
+} *led_context;
 
 /**
  * LED Initialization function

@@ -26,12 +26,6 @@
  */
 #include "led.h"
 #include "upm_types.h"
-#include "mraa/gpio.h"
-
-typedef struct _led_context {
-    mraa_gpio_context        gpio;
-    uint8_t                  led_pin;
-} *led_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_LED_MEM_MAP, 1, sizeof(struct _led_context));
