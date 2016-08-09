@@ -32,11 +32,15 @@
 #include <unistd.h>
 
 #include "upm.h"
+#include "mraa/aio.h"
 
 /**
- * Opaque pointer to the sensor context
+ * device context
  */
-typedef struct _mic_context *mic_context;
+typedef struct _mic_context {
+    mraa_aio_context aio;
+    uint16_t analog_pin;
+} *mic_context;
 
 mic_context mic_init(int pin);
 

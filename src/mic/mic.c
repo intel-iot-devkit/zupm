@@ -25,12 +25,6 @@
  */
 
 #include "mic.h"
-#include "mraa/aio.h"
-
-typedef struct _mic_context {
-    mraa_aio_context aio;
-    uint16_t analog_pin;
-} *mic_context;
 
 mic_context upm_mic_init(int pin)
 {
