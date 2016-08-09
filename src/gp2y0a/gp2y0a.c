@@ -24,12 +24,6 @@
  */
 #include "gp2y0a.h"
 
-typedef struct _gp2y0a_context {
-    mraa_aio_context            aio;
-    uint8_t                     pin;
-    int                         a_res;
-} *gp2y0a_context;
-
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_GP2Y0A_MAP, 1, sizeof(struct _upm_gp2y0a));
 const kmemory_map_t UPM_GP2Y0A_MEM_MAP;

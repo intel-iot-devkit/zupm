@@ -30,9 +30,13 @@
 #include "mraa/aio.h"
 
 /**
- * Opaque pointer to sensor structure
+ * device context
  */
-typedef struct _gp2y0a_context *gp2y0a_context;
+typedef struct _gp2y0a_context {
+    mraa_aio_context            aio;
+    uint8_t                     pin;
+    int                         a_res;
+} *gp2y0a_context;
 
 /**
  * @brief GP2Y0A-based IR Proximity Sensor library
