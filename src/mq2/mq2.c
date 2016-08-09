@@ -26,24 +26,6 @@
 #include <stdlib.h>
 
 #include "mq2.h"
-#include "mraa/aio.h"
-
-/**
- * Driver context structure
- */
-typedef struct _mq2_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
-
-    // Used for the FTI
-
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *mq2_context;
 
 mq2_context mq2_init(int16_t pin)
 {
