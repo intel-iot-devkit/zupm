@@ -25,11 +25,6 @@
 
 #include "grovemoisture.h"
 
-typedef struct _grovemoisture_context {
-    mraa_aio_context    aio;
-    uint16_t            analog_pin;
-} *grovemoisture_context;
-
 grovemoisture_context grovemoisture_init(int pin) {
     grovemoisture_context dev =
       (grovemoisture_context) malloc(sizeof(struct _grovemoisture_context));

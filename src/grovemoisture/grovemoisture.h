@@ -37,9 +37,12 @@ extern "C" {
 #endif
 
 /**
- * Opaque pointer to sensor structure
+ * device context
  */
-typedef struct _grovemoisture_context *grovemoisture_context;
+typedef struct _grovemoisture_context {
+    mraa_aio_context    aio;
+    uint16_t            analog_pin;
+} *grovemoisture_context;
 
 /**
  * Init function
