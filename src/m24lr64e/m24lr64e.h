@@ -36,6 +36,7 @@
 #define M24LR64E_H_
 
 #include "upm.h"
+#include "mraa/i2c.h"
 
 #define M24LR64E_I2C_BUS 0
 #define M24LR64E_DEFAULT_I2C_ADDR 0x53
@@ -89,12 +90,6 @@
 
 #include <stdint.h>
 
-/*
- * Opaque pointer to the sensor struct
- */
-typedef struct _m24lr64e_context *m24lr64e_context;
-
-
 typedef enum {
     M24LR64E_I2C_PASSWORD_ADDRESS                  = 2304,
     M24LR64E_RF_PASSWORD_1_ADDRESS                 = 2308, // RF pwds not available in
@@ -140,6 +135,16 @@ typedef enum {
     m24lr64e_password_2 = 2,
     m24lr64e_password_3 = 3,
 } sector_select_password;
+
+/*
+ * device context
+ */
+typedef struct _m24lr64e_context {
+    mraa_i2c_context            i2c;
+    uint8_t                     bus;
+    uint8_t                     address;
+    m24lr64e_access_mode    mode;
+} *m24lr64e_context;
 
 /**
  * M24LR64E Init function

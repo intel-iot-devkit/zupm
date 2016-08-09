@@ -1,5 +1,4 @@
 #include "m24lr64e.h"
-#include "mraa/i2c.h"
 
 // forward declarations - these were protected methods in original C++
 // code.  Might need to expose them?
@@ -13,13 +12,6 @@ upm_result_t m24lr64e_eeprom_write_byte(m24lr64e_context dev,
 upm_result_t m24lr64e_eeprom_write_bytes(m24lr64e_context dev,
                                          uint32_t address,
                                          uint8_t* data, int len);
-
-typedef struct _m24lr64e_context {
-    mraa_i2c_context            i2c;
-    uint8_t                     bus;
-    uint8_t                     address;
-    m24lr64e_access_mode    mode;
-} *m24lr64e_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_M24LR64E_MAP, 1, sizeof(struct _m24lr64e_context));
