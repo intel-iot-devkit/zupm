@@ -26,19 +26,6 @@
 #include <stdlib.h>
 
 #include "dfrph.h"
-#include "mraa/aio.h"
-
-/**
- * Analog sensor struct
- */
-typedef struct _dfrph_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *dfrph_context;
 
 dfrph_context dfrph_init(int16_t pin)
 {
