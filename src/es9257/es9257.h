@@ -62,9 +62,14 @@
 #define ES9257_MAX_ANGLE                   180.0
 
 /*
- * Opaque pointer to the servo motor struct
+ * device context
  */
-typedef struct _es9257_context *es9257_context;
+typedef struct _es9257_context {
+    mraa_pwm_context    pwm;
+    uint16_t            servo_pin;
+    uint32_t            max_pulse_width;
+    uint32_t            min_pulse_width;
+} *es9257_context;
 
 /**
  * Instantiates a the servo at the given pin

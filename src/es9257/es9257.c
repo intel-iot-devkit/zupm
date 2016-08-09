@@ -24,13 +24,6 @@
  */
 #include "es9257.h"
 
-typedef struct _es9257_context {
-    mraa_pwm_context    pwm;
-    uint16_t            servo_pin;
-    uint32_t            max_pulse_width;
-    uint32_t            min_pulse_width;
-} *es9257_context;
-
 es9257_context es9257_init(int32_t pin, int32_t min_pulse_width,
                          int32_t max_pulse_width){
     es9257_context dev = (es9257_context) malloc(sizeof(struct _es9257_context));
