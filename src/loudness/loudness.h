@@ -27,11 +27,14 @@
 #define LOUDNESS_LOUDNESS_H_
 
 #include "upm.h"
+#include "mraa/aio.h"
 
 /**
- * Opaque pointer to the sensor context
+ * device context
  */
-typedef struct _loudness_context *loudness_context;
+typedef struct _loudness_context {
+    mraa_aio_context            aio;
+} *loudness_context;
 
 /**
  * Loudness Initialization function

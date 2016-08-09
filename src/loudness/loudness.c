@@ -23,12 +23,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "loudness.h"
-#include "mraa/aio.h"
-
-typedef struct _loudness_context {
-    mraa_aio_context            aio;
-    uint8_t                     pin;
-} *loudness_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_LOUDNESS_MAP, 1, sizeof(struct _upm_loudness));
@@ -45,8 +39,7 @@ loudness_context upm_loudness_init(int pin) {
     if (!dev)
       return NULL;
 
-    dev->pin = pin;
-    dev->aio = mraa_aio_init(dev->pin);
+    dev->aio = mraa_aio_init(pin);
 
     if (!dev->aio)
       {
