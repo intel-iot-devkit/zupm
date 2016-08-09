@@ -25,15 +25,25 @@
 #pragma once
 
 #include "upm.h"
+#include "mraa/aio.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /**
- * Opaque pointer to sensor structure
+ * device context
  */
-typedef struct _gsr_context *gsr_context;
+typedef struct _gsr_context {
+    /* mraa aio pin context */
+    mraa_aio_context aio;
+    /* Analog voltage reference */
+    float m_aRef;
+    /* Raw count offset */
+    float m_count_offset;
+    /* Raw count scale */
+    float m_count_scale;
+} *gsr_context;
 
 /**
  * Initialize analog sensor
