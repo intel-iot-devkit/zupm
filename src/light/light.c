@@ -26,21 +26,6 @@
 #include <stdlib.h>
 
 #include "light.h"
-#include "mraa/aio.h"
-
-/**
- * Analog sensor struct
- */
-typedef struct _light_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *light_context;
 
 light_context light_init(int16_t pin)
 {
