@@ -26,6 +26,7 @@
 #define MQ303A_MQ303A_H_
 
 #include "upm.h"
+#include "mraa/aio.h"
 
 /**
  * @brief MQ303A Alcohol Sensor library
@@ -54,9 +55,14 @@
  */
 
 /**
- * Opaque pointer to the sensor context
+ * device context
  */
-typedef struct _mq303a_context *mq303a_context;
+typedef struct _mq303a_context {
+    mraa_gpio_context       gpio;
+    mraa_aio_context        aio;
+    uint8_t                 gpio_pin;
+    uint8_t                 aio_pin;
+} *mq303a_context;
 
 /**
  * MQ303A Initialization function

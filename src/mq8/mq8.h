@@ -25,13 +25,28 @@
 #pragma once
 
 #include "upm.h"
+#include "mraa/aio.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// opaque context forward declaration
-typedef struct _mq8_context *mq8_context;
+/**
+ * Driver context structure
+ */
+typedef struct _mq8_context {
+    /* mraa aio pin context */
+    mraa_aio_context aio;
+    /* Analog voltage reference */
+    float m_aRef;
+
+    // Used for the FTI
+
+    /* Raw count offset */
+    float m_count_offset;
+    /* Raw count scale */
+    float m_count_scale;
+} *mq8_context;
 
 /**
  * Initialize analog sensor

@@ -26,24 +26,6 @@
 #include <stdlib.h>
 
 #include "mq3.h"
-#include "mraa/aio.h"
-
-/**
- * Driver context structure
- */
-typedef struct _mq3_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
-
-    // Used for the FTI
-
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *mq3_context;
 
 mq3_context mq3_init(int16_t pin)
 {

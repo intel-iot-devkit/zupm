@@ -26,25 +26,6 @@
 #include <stdlib.h>
 
 #include "mq9.h"
-#include "mraa/aio.h"
-
-/**
- * Driver context structure
- */
-typedef struct _mq9_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
-
-    // Used for the FTI
-
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *mq9_context;
-
 mq9_context mq9_init(int16_t pin)
 {
     mq9_context dev = (mq9_context) malloc(sizeof(struct _mq9_context));

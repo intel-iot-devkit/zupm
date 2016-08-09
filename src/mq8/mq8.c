@@ -26,25 +26,6 @@
 #include <stdlib.h>
 
 #include "mq8.h"
-#include "mraa/aio.h"
-
-/**
- * Driver context structure
- */
-typedef struct _mq8_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
-
-    // Used for the FTI
-
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *mq8_context;
-
 mq8_context mq8_init(int16_t pin)
 {
     mq8_context dev = (mq8_context) malloc(sizeof(struct _mq8_context));

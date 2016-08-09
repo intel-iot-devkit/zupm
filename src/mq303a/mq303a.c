@@ -24,14 +24,6 @@
  */
 
 #include "mq303a.h"
-#include "mraa/aio.h"
-
-typedef struct _mq303a_context {
-    mraa_gpio_context       gpio;
-    mraa_aio_context        aio;
-    uint8_t                 gpio_pin;
-    uint8_t                 aio_pin;
-} *mq303a_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_MQ303A_MEM_MAP, 1, sizeof(struct _upm_mq303a));
