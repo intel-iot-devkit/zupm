@@ -23,12 +23,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 #include "mvs0608.h"
-#include "mraa/gpio.h"
-
-typedef struct _mvs0608_context {
-    mraa_gpio_context        gpio;
-    uint8_t                  gpio_pin;
-} *mvs0608_context;
 
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_MVS0608_MEM_MAP, 1, sizeof(struct _mvs0608_context));

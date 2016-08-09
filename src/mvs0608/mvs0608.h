@@ -26,6 +26,8 @@
 #define MVS0608_H_
 
 #include "upm.h"
+#include "mraa/gpio.h"
+
 /**
  * @brief MVS0608 - Grove Collision Sensor library
  * @ingroup gpio accelerometer
@@ -49,9 +51,12 @@
  */
 
 /**
- * Opaque pointer to the sensor context
+ * device context
  */
-typedef struct _mvs0608_context *mvs0608_context;
+typedef struct _mvs0608_context {
+    mraa_gpio_context        gpio;
+    uint8_t                  gpio_pin;
+} *mvs0608_context;
 
 /**
  * MVS0608 Initialization function
