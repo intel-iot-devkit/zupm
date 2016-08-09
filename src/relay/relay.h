@@ -31,6 +31,14 @@
 #include <unistd.h>
 
 #include "upm.h"
+#include <mraa/gpio.h>
+
+/**
+ * device context
+ */
+typedef struct _relay_context{
+    mraa_gpio_context gpio;
+} *relay_context;
 
 typedef struct _relay_context *relay_context;
 

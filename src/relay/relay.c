@@ -24,11 +24,6 @@
  */
 
 #include "relay.h"
-#include <mraa/gpio.h>
-
-typedef struct _relay_context{
-    mraa_gpio_context gpio;
-} *relay_context;
 
 relay_context relay_init(int pin)
 {
