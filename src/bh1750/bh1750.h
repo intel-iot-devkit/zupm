@@ -30,6 +30,8 @@ extern "C" {
 
 #include <stdint.h>
 
+#include "mraa/i2c.h"
+
 #include "upm.h"
 #include "upm_types.h"
 
@@ -79,8 +81,19 @@ typedef enum {
   BH1750_OPMODE_L_ONCE,  // onetime 4 lx low resolution
 } BH1750_OPMODES_T;
     
-// opaque context forward declaration
-typedef struct _bh1750_context *bh1750_context;
+/**
+ * device context
+ */
+typedef struct _bh1750_context
+{
+  int                 bus;
+  mraa_i2c_context    i2c;
+  
+  // these are set by bh1750_set_opmode()
+  uint8_t             opmode;
+  bool                is_continuous;
+  int                 delayms;
+} *bh1750_context;
 
 /**
  * Initialize the BH1750

@@ -25,23 +25,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-#include "mraa/i2c.h"
-
 #include "bh1750.h"
-
-// our private device context
-
-typedef struct _bh1750_context
-{
-  int                 bus;
-  mraa_i2c_context    i2c;
-  
-  // these are set by bh1750_set_opmode()
-  uint8_t             opmode;
-  bool                is_continuous;
-  int                 delayms;
-} *bh1750_context;
-
 
 bh1750_context bh1750_init(int bus, uint8_t addr, BH1750_OPMODES_T mode)
 {
