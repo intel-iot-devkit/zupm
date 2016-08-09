@@ -26,25 +26,6 @@
 #include <stdlib.h>
 
 #include "joystick12.h"
-#include "mraa/aio.h"
-
-/**
- * Analog sensor struct
- */
-typedef struct _joystick12_context {
-    /* mraa ai_x pin context */
-    mraa_aio_context ai_x;
-    /* mraa ai_y pin context */
-    mraa_aio_context ai_y;
-    /* Raw count offset - x axis */
-    float m_count_offset_x;
-    /* Raw count offset - y axis */
-    float m_count_offset_y;
-    /* Raw count scale - x axis */
-    float m_count_scale_x;
-    /* Raw count scale - y axis */
-    float m_count_scale_y;
-} *joystick12_context;
 
 joystick12_context joystick12_init(int16_t apin_x, int16_t apin_y)
 {
