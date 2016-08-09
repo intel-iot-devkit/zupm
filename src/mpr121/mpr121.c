@@ -24,14 +24,6 @@
  */
 
 #include "mpr121.h"
-#include "mraa/i2c.h"
-
-typedef struct _mpr121_context {
-    mraa_i2c_context    i2c;
-    int                 bus;
-    uint8_t             address;
-    uint8_t             over_current_fault;
-} *mpr121_context;
 
 mpr121_context mpr121_init(int bus, uint8_t address){
     mpr121_context dev = (mpr121_context)malloc(sizeof(struct _mpr121_context));

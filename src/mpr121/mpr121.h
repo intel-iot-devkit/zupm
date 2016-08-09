@@ -28,14 +28,20 @@
 
 #include <stdint.h>
 #include "upm.h"
+#include "mraa/i2c.h"
 
 #define MPR121_I2C_BUS     0
 #define MPR121_DEFAULT_I2C_ADDR    0x5a
 
 /**
- * Opaque pointer for sensor struct
+ * device context
  */
-typedef struct _mpr121_context *mpr121_context;
+typedef struct _mpr121_context {
+    mraa_i2c_context    i2c;
+    int                 bus;
+    uint8_t             address;
+    uint8_t             over_current_fault;
+} *mpr121_context;
 
 /**
  * MPR121 Init function
