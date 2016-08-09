@@ -26,22 +26,6 @@
 #include <stdlib.h>
 
 #include "o2.h"
-#include "mraa/aio.h"
-
-/**
- * Analog sensor struct
- */
-typedef struct _o2_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_aRef;
-    /* Raw count offset */
-    float m_raw_offset;
-    /* Raw count scale */
-    float m_raw_scale;
-} *o2_context;
-
 o2_context o2_init(int16_t pin)
 {
     o2_context dev = (o2_context)malloc(sizeof(struct _o2_context));
