@@ -24,12 +24,6 @@
  */
 #include "a110x.h"
 
-typedef struct _a110x_context {
-    mraa_gpio_context      gpio;
-    uint8_t                gpio_pin;
-    bool                   isr_installed;
-} *a110x_context;
-
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_A110X_MEM_MAP, 1, sizeof(struct _upm_a110x));
 const kmemory_map_t UPM_A110X_MEM_MAP;

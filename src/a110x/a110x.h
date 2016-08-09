@@ -60,9 +60,13 @@
  */
 
 /**
- * Opaque pointer to the device context
+ * device context
  */
-typedef struct _a110x_context *a110x_context;
+typedef struct _a110x_context {
+    mraa_gpio_context      gpio;
+    uint8_t                gpio_pin;
+    bool                   isr_installed;
+} *a110x_context;
 
 /**
  * A110X Initialization function
