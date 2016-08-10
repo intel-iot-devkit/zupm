@@ -29,27 +29,12 @@
 #include <string.h>
 
 #include "urm37.h"
-#include "mraa/aio.h"
-#include "mraa/gpio.h"
-#include "mraa/uart.h"
 
 #include "upm_utilities.h"
 
 #define URM37_MAX_DATA_LEN      4
 #define URM37_WAIT_TIMEOUT      1000
 #define URM37_MAX_RETRIES       10
-
-typedef struct _urm37_context {
-  mraa_aio_context    aio;
-  mraa_gpio_context   gpio_reset;
-  mraa_gpio_context   gpio_trigger;
-  mraa_uart_context   uart;
-
-  bool                is_analog_mode;
-
-  float               a_ref;
-  float               a_res;
-} *urm37_context;
 
 urm37_context urm37_init(uint8_t a_pin, uint8_t reset_pin,
                          uint8_t trigger_pin, float a_ref,

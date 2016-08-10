@@ -31,6 +31,9 @@
 
 #include <stdint.h>
 #include "upm.h"
+#include "mraa/aio.h"
+#include "mraa/gpio.h"
+#include "mraa/uart.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,9 +65,19 @@ extern "C" {
  */
 
 /**
- * Opaque pointer to the sensor context
+ * device context
  */
-typedef struct _urm37_context *urm37_context;
+typedef struct _urm37_context {
+  mraa_aio_context    aio;
+  mraa_gpio_context   gpio_reset;
+  mraa_gpio_context   gpio_trigger;
+  mraa_uart_context   uart;
+
+  bool                is_analog_mode;
+
+  float               a_ref;
+  float               a_res;
+} *urm37_context;
 
 /**
  * URM37 Initializer
