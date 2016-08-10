@@ -29,12 +29,6 @@
 
 #include "temperature.h"
 #include "upm.h"
-#include "mraa/aio.h"
-
-typedef struct _temperature_context {
-    mraa_aio_context aio;
-    int16_t m_aRes;
-} *temperature_context;
 
 temperature_context temperature_init(int pin)
 {
