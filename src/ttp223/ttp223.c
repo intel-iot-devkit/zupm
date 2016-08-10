@@ -25,12 +25,6 @@
 
 #include "ttp223.h"
 
-typedef struct _ttp223_context {
-    mraa_gpio_context       gpio;
-    uint8_t                 gpio_pin;
-    bool                    isr_installed;
-} *ttp223_context;
-
 #if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
 DEFINE_MEM_MAP(UPM_TTP223_MEM_MAP, 1, sizeof(struct _ttp223_context));
 const kmemory_map_t UPM_TTP223_MEM_MAP;
