@@ -26,21 +26,6 @@
 #include <stdlib.h>
 
 #include "vdiv.h"
-#include "mraa/aio.h"
-
-/**
- * Analog sensor struct
- */
-typedef struct _vdiv_context {
-    /* mraa aio pin context */
-    mraa_aio_context aio;
-    /* Analog voltage reference */
-    float m_voltage_ref;
-    /* Raw count offset */
-    float m_count_offset;
-    /* Raw count scale */
-    float m_count_scale;
-} *vdiv_context;
 
 vdiv_context vdiv_init(int16_t pin, float voltage_ref)
 {
