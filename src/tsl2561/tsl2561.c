@@ -28,15 +28,6 @@
  */
 
 #include "tsl2561.h"
-#include "mraa/i2c.h"
-
-typedef struct _tsl2561_context {
-    mraa_i2c_context    i2c;
-    int                 bus;
-    uint8_t             address;
-    uint8_t             gain;
-    uint8_t             integration_time;
-} *tsl2561_context;
 
 // forward declaration
 upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data);

@@ -32,6 +32,7 @@
 
 #include <stdint.h>
 #include "upm.h"
+#include "mraa/i2c.h"
 
 #define TSL2561_Address          (0x29)  //Device address
 
@@ -91,9 +92,15 @@
 #define LUX_M8C           (0x0000)  // 0.000 * 2^LUX_SCALE
 
 /**
- * Opaque pointer to the sensor struct
+ * device context
  */
-typedef struct _tsl2561_context *tsl2561_context;
+typedef struct _tsl2561_context {
+    mraa_i2c_context    i2c;
+    int                 bus;
+    uint8_t             address;
+    uint8_t             gain;
+    uint8_t             integration_time;
+} *tsl2561_context;
 
 /**
  * Sensor Init Function
