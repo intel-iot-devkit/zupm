@@ -30,7 +30,16 @@
 #include <unistd.h>
 
 #include "upm.h"
-#include "upm_fti.h"
+#include <mraa/aio.h>
+
+/**
+ * driver context
+ */
+typedef struct _rotary_context {
+    mraa_aio_context aio;
+    float m_aRef;
+    int16_t m_aRes;
+} *rotary_context;
 
 #define ROTARY_MAX_ANGLE 300
 

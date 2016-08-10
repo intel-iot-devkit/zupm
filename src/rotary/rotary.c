@@ -27,15 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <mraa/aio.h>
-
 #include "rotary.h"
-
-typedef struct _rotary_context {
-    mraa_aio_context aio;
-    float m_aRef;
-    int16_t m_aRes;
-} *rotary_context;
 
 rotary_context rotary_init(int pin, float aRef)
 {
