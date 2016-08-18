@@ -91,6 +91,7 @@ include_directories (${PROJECT_SOURCE_DIR}/include)
 add_example (urm37)
 add_example (urm37-uart)
 add_example (bh1750)
+add_example (mma7361)
 
 # These are special cases where you specify example binary, source file and module(s)
 include_directories (${PROJECT_SOURCE_DIR}/src)

@@ -18,3 +18,4 @@ macro(add_example_with_path example_name jar_path jar_name)
 endmacro()
 
 add_example(BH1750_Example bh1750)
+add_example(MMA7361_Example mma7361)
