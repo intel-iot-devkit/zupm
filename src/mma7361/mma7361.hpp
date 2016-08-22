@@ -2,9 +2,6 @@
  * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
- * Thanks to Adafruit for supplying a google translated version of the
- * Chinese datasheet and some clues in their code.
- *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
  * "Software"), to deal in the Software without restriction, including
