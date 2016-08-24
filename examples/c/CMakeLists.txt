@@ -95,6 +95,7 @@ add_example (urm37)
 add_example (urm37-uart)
 add_example (bh1750)
 add_example (mma7361)
+add_example (vk2828u7)
 
 
 # These are special cases where you specify example binary, source file and module(s)

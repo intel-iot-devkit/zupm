@@ -19,3 +19,4 @@ endmacro()
 
 add_example(BH1750_Example bh1750)
 add_example(MMA7361_Example mma7361)
+add_example(VK2828U7_Example vk2828u7)
