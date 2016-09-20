@@ -1,0 +1,29 @@
+diff --git a/ext/Kbuild b/ext/Kbuild
+index 97cb478..f1aa4de 100644
+--- a/ext/Kbuild
++++ b/ext/Kbuild
+@@ -1,3 +1,4 @@
+ obj-y += hal/
+ obj-y += lib/
+ obj-y += fs/
++obj-y += lib/upm/
+diff --git a/ext/Kconfig b/ext/Kconfig
+index 9d26499..a7d1db7 100644
+--- a/ext/Kconfig
++++ b/ext/Kconfig
+@@ -24,4 +24,6 @@ source "ext/lib/crypto/Kconfig"
+ 
+ source "ext/fs/Kconfig"
+ 
++source "ext/lib/upm/Kconfig"
++
+ endmenu
+diff --git a/ext/Makefile b/ext/Makefile
+index 45b3952..2197961 100644
+--- a/ext/Makefile
++++ b/ext/Makefile
+@@ -1,3 +1,4 @@
+ include $(srctree)/ext/lib/Makefile
+ include $(srctree)/ext/hal/Makefile
+ include $(srctree)/ext/fs/Makefile
++include $(srctree)/ext/lib/upm/Makefile
