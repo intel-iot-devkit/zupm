@@ -1,0 +1,9 @@
+config UPM_joystick12
+    bool "joystick12"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        ElecFreaks Joystick 1.2
+

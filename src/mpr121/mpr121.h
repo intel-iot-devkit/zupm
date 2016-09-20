@@ -50,7 +50,7 @@ typedef struct _mpr121_context {
  * @param address i2c address of the sensor
  * @return void* pointer to the sensor struct
  */
-mpr121_context upm_mpr121_init(int bus, uint8_t address);
+mpr121_context mpr121_init(int bus, uint8_t address);
 
 /**
  * MPR121 Close function

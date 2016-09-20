@@ -1,6 +1,0 @@
-set (libname "dfrph")
-set (libdescription "upm dfrobot pH sensors")
-set (module_src ${libname}.cxx dfrph.c dfrph_fti.c)
-set (module_hpp ${libname}.hpp)
-set (module_h ${libname}.hpp dfrph.h)
-upm_module_init()

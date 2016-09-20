@@ -1,0 +1,1 @@
+obj-y = joystick12.o

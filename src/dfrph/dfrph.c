@@ -1,5 +1,5 @@
 /*
- * Author:
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -37,7 +37,8 @@ dfrph_context dfrph_init(int16_t pin)
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
 
-    /* Set the ref, zero the offset */
+    /* Set the ref, offset, and scale */
+    dev->m_aref = 5.0;
     dev->m_count_offset = 0.0;
     dev->m_count_scale = 1.0;
 
@@ -67,10 +68,19 @@ upm_result_t dfrph_set_scale(const dfrph_context dev, float scale)
     return UPM_SUCCESS;
 }
 
+upm_result_t dfrph_get_raw_volts(const dfrph_context dev, float *volts)
+{
+    *volts = mraa_aio_read_float(dev->aio);
+    if (*volts == -1.0) return UPM_ERROR_OPERATION_FAILED;
+
+    /* Scale by aref */
+    *volts *= dev->m_aref;
+
+    return UPM_SUCCESS;
+}
+
 upm_result_t dfrph_get_ph(const dfrph_context dev, float *value)
 {
-    /* Throw away first analog read (can be slightly off) */
-    mraa_aio_read(dev->aio);
     /* Read counts */
     int counts = mraa_aio_read(dev->aio);
 

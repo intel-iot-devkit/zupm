@@ -1,0 +1,1 @@
+obj-y = sht1x.o

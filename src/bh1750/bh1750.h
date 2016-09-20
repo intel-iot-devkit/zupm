@@ -24,16 +24,16 @@
 
 #pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif // __cplusplus
-
 #include <stdint.h>
 
 #include "mraa/i2c.h"
 
 #include "upm.h"
 #include "upm_types.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif // __cplusplus
 
 /**
  * @brief UPM C API for the DFRobot I2C BH1750 Light Sensor

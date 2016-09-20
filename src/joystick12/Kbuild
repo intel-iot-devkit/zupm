@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_joystick12) += joystick12.o

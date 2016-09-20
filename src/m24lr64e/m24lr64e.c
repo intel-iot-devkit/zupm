@@ -1,3 +1,37 @@
+/*
+ * Author: Jon Trulson <jtrulson@ics.com>
+ *         Abhishek Malik <abhishek.malik@intel.com>
+ * Copyright (c) 2016 Intel Corporation.
+ *
+ *
+ * This code was adapted from the Seeed Studio code at:
+ * https://github.com/Seeed-Studio/NFC_Tag_M24LR6E
+ *
+ * Copyright (c) 2014 seeed technology inc.
+ * Website    : www.seeed.cc
+ * Author     : lawliet zou
+ * Create Time: March 2014
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 #include "m24lr64e.h"
 
 // forward declarations - these were protected methods in original C++
@@ -12,13 +46,6 @@ upm_result_t m24lr64e_eeprom_write_byte(m24lr64e_context dev,
 upm_result_t m24lr64e_eeprom_write_bytes(m24lr64e_context dev,
                                          uint32_t address,
                                          uint8_t* data, int len);
-
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_M24LR64E_MAP, 1, sizeof(struct _m24lr64e_context));
-const kmemory_map_t UPM_M24LR64E_MEM_MAP;
-#elif defined(linux)
-#define UPM_M24LR64E_MEM_MAP 0
-#endif
 
 m24lr64e_context m24lr64e_init(int bus, m24lr64e_access_mode mode){
     m24lr64e_context dev =
@@ -45,7 +72,7 @@ m24lr64e_context m24lr64e_init(int bus, m24lr64e_access_mode mode){
 
 void m24lr64e_close(m24lr64e_context dev){
     mraa_i2c_stop(dev->i2c);
-    upm_free(UPM_M24LR64E_MEM_MAP, dev);
+    free(dev);
 }
 
 upm_result_t m24lr64e_submit_password(m24lr64e_context dev,
@@ -159,15 +186,15 @@ upm_result_t m24lr64e_get_afi(m24lr64e_context dev, uint8_t* afi){
 }
 
 upm_result_t m24lr64e_get_uid(m24lr64e_context dev, uint8_t* uid){
-    uint8_t* buffer;
-    uint8_t arr[M24LR64E_UID_LENGTH];
-    buffer = arr;
+    //uint8_t* buffer;
+    //uint8_t arr[M24LR64E_UID_LENGTH];
+    //buffer = arr;
     // call to EEPROM read bytes
-    m24lr64e_eeprom_read_bytes(dev, M24LR64E_UID_ADDRESS, buffer,
+    m24lr64e_eeprom_read_bytes(dev, M24LR64E_UID_ADDRESS, uid,
                                M24LR64E_UID_LENGTH);
     // not so sure about this
-#warning "THIS NEEDS FIXING"
-    *uid = *buffer;
+//#warning "THIS NEEDS FIXING"
+    //*uid = *buffer;
     return UPM_SUCCESS;
 }
 

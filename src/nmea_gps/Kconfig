@@ -1,0 +1,9 @@
+config UPM_nmea_gps
+    bool "nmea_gps"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        UPM Generic driver for GPS NMEA sensors
+

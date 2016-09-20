@@ -25,6 +25,10 @@
 #ifndef A110X_A110X_H_
 #define A110X_A110X_H_
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
 #include "upm.h"
 #include "mraa/gpio.h"
 
@@ -101,8 +105,8 @@ upm_result_t a110x_magnet_detected(a110x_context dev, bool* res);
  * @param isr ISR callback function
  * @return upm_result_t UPM success/error code
  */
-upm_result_t a110x_install_isr(a110x_context dev, 
-                               mraa_gpio_edge_t edge_level, 
+upm_result_t a110x_install_isr(a110x_context dev,
+                               mraa_gpio_edge_t edge_level,
                                void (*isr)(void *), void *arg);
 
 /**

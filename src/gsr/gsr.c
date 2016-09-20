@@ -1,5 +1,5 @@
 /*
- * Author:
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -31,19 +31,21 @@ gsr_context gsr_init(int16_t pin)
 {
     gsr_context dev = (gsr_context) malloc(sizeof(struct _gsr_context));
 
-    if(dev == NULL) return NULL;
+    if (dev == NULL)
+      return NULL;
 
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
 
-    /* Set the ref, zero the offset */
-    dev->m_count_offset = 0.0;
-    dev->m_count_scale = 1.0;
-
-    if(dev->aio == NULL) {
+    if (dev->aio == NULL) {
         free(dev);
         return NULL;
     }
+
+    /* Set the ADC ref, scale, and offset defaults */
+    dev->m_aRef = 5.0;
+    dev->m_scale = 1.0;
+    dev->m_offset = 0.0;
 
     return dev;
 }
@@ -54,30 +56,73 @@ void gsr_close(gsr_context dev)
     free(dev);
 }
 
-upm_result_t gsr_set_offset(const gsr_context dev, float offset)
+upm_result_t gsr_set_aref(const gsr_context dev, float aref)
 {
-    dev->m_count_offset = offset;
+    dev->m_aRef = aref;
     return UPM_SUCCESS;
 }
 
 upm_result_t gsr_set_scale(const gsr_context dev, float scale)
 {
-    dev->m_count_scale = scale;
+    dev->m_scale = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t gsr_get_value(const gsr_context dev, float *value)
+upm_result_t gsr_set_offset(const gsr_context dev, float offset)
 {
-    int counts = 0;
+    dev->m_offset = offset;
+    return UPM_SUCCESS;
+}
 
-    /* Read counts */
-    counts = mraa_aio_read(dev->aio);
+float gsr_get_aref(const gsr_context dev)
+{
+    return dev->m_aRef;
+}
 
-    /* Apply raw scale */
-    *value = counts * dev->m_count_scale;
+float gsr_get_scale(const gsr_context dev)
+{
+    return dev->m_scale;
+}
 
-    /* Apply raw offset */
-    *value += dev->m_count_offset * dev->m_count_scale;
+float gsr_get_offset(const gsr_context dev)
+{
+    return dev->m_offset;
+}
+
+upm_result_t gsr_get_normalized(const gsr_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+    return UPM_SUCCESS;
+}
+
+upm_result_t gsr_get_raw_volts(const gsr_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+    /* Scale by the ADC reference voltage */
+    *value *= dev->m_aRef;
+
+    return UPM_SUCCESS;
+}
+
+upm_result_t gsr_get_volts(const gsr_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+     /* Apply raw scale */
+    *value *= dev->m_scale;
+
+     /* Scale to aRef */
+    *value *= dev->m_aRef;
+
+    /* Apply the offset in volts */
+    *value += dev->m_offset;
 
     return UPM_SUCCESS;
 }

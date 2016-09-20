@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_servo) += es08a.o es9257.o

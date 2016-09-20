@@ -1,5 +1,0 @@
-set (libname "m24lr64e")
-set (libdescription "UPM Grove NFC Tag Module: m24lr64e")
-set (module_src m24lr64e.c m24lr64e_fti.c)
-set (module_h m24lr64e.h)
-upm_module_init()

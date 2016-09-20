@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_o2) += o2.o

@@ -1,0 +1,9 @@
+config UPM_mma7361
+    bool "mma7361"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm dfrobot MMA7361 analog accelerometer
+

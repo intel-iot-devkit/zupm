@@ -2,7 +2,7 @@
 
 void* upm_malloc(int mem_map, int size){
     void *mem;
-#if defined(linux)
+#if defined(linux) || defined(CONFIG_NEWLIB_LIBC)
     mem = malloc(size);
     if(mem == NULL){
         printf("unable to allocate memory");
@@ -24,7 +24,7 @@ void* upm_malloc(int mem_map, int size){
 }
 
 void upm_free(int mem_map, void* ptr){
-#if defined(linux)
+#if defined(linux) || defined(CONFIG_NEWLIB_LIBC)
     free(ptr);
 #elif defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
     kmemory_map_t map_name = (kmemory_map_t) mem_map;

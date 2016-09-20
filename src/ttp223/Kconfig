@@ -1,0 +1,9 @@
+config UPM_ttp223
+    bool "ttp223"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm ttp223 touch sensor module
+

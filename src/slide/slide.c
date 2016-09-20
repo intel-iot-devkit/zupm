@@ -1,5 +1,5 @@
 /*
- * Author:
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -26,23 +26,26 @@
 #include <stdlib.h>
 
 #include "slide.h"
+
 slide_context slide_init(int16_t pin)
 {
     slide_context dev = (slide_context) malloc(sizeof(struct _slide_context));
 
-    if(dev == NULL) return NULL;
+    if (dev == NULL)
+      return NULL;
 
     /* Init aio pin */
     dev->aio = mraa_aio_init(pin);
 
-    if(dev->aio == NULL) {
+    if (dev->aio == NULL) {
         free(dev);
         return NULL;
     }
 
-    /* Set the ref, zero the offset */
-    dev->m_count_offset = 0.0;
-    dev->m_count_scale = 1.0;
+    /* Set the ADC ref, scale, and offset defaults */
+    dev->m_aRef = 5.0;
+    dev->m_scale = 1.0;
+    dev->m_offset = 0.0;
 
     return dev;
 }
@@ -53,28 +56,73 @@ void slide_close(slide_context dev)
     free(dev);
 }
 
-upm_result_t slide_set_offset(const slide_context dev, float offset)
+upm_result_t slide_set_aref(const slide_context dev, float aref)
 {
-    dev->m_count_offset = offset;
+    dev->m_aRef = aref;
     return UPM_SUCCESS;
 }
 
 upm_result_t slide_set_scale(const slide_context dev, float scale)
 {
-    dev->m_count_scale = scale;
+    dev->m_scale = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t slide_get_value(const slide_context dev, float *value)
+upm_result_t slide_set_offset(const slide_context dev, float offset)
 {
-    /* Read counts */
-    int counts = mraa_aio_read(dev->aio);
+    dev->m_offset = offset;
+    return UPM_SUCCESS;
+}
 
-    /* Apply raw scale */
-    *value = counts * dev->m_count_scale;
+float slide_get_aref(const slide_context dev)
+{
+    return dev->m_aRef;
+}
 
-    /* Apply raw offset */
-    *value += dev->m_count_offset * dev->m_count_scale;
+float slide_get_scale(const slide_context dev)
+{
+    return dev->m_scale;
+}
+
+float slide_get_offset(const slide_context dev)
+{
+    return dev->m_offset;
+}
+
+upm_result_t slide_get_normalized(const slide_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+    return UPM_SUCCESS;
+}
+
+upm_result_t slide_get_raw_volts(const slide_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+    /* Scale by the ADC reference voltage */
+    *value *= dev->m_aRef;
+
+    return UPM_SUCCESS;
+}
+
+upm_result_t slide_get_volts(const slide_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+     /* Apply raw scale */
+    *value *= dev->m_scale;
+
+     /* Scale to aRef */
+    *value *= dev->m_aRef;
+
+    /* Apply the offset in volts */
+    *value += dev->m_offset;
 
     return UPM_SUCCESS;
 }

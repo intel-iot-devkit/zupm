@@ -1,0 +1,9 @@
+config UPM_dfrph
+    bool "dfrph"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm dfrobot pH sensor
+

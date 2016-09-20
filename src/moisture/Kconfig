@@ -1,0 +1,9 @@
+config UPM_moisture
+    bool "moisture"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm analog moisture module
+

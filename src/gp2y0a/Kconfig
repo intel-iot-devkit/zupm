@@ -1,0 +1,9 @@
+config UPM_gp2y0a
+    bool "gp2y0a"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm gp2y0a family of IR distance detectors
+

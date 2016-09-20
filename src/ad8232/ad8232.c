@@ -85,4 +85,3 @@ upm_result_t ad8232_get_value(ad8232_context dev, int* value) {
 
     return UPM_SUCCESS;
 }
-

@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_ad8232) += ad8232.o

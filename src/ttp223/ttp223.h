@@ -48,7 +48,7 @@ typedef struct _ttp223_context {
  * @param pin The pin number the sensor is attached to
  * @return void* pointer to the sensor struct
  */
-ttp223_context upm_ttp223_init(int pin);
+ttp223_context ttp223_init(int pin);
 
 /**
  * Sensor Module close function

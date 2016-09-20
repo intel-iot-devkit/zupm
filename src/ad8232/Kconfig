@@ -1,0 +1,9 @@
+config UPM_ad8232
+    bool "ad8232"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm ad8232sensor module
+

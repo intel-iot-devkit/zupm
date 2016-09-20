@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_nmea_gps) += nmea_gps.o

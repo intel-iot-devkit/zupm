@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_hka5) += hka5.o

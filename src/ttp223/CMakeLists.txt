@@ -1,5 +1,0 @@
-set (libname "ttp223")
-set (libdescription "UPM Grove Touch Sensor: ttp223")
-set (module_src ttp223.c ttp223_fti.c)
-set (module_h ttp223.h)
-upm_module_init()

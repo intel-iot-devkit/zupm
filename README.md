@@ -1,2 +1,2 @@
-# upm-c-staging
-UPM C Drivers
+# zupm
+UPM C source repo for Zephyr

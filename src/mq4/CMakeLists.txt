@@ -1,6 +1,0 @@
-set (libname "mq4")
-set (libdescription "upm x_sensorname sensor")
-set (module_src ${libname}.cxx mq4.c mq4_fti.c)
-set (module_hpp ${libname}.hpp)
-set (module_h ${libname}.hpp mq4.h)
-upm_module_init()

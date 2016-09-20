@@ -26,6 +26,11 @@
 #ifndef GP2Y0A_GP2Y0A_H_
 #define GP2Y0A_GP2Y0A_H_
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <malloc.h>
+
 #include "upm.h"
 #include "mraa/aio.h"
 

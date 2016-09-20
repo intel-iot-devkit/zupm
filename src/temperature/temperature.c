@@ -66,11 +66,11 @@ upm_result_t temperature_get_value(temperature_context dev,
         return UPM_ERROR_OPERATION_FAILED;
     }
 
-    // From the original C++ UPM code
+    // From old C++ UPM code, needs rework!!!
     float r = ((float)dev->m_aRes - val) * 10000.0 / val;
     float t = 1.0 / (log(r / 10000.0) / 3975.0 + 1.0 / 298.15) -273.15;
 
-    // celsius
+    // Celsius
     *tempval = t;
 
     return UPM_SUCCESS;

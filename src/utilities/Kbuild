@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_utilities) += upm_utilities.o

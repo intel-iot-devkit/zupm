@@ -1,6 +1,0 @@
-set (libname "gsr")
-set (libdescription "upm counts sensor")
-set (module_src ${libname}.cxx gsr.c gsr_fti.c)
-set (module_hpp ${libname}.hpp)
-set (module_h ${libname}.hpp gsr.h)
-upm_module_init()

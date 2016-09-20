@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_ttp223) += ttp223.o

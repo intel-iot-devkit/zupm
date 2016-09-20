@@ -27,16 +27,9 @@
 #include "led.h"
 #include "upm_types.h"
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_LED_MEM_MAP, 1, sizeof(struct _led_context));
-const kmemory_map_t UPM_LED_MEM_MAP;
-#elif defined(linux)
-#define UPM_LED_MEM_MAP 0
-#endif
-
 led_context led_init(uint8_t pin){
     led_context dev =
-      (led_context)upm_malloc(UPM_LED_MEM_MAP, sizeof(struct _led_context));
+      (led_context)malloc(sizeof(struct _led_context));
 
     if (!dev)
       return NULL;
@@ -51,7 +44,7 @@ led_context led_init(uint8_t pin){
 }
 
 void led_close(led_context dev){
-    upm_free(UPM_LED_MEM_MAP, dev);
+    free(dev);
 }
 
 upm_result_t led_on(led_context dev){

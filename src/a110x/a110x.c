@@ -24,17 +24,9 @@
  */
 #include "a110x.h"
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_A110X_MEM_MAP, 1, sizeof(struct _upm_a110x));
-const kmemory_map_t UPM_A110X_MEM_MAP;
-#elif defined(linux)
-#define UPM_A110X_MEM_MAP 0
-#endif
-
 a110x_context a110x_init(uint8_t pin){
-    a110x_context dev = 
-      (a110x_context) upm_malloc(UPM_A110X_MEM_MAP,
-                                 sizeof(struct _a110x_context));
+    a110x_context dev =
+      (a110x_context) malloc(sizeof(struct _a110x_context));
 
     if (!dev)
       {
@@ -44,6 +36,7 @@ a110x_context a110x_init(uint8_t pin){
     dev->gpio_pin = pin;
     dev->gpio = mraa_gpio_init(dev->gpio_pin);
     if (mraa_gpio_dir(dev->gpio, MRAA_GPIO_IN) != MRAA_SUCCESS){
+        free(dev);
         return NULL;
     }
     dev->isr_installed = false;
@@ -51,7 +44,7 @@ a110x_context a110x_init(uint8_t pin){
 }
 
 void a110x_close(a110x_context dev){
-    upm_free(UPM_A110X_MEM_MAP, dev);
+    free(dev);
 }
 
 upm_result_t a110x_magnet_detected(a110x_context dev, bool* res){
@@ -63,7 +56,7 @@ upm_result_t a110x_magnet_detected(a110x_context dev, bool* res){
     return UPM_SUCCESS;
 }
 
-upm_result_t a110x_install_isr(a110x_context dev, 
+upm_result_t a110x_install_isr(a110x_context dev,
                                mraa_gpio_edge_t edge_level,
                                void (*isr)(void *), void *arg){
     if (dev->isr_installed)

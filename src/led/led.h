@@ -27,6 +27,9 @@
 #ifndef LED_LED_H_
 #define LED_LED_H_
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
 #include <stdint.h>
 #include "upm.h"
 #include "mraa/gpio.h"
@@ -45,7 +48,7 @@
  * negative seat (cathode). The flat side of the bulb corresponds
  * to the cathode, while the rounded side corresponds to the anode.
  *
- * @image html groveled.jpg
+ * @image html led.jpg
  */
 
 /**
@@ -65,7 +68,7 @@ typedef struct _led_context {
 led_context led_init(uint8_t pin);
 
 /**
- * MQ303A Initialization function
+ * LED Initialization function
  *
  * @param The sensor context
  */

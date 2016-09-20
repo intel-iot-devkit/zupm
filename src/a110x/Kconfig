@@ -1,0 +1,9 @@
+config UPM_a110x
+    bool "a110x"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm a110x sensor module
+

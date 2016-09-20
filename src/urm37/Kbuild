@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_urm37) += urm37.o

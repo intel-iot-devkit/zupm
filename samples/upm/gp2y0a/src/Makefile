@@ -1,0 +1,1 @@
+obj-y = gp2y0a.o

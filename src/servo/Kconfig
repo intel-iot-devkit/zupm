@@ -1,0 +1,9 @@
+config UPM_servo
+    bool "servo"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm servo module
+

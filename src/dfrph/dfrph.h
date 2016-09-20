@@ -1,5 +1,5 @@
 /*
- * Author:
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -37,6 +37,8 @@ extern "C" {
 typedef struct _dfrph_context {
     /* mraa aio pin context */
     mraa_aio_context aio;
+    /* ADC reference */
+    float m_aref;
     /* Raw count offset */
     float m_count_offset;
     /* Raw count scale */
@@ -73,6 +75,14 @@ upm_result_t dfrph_set_offset(const dfrph_context dev, float offset);
  * @return Function result code
  */
 upm_result_t dfrph_set_scale(const dfrph_context dev, float scale);
+
+/**
+ * Get raw volts
+ * @param dev sensor context pointer
+ * @param volts Raw sensor voltage
+ * @return Function result code
+ */
+upm_result_t dfrph_get_raw_volts(const dfrph_context dev, float *volts);
 
 /**
  * Read value from sensor

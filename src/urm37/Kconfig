@@ -1,0 +1,9 @@
+config UPM_urm37
+    bool "urm37"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm URM37 Ultrasonic Ranger
+

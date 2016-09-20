@@ -1,5 +1,5 @@
 /*
- * Author:
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -41,10 +41,11 @@ vdiv_context vdiv_init(int16_t pin, float voltage_ref)
         return NULL;
     }
 
-    /* Set the ref, zero the offset */
-    dev->m_count_offset = 0.0;
-    dev->m_count_scale = 1.0;
-    dev->m_voltage_ref = voltage_ref;
+    /* Set defaults */
+    dev->m_aRef = 5.0;
+    dev->m_scale = 1.0;
+    dev->m_offset = 0.0;
+    dev->m_vdiv_sw = 3;
 
     return dev;
 }
@@ -55,42 +56,67 @@ void vdiv_close(vdiv_context dev)
     free(dev);
 }
 
-upm_result_t vdiv_set_offset(const vdiv_context dev, float offset)
-{
-    dev->m_count_offset = offset;
-    return UPM_SUCCESS;
-}
-
 upm_result_t vdiv_set_scale(const vdiv_context dev, float scale)
 {
-    dev->m_count_scale = scale;
+    dev->m_scale = scale;
     return UPM_SUCCESS;
 }
 
-upm_result_t vdiv_get_value(const vdiv_context dev, float *value)
+upm_result_t vdiv_set_offset(const vdiv_context dev, float offset)
+{
+    dev->m_offset = offset;
+    return UPM_SUCCESS;
+}
+
+float vdiv_get_scale(const vdiv_context dev)
+{
+    return dev->m_scale;
+}
+
+float vdiv_get_offset(const vdiv_context dev)
+{
+    return dev->m_offset;
+}
+
+upm_result_t vdiv_set_divsw(const vdiv_context dev, int vdiv_sw)
+{
+    dev->m_vdiv_sw = vdiv_sw;
+    return UPM_SUCCESS;
+}
+
+int vdiv_get_divsw(const vdiv_context dev)
+{
+    return dev->m_vdiv_sw;
+}
+
+upm_result_t vdiv_get_raw_volts(const vdiv_context dev, float *value)
+{
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
+        return UPM_ERROR_OPERATION_FAILED;
+
+    /* Scale by the ADC reference voltage */
+    *value *= dev->m_aRef;
+
+    return UPM_SUCCESS;
+}
+
+upm_result_t vdiv_get_computed_volts(const vdiv_context dev, float *value)
 {
     // JET - this is wrong.
 
-    /* Read counts */
-    int counts = mraa_aio_read(dev->aio);
-
-    if (counts < 0)
+    *value = mraa_aio_read_float(dev->aio);
+    if (*value < 0)
         return UPM_ERROR_OPERATION_FAILED;
 
-    /* Get max adc value range 1023, 2047, 4095, etc... */
-    float max_adc = (1 << mraa_aio_get_bit(dev->aio)) - 1;
+     /* Apply raw scale */
+    *value *= dev->m_scale;
 
-    /* Apply raw scale */
-    *value = counts * dev->m_count_scale;
+    /* Scale to the ADC referecen then to vdiv gain */
+    *value *= dev->m_aRef * dev->m_vdiv_sw;
 
-    /* Apply raw offset */
-    *value += dev->m_count_offset * dev->m_count_scale;
-
-    /* Normalize the value */
-    *value /= max_adc;
-
-    /* Convert the value to volts */
-    *value *= dev->m_voltage_ref;
+    /* Apply the offset in volts */
+    *value += dev->m_offset;
 
     return UPM_SUCCESS;
 }

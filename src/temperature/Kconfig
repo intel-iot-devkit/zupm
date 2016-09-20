@@ -1,0 +1,9 @@
+config UPM_temperature
+    bool "temperature"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        Temperature Sensor
+

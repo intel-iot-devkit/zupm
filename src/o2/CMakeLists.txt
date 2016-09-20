@@ -1,6 +1,0 @@
-set (libname "o2")
-set (libdescription "upm counts sensor")
-set (module_src ${libname}.c ${libname}_fti.c ${libname}.cxx)
-set (module_hpp ${libname}.hpp)
-set (module_h ${libname}.h )
-upm_module_init()

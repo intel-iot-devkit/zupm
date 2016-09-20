@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_gp2y0a) += gp2y0a.o

@@ -1,0 +1,9 @@
+config UPM_mq303a
+    bool "mq303a"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm mq303a sensor module
+

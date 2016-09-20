@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_sht1x) += sht1x.o

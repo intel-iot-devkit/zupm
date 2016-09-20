@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_tsl2561) += tsl2561.o

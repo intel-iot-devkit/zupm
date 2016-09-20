@@ -1,0 +1,1 @@
+obj-y = hka5.o

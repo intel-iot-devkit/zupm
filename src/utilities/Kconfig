@@ -1,0 +1,9 @@
+config UPM_utilities
+    bool "utilities"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        UPM Utilities Library
+

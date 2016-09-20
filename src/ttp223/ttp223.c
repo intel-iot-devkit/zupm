@@ -25,13 +25,6 @@
 
 #include "ttp223.h"
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_TTP223_MEM_MAP, 1, sizeof(struct _ttp223_context));
-const kmemory_map_t UPM_TTP223_MEM_MAP;
-#elif defined(linux)
-#define UPM_TTP223_MEM_MAP 0
-#endif
-
 ttp223_context ttp223_init(int pin){
     ttp223_context dev = 
       (ttp223_context) malloc(sizeof(struct _ttp223_context));

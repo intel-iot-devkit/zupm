@@ -1,5 +1,0 @@
-set (libname "vk2828u7")
-set (libdescription "UPM Analog Accelerometer: vk2828u7")
-set (module_src vk2828u7.c vk2828u7_fti.c vk2828u7.cxx)
-set (module_h vk2828u7.h vk2828u7.hpp)
-upm_module_init()

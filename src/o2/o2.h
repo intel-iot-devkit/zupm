@@ -1,5 +1,5 @@
 /*
- * Author:
+ * Author: Noel Eck <noel.eck@intel.com>
  * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -40,10 +40,10 @@ typedef struct _o2_context {
     mraa_aio_context aio;
     /* Analog voltage reference */
     float m_aRef;
-    /* Raw count offset */
-    float m_raw_offset;
-    /* Raw count scale */
-    float m_raw_scale;
+    /* Scale */
+    float m_scale;
+    /* Offset in sensor units */
+    float m_offset;
 } *o2_context;
 
 /**
@@ -115,20 +115,20 @@ float o2_get_scale(const o2_context dev);
 upm_result_t o2_get_counts(const o2_context dev, int *value);
 
 /**
+ * Read voltage from sensor
+ * @param dev sensor context pointer
+ * @param *value Voltage (v)
+ * @return Function result code
+ */
+upm_result_t o2_get_raw_volts(const o2_context dev, float *value);
+
+/**
  * Read value from sensor
  * @param dev sensor context pointer
  * @param *value O2 percentage
  * @return Function result code
  */
 upm_result_t o2_get_value(const o2_context dev, float *value);
-
-/**
- * Read voltage from sensor
- * @param dev sensor context pointer
- * @param *value Voltage (v)
- * @return Function result code
- */
-upm_result_t o2_get_voltage(const o2_context dev, float *value);
 
 #ifdef __cplusplus
 }

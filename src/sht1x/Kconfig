@@ -1,0 +1,9 @@
+config UPM_sht1x
+    bool "sht1x"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        UPM driver for the SHT1X temperature/humidity sensor
+

@@ -1,0 +1,9 @@
+config UPM_gas
+    bool "gas"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        Gas sensors
+

@@ -1,0 +1,9 @@
+config UPM_ldt0028
+    bool "ldt0028"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        ldt0028 Piezo Vibration Sensor
+

@@ -121,7 +121,6 @@ upm_result_t mpr121_config_an3944(mpr121_context dev){
     // First, turn off all electrodes by zeroing out the Electrode Configuration
     // register.
     // If this one fails, it's unlikely any of the others will succeed.
-    printf("Entering configuration function\n");
     uint8_t eleConf = 0x00;
     if (mpr121_write_bytes(dev, 0x5e, &eleConf, 1) != UPM_SUCCESS){
         printf("write to electrode configuration register failed\n");
@@ -131,7 +130,7 @@ upm_result_t mpr121_config_an3944(mpr121_context dev){
     // Section A
     // Filtering when data is greater than baseline
     // regs 0x2b-0x2e
-    printf("configuring section A\n");
+
     uint8_t sectA[] = {0x01, 0x01, 0x00, 0x00};
     if (mpr121_write_bytes(dev, 0x2b, sectA, 4) != UPM_SUCCESS){
         printf("write to section a failed\n");
@@ -141,7 +140,7 @@ upm_result_t mpr121_config_an3944(mpr121_context dev){
     // Section B
     // Filtering when data is less than baseline
     // regs 0x2f-0x32
-    printf("configuring section B\n");
+
     uint8_t sectB[] = {0x01, 0x01, 0xff, 0x02};
     if (mpr121_write_bytes(dev, 0x2f, sectB, 4) != UPM_SUCCESS){
         printf("write to section b failed\n");
@@ -165,7 +164,6 @@ upm_result_t mpr121_config_an3944(mpr121_context dev){
         0x0f, 0x0a,
         0x0f, 0x0a};
 
-    printf("configuring touch threshold/release regs\n");
     if (mpr121_write_bytes(dev, 0x41, sectC, 24) != UPM_SUCCESS){
         printf("failed to configure touch threshold/release regs\n");
         return UPM_ERROR_OPERATION_FAILED;
@@ -174,7 +172,6 @@ upm_result_t mpr121_config_an3944(mpr121_context dev){
     // Section D
     // Filter configuration
     // reg 0x5d
-    printf("configuring filter stuff\n");
     uint8_t filterConf = 0x04;
     if (mpr121_write_bytes(dev, 0x5d, &filterConf, 1) != UPM_SUCCESS){
         printf("unable to configure filters\n");
@@ -184,7 +181,6 @@ upm_result_t mpr121_config_an3944(mpr121_context dev){
     // Section F
     // Autoconfiguration registers
     // regs 0x7b-0x7f
-    printf("configuring auto config regs\n");
     uint8_t sectF0 = 0x0b;
     if (mpr121_write_bytes(dev, 0x7b, &sectF0, 1) != UPM_SUCCESS){
         printf("unable to configure auto config regs\n");

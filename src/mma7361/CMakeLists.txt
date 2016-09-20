@@ -1,5 +1,0 @@
-set (libname "mma7361")
-set (libdescription "UPM Analog Accelerometer: mma7361")
-set (module_src mma7361.c mma7361_fti.c mma7361.cxx)
-set (module_h mma7361.h mma7361.hpp)
-upm_module_init()

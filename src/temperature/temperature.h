@@ -45,7 +45,7 @@ temperature_context temperature_init(int pin);
 
 void temperature_close(temperature_context dev);
 
-// celsius
+// Celsius
 upm_result_t temperature_get_value(temperature_context dev,
                                    float* tempval);
 

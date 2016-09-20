@@ -24,30 +24,21 @@
  */
 #include "gp2y0a.h"
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_GP2Y0A_MAP, 1, sizeof(struct _upm_gp2y0a));
-const kmemory_map_t UPM_GP2Y0A_MEM_MAP;
-#elif defined(linux)
-#define UPM_GP2Y0A_MEM_MAP 0
-#endif
-
 gp2y0a_context gp2y0a_init(uint8_t pin, float a_ref){
-    gp2y0a_context dev =
-      (gp2y0a_context) upm_malloc(UPM_GP2Y0A_MEM_MAP,
-                                  sizeof(struct _gp2y0a_context));
+    gp2y0a_context dev = (gp2y0a_context) malloc(sizeof(struct _gp2y0a_context));
 
+    dev->pin = pin;
+    dev->aio = mraa_aio_init(dev->pin);
     if(dev->aio == NULL){
         return NULL;
     }
-    dev->pin = pin;
-    dev->aio = mraa_aio_init(dev->pin);
     dev->a_res = (1 << mraa_aio_get_bit(dev->aio));
 
     return dev;
 }
 
 void gp2y0a_close(gp2y0a_context dev){
-    upm_free(UPM_GP2Y0A_MEM_MAP, dev);
+    free(dev);
 }
 
 upm_result_t gp2y0a_get_value(gp2y0a_context dev, float a_ref,

@@ -25,17 +25,9 @@
 
 #include "mq303a.h"
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_MQ303A_MEM_MAP, 1, sizeof(struct _upm_mq303a));
-const kmemory_map_t UPM_MQ303A_MEM_MAP;
-#elif defined(linux)
-#define UPM_MQ303A_MEM_MAP 0
-#endif
-
-mq303a_context upm_mq303a_init(int pin, int heater_pin){
+mq303a_context mq303a_init(int pin, int heater_pin){
     mq303a_context dev =
-      (mq303a_context)upm_malloc(UPM_MQ303A_MEM_MAP,
-                                 sizeof(struct _mq303a_context));
+      (mq303a_context)malloc(sizeof(struct _mq303a_context));
 
     if (!dev)
       return NULL;
@@ -47,7 +39,7 @@ mq303a_context upm_mq303a_init(int pin, int heater_pin){
 
     if(mraa_gpio_dir(dev->gpio, MRAA_GPIO_OUT) != MRAA_SUCCESS)
       {
-        upm_free(UPM_MQ303A_MEM_MAP, dev);
+        free(dev);
         return NULL;
       }
 
@@ -55,7 +47,7 @@ mq303a_context upm_mq303a_init(int pin, int heater_pin){
 }
 
 void mq303a_close(mq303a_context dev){
-    upm_free(UPM_MQ303A_MEM_MAP, dev);
+    free(dev);
 }
 
 upm_result_t mq303a_heater_enable(mq303a_context dev, bool enable){

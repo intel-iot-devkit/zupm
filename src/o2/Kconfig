@@ -1,0 +1,9 @@
+config UPM_o2
+    bool "o2"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm O2 oxygen concentration sensor module
+

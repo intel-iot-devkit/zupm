@@ -1,0 +1,9 @@
+config UPM_bh1750
+    bool "bh1750"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm dfrobot BH1750 I2C Digital Light Sensor
+

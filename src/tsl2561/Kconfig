@@ -1,0 +1,9 @@
+config UPM_tsl2561
+    bool "tsl2561"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm tsl2561 Digital Light Sensor
+

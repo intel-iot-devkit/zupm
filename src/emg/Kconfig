@@ -1,0 +1,9 @@
+config UPM_emg
+    bool "emg"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm emg muscle signal reader sensor module
+

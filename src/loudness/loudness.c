@@ -24,17 +24,9 @@
  */
 #include "loudness.h"
 
-#if defined(CONFIG_BOARD_ARDUINO_101) || defined(CONFIG_BOARD_ARDUINO_101_SSS) || defined(CONFIG_BOARD_QUARK_D2000_CRB)
-DEFINE_MEM_MAP(UPM_LOUDNESS_MAP, 1, sizeof(struct _upm_loudness));
-const kmemory_map_t UPM_LOUDNESS_MEM_MAP;
-#elif defined(linux)
-#define UPM_LOUDNESS_MEM_MAP 0
-#endif
-
-loudness_context upm_loudness_init(int pin) {
+loudness_context loudness_init(int pin) {
     loudness_context dev =
-      (loudness_context)upm_malloc(UPM_LOUDNESS_MEM_MAP,
-                                   sizeof(struct _loudness_context));
+      (loudness_context) malloc(sizeof(struct _loudness_context));
 
     if (!dev)
       return NULL;
@@ -52,7 +44,7 @@ loudness_context upm_loudness_init(int pin) {
 
 void loudness_close(loudness_context dev) {
     mraa_aio_close(dev->aio);
-    upm_free(UPM_LOUDNESS_MEM_MAP, dev);
+    free(dev);
 }
 
 upm_result_t loudness_get_value(loudness_context dev, int* val) {

@@ -1,0 +1,9 @@
+config UPM_mic
+    bool "mic"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        Simple Microphone API
+

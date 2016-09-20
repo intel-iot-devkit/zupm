@@ -26,6 +26,10 @@
 #ifndef LOUDNESS_LOUDNESS_H_
 #define LOUDNESS_LOUDNESS_H_
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+
 #include "upm.h"
 #include "mraa/aio.h"
 

@@ -1,6 +1,0 @@
-set (libname "joystick12")
-set (libdescription "upm normalized sensor")
-set (module_src ${libname}.c ${libname}.cxx ${libname}_fti.c)
-set (module_hpp ${libname}.hpp)
-set (module_h ${libname}.h)
-upm_module_init()

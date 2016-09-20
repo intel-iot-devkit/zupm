@@ -1,0 +1,9 @@
+config UPM_m24lr64e
+    bool "m24lr64e"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm m24lr64esensor module
+
