@@ -18,16 +18,22 @@ int main(void)
         return -1;
     }
 
+    printf("Before LED init\n");
+
+    // Arduino GPIO pin 2
     led_context dev = led_init(2);
+    printf("LED init\n");
     while(1){
+        printf("Turning on\n");
         if(led_on(dev) != UPM_SUCCESS){
             printf("problem turning the LED on\n");
         }
-        upm_delay(1);
+        upm_delay_ms(500);
+        printf("Turning off\n");
         if(led_off(dev) != UPM_SUCCESS){
             printf("problem turning the LED off\n");
         }
-        upm_delay(1);
+        upm_delay_ms(500);
     }
     led_close(dev);
     return 0;
