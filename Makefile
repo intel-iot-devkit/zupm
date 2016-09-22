@@ -41,3 +41,4 @@ include $(srctree)/ext/lib/upm/src/ttp223/Makefile
 include $(srctree)/ext/lib/upm/src/urm37/Makefile
 include $(srctree)/ext/lib/upm/src/utilities/Makefile
 include $(srctree)/ext/lib/upm/src/vdiv/Makefile
+include $(srctree)/ext/lib/upm/src/water/Makefile

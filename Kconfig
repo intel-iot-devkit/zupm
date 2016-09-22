@@ -46,4 +46,5 @@ source "ext/lib/upm/src/ttp223/Kconfig"
 source "ext/lib/upm/src/urm37/Kconfig"
 source "ext/lib/upm/src/utilities/Kconfig"
 source "ext/lib/upm/src/vdiv/Kconfig"
+source "ext/lib/upm/src/water/Kconfig"
 endmenu

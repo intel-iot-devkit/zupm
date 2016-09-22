@@ -38,3 +38,4 @@ obj-$(CONFIG_UPM_ttp223) += src/ttp223/
 obj-$(CONFIG_UPM_urm37) += src/urm37/
 obj-$(CONFIG_UPM_utilities) += src/utilities/
 obj-$(CONFIG_UPM_vdiv) += src/vdiv/
+obj-$(CONFIG_UPM_water) += src/water/

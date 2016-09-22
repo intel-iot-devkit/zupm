@@ -1,0 +1,9 @@
+config UPM_water
+    bool "water"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm water sensor module
+
