@@ -39,9 +39,9 @@ void sig_handler(int signo)
 
 int main()
 {
+    if (mraa_init() != MRAA_SUCCESS)
     {
-        if (mraa_init() != MRAA_SUCCESS)
-            perror("Failed to initialize mraa\n");
+        printf("Failed to initialize mraa\n");
         return -1;
     }
 
