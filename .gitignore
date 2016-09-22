@@ -14,3 +14,6 @@ build/
 
 # cscope db
 cscope.out
+
+# ignore zephyr build dirs
+outdir/
