@@ -1,0 +1,8 @@
+config UPM_biss0001
+    bool "biss0001"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm biss0001 PIR motion sensor

@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_biss0001) += biss0001.o
