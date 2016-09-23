@@ -39,3 +39,4 @@ obj-$(CONFIG_UPM_urm37) += src/urm37/
 obj-$(CONFIG_UPM_utilities) += src/utilities/
 obj-$(CONFIG_UPM_vdiv) += src/vdiv/
 obj-$(CONFIG_UPM_water) += src/water/
+obj-$(CONFIG_UPM_yg1006) += src/yg1006/
