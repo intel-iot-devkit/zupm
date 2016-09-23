@@ -1,9 +1,0 @@
-config UPM_ds18b20
-    bool "ds18b20"
-    select MRAA
-    select NEWLIB_LIBC
-    depends on UPM
-    default n
-    help
-        DS18B20 1-wire Temperature sensor
-

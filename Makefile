@@ -7,10 +7,8 @@ include $(srctree)/ext/lib/upm/src/ad8232/Makefile
 include $(srctree)/ext/lib/upm/src/apa102/Makefile
 include $(srctree)/ext/lib/upm/src/bh1750/Makefile
 include $(srctree)/ext/lib/upm/src/collision/Makefile
-include $(srctree)/ext/lib/upm/src/dfrec/Makefile
 include $(srctree)/ext/lib/upm/src/dfrorp/Makefile
 include $(srctree)/ext/lib/upm/src/dfrph/Makefile
-include $(srctree)/ext/lib/upm/src/ds18b20/Makefile
 include $(srctree)/ext/lib/upm/src/emg/Makefile
 include $(srctree)/ext/lib/upm/src/flex/Makefile
 include $(srctree)/ext/lib/upm/src/gas/Makefile

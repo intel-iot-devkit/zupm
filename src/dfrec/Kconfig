@@ -1,9 +1,0 @@
-config UPM_dfrec
-    bool "dfrec"
-    select MRAA
-    select NEWLIB_LIBC
-    depends on UPM
-    default n
-    help
-        upm dfrobot analog EC sensor
-
