@@ -58,6 +58,9 @@ int main()
         return(1);
     }
 
+    // Set the ADC reference to 3.3 for the Arduino 101
+    dfrph_set_aref(sensor, 3.3);
+
     // Every half a second, sample the sensor output
     while (shouldRun)
     {
