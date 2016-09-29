@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_bmi160) += bmi160.o bosch_bmi160.o

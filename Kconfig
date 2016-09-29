@@ -47,4 +47,5 @@ source "ext/lib/upm/src/vdiv/Kconfig"
 source "ext/lib/upm/src/water/Kconfig"
 source "ext/lib/upm/src/yg1006/Kconfig"
 source "ext/lib/upm/src/biss0001/Kconfig"
+source "ext/lib/upm/src/bmi160/Kconfig"
 endmenu
