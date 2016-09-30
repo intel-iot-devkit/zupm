@@ -46,13 +46,14 @@ int main()
     // disable the magnetometer (since it is an optional component
     // that may not be present).  Since we are using I2C, pass a valid
     // I2C address, and supply -1 as the cs_pin.
-//    bmi160_context sensor = bmi160_init(0, 0x69, -1, false);
+    //
+    // bmi160_context sensor = bmi160_init(0, 0x69, -1, false);
 
     // For SPI, you would use something like this, using gpio 10 as
     // the cs pin.  Passing -1 as the address indicates SPI operation.
     //
-//    bmi160_context sensor = bmi160_init(0, -1, 10, false);
-    bmi160_context sensor = bmi160_init(1, -1, -1, false);
+    // bmi160_context sensor = bmi160_init(0, -1, 10, false);
+    bmi160_context sensor = bmi160_init(0, -1, 2, false);
 
     if (!sensor)
     {
@@ -69,12 +70,16 @@ int main()
         float x, y, z;
 
         bmi160_get_accelerometer(sensor, &x, &y, &z);
-        printf("Acceleration x = %f y = %f z = %f\n",
-               x, y, z);
+//        printf("Acceleration x = %f y = %f z = %f\n",
+//               x, y, z);
+        printf("Acceleration x = %d y = %d z = %d.%d\n",
+               (int)x, (int)y, (int)z, (int)((z - (int)z) * 100));
 
         bmi160_get_gyroscope(sensor, &x, &y, &z);
-        printf("Gyroscope    x = %f y = %f z = %f\n",
-               x, y, z);
+//        printf("Gyroscope    x = %f y = %f z = %f\n",
+//               x, y, z);
+        printf("Gyroscope    x = %d y = %d z = %d\n",
+               (int)x, (int)y, (int)z);
 
         //bmi160_get_magnetometer(sensor, &x, &y, &z);
         //printf("Magnetometer x = %f y = %f z = %f\n",
