@@ -280,10 +280,8 @@ bmi160_context bmi160_init(unsigned int bus, int address, int cs_pin,
     // interface struct.  So, check it out and make sure it's correct.
     if (s_bmi160.chip_id != BMI160_CHIP_ID)
     {
-        printf("%s: Error: expected chip id %02x, but got %02x.\n",
+        printf("%s: Warning: expected chip id %02x, but got %02x.\n",
                __FUNCTION__, BMI160_CHIP_ID, s_bmi160.chip_id);
-        bmi160_close(dev);
-        return NULL;
     }
 
     dev->accelScale = 1.0;

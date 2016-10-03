@@ -53,6 +53,7 @@ int main()
     // the cs pin.  Passing -1 as the address indicates SPI operation.
     //
     // bmi160_context sensor = bmi160_init(0, -1, 10, false);
+    printf("FLOATING? %f\n", 3.14159);
     bmi160_context sensor = bmi160_init(0, -1, 2, false);
 
     if (!sensor)
@@ -70,20 +71,12 @@ int main()
         float x, y, z;
 
         bmi160_get_accelerometer(sensor, &x, &y, &z);
-//        printf("Acceleration x = %f y = %f z = %f\n",
-//               x, y, z);
-        printf("Acceleration x = %d y = %d z = %d.%d\n",
-               (int)x, (int)y, (int)z, (int)((z - (int)z) * 100));
+        printf("Acceleration x = %f y = %f z = %f\n",
+               x, y, z);
 
         bmi160_get_gyroscope(sensor, &x, &y, &z);
-//        printf("Gyroscope    x = %f y = %f z = %f\n",
-//               x, y, z);
-        printf("Gyroscope    x = %d y = %d z = %d\n",
-               (int)x, (int)y, (int)z);
-
-        //bmi160_get_magnetometer(sensor, &x, &y, &z);
-        //printf("Magnetometer x = %f y = %f z = %f\n",
-        //       x, y, z);
+        printf("Gyroscope    x = %f y = %f z = %f\n",
+               x, y, z);
 
         printf("\n");
 
