@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_jhd1313m1) += jhd1313m1.o

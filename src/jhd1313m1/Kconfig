@@ -1,0 +1,8 @@
+config UPM_jhd1313m1
+    bool "jhd1313m1"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm JHD1313M1 RGB LCD display

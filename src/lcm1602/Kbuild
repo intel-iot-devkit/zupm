@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_lcm1602) += lcm1602.o

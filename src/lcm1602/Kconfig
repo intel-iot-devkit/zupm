@@ -1,0 +1,8 @@
+config UPM_lcm1602
+    bool "lcm1602"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LCM1602 LCD display

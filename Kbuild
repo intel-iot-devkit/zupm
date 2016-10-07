@@ -40,3 +40,5 @@ obj-$(CONFIG_UPM_water) += src/water/
 obj-$(CONFIG_UPM_yg1006) += src/yg1006/
 obj-$(CONFIG_UPM_biss0001) += src/biss0001/
 obj-$(CONFIG_UPM_bmi160) += src/bmi160/
+obj-$(CONFIG_UPM_lcm1602) += src/lcm1602/
+obj-$(CONFIG_UPM_jhd1313m1) += src/jhd1313m1/
