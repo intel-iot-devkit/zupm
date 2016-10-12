@@ -1,0 +1,8 @@
+config UPM_lm35
+    bool "lm35"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LM35 Analog Temperature Sensor
