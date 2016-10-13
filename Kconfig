@@ -51,4 +51,5 @@ source "ext/lib/upm/src/bmi160/Kconfig"
 source "ext/lib/upm/src/lcm1602/Kconfig"
 source "ext/lib/upm/src/jhd1313m1/Kconfig"
 source "ext/lib/upm/src/lm35/Kconfig"
+source "ext/lib/upm/src/rotaryencoder/Kconfig"
 endmenu

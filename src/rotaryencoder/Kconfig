@@ -1,0 +1,8 @@
+config UPM_rotaryencoder
+    bool "rotaryencoder"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm Rotary Encoder

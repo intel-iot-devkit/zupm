@@ -46,3 +46,4 @@ include $(srctree)/ext/lib/upm/src/bmi160/Makefile
 include $(srctree)/ext/lib/upm/src/lcm1602/Makefile
 include $(srctree)/ext/lib/upm/src/jhd1313m1/Makefile
 include $(srctree)/ext/lib/upm/src/lm35/Makefile
+include $(srctree)/ext/lib/upm/src/rotaryencoder/Makefile
