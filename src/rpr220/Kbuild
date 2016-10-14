@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_rpr220) += rpr220.o
