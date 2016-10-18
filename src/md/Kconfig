@@ -1,0 +1,8 @@
+config UPM_md
+    bool "md"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        UPM driver for Grove Motor Driver (MD)
