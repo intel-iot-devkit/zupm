@@ -1,561 +1,561 @@
 [
-{
-    "path" : "upm/a110x",
-    "example": {
-        "name" : "a110x",
-        "description" : "Hall effect sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Hall effect sensor",
+            "name": "a110x",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/a110x"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Digital light sensor",
+            "name": "bh1750",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/bh1750"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Passive Infrared (PIR) motion sensor",
+            "name": "biss0001",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/biss0001"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
+            "name": "bmi160",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/bmi160"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Collision sensor",
+            "name": "collision",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/collision"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "DFRobot analog oxidation reduction potential (ORP) sensor",
+            "name": "dfrorp",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/dfrorp"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "DFRobot pH sensor",
+            "name": "dfrph",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/dfrph"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Electromyography (EMG) detector",
+            "name": "emg",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/emg"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Resistive flex sensor",
+            "name": "flex",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/flex"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Generic gas detection sensor library",
+            "name": "gas",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/gas"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Analog Infrared (IR) based distance sensor",
+            "name": "gp2y0a",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/gp2y0a"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Galvanic skin response (GSR) sensor",
+            "name": "gsr",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/gsr"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "DFRobot laser particulate matter (PM) sensor",
+            "name": "hka5",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/hka5"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
+            "name": "jhd1313m1",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/jhd1313m1"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "2-axis analog joystick",
+            "name": "joystick12",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/joystick12"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "LCD display driver for the LCM1602 controller for HD44780-based displays",
+            "name": "lcm1602",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/lcm1602"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Piezo vibration sensor",
+            "name": "ldt0028",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/ldt0028"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "LED module",
+            "name": "led",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/led"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Analog light sensor",
+            "name": "light",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/light"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Analog temperature sensor",
+            "name": "lm35",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/lm35"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Loudness sensor",
+            "name": "loudness",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/loudness"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Dynamic NFC/RFID tag module",
+            "name": "m24lr64e",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/m24lr64e"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "I2C motor driver",
+            "name": "md",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/md"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "I2C motor driver",
+            "name": "md-stepper",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/md-stepper"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Triaxial analog accelerometer",
+            "name": "mma7361",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/mma7361"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Moisture sensor",
+            "name": "moisture",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/moisture"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Digital capacitive touch sensor controller",
+            "name": "mpr121",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/mpr121"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Alcohol detection sensor",
+            "name": "mq303a",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/mq303a"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Generic driver for GPS NMEA sensors",
+            "name": "nmea_gps",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/nmea_gps"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Oxygen (O2) concentration sensor",
+            "name": "o2",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/o2"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Rotary encoder",
+            "name": "rotaryencoder",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/rotaryencoder"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Infrared (IR) reflective sensor",
+            "name": "rpr220-intr",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/rpr220-intr"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Infrared (IR) reflective sensor",
+            "name": "rpr220",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/rpr220"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Servo controller",
+            "name": "servo",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/servo"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Temperature and humidity sensor",
+            "name": "sht1x",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/sht1x"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Slide potentiometer sensor",
+            "name": "slide",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/slide"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Digital light sensor",
+            "name": "tsl2561",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/tsl2561"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Capacitive touch sensor",
+            "name": "ttp223",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/ttp223"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Ultrasonic range finder",
+            "name": "urm37",
+            "platform": {
+                "kernels": [
+                    "micro"
+                ]
+            }
+        },
+        "path": "upm/urm37"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Ultrasonic range finder",
+            "name": "urm37-uart",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/urm37-uart"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Analog voltage divider sensor",
+            "name": "vdiv",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/vdiv"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Water detection sensor",
+            "name": "water",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/water"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Analog flame sensor",
+            "name": "yg1006",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/yg1006"
     }
-},
-{
-    "path" : "upm/bh1750",
-    "example": {
-        "name" : "bh1750",
-        "description" : "Digital light sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/biss0001",
-    "example": {
-        "name" : "biss0001",
-        "description" : "Passive Infrared (PIR) motion sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/bmi160",
-    "example": {
-        "name" : "bmi160",
-        "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/collision",
-    "example": {
-        "name" : "collision",
-        "description" : "Collision sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/dfrorp",
-    "example": {
-        "name" : "dfrorp",
-        "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/dfrph",
-    "example": {
-        "name" : "dfrph",
-        "description" : "DFRobot pH sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/emg",
-    "example": {
-        "name" : "emg",
-        "description" : "Electromyography (EMG) detector",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/flex",
-    "example": {
-        "name" : "flex",
-        "description" : "Resistive flex sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/gas",
-    "example": {
-        "name" : "gas",
-        "description" : "Generic gas detection sensor library",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/gp2y0a",
-    "example": {
-        "name" : "gp2y0a",
-        "description" : "Analog Infrared (IR) based distance sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/gsr",
-    "example": {
-        "name" : "gsr",
-        "description" : "Galvanic skin response (GSR) sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/hka5",
-    "example": {
-        "name" : "hka5",
-        "description" : "DFRobot laser particulate matter (PM) sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/jhd1313m1",
-    "example": {
-        "name" : "jhd1313m1",
-        "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/joystick12",
-    "example": {
-        "name" : "joystick12",
-        "description" : "2-axis analog joystick",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/lcm1602",
-    "example": {
-        "name" : "lcm1602",
-        "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/ldt0028",
-    "example": {
-        "name" : "ldt0028",
-        "description" : "Piezo vibration sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/led",
-    "example": {
-        "name" : "led",
-        "description" : "LED module",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/light",
-    "example": {
-        "name" : "light",
-        "description" : "Analog light sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/lm35",
-    "example": {
-        "name" : "lm35",
-        "description" : "Analog temperature sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/loudness",
-    "example": {
-        "name" : "loudness",
-        "description" : "Loudness sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/m24lr64e",
-    "example": {
-        "name" : "m24lr64e",
-        "description" : "Dynamic NFC/RFID tag module",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/md",
-    "example": {
-        "name" : "md",
-        "description" : "I2C motor driver",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/md-stepper",
-    "example": {
-        "name" : "md-stepper",
-        "description" : "I2C motor driver",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/mma7361",
-    "example": {
-        "name" : "mma7361",
-        "description" : "Triaxial analog accelerometer",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/moisture",
-    "example": {
-        "name" : "moisture",
-        "description" : "Moisture sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/mpr121",
-    "example": {
-        "name" : "mpr121",
-        "description" : "Digital capacitive touch sensor controller",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/mq303a",
-    "example": {
-        "name" : "mq303a",
-        "description" : "Alcohol detection sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/nmea_gps",
-    "example": {
-        "name" : "nmea_gps",
-        "description" : "Generic driver for GPS NMEA sensors",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/o2",
-    "example": {
-        "name" : "o2",
-        "description" : "Oxygen (O2) concentration sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/rotaryencoder",
-    "example": {
-        "name" : "rotaryencoder",
-        "description" : "Rotary encoder",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/rpr220-intr",
-    "example": {
-        "name" : "rpr220-intr",
-        "description" : "Infrared (IR) reflective sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/rpr220",
-    "example": {
-        "name" : "rpr220",
-        "description" : "Infrared (IR) reflective sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/servo",
-    "example": {
-        "name" : "servo",
-        "description" : "Servo controller",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/sht1x",
-    "example": {
-        "name" : "sht1x",
-        "description" : "Temperature and humidity sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/slide",
-    "example": {
-        "name" : "slide",
-        "description" : "Slide potentiometer sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/tsl2561",
-    "example": {
-        "name" : "tsl2561",
-        "description" : "Digital light sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/ttp223",
-    "example": {
-        "name" : "ttp223",
-        "description" : "Capacitive touch sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/urm37",
-    "example": {
-        "name" : "urm37",
-        "description" : "Ultrasonic range finder",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "micro"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/urm37-uart",
-    "example": {
-        "name" : "urm37-uart",
-        "description" : "Ultrasonic range finder",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/vdiv",
-    "example": {
-        "name" : "vdiv",
-        "description" : "Analog voltage divider sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/water",
-    "example": {
-        "name" : "water",
-        "description" : "Water detection sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-},
-{
-    "path" : "upm/yg1006",
-    "example": {
-        "name" : "yg1006",
-        "description" : "Analog flame sensor",
-        "category": "UPM",
-        "platform": {
-            "kernels": [
-                "nano"
-            ]
-        }
-    }
-}
 ]
