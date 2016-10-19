@@ -1,0 +1,13 @@
+{
+    "path" : "upm/rpr220-intr",
+    "example": {
+        "name" : "rpr220-intr",
+        "description" : "Infrared (IR) reflective sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

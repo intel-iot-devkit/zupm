@@ -1,0 +1,13 @@
+{
+    "path" : "upm/mma7361",
+    "example": {
+        "name" : "mma7361",
+        "description" : "Triaxial analog accelerometer",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

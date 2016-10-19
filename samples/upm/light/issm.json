@@ -1,0 +1,13 @@
+{
+    "path" : "upm/light",
+    "example": {
+        "name" : "light",
+        "description" : "Analog light sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

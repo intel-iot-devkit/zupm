@@ -1,0 +1,13 @@
+{
+    "path" : "upm/md-stepper",
+    "example": {
+        "name" : "md-stepper",
+        "description" : "I2C motor driver",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

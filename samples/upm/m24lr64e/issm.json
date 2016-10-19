@@ -1,0 +1,13 @@
+{
+    "path" : "upm/m24lr64e",
+    "example": {
+        "name" : "m24lr64e",
+        "description" : "Dynamic NFC/RFID tag module",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

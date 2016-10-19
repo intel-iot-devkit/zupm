@@ -1,0 +1,13 @@
+{
+    "path" : "upm/joystick12",
+    "example": {
+        "name" : "joystick12",
+        "description" : "2-axis analog joystick",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

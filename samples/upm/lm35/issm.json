@@ -1,0 +1,13 @@
+{
+    "path" : "upm/lm35",
+    "example": {
+        "name" : "lm35",
+        "description" : "Analog temperature sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

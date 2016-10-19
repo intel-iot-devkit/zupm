@@ -1,0 +1,13 @@
+{
+    "path" : "upm/vdiv",
+    "example": {
+        "name" : "vdiv",
+        "description" : "Analog voltage divider sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

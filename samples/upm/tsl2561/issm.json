@@ -1,0 +1,13 @@
+{
+    "path" : "upm/tsl2561",
+    "example": {
+        "name" : "tsl2561",
+        "description" : "Digital light sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

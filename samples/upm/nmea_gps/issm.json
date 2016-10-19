@@ -1,0 +1,13 @@
+{
+    "path" : "upm/nmea_gps",
+    "example": {
+        "name" : "nmea_gps",
+        "description" : "Generic driver for GPS NMEA sensors",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

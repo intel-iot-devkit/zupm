@@ -1,0 +1,13 @@
+{
+    "path" : "upm/dfrorp",
+    "example": {
+        "name" : "dfrorp",
+        "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

@@ -1,0 +1,13 @@
+{
+    "path" : "upm/mpr121",
+    "example": {
+        "name" : "mpr121",
+        "description" : "Digital capacitive touch sensor controller",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

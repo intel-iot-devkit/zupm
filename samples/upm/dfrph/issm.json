@@ -1,0 +1,13 @@
+{
+    "path" : "upm/dfrph",
+    "example": {
+        "name" : "dfrph",
+        "description" : "DFRobot pH sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

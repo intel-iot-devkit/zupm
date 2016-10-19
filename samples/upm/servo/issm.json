@@ -1,0 +1,13 @@
+{
+    "path" : "upm/servo",
+    "example": {
+        "name" : "servo",
+        "description" : "Servo controller",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

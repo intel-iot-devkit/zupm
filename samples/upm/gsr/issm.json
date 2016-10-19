@@ -1,0 +1,13 @@
+{
+    "path" : "upm/gsr",
+    "example": {
+        "name" : "gsr",
+        "description" : "Galvanic skin response (GSR) sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

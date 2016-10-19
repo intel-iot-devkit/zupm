@@ -1,0 +1,13 @@
+{
+    "path" : "upm/slide",
+    "example": {
+        "name" : "slide",
+        "description" : "Slide potentiometer sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

@@ -1,0 +1,13 @@
+{
+    "path" : "upm/gp2y0a",
+    "example": {
+        "name" : "gp2y0a",
+        "description" : "Analog Infrared (IR) based distance sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

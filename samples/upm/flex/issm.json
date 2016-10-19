@@ -1,0 +1,13 @@
+{
+    "path" : "upm/flex",
+    "example": {
+        "name" : "flex",
+        "description" : "Resistive flex sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

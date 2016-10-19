@@ -1,0 +1,13 @@
+{
+    "path" : "upm/led",
+    "example": {
+        "name" : "led",
+        "description" : "LED module",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

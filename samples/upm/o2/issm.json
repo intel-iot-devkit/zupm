@@ -1,0 +1,13 @@
+{
+    "path" : "upm/o2",
+    "example": {
+        "name" : "o2",
+        "description" : "Oxygen (O2) concentration sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

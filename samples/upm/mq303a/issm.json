@@ -1,0 +1,13 @@
+{
+    "path" : "upm/mq303a",
+    "example": {
+        "name" : "mq303a",
+        "description" : "Alcohol detection sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

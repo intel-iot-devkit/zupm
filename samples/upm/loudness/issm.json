@@ -1,0 +1,13 @@
+{
+    "path" : "upm/loudness",
+    "example": {
+        "name" : "loudness",
+        "description" : "Loudness sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

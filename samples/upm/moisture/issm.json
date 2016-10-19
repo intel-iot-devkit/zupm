@@ -1,0 +1,13 @@
+{
+    "path" : "upm/moisture",
+    "example": {
+        "name" : "moisture",
+        "description" : "Moisture sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

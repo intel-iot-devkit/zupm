@@ -1,0 +1,13 @@
+{
+    "path" : "upm/emg",
+    "example": {
+        "name" : "emg",
+        "description" : "Electromyography (EMG) detector",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

@@ -1,0 +1,13 @@
+{
+    "path" : "upm/sht1x",
+    "example": {
+        "name" : "sht1x",
+        "description" : "Temperature and humidity sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

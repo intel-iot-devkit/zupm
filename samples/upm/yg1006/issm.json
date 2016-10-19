@@ -1,0 +1,13 @@
+{
+    "path" : "upm/yg1006",
+    "example": {
+        "name" : "yg1006",
+        "description" : "Analog flame sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

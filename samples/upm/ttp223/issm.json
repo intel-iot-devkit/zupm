@@ -1,0 +1,13 @@
+{
+    "path" : "upm/ttp223",
+    "example": {
+        "name" : "ttp223",
+        "description" : "Capacitive touch sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

@@ -1,0 +1,13 @@
+{
+    "path" : "upm/ldt0028",
+    "example": {
+        "name" : "ldt0028",
+        "description" : "Piezo vibration sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

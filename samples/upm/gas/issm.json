@@ -1,0 +1,13 @@
+{
+    "path" : "upm/gas",
+    "example": {
+        "name" : "gas",
+        "description" : "Generic gas detection sensor library",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

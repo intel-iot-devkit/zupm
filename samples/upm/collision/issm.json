@@ -1,0 +1,13 @@
+{
+    "path" : "upm/collision",
+    "example": {
+        "name" : "collision",
+        "description" : "Collision sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

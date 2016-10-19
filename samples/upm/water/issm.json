@@ -1,0 +1,13 @@
+{
+    "path" : "upm/water",
+    "example": {
+        "name" : "water",
+        "description" : "Water detection sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

@@ -1,0 +1,13 @@
+{
+    "path" : "upm/md",
+    "example": {
+        "name" : "md",
+        "description" : "I2C motor driver",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

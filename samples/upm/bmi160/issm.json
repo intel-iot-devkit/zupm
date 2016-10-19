@@ -1,0 +1,13 @@
+{
+    "path" : "upm/bmi160",
+    "example": {
+        "name" : "bmi160",
+        "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

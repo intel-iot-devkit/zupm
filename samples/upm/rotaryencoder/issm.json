@@ -1,0 +1,13 @@
+{
+    "path" : "upm/rotaryencoder",
+    "example": {
+        "name" : "rotaryencoder",
+        "description" : "Rotary encoder",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

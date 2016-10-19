@@ -1,0 +1,13 @@
+{
+    "path" : "upm/a110x",
+    "example": {
+        "name" : "a110x",
+        "description" : "Hall effect sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

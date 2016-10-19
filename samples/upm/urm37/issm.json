@@ -1,0 +1,13 @@
+{
+    "path" : "upm/urm37",
+    "example": {
+        "name" : "urm37",
+        "description" : "Ultrasonic range finder",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "micro"
+            ]
+        }
+    }
+},

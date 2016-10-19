@@ -1,0 +1,13 @@
+{
+    "path" : "upm/biss0001",
+    "example": {
+        "name" : "biss0001",
+        "description" : "Passive Infrared (PIR) motion sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
