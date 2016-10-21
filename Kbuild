@@ -46,3 +46,4 @@ obj-$(CONFIG_UPM_lm35) += src/lm35/
 obj-$(CONFIG_UPM_rotaryencoder) += src/rotaryencoder/
 obj-$(CONFIG_UPM_rpr220) += src/rpr220/
 obj-$(CONFIG_UPM_md) += src/md/
+obj-$(CONFIG_UPM_linefinder) += src/linefinder/

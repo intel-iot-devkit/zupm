@@ -54,4 +54,5 @@ source "ext/lib/upm/src/lm35/Kconfig"
 source "ext/lib/upm/src/rotaryencoder/Kconfig"
 source "ext/lib/upm/src/rpr220/Kconfig"
 source "ext/lib/upm/src/md/Kconfig"
+source "ext/lib/upm/src/linefinder/Kconfig"
 endmenu

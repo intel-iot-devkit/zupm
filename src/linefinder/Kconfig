@@ -1,0 +1,8 @@
+config UPM_linefinder
+    bool "linefinder"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LINEFINDER Sensor
