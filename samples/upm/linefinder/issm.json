@@ -1,0 +1,13 @@
+{
+    "path" : "upm/linefinder",
+    "example": {
+        "name" : "linefinder",
+        "description" : "Line finder",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
