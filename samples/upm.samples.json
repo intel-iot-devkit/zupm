@@ -249,6 +249,19 @@
     {
         "example": {
             "category": "UPM",
+            "description": "Line finder",
+            "name": "linefinder",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/linefinder"
+    },
+    {
+        "example": {
+            "category": "UPM",
             "description": "Analog temperature sensor",
             "name": "lm35",
             "platform": {
