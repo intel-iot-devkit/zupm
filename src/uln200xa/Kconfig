@@ -1,0 +1,8 @@
+config UPM_uln200xa
+    bool "uln200xa"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm ULN200XA Stepper Motor

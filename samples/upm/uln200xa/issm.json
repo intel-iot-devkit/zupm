@@ -1,0 +1,13 @@
+{
+    "path" : "upm/uln200xa",
+    "example": {
+        "name" : "uln200xa",
+        "description" : "ULN200XA Stepper Motor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

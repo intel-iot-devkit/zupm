@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_uln200xa) += uln200xa.o

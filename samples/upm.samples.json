@@ -570,5 +570,18 @@
             }
         },
         "path": "upm/yg1006"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "ULN200XA Stepper Motor",
+            "name": "uln200xa",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/uln200xa"
     }
 ]
