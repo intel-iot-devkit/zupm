@@ -1,0 +1,8 @@
+config UPM_mma7660
+    bool "mma7660"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm MMA7660 I2C Accelerometer (1.5g)

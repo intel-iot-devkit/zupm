@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_mma7660) += mma7660.o
