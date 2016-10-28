@@ -1,0 +1,13 @@
+{
+    "path" : "upm/buzzer",
+    "example": {
+        "name" : "buzzer",
+        "description" : "Buzzer",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

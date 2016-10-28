@@ -57,4 +57,5 @@ source "ext/lib/upm/src/md/Kconfig"
 source "ext/lib/upm/src/linefinder/Kconfig"
 source "ext/lib/upm/src/uln200xa/Kconfig"
 source "ext/lib/upm/src/mma7660/Kconfig"
+source "ext/lib/upm/src/buzzer/Kconfig"
 endmenu
