@@ -1,0 +1,1 @@
+cmd_/home/intel_2/Zephyr_dev/hello_world/microkernel/src/built-in.o :=  /opt/zephyr-sdk//sysroots/i686-pokysdk-linux/usr/bin/iamcu-poky-elfiamcu/i586-poky-elfiamcu-ld -nostartfiles -nodefaultlibs -nostdlib -static   -r -o /home/intel_2/Zephyr_dev/hello_world/microkernel/src/built-in.o /home/intel_2/Zephyr_dev/hello_world/microkernel/src/main_back.o 
