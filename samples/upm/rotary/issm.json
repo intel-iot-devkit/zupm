@@ -1,0 +1,13 @@
+{
+    "path" : "upm/rotary",
+    "example": {
+        "name" : "rotary",
+        "description" : "Rotary Angle Sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
