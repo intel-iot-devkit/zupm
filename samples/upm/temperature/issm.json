@@ -1,0 +1,13 @@
+{
+    "path" : "upm/temperature",
+    "example": {
+        "name" : "temperature",
+        "description" : "UPM Temperature",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
