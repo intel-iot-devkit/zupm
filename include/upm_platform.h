@@ -1,6 +1,5 @@
 /*
- * Authors:
- *          Jon Trulson <jtrulson@ics.com>
+ * Authors: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,25 +21,26 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_MATH_H_
-#define UPM_MATH_H_
 
-#include <upm_platform.h>
+#ifndef UPM_PLATFORM_H_
+#define UPM_PLATFORM_H_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#if defined(UPM_PLATFORM_LINUX) || defined(UPM_PLATFORM_ZEPHYR)
-#include <math.h>
-#endif
-
-#ifndef M_PI
-#define M_PI           (3.14159265358979323846)
+#if defined(linux)
+# define UPM_PLATFORM_LINUX (1)
+#elif defined(CONFIG_BOARD_ARDUINO_101) || \
+    defined(CONFIG_BOARD_ARDUINO_101_SSS) || \
+    defined(CONFIG_BOARD_QUARK_D2000_CRB)
+# define UPM_PLATFORM_ZEPHYR (1)
+#else
+# error "UPM: Unknown Platform!"
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* UPM_MATH_H_ */
+#endif /* UPM_PLATFORM_H_ */

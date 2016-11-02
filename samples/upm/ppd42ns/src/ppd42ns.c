@@ -1,6 +1,5 @@
 /*
- * Authors:
- *          Jon Trulson <jtrulson@ics.com>
+ * Author: Jon Trulson <jtrulson@ics.com>
  * Copyright (c) 2016 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -22,25 +21,47 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef UPM_MATH_H_
-#define UPM_MATH_H_
 
-#include <upm_platform.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <signal.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <upm_utilities.h>
+#include <ppd42ns.h>
 
-#if defined(UPM_PLATFORM_LINUX) || defined(UPM_PLATFORM_ZEPHYR)
-#include <math.h>
-#endif
+int shouldRun = true;
 
-#ifndef M_PI
-#define M_PI           (3.14159265358979323846)
-#endif
-
-#ifdef __cplusplus
+void sig_handler(int signo)
+{
+    if (signo == SIGINT)
+        shouldRun = false;
 }
-#endif
 
-#endif /* UPM_MATH_H_ */
+
+int main()
+{
+    signal(SIGINT, sig_handler);
+
+//! [Interesting]
+    // Instantiate a dust sensor on GPIO pin D8
+    ppd42ns_context dust = ppd42ns_init(8);
+
+    ppd42ns_dust_data data;
+    printf("This program will give readings every 30 seconds until "
+           "you stop it\n");
+
+    while (shouldRun)
+    {
+        data = ppd42ns_get_data(dust);
+        printf("Low pulse occupancy: %d\n", data.lowPulseOccupancy);
+        printf("Ratio: %f\n", data.ratio);
+        printf("Concentration: %f\n\n", data.concentration);
+    }
+
+    printf("Exiting...\n");
+
+    ppd42ns_close(dust);
+
+//! [Interesting]
+    return 0;
+}

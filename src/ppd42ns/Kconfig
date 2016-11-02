@@ -1,0 +1,8 @@
+config UPM_ppd42ns
+    bool "ppd42ns"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm PPD42NS Dust Sensor

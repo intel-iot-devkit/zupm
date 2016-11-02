@@ -53,3 +53,4 @@ include $(srctree)/ext/lib/upm/src/linefinder/Makefile
 include $(srctree)/ext/lib/upm/src/uln200xa/Makefile
 include $(srctree)/ext/lib/upm/src/mma7660/Makefile
 include $(srctree)/ext/lib/upm/src/buzzer/Makefile
+include $(srctree)/ext/lib/upm/src/ppd42ns/Makefile
