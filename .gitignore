@@ -17,3 +17,6 @@ cscope.out
 
 # ignore zephyr build dirs
 outdir/
+
+#ignore cmd files
+.*.cmd
