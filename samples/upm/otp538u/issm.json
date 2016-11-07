@@ -1,0 +1,13 @@
+{
+    "path" : "upm/otp538u",
+    "example": {
+        "name" : "otp538u",
+        "description" : "Analog IR Temperature sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

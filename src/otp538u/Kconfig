@@ -1,0 +1,8 @@
+config UPM_otp538u
+    bool "otp538u"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm OTP538U IR Temperature Sensor

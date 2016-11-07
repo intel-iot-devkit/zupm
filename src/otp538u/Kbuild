@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_otp538u) += otp538u.o

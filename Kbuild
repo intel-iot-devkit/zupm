@@ -52,3 +52,4 @@ obj-$(CONFIG_UPM_mma7660) += src/mma7660/
 obj-$(CONFIG_UPM_buzzer) += src/buzzer/
 obj-$(CONFIG_UPM_ppd42ns) += src/ppd42ns/
 obj-$(CONFIG_UPM_guvas12d) += src/guvas12d/
+obj-$(CONFIG_UPM_otp538u) += src/otp538u/

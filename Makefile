@@ -55,3 +55,4 @@ include $(srctree)/ext/lib/upm/src/mma7660/Makefile
 include $(srctree)/ext/lib/upm/src/buzzer/Makefile
 include $(srctree)/ext/lib/upm/src/ppd42ns/Makefile
 include $(srctree)/ext/lib/upm/src/guvas12d/Makefile
+include $(srctree)/ext/lib/upm/src/otp538u/Makefile
