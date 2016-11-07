@@ -1,8 +1,6 @@
 /*
- * Author: Brendan Le Foll <brendan.le.foll@intel.com>
- * 	   Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
- * 	   
- * Copyright (c) 2016 Intel Corporation.
+ * Author:Sisinty Sasmita Patra <sisinty.s.patra@intel.com>
+ * Copyright (c) 2015 Intel Corporation.
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,35 +22,35 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 #include "mic.h"
+#include "upm_utilities.h"
+#include "mraa.h"
 
-mic_context mic_init(int pin)
+int main()
 {
-    mic_context dev = (mic_context)malloc(sizeof(struct _mic_context));
-
-    if(dev == NULL) return NULL;
-
-    dev->analog_pin = pin;
-    dev->aio = mraa_aio_init(dev->analog_pin);
-
-    if(dev->aio == NULL)
+    if (mraa_init() != MRAA_SUCCESS)
     {
-        printf("unable to initialize the AIO pin");
-        free(dev);
-        return NULL;
+        perror("Failed to initialize mraa\n");
+        return -1;
     }
 
-    return dev;
-}
+//! [Interesting]
+    // Instantiate a Grove Mic Sensor, using analog pins A0
+    mic_context dev = mic_init(0);
 
-void mic_close(mic_context dev)
-{
-    mraa_aio_close(dev->aio);
-    free(dev);
-}
+    float val;
+    while(1) {
+        mic_get_value(dev, &val);
+        printf("mic value: %f\n", val);
+        upm_delay(1);
+    }
 
-upm_result_t mic_get_value(mic_context dev, float *micval)
-{
-    *micval =  mraa_aio_read(dev->aio);
-    return UPM_SUCCESS;
+    mic_close(dev);
+//! [Interesting]
+    return 0;
 }

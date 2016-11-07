@@ -1,0 +1,13 @@
+{
+    "path" : "upm/mic",
+    "example": {
+        "name" : "mic",
+        "description" : "Mic Sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
