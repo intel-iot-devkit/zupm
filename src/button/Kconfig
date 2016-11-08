@@ -1,0 +1,9 @@
+config UPM_button
+    bool "button"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm button sensor module
+

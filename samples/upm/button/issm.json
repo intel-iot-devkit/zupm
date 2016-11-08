@@ -1,0 +1,13 @@
+{
+    "path" : "upm/button",
+    "example": {
+        "name" : "button",
+        "description" : "Button sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

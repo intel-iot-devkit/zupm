@@ -249,19 +249,6 @@
     {
         "example": {
             "category": "UPM",
-            "description": "Line finder",
-            "name": "linefinder",
-            "platform": {
-                "kernels": [
-                    "nano"
-                ]
-            }
-        },
-        "path": "upm/linefinder"
-    },
-    {
-        "example": {
-            "category": "UPM",
             "description": "Analog temperature sensor",
             "name": "lm35",
             "platform": {
@@ -574,14 +561,27 @@
     {
         "example": {
             "category": "UPM",
-            "description": "ULN200XA Stepper Motor",
-            "name": "uln200xa",
+            "description": "Button sensor",
+            "name": "button",
             "platform": {
                 "kernels": [
                     "nano"
                 ]
             }
         },
-        "path": "upm/uln200xa"
+        "path": "upm/button"
+    },
+    {
+        "example": {
+            "category": "UPM",
+            "description": "Button sensor",
+            "name": "button",
+            "platform": {
+                "kernels": [
+                    "nano"
+                ]
+            }
+        },
+        "path": "upm/button_intr"
     }
 ]

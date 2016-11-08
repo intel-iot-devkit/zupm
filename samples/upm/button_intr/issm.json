@@ -1,0 +1,13 @@
+{
+    "path" : "upm/button_intr",
+    "example": {
+        "name" : "button_intr",
+        "description" : "Button sensor Interrupt Example",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
