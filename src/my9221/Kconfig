@@ -1,0 +1,8 @@
+config UPM_my9221
+    bool "my9221"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm MY9221 LED Controller

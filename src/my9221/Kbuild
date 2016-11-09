@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_my9221) += my9221.o

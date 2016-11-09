@@ -1,0 +1,13 @@
+{
+    "path" : "upm/my9221",
+    "example": {
+        "name" : "my9221",
+        "description" : "MY9221 LED controller",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
