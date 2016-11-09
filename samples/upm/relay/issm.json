@@ -1,0 +1,13 @@
+{
+    "path" : "upm/relay",
+    "example": {
+        "name" : "relay",
+        "description" : "Relay Sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
