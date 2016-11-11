@@ -12,6 +12,10 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 #### Clone Zephyr (requires Zephyr SDK)
 ```sh
 git clone https://gerrit.zephyrproject.org/r/zephyr && cd zephyr && git checkout tags/v1.5.0
+
+export ZEPHYR_GCC_VARIANT=zephyr
+export ZEPHYR_SDK_INSTALL_DIR=<path to your sdk installation directory>
+
 source zephyr-env.sh
 ```
 
@@ -34,7 +38,30 @@ ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
 
 ## Code Example
 
+#### AIO:
 ```sh
+# DFRobot pH Sensor
 cd $ZEPHYR_BASE/samples/upm/dfrph
+make BOARD=arduino_101_sss_factory
+```
+
+#### GPIO:
+```sh
+# Onboard LED (pin 13)
+cd $ZEPHYR_BASE/samples/upm/led
+make BOARD=arduino_101_sss_factory
+```
+
+#### SPI:
+```sh
+# Onboard Accel, Gyro, Magno
+cd $ZEPHYR_BASE/samples/upm/bmi160
+make BOARD=arduino_101_sss_factory
+```
+
+#### I2C:
+```sh
+# LCD display
+cd $ZEPHYR_BASE/samples/upm/jhd1313m1
 make BOARD=arduino_101_sss_factory
 ```
