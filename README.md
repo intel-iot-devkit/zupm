@@ -49,7 +49,7 @@ make BOARD=arduino_101_sss_factory
 ```sh
 # Onboard LED (pin 13)
 cd $ZEPHYR_BASE/samples/upm/led
-make BOARD=arduino_101_sss_factory
+make BOARD=arduino_101_factory
 ```
 
 #### SPI:
