@@ -1,0 +1,8 @@
+config UPM_ms5803
+    bool "ms5803"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm MS5803 Pressure and Temperature sensor
