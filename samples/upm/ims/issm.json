@@ -1,0 +1,13 @@
+{
+    "path" : "upm/ims",
+    "example": {
+        "name" : "ims",
+        "description" : "Catnip Electronics I2C moisture sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},
