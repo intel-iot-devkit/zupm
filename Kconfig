@@ -64,4 +64,5 @@ source "ext/lib/upm/src/otp538u/Kconfig"
 source "ext/lib/upm/src/my9221/Kconfig"
 source "ext/lib/upm/src/ms5803/Kconfig"
 source "ext/lib/upm/src/ims/Kconfig"
+source "ext/lib/upm/src/ecezo/Kconfig"
 endmenu

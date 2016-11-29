@@ -1,0 +1,13 @@
+{
+    "path" : "upm/ecezo",
+    "example": {
+        "name" : "ecezo",
+        "description" : "Driver for the EC-EZO EC sensor",
+        "category": "UPM",
+        "platform": {
+            "kernels": [
+                "nano"
+            ]
+        }
+    }
+},

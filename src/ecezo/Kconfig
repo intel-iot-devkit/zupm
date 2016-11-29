@@ -1,0 +1,8 @@
+config UPM_ecezo
+    bool "ecezo"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm EC-EZO EC Sensor
