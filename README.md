@@ -16,7 +16,7 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 
 #### Clone Zephyr (requires Zephyr SDK)
 ```sh
-git clone https://gerrit.zephyrproject.org/r/zephyr && cd zephyr && git checkout tags/v1.5.0
+git clone https://gerrit.zephyrproject.org/r/zephyr && cd zephyr && git checkout tags/v1.6.0-rc3
 
 export ZEPHYR_GCC_VARIANT=zephyr
 export ZEPHYR_SDK_INSTALL_DIR=<path to your sdk installation directory>
