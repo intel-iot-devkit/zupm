@@ -302,11 +302,11 @@
         "path" : "upm/led",
         "example": {
             "name" : "led",
-            "description" : "LED module",
+            "description" : "Blink arduino 101 onboard LED",
             "category": "UPM",
             "platform": {
                 "boards": [
-                    "arduino_101_sss"
+                    "arduino_101"
                 ]
             }
         }

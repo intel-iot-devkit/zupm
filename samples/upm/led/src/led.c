@@ -21,19 +21,19 @@ int main(void)
     printf("Before LED init\n");
 
     // Arduino GPIO pin 2
-    led_context dev = led_init(2);
+    led_context dev = led_init(13);
     printf("LED init\n");
     while(1){
         printf("Turning on\n");
         if(led_on(dev) != UPM_SUCCESS){
             printf("problem turning the LED on\n");
         }
-        upm_delay_ms(500);
+        upm_delay_ms(750);
         printf("Turning off\n");
         if(led_off(dev) != UPM_SUCCESS){
             printf("problem turning the LED off\n");
         }
-        upm_delay_ms(500);
+        upm_delay_ms(750);
     }
     led_close(dev);
     return 0;

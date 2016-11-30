@@ -9,7 +9,7 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 
 ## Zephyr Target Versions
 
-- Zephyr v1.6.0 - [ZUPM version v1.6.0 - WIP](https://github.com/intel-iot-devkit/zupm/tree/master)
+- Zephyr v1.6.0 - [ZUPM version v1.6.0 - Complete](https://github.com/intel-iot-devkit/zupm/tree/master)
 - Zephyr v1.5.0 - [ZUPM version v1.5.0 - Complete](https://github.com/intel-iot-devkit/upm/tree/v1.5.0)
 
 ## Installation
@@ -47,26 +47,26 @@ ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
 ```sh
 # DFRobot pH Sensor
 cd $ZEPHYR_BASE/samples/upm/dfrph
-make BOARD=arduino_101_sss_factory
+make BOARD=arduino_101_sss
 ```
 
 #### GPIO:
 ```sh
 # Onboard LED (pin 13)
 cd $ZEPHYR_BASE/samples/upm/led
-make BOARD=arduino_101_factory
+make BOARD=arduino_101
 ```
 
 #### SPI:
 ```sh
 # Onboard Accel, Gyro, Magno
 cd $ZEPHYR_BASE/samples/upm/bmi160
-make BOARD=arduino_101_sss_factory
+make BOARD=arduino_101_sss
 ```
 
 #### I2C:
 ```sh
 # LCD display
 cd $ZEPHYR_BASE/samples/upm/jhd1313m1
-make BOARD=arduino_101_sss_factory
+make BOARD=arduino_101_sss
 ```
