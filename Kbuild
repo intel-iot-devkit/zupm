@@ -57,3 +57,4 @@ obj-$(CONFIG_UPM_my9221) += src/my9221/
 obj-$(CONFIG_UPM_ms5803) += src/ms5803/
 obj-$(CONFIG_UPM_ims) += src/ims/
 obj-$(CONFIG_UPM_ecezo) += src/ecezo/
+obj-$(CONFIG_UPM_button) += src/button/

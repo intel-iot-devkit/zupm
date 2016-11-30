@@ -1,1 +1,1 @@
-obj-y = button.o
+obj-y = button_intr.o

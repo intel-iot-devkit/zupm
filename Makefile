@@ -60,3 +60,4 @@ include $(srctree)/ext/lib/upm/src/my9221/Makefile
 include $(srctree)/ext/lib/upm/src/ms5803/Makefile
 include $(srctree)/ext/lib/upm/src/ims/Makefile
 include $(srctree)/ext/lib/upm/src/ecezo/Makefile
+include $(srctree)/ext/lib/upm/src/button/Makefile
