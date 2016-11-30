@@ -5,8 +5,8 @@
         "description" : "Piezo vibration sensor",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

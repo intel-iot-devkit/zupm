@@ -5,8 +5,8 @@
         "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

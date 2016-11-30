@@ -5,8 +5,8 @@
         "description" : "Analog voltage divider sensor",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

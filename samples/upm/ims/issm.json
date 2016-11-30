@@ -5,8 +5,8 @@
         "description" : "Catnip Electronics I2C moisture sensor",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

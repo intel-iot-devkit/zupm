@@ -5,8 +5,8 @@
         "description" : "MY9221 LED controller",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

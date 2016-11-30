@@ -5,8 +5,8 @@
         "description" : "UPM Temperature",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

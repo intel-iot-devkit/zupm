@@ -5,8 +5,8 @@
         "description" : "Ultrasonic range finder",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "micro"
+            "boards": [
+                "arduino_101"
             ]
         }
     }

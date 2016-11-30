@@ -5,8 +5,8 @@
         "description" : "Digital light sensor",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

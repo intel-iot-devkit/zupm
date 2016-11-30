@@ -5,8 +5,8 @@
         "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

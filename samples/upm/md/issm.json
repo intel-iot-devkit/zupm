@@ -5,8 +5,8 @@
         "description" : "I2C motor driver",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "nano"
+            "boards": [
+                "arduino_101_sss"
             ]
         }
     }

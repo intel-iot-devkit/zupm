@@ -5,8 +5,8 @@
         "description" : "DFRobot laser particulate matter (PM) sensor",
         "category": "UPM",
         "platform": {
-            "kernels": [
-                "micro"
+            "boards": [
+                "arduino_101"
             ]
         }
     }

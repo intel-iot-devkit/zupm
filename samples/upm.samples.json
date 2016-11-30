@@ -6,8 +6,8 @@
             "description" : "Hall effect sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -19,8 +19,8 @@
             "description" : "Digital light sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -32,8 +32,8 @@
             "description" : "Passive Infrared (PIR) motion sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -45,8 +45,8 @@
             "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -58,8 +58,8 @@
             "description" : "Button sensor Interrupt Example",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -71,8 +71,8 @@
             "description" : "Button sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -84,8 +84,8 @@
             "description" : "Buzzer",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -97,8 +97,8 @@
             "description" : "Collision sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -110,8 +110,8 @@
             "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -123,8 +123,21 @@
             "description" : "DFRobot pH sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "upm/ecezo",
+        "example": {
+            "name" : "ecezo",
+            "description" : "Driver for the EC-EZO EC sensor",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -136,8 +149,8 @@
             "description" : "Electromyography (EMG) detector",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -149,8 +162,8 @@
             "description" : "Resistive flex sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -162,8 +175,8 @@
             "description" : "Generic gas detection sensor library",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -175,8 +188,8 @@
             "description" : "Analog Infrared (IR) based distance sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -188,8 +201,8 @@
             "description" : "Galvanic skin response (GSR) sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -201,8 +214,8 @@
             "description" : "Analog UV sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -214,8 +227,8 @@
             "description" : "DFRobot laser particulate matter (PM) sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -227,8 +240,8 @@
             "description" : "Catnip Electronics I2C moisture sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -240,8 +253,8 @@
             "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -253,8 +266,8 @@
             "description" : "2-axis analog joystick",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -266,8 +279,8 @@
             "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -279,8 +292,8 @@
             "description" : "Piezo vibration sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -292,8 +305,8 @@
             "description" : "LED module",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -305,8 +318,8 @@
             "description" : "Analog light sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -318,8 +331,8 @@
             "description" : "Line finder",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -331,8 +344,8 @@
             "description" : "Analog temperature sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -344,8 +357,8 @@
             "description" : "Loudness sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -357,8 +370,8 @@
             "description" : "Dynamic NFC/RFID tag module",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -370,8 +383,8 @@
             "description" : "I2C motor driver",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -383,8 +396,8 @@
             "description" : "I2C motor driver",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -396,8 +409,8 @@
             "description" : "Mic Sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -409,8 +422,8 @@
             "description" : "Triaxial analog accelerometer",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -422,8 +435,8 @@
             "description" : "Driver for the MMA7660 Accelerometer (1.5g)",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -435,8 +448,8 @@
             "description" : "Moisture sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -448,8 +461,8 @@
             "description" : "Digital capacitive touch sensor controller",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -461,8 +474,8 @@
             "description" : "Alcohol detection sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -474,8 +487,8 @@
             "description" : "Driver for the MS5803 Pressure and Temperature sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -487,8 +500,8 @@
             "description" : "MY9221 LED controller",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -500,8 +513,8 @@
             "description" : "Generic driver for GPS NMEA sensors",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -513,8 +526,8 @@
             "description" : "Oxygen (O2) concentration sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -526,8 +539,8 @@
             "description" : "Analog IR Temperature sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -539,8 +552,8 @@
             "description" : "PPD42NS Dust Sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -552,8 +565,8 @@
             "description" : "Relay Sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -565,8 +578,8 @@
             "description" : "Rotary encoder",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -578,8 +591,8 @@
             "description" : "Rotary Angle Sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -591,8 +604,8 @@
             "description" : "Infrared (IR) reflective sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -604,8 +617,8 @@
             "description" : "Infrared (IR) reflective sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -617,8 +630,8 @@
             "description" : "Servo controller",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -630,8 +643,8 @@
             "description" : "Temperature and humidity sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -643,8 +656,8 @@
             "description" : "Slide potentiometer sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -656,8 +669,8 @@
             "description" : "UPM Temperature",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -669,8 +682,8 @@
             "description" : "Digital light sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -682,8 +695,8 @@
             "description" : "Capacitive touch sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -695,8 +708,8 @@
             "description" : "ULN200XA Stepper Motor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -708,8 +721,8 @@
             "description" : "Ultrasonic range finder",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "micro"
+                "boards": [
+                    "arduino_101"
                 ]
             }
         }
@@ -721,8 +734,8 @@
             "description" : "Ultrasonic range finder",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -734,8 +747,8 @@
             "description" : "Analog voltage divider sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -747,8 +760,8 @@
             "description" : "Water detection sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -760,8 +773,8 @@
             "description" : "Analog flame sensor",
             "category": "UPM",
             "platform": {
-                "kernels": [
-                    "nano"
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
