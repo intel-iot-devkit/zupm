@@ -7,6 +7,11 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 - [Zephyr Project](https://gerrit.zephyrproject.org)
 - [ZMRAA](https://github.com/intel-iot-devkit/zmraa)
 
+## Zephyr Target Versions
+
+- Zephyr v1.6.0 - [ZUPM version v1.6.0 - WIP](https://github.com/intel-iot-devkit/zupm/tree/master)
+- Zephyr v1.5.0 - [ZUPM version v1.5.0 - Complete](https://github.com/intel-iot-devkit/upm/tree/v1.5.0)
+
 ## Installation
 
 #### Clone Zephyr (requires Zephyr SDK)
