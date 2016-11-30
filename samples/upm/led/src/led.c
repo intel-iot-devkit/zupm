@@ -14,7 +14,7 @@ int main(void)
 {
     if (mraa_init() != MRAA_SUCCESS)
     {
-        perror("Failed to initialize mraa\n");
+        fprintf(stderr,"Failed to initialize mraa\n");
         return -1;
     }
 
