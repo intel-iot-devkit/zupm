@@ -14,6 +14,8 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 
 ## Installation
 
+### Method 1 (clone from zephyr/zmraa/zupm and patch)
+
 #### Clone Zephyr (requires Zephyr SDK)
 ```sh
 git clone https://gerrit.zephyrproject.org/r/zephyr && cd zephyr && git checkout tags/v1.6.0-rc3
@@ -39,6 +41,19 @@ git clone https://github.com/intel-iot-devkit/zupm.git $ZEPHYR_BASE/ext/lib/upm
 cd $ZEPHYR_BASE
 patch -p1 < $ZEPHYR_BASE/ext/lib/upm/zupm_2_zephyr.patch
 ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
+```
+
+### Method 2 (clone zephyr, patch to create zmraa and zupm)
+
+#### Clone Zephyr (currently 1.6.0-rc3)
+```sh
+git clone https://gerrit.zephyrproject.org/r/zephyr zephyr_1.6.0-rc3 && cd zephyr_1.6.0-rc3 && git checkout tags/v1.6.0-rc3
+```
+
+#### Clone ZUPM and apply patch
+```sh
+git clone https://github.com/intel-iot-devkit/zupm.git
+patch -p1 << zupm/add_mraa_upm_to_zephyr-1.6.0-rc3.patch
 ```
 
 ## Code Example
