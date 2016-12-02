@@ -1,0 +1,13 @@
+{
+    "path" : "upm/mb704x",
+    "example": {
+        "name" : "mb704x",
+        "description" : "Driver for the MB704x MaxSonar-WR Ultrasonic Ranger",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101_sss"
+            ]
+        }
+    }
+},

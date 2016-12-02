@@ -1,0 +1,8 @@
+config UPM_mb704x
+    bool "mb704x"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm MB704X MaxSonar-WR Ultrasonic Ranger

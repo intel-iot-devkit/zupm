@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_mb704x) += mb704x.o
