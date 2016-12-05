@@ -18,7 +18,7 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 
 #### Clone Zephyr (requires Zephyr SDK)
 ```sh
-git clone https://gerrit.zephyrproject.org/r/zephyr && cd zephyr && git checkout tags/v1.6.0-rc3
+git clone https://gerrit.zephyrproject.org/r/zephyr && cd zephyr && git checkout tags/v1.6.0
 
 export ZEPHYR_GCC_VARIANT=zephyr
 export ZEPHYR_SDK_INSTALL_DIR=<path to your sdk installation directory>
@@ -45,9 +45,9 @@ ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
 
 ### Method 2 (clone zephyr, patch to create zmraa and zupm)
 
-#### Clone Zephyr (currently 1.6.0-rc3)
+#### Clone Zephyr (currently 1.6.0)
 ```sh
-git clone https://gerrit.zephyrproject.org/r/zephyr zephyr_1.6.0-rc3 && cd zephyr_1.6.0-rc3 && git checkout tags/v1.6.0-rc3
+git clone https://gerrit.zephyrproject.org/r/zephyr zephyr_1.6.0 && cd zephyr_1.6.0 && git checkout tags/v1.6.0
 ```
 
 #### Clone ZUPM and apply patch
