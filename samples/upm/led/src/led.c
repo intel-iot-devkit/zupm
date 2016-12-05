@@ -20,7 +20,7 @@ int main(void)
 
     printf("Before LED init\n");
 
-    // Arduino GPIO pin 2
+    // Arduino GPIO pin 13 (arduino 101 onboard LED)
     led_context dev = led_init(13);
     printf("LED init\n");
     while(1){
