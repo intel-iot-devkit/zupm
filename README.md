@@ -53,7 +53,7 @@ git clone https://gerrit.zephyrproject.org/r/zephyr zephyr_1.6.0-rc3 && cd zephy
 #### Clone ZUPM and apply patch
 ```sh
 git clone https://github.com/intel-iot-devkit/zupm.git
-patch -p1 < zupm/add_mraa_upm_to_zephyr-1.6.0-rc3.patch
+patch -p1 < zupm/add_mraa_upm_to_zephyr-v1.6.0.patch
 ```
 
 ## Code Example
