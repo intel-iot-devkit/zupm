@@ -43,7 +43,6 @@ int main()
 //! [Interesting]
 
     // Instantiate a MB704X sensor on i2c bus 0, address 112.
-    printf("calling init....\n");
     mb704x_context sensor = mb704x_init(0, 112);
 
     if (!sensor)
