@@ -89,26 +89,6 @@ index 0000000..6860bcf
 +Standard: Cpp11
 +TabWidth: 4
 +UseTab: Never
-diff --git a/ext/lib/mraa/.gitignore b/ext/lib/mraa/.gitignore
-new file mode 100644
-index 0000000..20eb302
---- /dev/null
-+++ b/ext/lib/mraa/.gitignore
-@@ -0,0 +1,14 @@
-+# Object files
-+*.o
-+*.lib
-+*.so
-+*.lo
-+*.la
-+*.pyc
-+*.o.cmd
-+
-+# Temp files
-+*.swp
-+*.swo
-+*~
-+outdir
 diff --git a/ext/lib/mraa/CONTRIBUTING.md b/ext/lib/mraa/CONTRIBUTING.md
 new file mode 100644
 index 0000000..268fae4
@@ -249,10 +229,10 @@ index 0000000..cbecaa8
 +WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 diff --git a/ext/lib/mraa/Kconfig b/ext/lib/mraa/Kconfig
 new file mode 100644
-index 0000000..07f6d9d
+index 0000000..ebdf93d
 --- /dev/null
 +++ b/ext/lib/mraa/Kconfig
-@@ -0,0 +1,84 @@
+@@ -0,0 +1,85 @@
 +# Kconfig - Cryptography primitive options for TinyCrypt
 +
 +#
@@ -322,6 +302,7 @@ index 0000000..07f6d9d
 +        bool
 +        prompt "Mraa UART function support"
 +        select UART
++        select UART_LINE_CTRL
 +        select MRAA
 +        default n
 +        help
@@ -6630,10 +6611,10 @@ index 0000000..4a32b43
 +}
 diff --git a/ext/lib/mraa/source/mraa_internal.h b/ext/lib/mraa/source/mraa_internal.h
 new file mode 100644
-index 0000000..e2d0753
+index 0000000..641e09d
 --- /dev/null
 +++ b/ext/lib/mraa/source/mraa_internal.h
-@@ -0,0 +1,105 @@
+@@ -0,0 +1,55 @@
 +/*
 + * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
 + * Copyright (c) 2014 Intel Corporation.
@@ -6668,7 +6649,10 @@ index 0000000..e2d0753
 +#include "mraa_internal_types.h"
 +
 +extern mraa_board_t* plat;
++
++#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
 +static struct device* d2k_pinmux_dev;
++#endif
 +
 +/**
 + * Takes in pin information and sets up the multiplexors.
@@ -6679,59 +6663,6 @@ index 0000000..e2d0753
 +mraa_result_t mraa_setup_mux_mapped(mraa_pin_t meta);
 +
 +mraa_result_t mraa_set_pininfo(mraa_board_t* board, int mraa_pin, int zephyr_pin, char* name, mraa_pincapabilities_t caps);
-+
-+void mraa_set_board_config(mraa_board_t* board);
-+
-+
-+#ifdef __cplusplus
-+}
-+#endif
-+/*
-+ * Author: Thomas Ingleby <thomas.c.ingleby@intel.com>
-+ * Copyright (c) 2014 Intel Corporation.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining
-+ * a copy of this software and associated documentation files (the
-+ * "Software"), to deal in the Software without restriction, including
-+ * without limitation the rights to use, copy, modify, merge, publish,
-+ * distribute, sublicense, and/or sell copies of the Software, and to
-+ * permit persons to whom the Software is furnished to do so, subject to
-+ * the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+ * included in all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#pragma once
-+
-+#ifdef __cplusplus
-+extern "C" {
-+#endif
-+
-+#include "mraa/common.h"
-+#include "mraa_internal_types.h"
-+
-+extern mraa_board_t* plat;
-+static struct device* d2k_pinmux_dev;
-+
-+/**
-+ * Takes in pin information and sets up the multiplexors.
-+ *
-+ * @param meta
-+ * @return mraa result type indicating success of actions.
-+ */
-+mraa_result_t mraa_setup_mux_mapped(mraa_pin_t meta);
-+
-+mraa_result_t
-+mraa_set_pininfo(mraa_board_t* board, int mraa_pin, int zephyr_pin, char* name, mraa_pincapabilities_t caps);
 +
 +void mraa_set_board_config(mraa_board_t* board);
 +
@@ -7802,92 +7733,12 @@ index 0000000..89db72b
 +{
 +    return MRAA_ERROR_FEATURE_NOT_IMPLEMENTED;
 +}
-diff --git a/ext/lib/mraa/zmraa.patch b/ext/lib/mraa/zmraa.patch
-new file mode 100644
-index 0000000..9fec57c
---- /dev/null
-+++ b/ext/lib/mraa/zmraa.patch
-@@ -0,0 +1,46 @@
-+From d26d9c871c83f2b7b5634040882c01e48dfd9b43 Mon Sep 17 00:00:00 2001
-+From: Brendan Le Foll <brendan.le.foll@intel.com>
-+Date: Fri, 23 Sep 2016 09:20:17 +0100
-+Subject: [PATCH] zmraa: Added mraa as ext lib
-+
-+Signed-off-by: Brendan Le Foll <brendan.le.foll@intel.com>
-+---
-+ ext/Kconfig      | 1 +
-+ ext/lib/Kbuild   | 1 +
-+ ext/lib/Makefile | 4 ++++
-+ 3 files changed, 6 insertions(+)
-+
-+diff --git a/ext/Kconfig b/ext/Kconfig
-+index 9d26499..1caaff9 100644
-+--- a/ext/Kconfig
-++++ b/ext/Kconfig
-+@@ -21,6 +21,7 @@ menu "External Sources"
-+ source "ext/hal/Kconfig"
-+ 
-+ source "ext/lib/crypto/Kconfig"
-++source "ext/lib/mraa/Kconfig"
-+ 
-+ source "ext/fs/Kconfig"
-+ 
-+diff --git a/ext/lib/Kbuild b/ext/lib/Kbuild
-+index 755bcbe..fffeb3c 100644
-+--- a/ext/lib/Kbuild
-++++ b/ext/lib/Kbuild
-+@@ -1 +1,2 @@
-+ obj-y += crypto/
-++obj-$(CONFIG_MRAA) += mraa/
-+diff --git a/ext/lib/Makefile b/ext/lib/Makefile
-+index af81171..6803999 100644
-+--- a/ext/lib/Makefile
-++++ b/ext/lib/Makefile
-+@@ -10,3 +10,7 @@ endif
-+ ifdef CONFIG_MBEDTLS_LIBRARY
-+ include $(srctree)/ext/lib/crypto/mbedtls/Makefile
-+ endif
-++
-++ifdef CONFIG_MRAA
-++ZEPHYRINCLUDE += -I$(srctree)/ext/lib/mraa/include
-++endif
-+-- 
-+2.9.3
-+
-diff --git a/ext/lib/upm/.gitignore b/ext/lib/upm/.gitignore
-new file mode 100644
-index 0000000..fcbcde1
---- /dev/null
-+++ b/ext/lib/upm/.gitignore
-@@ -0,0 +1,22 @@
-+build/
-+
-+# Object files
-+*.o
-+*.lib
-+*.so
-+*.lo
-+*.la
-+*.pyc
-+
-+# Temp files
-+*.swp
-+*~
-+
-+# cscope db
-+cscope.out
-+
-+# ignore zephyr build dirs
-+outdir/
-+
-+#ignore cmd files
-+.*.cmd
 diff --git a/ext/lib/upm/Kbuild b/ext/lib/upm/Kbuild
 new file mode 100644
-index 0000000..a28abc1
+index 0000000..488ff72
 --- /dev/null
 +++ b/ext/lib/upm/Kbuild
-@@ -0,0 +1,60 @@
+@@ -0,0 +1,61 @@
 +# UPM Kbuild configuration
 +obj-$(CONFIG_UPM_a110x) += src/a110x/
 +obj-$(CONFIG_UPM_ad8232) += src/ad8232/
@@ -7948,12 +7799,13 @@ index 0000000..a28abc1
 +obj-$(CONFIG_UPM_ims) += src/ims/
 +obj-$(CONFIG_UPM_ecezo) += src/ecezo/
 +obj-$(CONFIG_UPM_button) += src/button/
++obj-$(CONFIG_UPM_mb704x) += src/mb704x/
 diff --git a/ext/lib/upm/Kconfig b/ext/lib/upm/Kconfig
 new file mode 100644
-index 0000000..a10a188
+index 0000000..ba563e4
 --- /dev/null
 +++ b/ext/lib/upm/Kconfig
-@@ -0,0 +1,69 @@
+@@ -0,0 +1,70 @@
 +menu "UPM"
 +config UPM
 +    bool
@@ -8022,13 +7874,14 @@ index 0000000..a10a188
 +source "ext/lib/upm/src/ims/Kconfig"
 +source "ext/lib/upm/src/ecezo/Kconfig"
 +source "ext/lib/upm/src/button/Kconfig"
++source "ext/lib/upm/src/mb704x/Kconfig"
 +endmenu
 diff --git a/ext/lib/upm/Makefile b/ext/lib/upm/Makefile
 new file mode 100644
-index 0000000..b93730e
+index 0000000..71bbdb2
 --- /dev/null
 +++ b/ext/lib/upm/Makefile
-@@ -0,0 +1,63 @@
+@@ -0,0 +1,64 @@
 +# UPM top-level Makefile
 +ifdef CONFIG_UPM
 +ZEPHYRINCLUDE += -I$(srctree)/ext/lib/upm/include
@@ -8092,12 +7945,13 @@ index 0000000..b93730e
 +include $(srctree)/ext/lib/upm/src/ims/Makefile
 +include $(srctree)/ext/lib/upm/src/ecezo/Makefile
 +include $(srctree)/ext/lib/upm/src/button/Makefile
++include $(srctree)/ext/lib/upm/src/mb704x/Makefile
 diff --git a/ext/lib/upm/README.md b/ext/lib/upm/README.md
 new file mode 100644
-index 0000000..d0ecbb5
+index 0000000..8f8f9d1
 --- /dev/null
 +++ b/ext/lib/upm/README.md
-@@ -0,0 +1,72 @@
+@@ -0,0 +1,87 @@
 +## Synopsis
 +
 +ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproject.org).
@@ -8113,6 +7967,8 @@ index 0000000..d0ecbb5
 +- Zephyr v1.5.0 - [ZUPM version v1.5.0 - Complete](https://github.com/intel-iot-devkit/upm/tree/v1.5.0)
 +
 +## Installation
++
++### Method 1 (clone from zephyr/zmraa/zupm and patch)
 +
 +#### Clone Zephyr (requires Zephyr SDK)
 +```sh
@@ -8139,6 +7995,19 @@ index 0000000..d0ecbb5
 +cd $ZEPHYR_BASE
 +patch -p1 < $ZEPHYR_BASE/ext/lib/upm/zupm_2_zephyr.patch
 +ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
++```
++
++### Method 2 (clone zephyr, patch to create zmraa and zupm)
++
++#### Clone Zephyr (currently 1.6.0-rc3)
++```sh
++git clone https://gerrit.zephyrproject.org/r/zephyr zephyr_1.6.0-rc3 && cd zephyr_1.6.0-rc3 && git checkout tags/v1.6.0-rc3
++```
++
++#### Clone ZUPM and apply patch
++```sh
++git clone https://github.com/intel-iot-devkit/zupm.git
++patch -p1 < zupm/add_mraa_upm_to_zephyr-1.6.0-rc3.patch
 +```
 +
 +## Code Example
@@ -8424,794 +8293,6 @@ index 0000000..ecb9b16
 +#endif
 +
 +#endif /* UPM_TYPES_H_ */
-diff --git a/ext/lib/upm/samples/upm.samples.json b/ext/lib/upm/samples/upm.samples.json
-new file mode 100644
-index 0000000..cd45aa7
---- /dev/null
-+++ b/ext/lib/upm/samples/upm.samples.json
-@@ -0,0 +1,782 @@
-+[
-+    {
-+        "path" : "upm/a110x",
-+        "example": {
-+            "name" : "a110x",
-+            "description" : "Hall effect sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/bh1750",
-+        "example": {
-+            "name" : "bh1750",
-+            "description" : "Digital light sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/biss0001",
-+        "example": {
-+            "name" : "biss0001",
-+            "description" : "Passive Infrared (PIR) motion sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/bmi160",
-+        "example": {
-+            "name" : "bmi160",
-+            "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/button_intr",
-+        "example": {
-+            "name" : "button_intr",
-+            "description" : "Button sensor Interrupt Example",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/button",
-+        "example": {
-+            "name" : "button",
-+            "description" : "Button sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/buzzer",
-+        "example": {
-+            "name" : "buzzer",
-+            "description" : "Buzzer",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/collision",
-+        "example": {
-+            "name" : "collision",
-+            "description" : "Collision sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/dfrorp",
-+        "example": {
-+            "name" : "dfrorp",
-+            "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/dfrph",
-+        "example": {
-+            "name" : "dfrph",
-+            "description" : "DFRobot pH sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ecezo",
-+        "example": {
-+            "name" : "ecezo",
-+            "description" : "Driver for the EC-EZO EC sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/emg",
-+        "example": {
-+            "name" : "emg",
-+            "description" : "Electromyography (EMG) detector",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/flex",
-+        "example": {
-+            "name" : "flex",
-+            "description" : "Resistive flex sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/gas",
-+        "example": {
-+            "name" : "gas",
-+            "description" : "Generic gas detection sensor library",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/gp2y0a",
-+        "example": {
-+            "name" : "gp2y0a",
-+            "description" : "Analog Infrared (IR) based distance sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/gsr",
-+        "example": {
-+            "name" : "gsr",
-+            "description" : "Galvanic skin response (GSR) sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/guvas12d",
-+        "example": {
-+            "name" : "guvas12d",
-+            "description" : "Analog UV sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/hka5",
-+        "example": {
-+            "name" : "hka5",
-+            "description" : "DFRobot laser particulate matter (PM) sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ims",
-+        "example": {
-+            "name" : "ims",
-+            "description" : "Catnip Electronics I2C moisture sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/jhd1313m1",
-+        "example": {
-+            "name" : "jhd1313m1",
-+            "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/joystick12",
-+        "example": {
-+            "name" : "joystick12",
-+            "description" : "2-axis analog joystick",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/lcm1602",
-+        "example": {
-+            "name" : "lcm1602",
-+            "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ldt0028",
-+        "example": {
-+            "name" : "ldt0028",
-+            "description" : "Piezo vibration sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/led",
-+        "example": {
-+            "name" : "led",
-+            "description" : "Blink arduino 101 onboard LED",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/light",
-+        "example": {
-+            "name" : "light",
-+            "description" : "Analog light sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/linefinder",
-+        "example": {
-+            "name" : "linefinder",
-+            "description" : "Line finder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/lm35",
-+        "example": {
-+            "name" : "lm35",
-+            "description" : "Analog temperature sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/loudness",
-+        "example": {
-+            "name" : "loudness",
-+            "description" : "Loudness sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/m24lr64e",
-+        "example": {
-+            "name" : "m24lr64e",
-+            "description" : "Dynamic NFC/RFID tag module",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/md",
-+        "example": {
-+            "name" : "md",
-+            "description" : "I2C motor driver",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/md-stepper",
-+        "example": {
-+            "name" : "md-stepper",
-+            "description" : "I2C motor driver",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mic",
-+        "example": {
-+            "name" : "mic",
-+            "description" : "Mic Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mma7361",
-+        "example": {
-+            "name" : "mma7361",
-+            "description" : "Triaxial analog accelerometer",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mma7660",
-+        "example": {
-+            "name" : "mma7660",
-+            "description" : "Driver for the MMA7660 Accelerometer (1.5g)",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/moisture",
-+        "example": {
-+            "name" : "moisture",
-+            "description" : "Moisture sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mpr121",
-+        "example": {
-+            "name" : "mpr121",
-+            "description" : "Digital capacitive touch sensor controller",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mq303a",
-+        "example": {
-+            "name" : "mq303a",
-+            "description" : "Alcohol detection sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ms5803",
-+        "example": {
-+            "name" : "ms5803",
-+            "description" : "Driver for the MS5803 Pressure and Temperature sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/my9221",
-+        "example": {
-+            "name" : "my9221",
-+            "description" : "MY9221 LED controller",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/nmea_gps",
-+        "example": {
-+            "name" : "nmea_gps",
-+            "description" : "Generic driver for GPS NMEA sensors",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/o2",
-+        "example": {
-+            "name" : "o2",
-+            "description" : "Oxygen (O2) concentration sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/otp538u",
-+        "example": {
-+            "name" : "otp538u",
-+            "description" : "Analog IR Temperature sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ppd42ns",
-+        "example": {
-+            "name" : "ppd42ns",
-+            "description" : "PPD42NS Dust Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/relay",
-+        "example": {
-+            "name" : "relay",
-+            "description" : "Relay Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rotaryencoder",
-+        "example": {
-+            "name" : "rotaryencoder",
-+            "description" : "Rotary encoder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rotary",
-+        "example": {
-+            "name" : "rotary",
-+            "description" : "Rotary Angle Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rpr220-intr",
-+        "example": {
-+            "name" : "rpr220-intr",
-+            "description" : "Infrared (IR) reflective sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rpr220",
-+        "example": {
-+            "name" : "rpr220",
-+            "description" : "Infrared (IR) reflective sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/servo",
-+        "example": {
-+            "name" : "servo",
-+            "description" : "Servo controller",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/sht1x",
-+        "example": {
-+            "name" : "sht1x",
-+            "description" : "Temperature and humidity sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/slide",
-+        "example": {
-+            "name" : "slide",
-+            "description" : "Slide potentiometer sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/temperature",
-+        "example": {
-+            "name" : "temperature",
-+            "description" : "UPM Temperature",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/tsl2561",
-+        "example": {
-+            "name" : "tsl2561",
-+            "description" : "Digital light sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ttp223",
-+        "example": {
-+            "name" : "ttp223",
-+            "description" : "Capacitive touch sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/uln200xa",
-+        "example": {
-+            "name" : "uln200xa",
-+            "description" : "ULN200XA Stepper Motor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/urm37",
-+        "example": {
-+            "name" : "urm37",
-+            "description" : "Ultrasonic range finder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/urm37-uart",
-+        "example": {
-+            "name" : "urm37-uart",
-+            "description" : "Ultrasonic range finder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/vdiv",
-+        "example": {
-+            "name" : "vdiv",
-+            "description" : "Analog voltage divider sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/water",
-+        "example": {
-+            "name" : "water",
-+            "description" : "Water detection sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/yg1006",
-+        "example": {
-+            "name" : "yg1006",
-+            "description" : "Analog flame sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    }
-+]
 diff --git a/ext/lib/upm/src/a110x/Kbuild b/ext/lib/upm/src/a110x/Kbuild
 new file mode 100644
 index 0000000..8b4d46e
@@ -53310,6 +52391,241 @@ index 0000000..f28bad4
 +                                 uint8_t* buffer, int len);
 +
 +#endif /* M24LR64E_H_ */
+diff --git a/ext/lib/upm/src/mb704x/Kbuild b/ext/lib/upm/src/mb704x/Kbuild
+new file mode 100644
+index 0000000..749a5bc
+--- /dev/null
++++ b/ext/lib/upm/src/mb704x/Kbuild
+@@ -0,0 +1 @@
++obj-$(CONFIG_UPM_mb704x) += mb704x.o
+diff --git a/ext/lib/upm/src/mb704x/Kconfig b/ext/lib/upm/src/mb704x/Kconfig
+new file mode 100644
+index 0000000..96fd34c
+--- /dev/null
++++ b/ext/lib/upm/src/mb704x/Kconfig
+@@ -0,0 +1,8 @@
++config UPM_mb704x
++    bool "mb704x"
++    select MRAA
++    select NEWLIB_LIBC
++    depends on UPM
++    default n
++    help
++        upm MB704X MaxSonar-WR Ultrasonic Ranger
+diff --git a/ext/lib/upm/src/mb704x/Makefile b/ext/lib/upm/src/mb704x/Makefile
+new file mode 100644
+index 0000000..d17cf21
+--- /dev/null
++++ b/ext/lib/upm/src/mb704x/Makefile
+@@ -0,0 +1,3 @@
++ifdef CONFIG_UPM_mb704x
++ZEPHYRINCLUDE += -I$(srctree)/ext/lib/upm/src/mb704x
++endif
+diff --git a/ext/lib/upm/src/mb704x/mb704x.c b/ext/lib/upm/src/mb704x/mb704x.c
+new file mode 100644
+index 0000000..085d4ee
+--- /dev/null
++++ b/ext/lib/upm/src/mb704x/mb704x.c
+@@ -0,0 +1,115 @@
++/*
++ * Author: Jon Trulson <jtrulson@ics.com>
++ * Copyright (c) 2016 Intel Corporation.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining
++ * a copy of this software and associated documentation files (the
++ * "Software"), to deal in the Software without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sublicense, and/or sell copies of the Software, and to
++ * permit persons to whom the Software is furnished to do so, subject to
++ * the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be
++ * included in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
++ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
++ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <stdlib.h>
++#include <string.h>
++#include <assert.h>
++
++#include <upm_utilities.h>
++
++#include "mb704x.h"
++
++// The delay to wait (in ms) for a ranging command to complete before
++// requesting the range data.
++#define MB704X_RANGE_DELAY     (100)
++
++// range command
++#define MB704X_CMD_RANGE       (81)
++
++mb704x_context mb704x_init(unsigned int bus, int addr)
++{
++    // make sure MRAA is initialized
++    int mraa_rv;
++    if ((mraa_rv = mraa_init()) != MRAA_SUCCESS)
++    {
++        printf("%s: mraa_init() failed (%d).\n", __FUNCTION__, mraa_rv);
++        return NULL;
++    }
++
++    mb704x_context dev =
++        (mb704x_context)malloc(sizeof(struct _mb704x_context));
++
++    if (!dev)
++        return NULL;
++
++    // zero out context
++    memset((void *)dev, 0, sizeof(struct _mb704x_context));
++
++    // initialize the MRAA contexts
++
++    if (!(dev->i2c = mraa_i2c_init(bus)))
++    {
++        printf("%s: mraa_i2c_init() failed.\n", __FUNCTION__);
++        mb704x_close(dev);
++        return NULL;
++    }
++
++    if (mraa_i2c_address(dev->i2c, (uint8_t)addr))
++    {
++        printf("%s: mraa_i2c_address() failed.\n", __FUNCTION__);
++        mb704x_close(dev);
++        return NULL;
++    }
++
++    // max power up delay
++    upm_delay_ms(135);
++
++    return dev;
++}
++
++void mb704x_close(mb704x_context dev)
++{
++    assert(dev != NULL);
++
++    if (dev->i2c)
++        mraa_i2c_stop(dev->i2c);
++
++    free(dev);
++}
++
++int mb704x_get_range(const mb704x_context dev)
++{
++    assert(dev != NULL);
++
++    // first, send the range command.
++    uint8_t cmd = MB704X_CMD_RANGE;
++    if (mraa_i2c_write(dev->i2c, &cmd, 1))
++    {
++        printf("%s: mraa_i2c_write() failed.\n", __FUNCTION__);
++        return -1;
++    }
++
++    // delay for measurement
++    upm_delay_ms(MB704X_RANGE_DELAY);
++
++    // At this point, we should be able to do our read of the data
++    uint8_t buffer[2];
++    if (mraa_i2c_read(dev->i2c, buffer, 2) != 2)
++    {
++        printf("%s: mraa_i2c_read() failed.\n", __FUNCTION__);
++        return -1;
++    }
++
++    return ((buffer[0] << 8) | buffer[1]);
++}
+diff --git a/ext/lib/upm/src/mb704x/mb704x.h b/ext/lib/upm/src/mb704x/mb704x.h
+new file mode 100644
+index 0000000..5b98d30
+--- /dev/null
++++ b/ext/lib/upm/src/mb704x/mb704x.h
+@@ -0,0 +1,78 @@
++/*
++ * Author: Jon Trulson <jtrulson@ics.com>
++ * Copyright (c) 2016 Intel Corporation.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining
++ * a copy of this software and associated documentation files (the
++ * "Software"), to deal in the Software without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sublicense, and/or sell copies of the Software, and to
++ * permit persons to whom the Software is furnished to do so, subject to
++ * the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be
++ * included in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
++ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
++ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#pragma once
++
++#include <stdint.h>
++#include <upm.h>
++#include <mraa/i2c.h>
++#include <mraa/gpio.h>
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++    /**
++     * @file mb704x.h
++     * @library mb704x
++     * @brief C API for the MB704x MaxSonar-WR Ultrasonic Ranger
++     *
++     * @include mb704x.c
++     */
++
++    /**
++     * Device context
++     */
++    typedef struct _mb704x_context {
++        mraa_i2c_context         i2c;
++    } *mb704x_context;
++
++    /**
++     * MB704X Initializer
++     *
++     * @param bus Specify which the I2C bus to use.
++     * @param addr Specify the I2C address to use.  The default is 112.
++     * @return an initialized device context on success, NULL on error.
++     */
++    mb704x_context mb704x_init(unsigned int bus, int addr);
++
++    /**
++     * MB704X sensor close function
++     */
++    void mb704x_close(mb704x_context dev);
++
++    /**
++     * Query the device for a range reading.  The range will be
++     * reported in centimeters (cm).
++     *
++     * @param dev Device context
++     * @return Measured range, -1 on error. The range is reported in
++     * centimeters (cm).
++     */
++    int mb704x_get_range(const mb704x_context dev);
++
++
++#ifdef __cplusplus
++}
++#endif
 diff --git a/ext/lib/upm/src/md/Kbuild b/ext/lib/upm/src/md/Kbuild
 new file mode 100644
 index 0000000..22a4d2e
@@ -54022,10 +53338,10 @@ index 0000000..c85b57d
 +endif
 diff --git a/ext/lib/upm/src/mma7361/mma7361.c b/ext/lib/upm/src/mma7361/mma7361.c
 new file mode 100644
-index 0000000..caf170d
+index 0000000..1549b2f
 --- /dev/null
 +++ b/ext/lib/upm/src/mma7361/mma7361.c
-@@ -0,0 +1,394 @@
+@@ -0,0 +1,395 @@
 +/*
 + * Author: Jon Trulson <jtrulson@ics.com>
 + * Copyright (c) 2016 Intel Corporation.
@@ -54052,6 +53368,7 @@ index 0000000..caf170d
 +
 +#include <string.h>
 +#include <assert.h>
++#include <stdlib.h>
 +
 +#include "mma7361.h"
 +
@@ -63669,10 +62986,10 @@ index 0000000..819f898
 +endif
 diff --git a/ext/lib/upm/src/utilities/upm_utilities.c b/ext/lib/upm/src/utilities/upm_utilities.c
 new file mode 100644
-index 0000000..bcb03dc
+index 0000000..b5c6b01
 --- /dev/null
 +++ b/ext/lib/upm/src/utilities/upm_utilities.c
-@@ -0,0 +1,160 @@
+@@ -0,0 +1,218 @@
 +/*
 + * Authors:
 + *          Jon Trulson <jtrulson@ics.com>
@@ -63701,36 +63018,94 @@ index 0000000..bcb03dc
 +#include <upm_platform.h>
 +#include <upm_utilities.h>
 +
-+void upm_delay(int time){
++void upm_delay(int time)
++{
++    if (time <= 0)
++        time = 1;
++
 +#if defined(UPM_PLATFORM_LINUX)
++
 +    sleep(time);
++
 +#elif defined(UPM_PLATFORM_ZEPHYR)
++# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
++
 +    struct k_timer timer;
 +    k_timer_init(&timer, NULL, NULL);
-+    k_timer_start(&timer, SECONDS(time) + 1, 0);
++    k_timer_start(&timer, time * 1000, 0);
 +    k_timer_status_sync(&timer);
++
++# else
++
++    struct nano_timer timer;
++    void *timer_data[1];
++    nano_timer_init(&timer, timer_data);
++    nano_timer_start(&timer, SECONDS(time) + 1);
++    nano_timer_test(&timer, TICKS_UNLIMITED);
++
++# endif
++
 +#endif
 +}
 +
-+void upm_delay_ms(int time){
++void upm_delay_ms(int time)
++{
++    if (time <= 0)
++        time = 1;
++
 +#if defined(UPM_PLATFORM_LINUX)
++
 +    usleep(1000 * time);
++
 +#elif defined(UPM_PLATFORM_ZEPHYR)
++# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
++
 +    struct k_timer timer;
 +    k_timer_init(&timer, NULL, NULL);
-+    k_timer_start(&timer, MSEC(time) + 1, 0);
++    k_timer_start(&timer, time, 0);
 +    k_timer_status_sync(&timer);
++
++# else
++
++    struct nano_timer timer;
++    void *timer_data[1];
++    nano_timer_init(&timer, timer_data);
++    nano_timer_start(&timer, MSEC(time) + 1);
++    nano_timer_test(&timer, TICKS_UNLIMITED);
++
++# endif
 +#endif
 +}
 +
-+void upm_delay_us(int time){
++void upm_delay_us(int time)
++{
++    if (time <= 0)
++        time = 1;
++
 +#if defined(UPM_PLATFORM_LINUX)
++
 +    usleep(time);
++
 +#elif defined(UPM_PLATFORM_ZEPHYR)
-+    struct k_timer timer;
-+    k_timer_init(&timer, NULL, NULL);
-+    k_timer_start(&timer, USEC(time) + 1, 0);
-+    k_timer_status_sync(&timer);
++# if KERNEL_VERSION_MAJOR == 1 && KERNEL_VERSION_MINOR >= 6
++    // we will use a upm_clock to do microsecond timings here as k_timer has
++    // only a millisecond resolution.  So we init a clock and spin.
++
++    upm_clock_t timer;
++    upm_clock_init(&timer);
++    while (upm_elapsed_us(&timer) < time)
++        ; // spin
++
++# else
++
++    struct nano_timer timer;
++    void *timer_data[1];
++    nano_timer_init(&timer, timer_data);
++    nano_timer_start(&timer, USEC(time) + 1);
++    nano_timer_test(&timer, TICKS_UNLIMITED);
++
++# endif
++
 +#endif
 +}
 +
@@ -63835,10 +63210,10 @@ index 0000000..bcb03dc
 +}
 diff --git a/ext/lib/upm/src/utilities/upm_utilities.h b/ext/lib/upm/src/utilities/upm_utilities.h
 new file mode 100644
-index 0000000..e20806b
+index 0000000..3a55776
 --- /dev/null
 +++ b/ext/lib/upm/src/utilities/upm_utilities.h
-@@ -0,0 +1,118 @@
+@@ -0,0 +1,120 @@
 +/*
 + * Authors:
 + *          Jon Trulson <jtrulson@ics.com>
@@ -63886,6 +63261,8 @@ index 0000000..e20806b
 +#include <zephyr.h>
 +#include <device.h>
 +#include <sys_clock.h>
++#include <version.h>
++#include <kernel_version.h>
 +
 +#if defined(CONFIG_STDOUT_CONSOLE)
 +#include <stdio.h>
@@ -64646,835 +64023,6 @@ index 0000000..e876f60
 +#ifdef __cplusplus
 +}
 +#endif
-diff --git a/ext/lib/upm/upm.samples.json b/ext/lib/upm/upm.samples.json
-new file mode 100644
-index 0000000..cd45aa7
---- /dev/null
-+++ b/ext/lib/upm/upm.samples.json
-@@ -0,0 +1,782 @@
-+[
-+    {
-+        "path" : "upm/a110x",
-+        "example": {
-+            "name" : "a110x",
-+            "description" : "Hall effect sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/bh1750",
-+        "example": {
-+            "name" : "bh1750",
-+            "description" : "Digital light sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/biss0001",
-+        "example": {
-+            "name" : "biss0001",
-+            "description" : "Passive Infrared (PIR) motion sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/bmi160",
-+        "example": {
-+            "name" : "bmi160",
-+            "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/button_intr",
-+        "example": {
-+            "name" : "button_intr",
-+            "description" : "Button sensor Interrupt Example",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/button",
-+        "example": {
-+            "name" : "button",
-+            "description" : "Button sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/buzzer",
-+        "example": {
-+            "name" : "buzzer",
-+            "description" : "Buzzer",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/collision",
-+        "example": {
-+            "name" : "collision",
-+            "description" : "Collision sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/dfrorp",
-+        "example": {
-+            "name" : "dfrorp",
-+            "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/dfrph",
-+        "example": {
-+            "name" : "dfrph",
-+            "description" : "DFRobot pH sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ecezo",
-+        "example": {
-+            "name" : "ecezo",
-+            "description" : "Driver for the EC-EZO EC sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/emg",
-+        "example": {
-+            "name" : "emg",
-+            "description" : "Electromyography (EMG) detector",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/flex",
-+        "example": {
-+            "name" : "flex",
-+            "description" : "Resistive flex sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/gas",
-+        "example": {
-+            "name" : "gas",
-+            "description" : "Generic gas detection sensor library",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/gp2y0a",
-+        "example": {
-+            "name" : "gp2y0a",
-+            "description" : "Analog Infrared (IR) based distance sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/gsr",
-+        "example": {
-+            "name" : "gsr",
-+            "description" : "Galvanic skin response (GSR) sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/guvas12d",
-+        "example": {
-+            "name" : "guvas12d",
-+            "description" : "Analog UV sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/hka5",
-+        "example": {
-+            "name" : "hka5",
-+            "description" : "DFRobot laser particulate matter (PM) sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ims",
-+        "example": {
-+            "name" : "ims",
-+            "description" : "Catnip Electronics I2C moisture sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/jhd1313m1",
-+        "example": {
-+            "name" : "jhd1313m1",
-+            "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/joystick12",
-+        "example": {
-+            "name" : "joystick12",
-+            "description" : "2-axis analog joystick",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/lcm1602",
-+        "example": {
-+            "name" : "lcm1602",
-+            "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ldt0028",
-+        "example": {
-+            "name" : "ldt0028",
-+            "description" : "Piezo vibration sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/led",
-+        "example": {
-+            "name" : "led",
-+            "description" : "Blink arduino 101 onboard LED",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/light",
-+        "example": {
-+            "name" : "light",
-+            "description" : "Analog light sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/linefinder",
-+        "example": {
-+            "name" : "linefinder",
-+            "description" : "Line finder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/lm35",
-+        "example": {
-+            "name" : "lm35",
-+            "description" : "Analog temperature sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/loudness",
-+        "example": {
-+            "name" : "loudness",
-+            "description" : "Loudness sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/m24lr64e",
-+        "example": {
-+            "name" : "m24lr64e",
-+            "description" : "Dynamic NFC/RFID tag module",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/md",
-+        "example": {
-+            "name" : "md",
-+            "description" : "I2C motor driver",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/md-stepper",
-+        "example": {
-+            "name" : "md-stepper",
-+            "description" : "I2C motor driver",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mic",
-+        "example": {
-+            "name" : "mic",
-+            "description" : "Mic Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mma7361",
-+        "example": {
-+            "name" : "mma7361",
-+            "description" : "Triaxial analog accelerometer",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mma7660",
-+        "example": {
-+            "name" : "mma7660",
-+            "description" : "Driver for the MMA7660 Accelerometer (1.5g)",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/moisture",
-+        "example": {
-+            "name" : "moisture",
-+            "description" : "Moisture sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mpr121",
-+        "example": {
-+            "name" : "mpr121",
-+            "description" : "Digital capacitive touch sensor controller",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/mq303a",
-+        "example": {
-+            "name" : "mq303a",
-+            "description" : "Alcohol detection sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ms5803",
-+        "example": {
-+            "name" : "ms5803",
-+            "description" : "Driver for the MS5803 Pressure and Temperature sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/my9221",
-+        "example": {
-+            "name" : "my9221",
-+            "description" : "MY9221 LED controller",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/nmea_gps",
-+        "example": {
-+            "name" : "nmea_gps",
-+            "description" : "Generic driver for GPS NMEA sensors",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/o2",
-+        "example": {
-+            "name" : "o2",
-+            "description" : "Oxygen (O2) concentration sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/otp538u",
-+        "example": {
-+            "name" : "otp538u",
-+            "description" : "Analog IR Temperature sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ppd42ns",
-+        "example": {
-+            "name" : "ppd42ns",
-+            "description" : "PPD42NS Dust Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/relay",
-+        "example": {
-+            "name" : "relay",
-+            "description" : "Relay Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rotaryencoder",
-+        "example": {
-+            "name" : "rotaryencoder",
-+            "description" : "Rotary encoder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rotary",
-+        "example": {
-+            "name" : "rotary",
-+            "description" : "Rotary Angle Sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rpr220-intr",
-+        "example": {
-+            "name" : "rpr220-intr",
-+            "description" : "Infrared (IR) reflective sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/rpr220",
-+        "example": {
-+            "name" : "rpr220",
-+            "description" : "Infrared (IR) reflective sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/servo",
-+        "example": {
-+            "name" : "servo",
-+            "description" : "Servo controller",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/sht1x",
-+        "example": {
-+            "name" : "sht1x",
-+            "description" : "Temperature and humidity sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/slide",
-+        "example": {
-+            "name" : "slide",
-+            "description" : "Slide potentiometer sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/temperature",
-+        "example": {
-+            "name" : "temperature",
-+            "description" : "UPM Temperature",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/tsl2561",
-+        "example": {
-+            "name" : "tsl2561",
-+            "description" : "Digital light sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/ttp223",
-+        "example": {
-+            "name" : "ttp223",
-+            "description" : "Capacitive touch sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/uln200xa",
-+        "example": {
-+            "name" : "uln200xa",
-+            "description" : "ULN200XA Stepper Motor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/urm37",
-+        "example": {
-+            "name" : "urm37",
-+            "description" : "Ultrasonic range finder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/urm37-uart",
-+        "example": {
-+            "name" : "urm37-uart",
-+            "description" : "Ultrasonic range finder",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/vdiv",
-+        "example": {
-+            "name" : "vdiv",
-+            "description" : "Analog voltage divider sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/water",
-+        "example": {
-+            "name" : "water",
-+            "description" : "Water detection sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    },
-+    {
-+        "path" : "upm/yg1006",
-+        "example": {
-+            "name" : "yg1006",
-+            "description" : "Analog flame sensor",
-+            "category": "UPM",
-+            "platform": {
-+                "boards": [
-+                    "arduino_101_sss"
-+                ]
-+            }
-+        }
-+    }
-+]
-diff --git a/ext/lib/upm/zupm_2_zephyr.patch b/ext/lib/upm/zupm_2_zephyr.patch
-new file mode 100644
-index 0000000..25be2c9
---- /dev/null
-+++ b/ext/lib/upm/zupm_2_zephyr.patch
-@@ -0,0 +1,35 @@
-+diff --git a/ext/Kbuild b/ext/Kbuild
-+index 97cb478..0e8e091 100644
-+--- a/ext/Kbuild
-++++ b/ext/Kbuild
-+@@ -1,3 +1,5 @@
-+ obj-y += hal/
-+ obj-y += lib/
-+ obj-y += fs/
-++obj-$(CONFIG_MRAA) += lib/mraa/
-++obj-y += lib/upm/
-+diff --git a/ext/Kconfig b/ext/Kconfig
-+index 9d26499..a61c4ee 100644
-+--- a/ext/Kconfig
-++++ b/ext/Kconfig
-+@@ -24,4 +24,8 @@ source "ext/lib/crypto/Kconfig"
-+ 
-+ source "ext/fs/Kconfig"
-+ 
-++source "ext/lib/mraa/Kconfig"
-++
-++source "ext/lib/upm/Kconfig"
-++
-+ endmenu
-+diff --git a/ext/Makefile b/ext/Makefile
-+index 45b3952..7d4a5c2 100644
-+--- a/ext/Makefile
-++++ b/ext/Makefile
-+@@ -1,3 +1,7 @@
-+ include $(srctree)/ext/lib/Makefile
-+ include $(srctree)/ext/hal/Makefile
-+ include $(srctree)/ext/fs/Makefile
-++ifdef CONFIG_MRAA
-++ZEPHYRINCLUDE += -I$(srctree)/ext/lib/mraa/include
-++endif
-++include $(srctree)/ext/lib/upm/Makefile
 diff --git a/samples/upm/a110x/Makefile b/samples/upm/a110x/Makefile
 new file mode 100644
 index 0000000..9862696
@@ -67584,13 +66132,14 @@ index 0000000..9862696
 +include ${ZEPHYR_BASE}/Makefile.inc
 diff --git a/samples/upm/hka5/prj.conf b/samples/upm/hka5/prj.conf
 new file mode 100644
-index 0000000..1e67e89
+index 0000000..ec366b4
 --- /dev/null
 +++ b/samples/upm/hka5/prj.conf
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,10 @@
 +CONFIG_STDOUT_CONSOLE=y
 +CONFIG_MRAA=y
 +CONFIG_MRAA_GPIO=y
++CONFIG_MRAA_UART=y
 +CONFIG_UPM=y
 +CONFIG_UPM_hka5=y
 +CONFIG_UPM_utilities=y
@@ -68332,7 +66881,7 @@ index 0000000..5ae89fa
 \ No newline at end of file
 diff --git a/samples/upm/led/src/led.c b/samples/upm/led/src/led.c
 new file mode 100644
-index 0000000..8338787
+index 0000000..d669e7d
 --- /dev/null
 +++ b/samples/upm/led/src/led.c
 @@ -0,0 +1,40 @@
@@ -68358,7 +66907,7 @@ index 0000000..8338787
 +
 +    printf("Before LED init\n");
 +
-+    // Arduino GPIO pin 2
++    // Arduino GPIO pin 13 (arduino 101 onboard LED)
 +    led_context dev = led_init(13);
 +    printf("LED init\n");
 +    while(1){
@@ -68877,6 +67426,122 @@ index 0000000..31c8e0d
 +
 +    return 0;
 +}
+diff --git a/samples/upm/mb704x/Makefile b/samples/upm/mb704x/Makefile
+new file mode 100644
+index 0000000..17cffed
+--- /dev/null
++++ b/samples/upm/mb704x/Makefile
+@@ -0,0 +1,6 @@
++BOARD ?= qemu_x86
++CONF_FILE = prj.conf
++
++LDFLAGS += -u _printf_float
++
++include ${ZEPHYR_BASE}/Makefile.inc
+diff --git a/samples/upm/mb704x/prj.conf b/samples/upm/mb704x/prj.conf
+new file mode 100644
+index 0000000..66a55b7
+--- /dev/null
++++ b/samples/upm/mb704x/prj.conf
+@@ -0,0 +1,8 @@
++CONFIG_STDOUT_CONSOLE=y
++CONFIG_MRAA=y
++CONFIG_MRAA_I2C=y
++CONFIG_I2C=y
++CONFIG_UPM=y
++CONFIG_UPM_mb704x=y
++CONFIG_UPM_utilities=y
++CONFIG_NEWLIB_LIBC=y
+diff --git a/samples/upm/mb704x/src/Makefile b/samples/upm/mb704x/src/Makefile
+new file mode 100644
+index 0000000..a509180
+--- /dev/null
++++ b/samples/upm/mb704x/src/Makefile
+@@ -0,0 +1 @@
++obj-y = mb704x.o
+diff --git a/samples/upm/mb704x/src/mb704x.c b/samples/upm/mb704x/src/mb704x.c
+new file mode 100644
+index 0000000..6a00752
+--- /dev/null
++++ b/samples/upm/mb704x/src/mb704x.c
+@@ -0,0 +1,77 @@
++/*
++ * Author: Jon Trulson <jtrulson@ics.com>
++ * Copyright (c) 2016 Intel Corporation.
++ *
++ * Permission is hereby granted, free of charge, to any person obtaining
++ * a copy of this software and associated documentation files (the
++ * "Software"), to deal in the Software without restriction, including
++ * without limitation the rights to use, copy, modify, merge, publish,
++ * distribute, sublicense, and/or sell copies of the Software, and to
++ * permit persons to whom the Software is furnished to do so, subject to
++ * the following conditions:
++ *
++ * The above copyright notice and this permission notice shall be
++ * included in all copies or substantial portions of the Software.
++ *
++ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
++ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
++ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
++ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
++ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
++ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
++ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
++ */
++
++#include <unistd.h>
++#include <signal.h>
++
++#include <upm_utilities.h>
++#include <mb704x.h>
++
++bool shouldRun = true;
++
++void sig_handler(int signo)
++{
++  if (signo == SIGINT)
++    shouldRun = false;
++}
++
++int main()
++{
++    signal(SIGINT, sig_handler);
++
++//! [Interesting]
++
++    // Instantiate a MB704X sensor on i2c bus 0, address 112.
++    mb704x_context sensor = mb704x_init(0, 112);
++
++    if (!sensor)
++    {
++        printf("mb704x_init() failed.\n");
++        return 1;
++    }
++
++    while (shouldRun)
++    {
++        // this will take about 1 second to complete
++        int range = mb704x_get_range(sensor);
++        if (range < 0)
++        {
++            printf("Error getting range.\n");
++        }
++        else
++        {
++            printf("Range: %d cm\n", range);
++        }
++
++        upm_delay_ms(500);
++    }
++
++    printf("Exiting\n");
++
++    mb704x_close(sensor);
++
++//! [Interesting]
++
++    return 0;
++}
 diff --git a/samples/upm/md-stepper/Makefile b/samples/upm/md-stepper/Makefile
 new file mode 100644
 index 0000000..4de50f9
@@ -69191,19 +67856,22 @@ index 0000000..9862696
 +include ${ZEPHYR_BASE}/Makefile.inc
 diff --git a/samples/upm/mma7361/prj.conf b/samples/upm/mma7361/prj.conf
 new file mode 100644
-index 0000000..0596a41
+index 0000000..26aa881
 --- /dev/null
 +++ b/samples/upm/mma7361/prj.conf
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,12 @@
 +CONFIG_STDOUT_CONSOLE=y
 +CONFIG_MRAA=y
 +CONFIG_MRAA_GPIO=y
++CONFIG_MRAA_AIO=y
 +CONFIG_UPM=y
 +CONFIG_UPM_mma7361=y
 +CONFIG_UPM_utilities=y
 +CONFIG_NEWLIB_LIBC=y
 +CONFIG_GPIO=y
-+CONFIG_GPIO_QMSI=y
++CONFIG_GPIO_QMSI_SS=y
++CONFIG_ADC_QMSI_SS=y
++CONFIG_ADC=y
 diff --git a/samples/upm/mma7361/src/Makefile b/samples/upm/mma7361/src/Makefile
 new file mode 100644
 index 0000000..2b2462e
@@ -69917,13 +68585,15 @@ index 0000000..9862696
 +include ${ZEPHYR_BASE}/Makefile.inc
 diff --git a/samples/upm/nmea_gps/prj.conf b/samples/upm/nmea_gps/prj.conf
 new file mode 100644
-index 0000000..30940c4
+index 0000000..9b2ff65
 --- /dev/null
 +++ b/samples/upm/nmea_gps/prj.conf
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,11 @@
 +CONFIG_STDOUT_CONSOLE=y
 +CONFIG_MRAA=y
 +CONFIG_MRAA_GPIO=y
++CONFIG_MRAA_I2C=y
++CONFIG_MRAA_UART=y
 +CONFIG_UPM=y
 +CONFIG_UPM_nmea_gps=y
 +CONFIG_UPM_utilities=y
@@ -71687,124 +70357,794 @@ index 0000000..ff9cbe1
 +//! [Interesting]
 +  return 0;
 +}
-diff --git a/samples/upm/urm37-uart/Makefile b/samples/upm/urm37-uart/Makefile
+diff --git a/samples/upm/upm.samples.json b/samples/upm/upm.samples.json
 new file mode 100644
-index 0000000..4de50f9
+index 0000000..52861de
 --- /dev/null
-+++ b/samples/upm/urm37-uart/Makefile
-@@ -0,0 +1,4 @@
-+BOARD ?= qemu_x86
-+CONF_FILE = prj.conf
-+
-+include ${ZEPHYR_BASE}/Makefile.inc
-diff --git a/samples/upm/urm37-uart/prj.conf b/samples/upm/urm37-uart/prj.conf
-new file mode 100644
-index 0000000..1f0c72d
---- /dev/null
-+++ b/samples/upm/urm37-uart/prj.conf
-@@ -0,0 +1,5 @@
-+CONFIG_MRAA=y
-+CONFIG_UPM=y
-+CONFIG_UPM_urm37-uart=y
-+CONFIG_UPM_utilities=y
-+CONFIG_NEWLIB_LIBC=y
-diff --git a/samples/upm/urm37-uart/src/Makefile b/samples/upm/urm37-uart/src/Makefile
-new file mode 100644
-index 0000000..5cde5bc
---- /dev/null
-+++ b/samples/upm/urm37-uart/src/Makefile
-@@ -0,0 +1 @@
-+obj-y = urm37-uart.o
-\ No newline at end of file
-diff --git a/samples/upm/urm37-uart/src/urm37-uart.c b/samples/upm/urm37-uart/src/urm37-uart.c
-new file mode 100644
-index 0000000..02d89ba
---- /dev/null
-+++ b/samples/upm/urm37-uart/src/urm37-uart.c
-@@ -0,0 +1,83 @@
-+/*
-+ * Author: Jon Trulson <jtrulson@ics.com>
-+ * Copyright (c) 2016 Intel Corporation.
-+ *
-+ * Permission is hereby granted, free of charge, to any person obtaining
-+ * a copy of this software and associated documentation files (the
-+ * "Software"), to deal in the Software without restriction, including
-+ * without limitation the rights to use, copy, modify, merge, publish,
-+ * distribute, sublicense, and/or sell copies of the Software, and to
-+ * permit persons to whom the Software is furnished to do so, subject to
-+ * the following conditions:
-+ *
-+ * The above copyright notice and this permission notice shall be
-+ * included in all copies or substantial portions of the Software.
-+ *
-+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-+ */
-+
-+#include <unistd.h>
-+#include <signal.h>
-+
-+#include "urm37.h"
-+#include "upm_utilities.h"
-+#include "mraa.h"
-+
-+bool shouldRun = true;
-+
-+void sig_handler(int signo)
-+{
-+  if (signo == SIGINT)
-+    shouldRun = false;
-+}
-+
-+int main()
-+{
-+    if (mraa_init() != MRAA_SUCCESS)
++++ b/samples/upm/upm.samples.json
+@@ -0,0 +1,782 @@
++[
 +    {
-+        fprintf(stderr,"Failed to initialize mraa\n");
-+        return -1;
-+    }
-+
-+    signal(SIGINT, sig_handler);
-+
-+    //! [Interesting]
-+
-+    // Instantiate a URM37 sensor on UART 0, with the reset pin on D2
-+    urm37_context sensor = urm37_init(0, 2, 0, 0, 0, false);
-+
-+    if (!sensor)
++        "path" : "upm/a110x",
++        "example": {
++            "name" : "a110x",
++            "description" : "Hall effect sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
 +    {
-+        printf("urm37_init() failed.\n");
-+        return(1);
-+    }
-+
-+    // Every half a second, sample the URM37 and output the measured
-+    // distance in cm.
-+
-+    while (shouldRun)
++        "path" : "upm/bh1750",
++        "example": {
++            "name" : "bh1750",
++            "description" : "Digital light sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
 +    {
-+        float distance, temperature;
-+
-+        urm37_get_distance(sensor, &distance, 0);
-+        printf("Detected distance (cm): %f\n", distance);
-+
-+        urm37_get_temperature(sensor, &temperature);
-+        printf("Temperature (C): %f\n\n", temperature);
-+        upm_delay_ms(500);
++        "path" : "upm/biss0001",
++        "example": {
++            "name" : "biss0001",
++            "description" : "Passive Infrared (PIR) motion sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/bmi160",
++        "example": {
++            "name" : "bmi160",
++            "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/button_intr",
++        "example": {
++            "name" : "button_intr",
++            "description" : "Button sensor Interrupt Example",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/button",
++        "example": {
++            "name" : "button",
++            "description" : "Button sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/buzzer",
++        "example": {
++            "name" : "buzzer",
++            "description" : "Buzzer",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/collision",
++        "example": {
++            "name" : "collision",
++            "description" : "Collision sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/dfrorp",
++        "example": {
++            "name" : "dfrorp",
++            "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/dfrph",
++        "example": {
++            "name" : "dfrph",
++            "description" : "DFRobot pH sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/ecezo",
++        "example": {
++            "name" : "ecezo",
++            "description" : "Driver for the EC-EZO EC sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/emg",
++        "example": {
++            "name" : "emg",
++            "description" : "Electromyography (EMG) detector",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/flex",
++        "example": {
++            "name" : "flex",
++            "description" : "Resistive flex sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/gas",
++        "example": {
++            "name" : "gas",
++            "description" : "Generic gas detection sensor library",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/gp2y0a",
++        "example": {
++            "name" : "gp2y0a",
++            "description" : "Analog Infrared (IR) based distance sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/gsr",
++        "example": {
++            "name" : "gsr",
++            "description" : "Galvanic skin response (GSR) sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/guvas12d",
++        "example": {
++            "name" : "guvas12d",
++            "description" : "Analog UV sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/hka5",
++        "example": {
++            "name" : "hka5",
++            "description" : "DFRobot laser particulate matter (PM) sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/ims",
++        "example": {
++            "name" : "ims",
++            "description" : "Catnip Electronics I2C moisture sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/jhd1313m1",
++        "example": {
++            "name" : "jhd1313m1",
++            "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/joystick12",
++        "example": {
++            "name" : "joystick12",
++            "description" : "2-axis analog joystick",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/lcm1602",
++        "example": {
++            "name" : "lcm1602",
++            "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/ldt0028",
++        "example": {
++            "name" : "ldt0028",
++            "description" : "Piezo vibration sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/led",
++        "example": {
++            "name" : "led",
++            "description" : "Blink arduino 101 onboard LED",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/light",
++        "example": {
++            "name" : "light",
++            "description" : "Analog light sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/linefinder",
++        "example": {
++            "name" : "linefinder",
++            "description" : "Line finder",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/lm35",
++        "example": {
++            "name" : "lm35",
++            "description" : "Analog temperature sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/loudness",
++        "example": {
++            "name" : "loudness",
++            "description" : "Loudness sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/m24lr64e",
++        "example": {
++            "name" : "m24lr64e",
++            "description" : "Dynamic NFC/RFID tag module",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/mb704x",
++        "example": {
++            "name" : "mb704x",
++            "description" : "Driver for the MB704x MaxSonar-WR Ultrasonic Ranger",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/md",
++        "example": {
++            "name" : "md",
++            "description" : "I2C motor driver",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/md-stepper",
++        "example": {
++            "name" : "md-stepper",
++            "description" : "I2C motor driver",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/mic",
++        "example": {
++            "name" : "mic",
++            "description" : "Mic Sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/mma7361",
++        "example": {
++            "name" : "mma7361",
++            "description" : "Triaxial analog accelerometer",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/mma7660",
++        "example": {
++            "name" : "mma7660",
++            "description" : "Driver for the MMA7660 Accelerometer (1.5g)",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/moisture",
++        "example": {
++            "name" : "moisture",
++            "description" : "Moisture sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/mpr121",
++        "example": {
++            "name" : "mpr121",
++            "description" : "Digital capacitive touch sensor controller",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/mq303a",
++        "example": {
++            "name" : "mq303a",
++            "description" : "Alcohol detection sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/ms5803",
++        "example": {
++            "name" : "ms5803",
++            "description" : "Driver for the MS5803 Pressure and Temperature sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/my9221",
++        "example": {
++            "name" : "my9221",
++            "description" : "MY9221 LED controller",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/nmea_gps",
++        "example": {
++            "name" : "nmea_gps",
++            "description" : "Generic driver for GPS NMEA sensors",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/o2",
++        "example": {
++            "name" : "o2",
++            "description" : "Oxygen (O2) concentration sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/otp538u",
++        "example": {
++            "name" : "otp538u",
++            "description" : "Analog IR Temperature sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/ppd42ns",
++        "example": {
++            "name" : "ppd42ns",
++            "description" : "PPD42NS Dust Sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/relay",
++        "example": {
++            "name" : "relay",
++            "description" : "Relay Sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/rotaryencoder",
++        "example": {
++            "name" : "rotaryencoder",
++            "description" : "Rotary encoder",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/rotary",
++        "example": {
++            "name" : "rotary",
++            "description" : "Rotary Angle Sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/rpr220-intr",
++        "example": {
++            "name" : "rpr220-intr",
++            "description" : "Infrared (IR) reflective sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/rpr220",
++        "example": {
++            "name" : "rpr220",
++            "description" : "Infrared (IR) reflective sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/servo",
++        "example": {
++            "name" : "servo",
++            "description" : "Servo controller",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/sht1x",
++        "example": {
++            "name" : "sht1x",
++            "description" : "Temperature and humidity sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/slide",
++        "example": {
++            "name" : "slide",
++            "description" : "Slide potentiometer sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/temperature",
++        "example": {
++            "name" : "temperature",
++            "description" : "UPM Temperature",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/tsl2561",
++        "example": {
++            "name" : "tsl2561",
++            "description" : "Digital light sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/ttp223",
++        "example": {
++            "name" : "ttp223",
++            "description" : "Capacitive touch sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/uln200xa",
++        "example": {
++            "name" : "uln200xa",
++            "description" : "ULN200XA Stepper Motor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/urm37",
++        "example": {
++            "name" : "urm37",
++            "description" : "Ultrasonic range finder",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/vdiv",
++        "example": {
++            "name" : "vdiv",
++            "description" : "Analog voltage divider sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/water",
++        "example": {
++            "name" : "water",
++            "description" : "Water detection sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
++    },
++    {
++        "path" : "upm/yg1006",
++        "example": {
++            "name" : "yg1006",
++            "description" : "Analog flame sensor",
++            "category": "UPM",
++            "platform": {
++                "boards": [
++                    "arduino_101_sss"
++                ]
++            }
++        }
 +    }
-+
-+    //! [Interesting]
-+
-+    printf("Exiting\n");
-+
-+    urm37_close(sensor);
-+
-+    return 0;
-+}
++]
 diff --git a/samples/upm/urm37/Makefile b/samples/upm/urm37/Makefile
 new file mode 100644
 index 0000000..9862696
@@ -71818,19 +71158,24 @@ index 0000000..9862696
 +include ${ZEPHYR_BASE}/Makefile.inc
 diff --git a/samples/upm/urm37/prj.conf b/samples/upm/urm37/prj.conf
 new file mode 100644
-index 0000000..4a03806
+index 0000000..8988c7b
 --- /dev/null
 +++ b/samples/upm/urm37/prj.conf
-@@ -0,0 +1,9 @@
+@@ -0,0 +1,14 @@
 +CONFIG_STDOUT_CONSOLE=y
 +CONFIG_MRAA=y
 +CONFIG_MRAA_GPIO=y
++CONFIG_MRAA_AIO=y
++CONFIG_MRAA_UART=y
 +CONFIG_UPM=y
 +CONFIG_UPM_urm37=y
 +CONFIG_UPM_utilities=y
 +CONFIG_NEWLIB_LIBC=y
 +CONFIG_GPIO=y
-+CONFIG_GPIO_QMSI=y
++CONFIG_ADC=y
++CONFIG_GPIO_QMSI_SS=y
++CONFIG_ADC_QMSI_SS=y
++CONFIG_UART_LINE_CTRL=y
 diff --git a/samples/upm/urm37/src/Makefile b/samples/upm/urm37/src/Makefile
 new file mode 100644
 index 0000000..886edd7
