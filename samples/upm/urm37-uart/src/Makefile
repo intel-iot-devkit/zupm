@@ -1,1 +1,0 @@
-obj-y = urm37-uart.o
