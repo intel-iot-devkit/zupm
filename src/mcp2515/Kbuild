@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_mcp2515) += mcp2515.o
