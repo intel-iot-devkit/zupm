@@ -1,0 +1,13 @@
+{
+    "path" : "upm/speaker",
+    "example": {
+        "name" : "speaker",
+        "description" : "Speaker",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101"
+            ]
+        }
+    }
+},

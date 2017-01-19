@@ -67,4 +67,5 @@ source "ext/lib/upm/src/ims/Kconfig"
 source "ext/lib/upm/src/ecezo/Kconfig"
 source "ext/lib/upm/src/button/Kconfig"
 source "ext/lib/upm/src/mb704x/Kconfig"
+source "ext/lib/upm/src/speaker/Kconfig"
 endmenu
