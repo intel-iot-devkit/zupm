@@ -1,0 +1,13 @@
+{
+    "path" : "upm/cjq4435",
+    "example": {
+        "name" : "cjq4435",
+        "description" : "CJQ4435 (MOSFET) controller",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101"
+            ]
+        }
+    }
+},

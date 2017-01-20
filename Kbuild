@@ -60,3 +60,4 @@ obj-$(CONFIG_UPM_ecezo) += src/ecezo/
 obj-$(CONFIG_UPM_button) += src/button/
 obj-$(CONFIG_UPM_mb704x) += src/mb704x/
 obj-$(CONFIG_UPM_speaker) += src/speaker/
+obj-$(CONFIG_UPM_cjq4435) += src/cjq4435/

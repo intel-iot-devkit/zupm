@@ -1,0 +1,8 @@
+config UPM_cjq4435
+    bool "cjq4435"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        UPM CJQ4435 (MOSFET) module
