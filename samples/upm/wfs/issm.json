@@ -1,0 +1,13 @@
+{
+    "path" : "upm/wfs",
+    "example": {
+        "name" : "wfs",
+        "description" : "Driver for the WFS (Water Flow Sensor)",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101"
+            ]
+        }
+    }
+},

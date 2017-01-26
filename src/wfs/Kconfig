@@ -1,0 +1,8 @@
+config UPM_wfs
+    bool "wfs"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm WFS (Water Flow Sensor)

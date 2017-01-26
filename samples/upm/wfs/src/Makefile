@@ -1,0 +1,1 @@
+obj-y = wfs.o

@@ -69,3 +69,4 @@ include $(srctree)/ext/lib/upm/src/enc03r/Makefile
 include $(srctree)/ext/lib/upm/src/nunchuck/Makefile
 include $(srctree)/ext/lib/upm/src/max30100/Makefile
 include $(srctree)/ext/lib/upm/src/bno055/Makefile
+include $(srctree)/ext/lib/upm/src/wfs/Makefile
