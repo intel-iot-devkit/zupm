@@ -1,0 +1,8 @@
+config UPM_hmc5883l
+    bool "hmc5883l"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm HMC5883L Digital Compass
