@@ -1,0 +1,8 @@
+config UPM_enc03r
+    bool "enc03r"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm ENC03R single axis analog gyroscope

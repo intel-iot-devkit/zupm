@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_enc03r) += enc03r.o

@@ -1,0 +1,13 @@
+{
+    "path" : "upm/enc03r",
+    "example": {
+        "name" : "enc03r",
+        "description" : "Single-axis analog gyroscope",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101_sss"
+            ]
+        }
+    }
+},
