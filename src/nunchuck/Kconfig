@@ -1,0 +1,8 @@
+config UPM_nunchuck
+    bool "nunchuck"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm NUNCHUCK controller

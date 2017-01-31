@@ -1,0 +1,13 @@
+{
+    "path" : "upm/nunchuck",
+    "example": {
+        "name" : "nunchuck",
+        "description" : "Driver for the NUNCHUCK controller",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101_sss"
+            ]
+        }
+    }
+},

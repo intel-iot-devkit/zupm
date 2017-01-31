@@ -66,3 +66,4 @@ include $(srctree)/ext/lib/upm/src/speaker/Makefile
 include $(srctree)/ext/lib/upm/src/cjq4435/Makefile
 include $(srctree)/ext/lib/upm/src/hmc5883l/Makefile
 include $(srctree)/ext/lib/upm/src/enc03r/Makefile
+include $(srctree)/ext/lib/upm/src/nunchuck/Makefile

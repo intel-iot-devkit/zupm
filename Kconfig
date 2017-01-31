@@ -71,4 +71,5 @@ source "ext/lib/upm/src/speaker/Kconfig"
 source "ext/lib/upm/src/cjq4435/Kconfig"
 source "ext/lib/upm/src/hmc5883l/Kconfig"
 source "ext/lib/upm/src/enc03r/Kconfig"
+source "ext/lib/upm/src/nunchuck/Kconfig"
 endmenu
