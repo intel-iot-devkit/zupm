@@ -64,3 +64,4 @@ obj-$(CONFIG_UPM_cjq4435) += src/cjq4435/
 obj-$(CONFIG_UPM_hmc5883l) += src/hmc5883l/
 obj-$(CONFIG_UPM_enc03r) += src/enc03r/
 obj-$(CONFIG_UPM_nunchuck) += src/nunchuck/
+obj-$(CONFIG_UPM_max30100) += src/max30100/

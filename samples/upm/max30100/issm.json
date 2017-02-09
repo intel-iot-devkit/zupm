@@ -1,0 +1,13 @@
+{
+    "path" : "upm/max30100",
+    "example": {
+        "name" : "max30100",
+        "description" : "Catnip Electronics I2C moisture sensor",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101_sss"
+            ]
+        }
+    }
+},

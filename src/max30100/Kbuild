@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_max30100) += max30100.o

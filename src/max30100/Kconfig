@@ -1,0 +1,8 @@
+config UPM_max30100
+    bool "max30100"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        Pulse oximeter and heart-rate sensor
