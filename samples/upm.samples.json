@@ -91,6 +91,19 @@
         }
     },
     {
+        "path" : "upm/cjq4435",
+        "example": {
+            "name" : "cjq4435",
+            "description" : "CJQ4435 (MOSFET) controller",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101"
+                ]
+            }
+        }
+    },
+    {
         "path" : "upm/collision",
         "example": {
             "name" : "collision",
@@ -147,6 +160,19 @@
         "example": {
             "name" : "emg",
             "description" : "Electromyography (EMG) detector",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101_sss"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "upm/enc03r",
+        "example": {
+            "name" : "enc03r",
+            "description" : "Single-axis analog gyroscope",
             "category": "UPM",
             "platform": {
                 "boards": [
@@ -229,6 +255,19 @@
             "platform": {
                 "boards": [
                     "arduino_101"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "upm/hmc5883l",
+        "example": {
+            "name" : "hmc5883l",
+            "description" : "Driver for the HMC5883L Digital Compass",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101_sss"
                 ]
             }
         }
@@ -368,6 +407,19 @@
         "example": {
             "name" : "m24lr64e",
             "description" : "Dynamic NFC/RFID tag module",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101_sss"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "upm/max30100",
+        "example": {
+            "name" : "max30100",
+            "description" : "Catnip Electronics I2C moisture sensor",
             "category": "UPM",
             "platform": {
                 "boards": [
@@ -533,6 +585,19 @@
         }
     },
     {
+        "path" : "upm/nunchuck",
+        "example": {
+            "name" : "nunchuck",
+            "description" : "Driver for the NUNCHUCK controller",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101_sss"
+                ]
+            }
+        }
+    },
+    {
         "path" : "upm/o2",
         "example": {
             "name" : "o2",
@@ -676,6 +741,32 @@
         }
     },
     {
+        "path" : "upm/speaker",
+        "example": {
+            "name" : "speaker",
+            "description" : "Speaker",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "upm/speaker",
+        "example": {
+            "name" : "speaker",
+            "description" : "Speaker",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101"
+                ]
+            }
+        }
+    },
+    {
         "path" : "upm/temperature",
         "example": {
             "name" : "temperature",
@@ -731,19 +822,6 @@
         "path" : "upm/urm37",
         "example": {
             "name" : "urm37",
-            "description" : "Ultrasonic range finder",
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            }
-        }
-    },
-    {
-        "path" : "upm/urm37-uart",
-        "example": {
-            "name" : "urm37-uart",
             "description" : "Ultrasonic range finder",
             "category": "UPM",
             "platform": {
