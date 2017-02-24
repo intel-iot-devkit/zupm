@@ -6,7 +6,8 @@
         "category": "UPM",
         "platform": {
             "boards": [
-                "arduino_101_sss"
+                "arduino_101_sss",
+                "quark_d2000_crb"
             ]
         }
     }
