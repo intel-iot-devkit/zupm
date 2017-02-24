@@ -1,5 +1,5 @@
 {
-    "path" : "upm/water",
+    "path" : "water",
     "example": {
         "name" : "water",
         "description" : "Water detection sensor",

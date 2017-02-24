@@ -1,5 +1,5 @@
 {
-    "path" : "upm/led",
+    "path" : "led",
     "example": {
         "name" : "led",
         "description" : "Blink arduino 101 onboard LED",

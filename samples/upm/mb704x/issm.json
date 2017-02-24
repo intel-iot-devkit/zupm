@@ -1,5 +1,5 @@
 {
-    "path" : "upm/mb704x",
+    "path" : "mb704x",
     "example": {
         "name" : "mb704x",
         "description" : "Driver for the MB704x MaxSonar-WR Ultrasonic Ranger",

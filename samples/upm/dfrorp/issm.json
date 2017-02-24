@@ -1,5 +1,5 @@
 {
-    "path" : "upm/dfrorp",
+    "path" : "dfrorp",
     "example": {
         "name" : "dfrorp",
         "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",

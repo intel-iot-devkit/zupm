@@ -1,5 +1,5 @@
 {
-    "path" : "upm/lcm1602",
+    "path" : "lcm1602",
     "example": {
         "name" : "lcm1602",
         "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/flex",
+    "path" : "flex",
     "example": {
         "name" : "flex",
         "description" : "Resistive flex sensor",

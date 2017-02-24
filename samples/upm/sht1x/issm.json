@@ -1,5 +1,5 @@
 {
-    "path" : "upm/sht1x",
+    "path" : "sht1x",
     "example": {
         "name" : "sht1x",
         "description" : "Temperature and humidity sensor",

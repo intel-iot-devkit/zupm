@@ -1,5 +1,5 @@
 {
-    "path" : "upm/emg",
+    "path" : "emg",
     "example": {
         "name" : "emg",
         "description" : "Electromyography (EMG) detector",

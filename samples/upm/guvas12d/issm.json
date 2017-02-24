@@ -1,5 +1,5 @@
 {
-    "path" : "upm/guvas12d",
+    "path" : "guvas12d",
     "example": {
         "name" : "guvas12d",
         "description" : "Analog UV sensor",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/dfrph",
+    "path" : "dfrph",
     "example": {
         "name" : "dfrph",
         "description" : "DFRobot pH sensor",

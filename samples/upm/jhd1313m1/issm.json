@@ -1,5 +1,5 @@
 {
-    "path" : "upm/jhd1313m1",
+    "path" : "jhd1313m1",
     "example": {
         "name" : "jhd1313m1",
         "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",

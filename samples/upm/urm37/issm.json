@@ -1,5 +1,5 @@
 {
-    "path" : "upm/urm37",
+    "path" : "urm37",
     "example": {
         "name" : "urm37",
         "description" : "Ultrasonic range finder",

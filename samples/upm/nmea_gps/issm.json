@@ -1,5 +1,5 @@
 {
-    "path" : "upm/nmea_gps",
+    "path" : "nmea_gps",
     "example": {
         "name" : "nmea_gps",
         "description" : "Generic driver for GPS NMEA sensors",

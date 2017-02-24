@@ -1,5 +1,5 @@
 {
-    "path" : "upm/mpr121",
+    "path" : "mpr121",
     "example": {
         "name" : "mpr121",
         "description" : "Digital capacitive touch sensor controller",

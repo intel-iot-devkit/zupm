@@ -1,5 +1,5 @@
 {
-    "path" : "upm/ims",
+    "path" : "ims",
     "example": {
         "name" : "ims",
         "description" : "Catnip Electronics I2C moisture sensor",

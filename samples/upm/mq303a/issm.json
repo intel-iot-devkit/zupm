@@ -1,5 +1,5 @@
 {
-    "path" : "upm/mq303a",
+    "path" : "mq303a",
     "example": {
         "name" : "mq303a",
         "description" : "Alcohol detection sensor",

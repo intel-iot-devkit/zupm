@@ -1,5 +1,5 @@
 {
-    "path" : "upm/lm35",
+    "path" : "lm35",
     "example": {
         "name" : "lm35",
         "description" : "Analog temperature sensor",

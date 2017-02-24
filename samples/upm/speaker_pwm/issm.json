@@ -1,5 +1,5 @@
 {
-    "path" : "upm/speaker",
+    "path" : "speaker",
     "example": {
         "name" : "speaker",
         "description" : "Speaker",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/relay",
+    "path" : "relay",
     "example": {
         "name" : "relay",
         "description" : "Relay Sensor",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/collision",
+    "path" : "collision",
     "example": {
         "name" : "collision",
         "description" : "Collision sensor",

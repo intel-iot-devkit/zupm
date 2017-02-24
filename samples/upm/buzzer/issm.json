@@ -1,5 +1,5 @@
 {
-    "path" : "upm/buzzer",
+    "path" : "buzzer",
     "example": {
         "name" : "buzzer",
         "description" : "Buzzer",

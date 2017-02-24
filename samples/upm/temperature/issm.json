@@ -1,5 +1,5 @@
 {
-    "path" : "upm/temperature",
+    "path" : "temperature",
     "example": {
         "name" : "temperature",
         "description" : "UPM Temperature",

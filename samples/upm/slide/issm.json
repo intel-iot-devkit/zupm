@@ -1,5 +1,5 @@
 {
-    "path" : "upm/slide",
+    "path" : "slide",
     "example": {
         "name" : "slide",
         "description" : "Slide potentiometer sensor",

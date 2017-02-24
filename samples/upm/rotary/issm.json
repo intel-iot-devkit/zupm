@@ -1,5 +1,5 @@
 {
-    "path" : "upm/rotary",
+    "path" : "rotary",
     "example": {
         "name" : "rotary",
         "description" : "Rotary Angle Sensor",

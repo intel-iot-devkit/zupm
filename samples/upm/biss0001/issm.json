@@ -1,5 +1,5 @@
 {
-    "path" : "upm/biss0001",
+    "path" : "biss0001",
     "example": {
         "name" : "biss0001",
         "description" : "Passive Infrared (PIR) motion sensor",

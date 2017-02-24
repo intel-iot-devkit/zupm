@@ -1,5 +1,5 @@
 {
-    "path" : "upm/gp2y0a",
+    "path" : "gp2y0a",
     "example": {
         "name" : "gp2y0a",
         "description" : "Analog Infrared (IR) based distance sensor",

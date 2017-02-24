@@ -1,5 +1,5 @@
 {
-    "path" : "upm/ms5803",
+    "path" : "ms5803",
     "example": {
         "name" : "ms5803",
         "description" : "Driver for the MS5803 Pressure and Temperature sensor",

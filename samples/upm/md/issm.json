@@ -1,5 +1,5 @@
 {
-    "path" : "upm/md",
+    "path" : "md",
     "example": {
         "name" : "md",
         "description" : "I2C motor driver",

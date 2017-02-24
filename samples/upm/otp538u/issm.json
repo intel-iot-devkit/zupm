@@ -1,5 +1,5 @@
 {
-    "path" : "upm/otp538u",
+    "path" : "otp538u",
     "example": {
         "name" : "otp538u",
         "description" : "Analog IR Temperature sensor",

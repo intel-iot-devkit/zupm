@@ -1,5 +1,5 @@
 {
-    "path" : "upm/nunchuck",
+    "path" : "nunchuck",
     "example": {
         "name" : "nunchuck",
         "description" : "Driver for the NUNCHUCK controller",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/servo",
+    "path" : "servo",
     "example": {
         "name" : "servo",
         "description" : "Servo controller",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/hka5",
+    "path" : "hka5",
     "example": {
         "name" : "hka5",
         "description" : "DFRobot laser particulate matter (PM) sensor",

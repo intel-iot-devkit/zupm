@@ -1,5 +1,5 @@
 {
-    "path" : "upm/mic",
+    "path" : "mic",
     "example": {
         "name" : "mic",
         "description" : "Mic Sensor",

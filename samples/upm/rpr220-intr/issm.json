@@ -1,5 +1,5 @@
 {
-    "path" : "upm/rpr220-intr",
+    "path" : "rpr220-intr",
     "example": {
         "name" : "rpr220-intr",
         "description" : "Infrared (IR) reflective sensor",

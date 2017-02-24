@@ -1,5 +1,5 @@
 {
-    "path" : "upm/linefinder",
+    "path" : "linefinder",
     "example": {
         "name" : "linefinder",
         "description" : "Line finder",

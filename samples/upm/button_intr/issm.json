@@ -1,5 +1,5 @@
 {
-    "path" : "upm/button_intr",
+    "path" : "button_intr",
     "example": {
         "name" : "button_intr",
         "description" : "Button sensor Interrupt Example",

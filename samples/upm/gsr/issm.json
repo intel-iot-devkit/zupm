@@ -1,5 +1,5 @@
 {
-    "path" : "upm/gsr",
+    "path" : "gsr",
     "example": {
         "name" : "gsr",
         "description" : "Galvanic skin response (GSR) sensor",

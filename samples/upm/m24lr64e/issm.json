@@ -1,5 +1,5 @@
 {
-    "path" : "upm/m24lr64e",
+    "path" : "m24lr64e",
     "example": {
         "name" : "m24lr64e",
         "description" : "Dynamic NFC/RFID tag module",

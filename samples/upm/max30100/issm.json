@@ -1,5 +1,5 @@
 {
-    "path" : "upm/max30100",
+    "path" : "max30100",
     "example": {
         "name" : "max30100",
         "description" : "Catnip Electronics I2C moisture sensor",

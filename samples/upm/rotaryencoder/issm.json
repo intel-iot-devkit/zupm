@@ -1,5 +1,5 @@
 {
-    "path" : "upm/rotaryencoder",
+    "path" : "rotaryencoder",
     "example": {
         "name" : "rotaryencoder",
         "description" : "Rotary encoder",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/loudness",
+    "path" : "loudness",
     "example": {
         "name" : "loudness",
         "description" : "Loudness sensor",

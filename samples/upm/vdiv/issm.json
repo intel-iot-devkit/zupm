@@ -1,5 +1,5 @@
 {
-    "path" : "upm/vdiv",
+    "path" : "vdiv",
     "example": {
         "name" : "vdiv",
         "description" : "Analog voltage divider sensor",

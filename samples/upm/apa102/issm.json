@@ -1,12 +1,12 @@
 {
-    "path" : "button",
+    "path" : "apa102",
     "example": {
-        "name" : "button",
-        "description" : "Button sensor",
+        "name" : "apa102",
+        "description" : "LED Strip Example",
         "category": "UPM",
         "platform": {
             "boards": [
-                "arduino_101_sss"
+                "arduino_101"
             ]
         }
     }

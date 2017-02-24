@@ -1,5 +1,5 @@
 {
-    "path" : "upm/bh1750",
+    "path" : "bh1750",
     "example": {
         "name" : "bh1750",
         "description" : "Digital light sensor",

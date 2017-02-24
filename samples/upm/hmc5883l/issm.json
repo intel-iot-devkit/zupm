@@ -1,5 +1,5 @@
 {
-    "path" : "upm/hmc5883l",
+    "path" : "hmc5883l",
     "example": {
         "name" : "hmc5883l",
         "description" : "Driver for the HMC5883L Digital Compass",

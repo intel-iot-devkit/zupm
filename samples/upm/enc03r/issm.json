@@ -1,5 +1,5 @@
 {
-    "path" : "upm/enc03r",
+    "path" : "enc03r",
     "example": {
         "name" : "enc03r",
         "description" : "Single-axis analog gyroscope",

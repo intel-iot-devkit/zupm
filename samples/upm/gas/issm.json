@@ -1,5 +1,5 @@
 {
-    "path" : "upm/gas",
+    "path" : "gas",
     "example": {
         "name" : "gas",
         "description" : "Generic gas detection sensor library",

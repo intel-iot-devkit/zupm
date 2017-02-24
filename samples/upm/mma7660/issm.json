@@ -1,5 +1,5 @@
 {
-    "path" : "upm/mma7660",
+    "path" : "mma7660",
     "example": {
         "name" : "mma7660",
         "description" : "Driver for the MMA7660 Accelerometer (1.5g)",

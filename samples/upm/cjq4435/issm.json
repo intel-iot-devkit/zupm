@@ -1,5 +1,5 @@
 {
-    "path" : "upm/cjq4435",
+    "path" : "cjq4435",
     "example": {
         "name" : "cjq4435",
         "description" : "CJQ4435 (MOSFET) controller",

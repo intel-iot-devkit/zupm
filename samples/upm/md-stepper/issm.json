@@ -1,5 +1,5 @@
 {
-    "path" : "upm/md-stepper",
+    "path" : "md-stepper",
     "example": {
         "name" : "md-stepper",
         "description" : "I2C motor driver",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/ecezo",
+    "path" : "ecezo",
     "example": {
         "name" : "ecezo",
         "description" : "Driver for the EC-EZO EC sensor",

@@ -1,5 +1,5 @@
 {
-    "path" : "upm/moisture",
+    "path" : "moisture",
     "example": {
         "name" : "moisture",
         "description" : "Moisture sensor",
