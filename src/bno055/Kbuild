@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_bno055) += bno055.o

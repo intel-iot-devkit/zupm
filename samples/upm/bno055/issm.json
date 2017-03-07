@@ -1,0 +1,14 @@
+{
+    "path" : "bno055",
+    "example": {
+        "name" : "bno055",
+        "description" : "Driver for the BNO055 IMU",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101_sss",
+                "quark_d2000_crb"
+            ]
+        }
+    }
+},

@@ -1,0 +1,8 @@
+config UPM_bno055
+    bool "bno055"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm BNO055 Intelligent Absolute Orientation Sensor
