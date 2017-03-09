@@ -1,8 +1,8 @@
 {
     "path" : "led",
     "example": {
-        "name" : "led",
-        "description" : "Blink arduino 101 onboard LED",
+        "name" : "Onboard LED example with UPM",
+        "description" : "Blink onboard LED",
         "category": "UPM",
         "platform": {
             "boards": [

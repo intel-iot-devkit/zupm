@@ -20,8 +20,13 @@ int main(void)
 
     printf("Before LED init\n");
 
-    // Arduino GPIO pin 13 (arduino 101 onboard LED)
-    led_context dev = led_init(13);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+    int onboard_led_pin = 9;
+#elif defined(CONFIG_BOARD_ARDUINO_101)
+    int onboard_led_pin = 13;
+#endif
+
+    led_context dev = led_init(onboard_led_pin);
     printf("LED init\n");
     while(1){
         printf("Turning on\n");
