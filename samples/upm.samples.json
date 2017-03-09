@@ -1,6 +1,6 @@
 [
     {
-        "path" : "upm/a110x",
+        "path" : "a110x",
         "example": {
             "name" : "a110x",
             "description" : "Hall effect sensor",
@@ -13,7 +13,20 @@
         }
     },
     {
-        "path" : "upm/bh1750",
+        "path" : "apa102",
+        "example": {
+            "name" : "apa102",
+            "description" : "LED Strip Example",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "bh1750",
         "example": {
             "name" : "bh1750",
             "description" : "Digital light sensor",
@@ -26,7 +39,7 @@
         }
     },
     {
-        "path" : "upm/biss0001",
+        "path" : "biss0001",
         "example": {
             "name" : "biss0001",
             "description" : "Passive Infrared (PIR) motion sensor",
@@ -39,7 +52,7 @@
         }
     },
     {
-        "path" : "upm/bmi160",
+        "path" : "bmi160",
         "example": {
             "name" : "bmi160",
             "description" : "Bosch Sensortec IMU (triaxial accelerometer, triaxial gyroscope and magnetometer interface)",
@@ -52,7 +65,20 @@
         }
     },
     {
-        "path" : "upm/button_intr",
+        "path" : "bno055",
+        "example": {
+            "name" : "bno055",
+            "description" : "Driver for the BNO055 IMU",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101_sss"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "button_intr",
         "example": {
             "name" : "button_intr",
             "description" : "Button sensor Interrupt Example",
@@ -65,7 +91,7 @@
         }
     },
     {
-        "path" : "upm/button",
+        "path" : "button",
         "example": {
             "name" : "button",
             "description" : "Button sensor",
@@ -78,7 +104,7 @@
         }
     },
     {
-        "path" : "upm/buzzer",
+        "path" : "buzzer",
         "example": {
             "name" : "buzzer",
             "description" : "Buzzer",
@@ -91,7 +117,7 @@
         }
     },
     {
-        "path" : "upm/cjq4435",
+        "path" : "cjq4435",
         "example": {
             "name" : "cjq4435",
             "description" : "CJQ4435 (MOSFET) controller",
@@ -104,7 +130,7 @@
         }
     },
     {
-        "path" : "upm/collision",
+        "path" : "collision",
         "example": {
             "name" : "collision",
             "description" : "Collision sensor",
@@ -117,7 +143,7 @@
         }
     },
     {
-        "path" : "upm/dfrorp",
+        "path" : "dfrorp",
         "example": {
             "name" : "dfrorp",
             "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
@@ -130,7 +156,7 @@
         }
     },
     {
-        "path" : "upm/dfrph",
+        "path" : "dfrph",
         "example": {
             "name" : "dfrph",
             "description" : "DFRobot pH sensor",
@@ -143,7 +169,7 @@
         }
     },
     {
-        "path" : "upm/ecezo",
+        "path" : "ecezo",
         "example": {
             "name" : "ecezo",
             "description" : "Driver for the EC-EZO EC sensor",
@@ -156,7 +182,7 @@
         }
     },
     {
-        "path" : "upm/emg",
+        "path" : "emg",
         "example": {
             "name" : "emg",
             "description" : "Electromyography (EMG) detector",
@@ -169,7 +195,7 @@
         }
     },
     {
-        "path" : "upm/enc03r",
+        "path" : "enc03r",
         "example": {
             "name" : "enc03r",
             "description" : "Single-axis analog gyroscope",
@@ -182,7 +208,7 @@
         }
     },
     {
-        "path" : "upm/flex",
+        "path" : "flex",
         "example": {
             "name" : "flex",
             "description" : "Resistive flex sensor",
@@ -195,7 +221,7 @@
         }
     },
     {
-        "path" : "upm/gas",
+        "path" : "gas",
         "example": {
             "name" : "gas",
             "description" : "Generic gas detection sensor library",
@@ -208,7 +234,7 @@
         }
     },
     {
-        "path" : "upm/gp2y0a",
+        "path" : "gp2y0a",
         "example": {
             "name" : "gp2y0a",
             "description" : "Analog Infrared (IR) based distance sensor",
@@ -221,7 +247,7 @@
         }
     },
     {
-        "path" : "upm/gsr",
+        "path" : "gsr",
         "example": {
             "name" : "gsr",
             "description" : "Galvanic skin response (GSR) sensor",
@@ -234,7 +260,7 @@
         }
     },
     {
-        "path" : "upm/guvas12d",
+        "path" : "guvas12d",
         "example": {
             "name" : "guvas12d",
             "description" : "Analog UV sensor",
@@ -247,7 +273,7 @@
         }
     },
     {
-        "path" : "upm/hka5",
+        "path" : "hka5",
         "example": {
             "name" : "hka5",
             "description" : "DFRobot laser particulate matter (PM) sensor",
@@ -260,7 +286,7 @@
         }
     },
     {
-        "path" : "upm/hmc5883l",
+        "path" : "hmc5883l",
         "example": {
             "name" : "hmc5883l",
             "description" : "Driver for the HMC5883L Digital Compass",
@@ -273,7 +299,7 @@
         }
     },
     {
-        "path" : "upm/ims",
+        "path" : "ims",
         "example": {
             "name" : "ims",
             "description" : "Catnip Electronics I2C moisture sensor",
@@ -286,7 +312,7 @@
         }
     },
     {
-        "path" : "upm/jhd1313m1",
+        "path" : "jhd1313m1",
         "example": {
             "name" : "jhd1313m1",
             "description" : "LCD display driver for the JHD1313M1 controller for HD44780-based displays",
@@ -299,7 +325,7 @@
         }
     },
     {
-        "path" : "upm/joystick12",
+        "path" : "joystick12",
         "example": {
             "name" : "joystick12",
             "description" : "2-axis analog joystick",
@@ -312,7 +338,7 @@
         }
     },
     {
-        "path" : "upm/lcm1602",
+        "path" : "lcm1602",
         "example": {
             "name" : "lcm1602",
             "description" : "LCD display driver for the LCM1602 controller for HD44780-based displays",
@@ -325,7 +351,7 @@
         }
     },
     {
-        "path" : "upm/ldt0028",
+        "path" : "ldt0028",
         "example": {
             "name" : "ldt0028",
             "description" : "Piezo vibration sensor",
@@ -338,20 +364,21 @@
         }
     },
     {
-        "path" : "upm/led",
+        "path" : "led",
         "example": {
-            "name" : "led",
-            "description" : "Blink arduino 101 onboard LED",
+            "name" : "UPM sample which blinks the onboard LED",
+            "description" : "Blink onboard LED",
             "category": "UPM",
             "platform": {
                 "boards": [
-                    "arduino_101"
+                    "arduino_101",
+                    "quark_d2000_crb"
                 ]
             }
         }
     },
     {
-        "path" : "upm/light",
+        "path" : "light",
         "example": {
             "name" : "light",
             "description" : "Analog light sensor",
@@ -364,7 +391,7 @@
         }
     },
     {
-        "path" : "upm/linefinder",
+        "path" : "linefinder",
         "example": {
             "name" : "linefinder",
             "description" : "Line finder",
@@ -377,7 +404,7 @@
         }
     },
     {
-        "path" : "upm/lm35",
+        "path" : "lm35",
         "example": {
             "name" : "lm35",
             "description" : "Analog temperature sensor",
@@ -390,20 +417,21 @@
         }
     },
     {
-        "path" : "upm/loudness",
+        "path" : "loudness",
         "example": {
-            "name" : "loudness",
+            "name" : "UPM sample for reading values from and analog loudness sensor",
             "description" : "Loudness sensor",
             "category": "UPM",
             "platform": {
                 "boards": [
-                    "arduino_101_sss"
+                    "arduino_101_sss",
+                    "quark_d2000_crb"
                 ]
             }
         }
     },
     {
-        "path" : "upm/m24lr64e",
+        "path" : "m24lr64e",
         "example": {
             "name" : "m24lr64e",
             "description" : "Dynamic NFC/RFID tag module",
@@ -416,7 +444,7 @@
         }
     },
     {
-        "path" : "upm/max30100",
+        "path" : "max30100",
         "example": {
             "name" : "max30100",
             "description" : "Catnip Electronics I2C moisture sensor",
@@ -429,7 +457,7 @@
         }
     },
     {
-        "path" : "upm/mb704x",
+        "path" : "mb704x",
         "example": {
             "name" : "mb704x",
             "description" : "Driver for the MB704x MaxSonar-WR Ultrasonic Ranger",
@@ -442,7 +470,7 @@
         }
     },
     {
-        "path" : "upm/md",
+        "path" : "md",
         "example": {
             "name" : "md",
             "description" : "I2C motor driver",
@@ -455,7 +483,7 @@
         }
     },
     {
-        "path" : "upm/md-stepper",
+        "path" : "md-stepper",
         "example": {
             "name" : "md-stepper",
             "description" : "I2C motor driver",
@@ -468,7 +496,7 @@
         }
     },
     {
-        "path" : "upm/mic",
+        "path" : "mic",
         "example": {
             "name" : "mic",
             "description" : "Mic Sensor",
@@ -481,7 +509,7 @@
         }
     },
     {
-        "path" : "upm/mma7361",
+        "path" : "mma7361",
         "example": {
             "name" : "mma7361",
             "description" : "Triaxial analog accelerometer",
@@ -494,7 +522,7 @@
         }
     },
     {
-        "path" : "upm/mma7660",
+        "path" : "mma7660",
         "example": {
             "name" : "mma7660",
             "description" : "Driver for the MMA7660 Accelerometer (1.5g)",
@@ -507,7 +535,7 @@
         }
     },
     {
-        "path" : "upm/moisture",
+        "path" : "moisture",
         "example": {
             "name" : "moisture",
             "description" : "Moisture sensor",
@@ -520,7 +548,7 @@
         }
     },
     {
-        "path" : "upm/mpr121",
+        "path" : "mpr121",
         "example": {
             "name" : "mpr121",
             "description" : "Digital capacitive touch sensor controller",
@@ -533,7 +561,7 @@
         }
     },
     {
-        "path" : "upm/mq303a",
+        "path" : "mq303a",
         "example": {
             "name" : "mq303a",
             "description" : "Alcohol detection sensor",
@@ -546,7 +574,7 @@
         }
     },
     {
-        "path" : "upm/ms5803",
+        "path" : "ms5803",
         "example": {
             "name" : "ms5803",
             "description" : "Driver for the MS5803 Pressure and Temperature sensor",
@@ -559,7 +587,7 @@
         }
     },
     {
-        "path" : "upm/my9221",
+        "path" : "my9221",
         "example": {
             "name" : "my9221",
             "description" : "MY9221 LED controller",
@@ -572,7 +600,7 @@
         }
     },
     {
-        "path" : "upm/nmea_gps",
+        "path" : "nmea_gps",
         "example": {
             "name" : "nmea_gps",
             "description" : "Generic driver for GPS NMEA sensors",
@@ -585,7 +613,7 @@
         }
     },
     {
-        "path" : "upm/nunchuck",
+        "path" : "nunchuck",
         "example": {
             "name" : "nunchuck",
             "description" : "Driver for the NUNCHUCK controller",
@@ -598,7 +626,7 @@
         }
     },
     {
-        "path" : "upm/o2",
+        "path" : "o2",
         "example": {
             "name" : "o2",
             "description" : "Oxygen (O2) concentration sensor",
@@ -611,7 +639,7 @@
         }
     },
     {
-        "path" : "upm/otp538u",
+        "path" : "otp538u",
         "example": {
             "name" : "otp538u",
             "description" : "Analog IR Temperature sensor",
@@ -624,7 +652,7 @@
         }
     },
     {
-        "path" : "upm/ppd42ns",
+        "path" : "ppd42ns",
         "example": {
             "name" : "ppd42ns",
             "description" : "PPD42NS Dust Sensor",
@@ -637,7 +665,7 @@
         }
     },
     {
-        "path" : "upm/relay",
+        "path" : "relay",
         "example": {
             "name" : "relay",
             "description" : "Relay Sensor",
@@ -650,7 +678,7 @@
         }
     },
     {
-        "path" : "upm/rotaryencoder",
+        "path" : "rotaryencoder",
         "example": {
             "name" : "rotaryencoder",
             "description" : "Rotary encoder",
@@ -663,7 +691,7 @@
         }
     },
     {
-        "path" : "upm/rotary",
+        "path" : "rotary",
         "example": {
             "name" : "rotary",
             "description" : "Rotary Angle Sensor",
@@ -676,7 +704,7 @@
         }
     },
     {
-        "path" : "upm/rpr220-intr",
+        "path" : "rpr220-intr",
         "example": {
             "name" : "rpr220-intr",
             "description" : "Infrared (IR) reflective sensor",
@@ -689,7 +717,7 @@
         }
     },
     {
-        "path" : "upm/rpr220",
+        "path" : "rpr220",
         "example": {
             "name" : "rpr220",
             "description" : "Infrared (IR) reflective sensor",
@@ -702,7 +730,7 @@
         }
     },
     {
-        "path" : "upm/servo",
+        "path" : "servo",
         "example": {
             "name" : "servo",
             "description" : "Servo controller",
@@ -715,7 +743,7 @@
         }
     },
     {
-        "path" : "upm/sht1x",
+        "path" : "sht1x",
         "example": {
             "name" : "sht1x",
             "description" : "Temperature and humidity sensor",
@@ -728,7 +756,7 @@
         }
     },
     {
-        "path" : "upm/slide",
+        "path" : "slide",
         "example": {
             "name" : "slide",
             "description" : "Slide potentiometer sensor",
@@ -741,7 +769,7 @@
         }
     },
     {
-        "path" : "upm/speaker",
+        "path" : "speaker",
         "example": {
             "name" : "speaker",
             "description" : "Speaker",
@@ -754,7 +782,7 @@
         }
     },
     {
-        "path" : "upm/speaker",
+        "path" : "speaker",
         "example": {
             "name" : "speaker",
             "description" : "Speaker",
@@ -767,7 +795,7 @@
         }
     },
     {
-        "path" : "upm/temperature",
+        "path" : "temperature",
         "example": {
             "name" : "temperature",
             "description" : "UPM Temperature",
@@ -780,20 +808,21 @@
         }
     },
     {
-        "path" : "upm/tsl2561",
+        "path" : "tsl2561",
         "example": {
-            "name" : "tsl2561",
-            "description" : "Digital light sensor",
+            "name" : "UPM sample for reading values from an I2C light sensor",
+            "description" : "Digital light sensor example",
             "category": "UPM",
             "platform": {
                 "boards": [
-                    "arduino_101_sss"
+                    "arduino_101_sss",
+                    "quark_d2000_crb"
                 ]
             }
         }
     },
     {
-        "path" : "upm/ttp223",
+        "path" : "ttp223",
         "example": {
             "name" : "ttp223",
             "description" : "Capacitive touch sensor",
@@ -806,7 +835,7 @@
         }
     },
     {
-        "path" : "upm/uln200xa",
+        "path" : "uln200xa",
         "example": {
             "name" : "uln200xa",
             "description" : "ULN200XA Stepper Motor",
@@ -819,7 +848,7 @@
         }
     },
     {
-        "path" : "upm/urm37",
+        "path" : "urm37",
         "example": {
             "name" : "urm37",
             "description" : "Ultrasonic range finder",
@@ -832,7 +861,7 @@
         }
     },
     {
-        "path" : "upm/vdiv",
+        "path" : "vdiv",
         "example": {
             "name" : "vdiv",
             "description" : "Analog voltage divider sensor",
@@ -845,7 +874,7 @@
         }
     },
     {
-        "path" : "upm/water",
+        "path" : "water",
         "example": {
             "name" : "water",
             "description" : "Water detection sensor",
@@ -858,7 +887,20 @@
         }
     },
     {
-        "path" : "upm/yg1006",
+        "path" : "wfs",
+        "example": {
+            "name" : "wfs",
+            "description" : "Driver for the WFS (Water Flow Sensor)",
+            "category": "UPM",
+            "platform": {
+                "boards": [
+                    "arduino_101"
+                ]
+            }
+        }
+    },
+    {
+        "path" : "yg1006",
         "example": {
             "name" : "yg1006",
             "description" : "Analog flame sensor",

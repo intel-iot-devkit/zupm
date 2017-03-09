@@ -1,5 +1,5 @@
 {
-    "path" : "upm/wfs",
+    "path" : "wfs",
     "example": {
         "name" : "wfs",
         "description" : "Driver for the WFS (Water Flow Sensor)",
