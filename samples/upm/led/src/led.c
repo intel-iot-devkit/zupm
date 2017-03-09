@@ -20,10 +20,10 @@ int main(void)
 
     printf("Before LED init\n");
 
-#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
-    int onboard_led_pin = 9;
-#elif defined(CONFIG_BOARD_ARDUINO_101)
+    // CONFIG_BOARD_ARDUINO_101
     int onboard_led_pin = 13;
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+    onboard_led_pin = 9;
 #endif
 
     led_context dev = led_init(onboard_led_pin);
