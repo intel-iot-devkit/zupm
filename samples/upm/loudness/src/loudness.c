@@ -18,7 +18,14 @@ int main()
         return -1;
     }
 
-    loudness_context dev = loudness_init(14);
+    // Use analog pin 0
+    loudness_context dev = loudness_init(0);
+    if (!dev)
+    {
+        fprintf(stderr,"Failed to initialize loudness sensor\n");
+        return -1;
+    }
+
     int val;
     while(1){
         if(loudness_get_value(dev, &val) != UPM_SUCCESS){
@@ -31,4 +38,3 @@ int main()
 
     return 0;
 }
-
