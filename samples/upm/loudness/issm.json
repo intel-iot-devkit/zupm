@@ -1,7 +1,7 @@
 {
     "path" : "loudness",
     "example": {
-        "name" : "loudness",
+        "name" : "UPM sample for reading values from and analog loudness sensor",
         "description" : "Loudness sensor",
         "category": "UPM",
         "platform": {

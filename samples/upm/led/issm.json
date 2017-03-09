@@ -1,7 +1,7 @@
 {
     "path" : "led",
     "example": {
-        "name" : "Onboard LED example with UPM",
+        "name" : "UPM sample which blinks the onboard LED",
         "description" : "Blink onboard LED",
         "category": "UPM",
         "platform": {

@@ -1,8 +1,8 @@
 {
     "path" : "tsl2561",
     "example": {
-        "name" : "tsl2561",
-        "description" : "Digital light sensor",
+        "name" : "UPM sample for reading values from an I2C light sensor",
+        "description" : "Digital light sensor example",
         "category": "UPM",
         "platform": {
             "boards": [
