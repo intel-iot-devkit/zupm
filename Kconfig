@@ -75,4 +75,5 @@ source "ext/lib/upm/src/nunchuck/Kconfig"
 source "ext/lib/upm/src/max30100/Kconfig"
 source "ext/lib/upm/src/bno055/Kconfig"
 source "ext/lib/upm/src/wfs/Kconfig"
+source "ext/lib/upm/src/bmp280/Kconfig"
 endmenu

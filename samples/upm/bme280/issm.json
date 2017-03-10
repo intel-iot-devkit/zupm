@@ -1,0 +1,14 @@
+{
+    "path" : "bme280",
+    "example": {
+        "name" : "bme280",
+        "description" : "Driver for the BME280 Pressure, Humdity, and Temperature sensor",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101",
+                "arduino_101_sss"
+            ]
+        }
+    }
+},

@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_bmp280) += bmp280.o

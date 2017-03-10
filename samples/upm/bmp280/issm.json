@@ -1,0 +1,14 @@
+{
+    "path" : "bmp280",
+    "example": {
+        "name" : "bmp280",
+        "description" : "Driver for the BMP280 Pressure and Temperature sensor",
+        "category": "UPM",
+        "platform": {
+            "boards": [
+                "arduino_101",
+                "arduino_101_sss"
+            ]
+        }
+    }
+},

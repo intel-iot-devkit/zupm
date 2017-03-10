@@ -67,3 +67,4 @@ obj-$(CONFIG_UPM_nunchuck) += src/nunchuck/
 obj-$(CONFIG_UPM_max30100) += src/max30100/
 obj-$(CONFIG_UPM_bno055) += src/bno055/
 obj-$(CONFIG_UPM_wfs) += src/wfs/
+obj-$(CONFIG_UPM_bmp280) += src/bmp280/
