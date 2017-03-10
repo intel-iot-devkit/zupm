@@ -23,8 +23,14 @@
  */
 #pragma once
 
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <device.h>
+#include "kernel.h"
 #include <stdint.h>
 #include "upm.h"
+#include "mraa.h"
 #include "mraa/gpio.h"
 #include "mraa/spi.h"
 

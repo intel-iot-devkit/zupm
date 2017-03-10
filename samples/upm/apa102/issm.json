@@ -1,12 +1,13 @@
 {
     "path" : "apa102",
     "example": {
-        "name" : "apa102",
-        "description" : "LED Strip Example",
+        "name" : "Adafruit Dotstar LED Strip APA102",
+        "description" : "LED Strip Example, changes the LED strip colors",
         "category": "UPM",
         "platform": {
             "boards": [
-                "arduino_101"
+                "arduino_101",
+                "quark_d2000_crb"
             ]
         }
     }
