@@ -1,8 +1,8 @@
 {
     "path" : "rpr220",
     "example": {
-        "name" : "rpr220",
-        "description" : "Infrared (IR) reflective sensor",
+        "name" : "Infrared (IR) Reflective Sensor",
+        "description" : "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time. It detects high-contrast dark areas on a light background. This module allows the user to determine the current status (black detected or not). Additionally, if desired, an interrupt service routine (ISR) can be installed that is called when black is detected. Either method can be used, depending on your use case",
         "category": "UPM",
         "platform": {
             "boards": [

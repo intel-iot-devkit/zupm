@@ -1,8 +1,8 @@
 {
     "path" : "collision",
     "example": {
-        "name" : "collision",
-        "description" : "Collision sensor",
+        "name" : "Collision Sensor",
+        "description" : "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
         "category": "UPM",
         "platform": {
             "boards": [

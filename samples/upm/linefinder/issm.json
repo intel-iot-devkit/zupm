@@ -1,8 +1,8 @@
 {
     "path" : "linefinder",
     "example": {
-        "name" : "linefinder",
-        "description" : "Line finder",
+        "name" : "Infrared (IR) Based Line Finder",
+        "description" : "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background.",
         "category": "UPM",
         "platform": {
             "boards": [

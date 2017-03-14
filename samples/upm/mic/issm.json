@@ -1,7 +1,7 @@
 {
     "path" : "mic",
     "example": {
-        "name" : "mic",
+        "name" : "Simple Analog Microphone",
         "description" : "Mic Sensor",
         "category": "UPM",
         "platform": {

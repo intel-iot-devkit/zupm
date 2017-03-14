@@ -1,8 +1,8 @@
 {
     "path" : "lm35",
     "example": {
-        "name" : "lm35",
-        "description" : "Analog temperature sensor",
+        "name" : "Analog Temperature Sensor",
+        "description" : "This sensor returns an analog voltage proportional to the temperature of the ambient environment. It has a range of 2C to 150C. This driver was developed using the DFRobot LM35 Linear Temperature Sensor.",
         "category": "UPM",
         "platform": {
             "boards": [

@@ -1,8 +1,8 @@
 {
     "path" : "emg",
     "example": {
-        "name" : "emg",
-        "description" : "Electromyography (EMG) detector",
+        "name" : "Electromyography (EMG) Sensor",
+        "description" : "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
         "category": "UPM",
         "platform": {
             "boards": [

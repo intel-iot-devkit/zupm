@@ -1,8 +1,8 @@
 {
     "path" : "hmc5883l",
     "example": {
-        "name" : "hmc5883l",
-        "description" : "Driver for the HMC5883L Digital Compass",
+        "name" : "3-axis Digital Compass",
+        "description" : "Honeywell HMC5883L is a 3-axis digital compass. Communication with HMC5883L is simple and all done through an I2C interface. Different breakout boards are available. Typically, a 3V supply is all that is neede   d to power the sensor.",
         "category": "UPM",
         "platform": {
             "boards": [

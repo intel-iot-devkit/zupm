@@ -1,916 +1,944 @@
 [
-    {
-        "path": "a110x",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Hall Effect Sensor",
-            "description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element"
-        }
-    },
-    {
-        "path": "apa102",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101",
-                    "quark_d2000_crb"
-                ]
-            },
-            "name": "LED Strip",
-            "description": "APA102 LED Strips provide individually controllable LEDs through a SPI interface. For each LED, brightness (0-31) and RGB (0-255) values can be set"
-        }
-    },
-    {
-        "path": "bh1750",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Digital Light Sensor",
-            "description": "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sensitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C"
-        }
-    },
-    {
-        "path": "biss0001",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Passive Infrared (PIR) Motion Sensor",
-            "description": "UPM module for the BISS0001 Motion Sensor"
-        }
-    },
-    {
-        "path": "bmi160",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)",
-            "description": "The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope. Additionally it supports an external Magnetometer, accessed through the BMI160's register interface. This driver was developed with a BMI160 \"Shuttle\" board, which included a BMM150 Magnetometer. The device is driven by either 1.8v or 3.3vdc. This driver incorporates the Bosch BMI160 driver code at https://github.com/BoschSensortec/BMI160_driver The Bosch driver code does not provide a mechanism for passing user data around (like the device context). For this reason, only one instance of this driver can be used in a given process, due to the use of static data in the driver. While not all of the functionality of this device is supported initially, the inclusion of the Bosch driver in the source code makes it possible to support whatever features are required that the driver can support"
-        }
-    },
-    {
-        "path": "bno055",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Intelligent 9-axis Absolute Orientation Sensor",
-            "description": "Driver for the BNO055 IMU"
-        }
-    },
-    {
-        "path": "button_intr",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Button Interrupt Example",
-            "description": "Button sensor Interrupt Example"
-        }
-    },
-    {
-        "path": "button",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Button",
-            "description": "Basic UPM module for the button sensor"
-        }
-    },
-    {
-        "path": "buzzer",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Buzzer",
-            "description": "This module defines the Buzzer interface for libbuzzer. This sensor can make different tones when connected to a pin capable of analog pulse-width modulation. It emits sound using a piezoelectric material that vibrates at different frequencies based on the input voltage"
-        }
-    },
-    {
-        "path": "cjq4435",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "MOSFET",
-            "description": "UPM module for the CJQ4435 MOSFET. It was developed using the Grove MOSFET module, but could be used with any MOSFET. A MOSFET is like a switch, but it can switch much faster than a mechanical relay. Here, we implement support via MRAA pulse width modulation (PWM) functions. Note: available periods vary depending on the capabilities of your platform"
-        }
-    },
-    {
-        "path": "collision",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Collision Sensor",
-            "description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected"
-        }
-    },
-    {
-        "path": "dfrorp",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Oxidation Reduction Potential (ORP) Sensor",
-            "description": "The driver was tested with the DFRobot ORP (Oxidation/Reduction Potential) Sensor. To calibrate: Disconnect the sensor probe (but leave the sensor interface board connected). Then run one of the examples while holding down the 'calibrate' button on the device. Read the ORP value reported (it should be fairly small). This value is what you should supply to setCalibrationOffset(). Then reconnect the probe to the interface board and you should be ready to go. DO NOT press the calibrate button on the interface board while the probe is attached or you can permanently damage the probe"
-        }
-    },
-    {
-        "path": "dfrph",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog pH Sensor",
-            "description": "This sensor family returns an analog voltage proportional to the acidity or alkalinity of a liquid - it's pH value. This driver was developed using the DFRobot Analog pH meter and the DFRobot Analog pH Meter Pro. Calibration instructions, taken and slightly reworded from the DFRobot wiki at: http://dfrobot.com/wiki/index.php/PH_meter%28SKU:_SEN0161%29 1) Connect equipment: the pH electrode is connected to the BNC connector on the pH meter board, and then the pH meter board is connected to the analog port 0 of the controller. When the controller gets power, you will see the blue LED on board is on. 2) Put the pH electrode into the standard solution whose pH value is 7.00. Run the dfrph example and note the pH output value. Compare the value with 7.00, and calculate the difference. This is the value you should supply to the setOffset() method. 3) Put the pH electrode into the pH standard solution whose value is 4.00. Then wait about one minute, and adjust the potentiometer on the interface board. Let the value stabilise at around 4.00. At this time,the acidic calibration has been completed and you can measure the pH value of an acidic solution. 4) According to the linear characteristics of pH electrode itself, after the above calibration,you can directly measure the pH value of the alkaline solution. If you want to get better accuracy, you can recalibrate it. Alkaline calibration use the standard solution whose pH value is 9.18. Also adjust the potentiometer and let the value stabilise at around 9.18. After this calibration, you can measure the pH value of an alkaline solution"
-        }
-    },
-    {
-        "path": "ecezo",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Electrical Conductivity (EC) Circuit",
-            "description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes"
-        }
-    },
-    {
-        "path": "emg",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Electromyography (EMG) Sensor",
-            "description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result"
-        }
-    },
-    {
-        "path": "enc03r",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Single-axis Analog Gyro Module",
-            "description": "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings"
-        }
-    },
-    {
-        "path": "flex",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Resistive Flex Sensor",
-            "description": "A simple flex sensor. The resistance across the sensor increases when flexed. Patented technology by Spectra Symbol, these sensors were used in the original Nintendo* Power Glove. Flex Sensor image provided by SparkFun* under CC BY-NC-SA-3.0"
-        }
-    },
-    {
-        "path": "gas",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Gas",
-            "description": "Generic gas detection sensor library"
-        }
-    },
-    {
-        "path": "gp2y0a",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Infrared (IR) Based Distance Sensor",
-            "description": "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor"
-        }
-    },
-    {
-        "path": "gsr",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Galvanic Skin Response (GSR) Sensor",
-            "description": "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions"
-        }
-    },
-    {
-        "path": "guvas12d",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog UV Sensor",
-            "description": "UPM module for the GUVA-S12D UV sensor"
-        }
-    },
-    {
-        "path": "hka5",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Laser Particulate Matter (PM) Sensor",
-            "description": "This driver was tested with a DFRobot Laser PM2.5 Sensor. It connects to a UART at 9600 baud. This is the only baud rate supported. It optionally supports Reset and Set/Sleep gpios as well"
-        }
-    },
-    {
-        "path": "hmc5883l",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "3-axis Digital Compass",
-            "description": "Honeywell HMC5883L is a 3-axis digital compass. Communication with HMC5883L is simple and all done through an I2C interface. Different breakout boards are available. Typically, a 3V supply is all that is needed to power the sensor"
-        }
-    },
-    {
-        "path": "ims",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "I2C Moisture Sensor",
-            "description": "I2C sensor which can be used to read: moisture light temperature This sensor must run at 100 kHz"
-        }
-    },
-    {
-        "path": "jhd1313m1",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "RGB Backlight 16x2 LCD Display",
-            "description": "JHD1313M1 has two I2C addreses: one belongs to a controller, very similar to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the other controls only the backlight. This module was tested with the Seeed Grove LCD RGB Backlight v2.0 display that requires 5V to operate."
-        }
-    },
-    {
-        "path": "joystick12",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "2-axis Analog Joystick",
-            "description": "This module defines the Joystick API, and implementation for the X and Y buttons could be treated as normal GPIO - this enables easier interrupt support. This driver should be compatible with any 2-axis analog joystick"
-        }
-    },
-    {
-        "path": "lcm1602",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "16x2 and 20x4 LCD Display",
-            "description": "This supports all sizes of HD44780 displays, from 16x2 to 4x20. The controller has no idea of the actual display hardware, so it lets you write farther than you can see. These displays with such controllers are available from various manufacturers with different I2C addresses. Adafruit* TC1602A-01T seems to be a well-documented example. The driver also supports parallel GPIO connections directly to the HD44780 in case you are not using an I2C expander/backpack."
-        }
-    },
-    {
-        "path": "ldt0028",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Piezo Vibration Sensor",
-            "description": "This module defines the LDT0-028 interface for libupm-ldt0028"
-        }
-    },
-    {
-        "path": "led",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101",
-                    "quark_d2000_crb"
-                ]
-            },
-            "name": "Light-emitting Diode (LED)",
-            "description": "UPM module for the LED (or other similar light-emitting diodes). An LED is a p-n junction semiconductor which emits light in response to voltage. The longer wire of an LED connects to the positive seat (anode); the shorter wire connects to the negative seat (cathode). The flat side of the bulb corresponds to the cathode, while the rounded side corresponds to the anode"
-        }
-    },
-    {
-        "path": "light",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Light Sensor",
-            "description": "The light sensor detects the intensity of the ambient light. As the light intensity of the environment increases, the resistance of the sensor decreases. This means the raw value from the analog pin is larger in bright light and smaller in the dark. An approximate lux value can also be returned"
-        }
-    },
-    {
-        "path": "linefinder",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Infrared (IR) Based Line Finder",
-            "description": "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background"
-        }
-    },
-    {
-        "path": "lm35",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Temperature Sensor",
-            "description": "This sensor returns an analog voltage proportional to the temperature of the ambient environment. It has a range of 2C to 150C. This driver was developed using the DFRobot LM35 Linear Temperature Sensor"
-        }
-    },
-    {
-        "path": "loudness",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss",
-                    "quark_d2000_crb"
-                ]
-            },
-            "name": "Loudness Sensor",
-            "description": "This sensor family returns an analog voltage proportional to the loudness of the ambient environment. It's output does not correspond to a particular sound level in decibels. The higher the output voltage, the louder the ambient noise level. This device uses an electret microphone for sound input. This driver was developed using the DFRobot Loudness Sensor V2 and the Grove Loudness sensor"
-        }
-    },
-    {
-        "path": "m24lr64e",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Dynamic NFC/RFID Tag Module",
-            "description": "Grove NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM) that can be written to or read from using I2C and NFC-equipped devices. The user mode (default) allows read and write access to all 8KB of space, provided the sector security status (SSS) allows it. The root mode allows modification of the SSS data and other information, provided the proper password is submitted. The default password for a new tag is 0x00000000. See the datasheet for more details. The Seeed Studio* wiki page for this device includes a link to an Android* application that can be used to also read and write the device via NFC, as well as set NFC passwords, which cannot be done via I2C"
-        }
-    },
-    {
-        "path": "max30100",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Pulse Oximeter and Heart-rate Sensor",
-            "description": "The MAX30100 is an integrated pulse oximetry and heartrate monitor sensor solution. It combines two LEDs, a photodetector, optimized optics, and low-noise analog signal processing to detect pulse oximetry and heart-rate signals. I2C sensor which can be used to read: Heart-rate Peripheral capillary oxygen saturation temperature"
-        }
-    },
-    {
-        "path": "mb704x",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "I2C MaxSonar WR Ultrasonic Ranger",
-            "description": "This driver was tested with the MB704x MaxSonar-WR Ultrasonic Ranger using the long distance, weather resistant horn. Depending on your sensor type and horn, tanges from 20cm to 750cm are possible"
-        }
-    },
-    {
-        "path": "md",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "I2C Motor Driver",
-            "description": "This class implements support for the I2C Motor Driver. This device can support a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L298N H-bridge driver chip. This device supports an I2C bus speed of 100Khz only. The module does not provide any telemetry or status - it only accepts I2C commands for its various operations. This module was tested with version 1.3 of the I2C Motor Driver. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions"
-        }
-    },
-    {
-        "path": "md-stepper",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "I2C Stepper Motor",
-            "description": "This module defines the Stepper Motor interface. It is compatible with A stepper motor drivers that use 2 pins to control the motor, like an Easy Driver from Brian Schmalz or the STR driver series from Applied Motion. It can also control an enable pin if one is available and connected. The implementation is synchronous and thus blocking while the stepper motor is in motion. However it is possible to send the commands via threading and the performance of the library will be very good given a low CPU load. On a busy system though you will notice some jitter especially at higher speeds. It is possible to reduce this effect to some extent by using smoothing and/or microstepping on stepper drivers that support such features."
-        }
-    },
-    {
-        "path": "mic",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Simple Analog Microphone",
-            "description": "Mic Sensor"
-        }
-    },
-    {
-        "path": "mma7361",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Triaxial Analog Accelerometer",
-            "description": "The driver was tested with the DFRobot MMA7361 Analog Accelerometer. It supports 3 Axes with a selectable 1.5G and 6G sensitivity"
-        }
-    },
-    {
-        "path": "mma7660",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "I2C 3-axis Digital Accelerometer (1.5g)",
-            "description": "UPM module for the MMA7660 I2C 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied (up to 1.5g) This module was tested with the Grove 3-Axis Digital Accelerometer (1.5g)"
-        }
-    },
-    {
-        "path": "moisture",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Moisture Sensor",
-            "description": "UPM module for the Moisture Sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors."
-        }
-    },
-    {
-        "path": "mpr121",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Digital Capacitive Touch Sensor Controller",
-            "description": "UPM module for the MPR121 touch sensor"
-        }
-    },
-    {
-        "path": "mq303a",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Alcohol Detection Sensor",
-            "description": "UPM module for the MQ303A alcohol sensor. This sensor needs to be warmed up before stable results are obtained. The higher the value returned from value(), the higher the amount of alcohol detected"
-        }
-    },
-    {
-        "path": "ms5803",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "I2C Barometric Pressure and Temperature Sensor",
-            "description": "The MS5803-14BA is a new generation of high resolution pressure sensors with SPI and I2C bus interface. It is optimized for depth measurement systems with a water depth resolution of 1cm and below. The sensor module includes a high linear pressure sensor and an ultra low power 24 bit delta-sigma ADC with internal factory calibrated coefficients. It provides a precise digital 24 bit pressure and temperature value and different operation modes that allow the user to optimize for conversion speed and current consumption. A high resolution temperature output allows the implementation of a depth measurement systems and thermometer function without any additional sensor. The device is driven at 3.3vdc, and has a pressure range of between 0 and 14 Bar, and a temperature range of between -40 and +85C"
-        }
-    },
-    {
-        "path": "my9221",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "12-channel Constant Current LED Driver with Grayscale",
-            "description": "12-channel led driver with grayscale adaptive pulse density modulation control"
-        }
-    },
-    {
-        "path": "nmea_gps",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Generic Serial Interface for GPS NMEA Devices",
-            "description": "Generic driver for GPS NMEA sensors"
-        }
-    },
-    {
-        "path": "nunchuck",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Wii Nunchuk",
-            "description": "UPM module for the Wii Nunchuk controller. This module was tested with Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter. See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck for more details on the controller and its protocol. A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one side, and 3 traces on the other. Do not match these up with the Nunchuk connector's traces. The connector's 'groove' should be on the same side as the Grove interface socket on the adapter"
-        }
-    },
-    {
-        "path": "o2",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Oxygen (O2) Concentration Sensor",
-            "description": "The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air"
-        }
-    },
-    {
-        "path": "otp538u",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog IR Temperature Sensor",
-            "description": "UPM module for the OTP538U IR temperature sensor This module was tested with the Grove IR non-contact temperature sensor. The sensor provides 2 analog outputs: one for the thermistor that measures the ambient temperature, and the other for the thermopile that measures the object temperature. Much of the code depends on analyzing Seeed Studio* examples and the circuit design. As a result, there are several 'magic' numbers derived from their circuit design. These values are used by default. The tables used came from the \"538U VT"
-        }
-    },
-    {
-        "path": "ppd42ns",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Dust Sensor",
-            "description": "UPM module for the PPD42NS dust sensor"
-        }
-    },
-    {
-        "path": "relay",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Relay",
-            "description": "UPM module for the relay switch. The relay is a digital normally-open switch that uses low voltage or current to control a higher voltage and/or higher current. When closed, the indicator LED (if present) lights up and current is allowed to flow"
-        }
-    },
-    {
-        "path": "rotaryencoder",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Rotary Encoder",
-            "description": "UPM module for the Grove rotary encoder. This rotary encoder encodes a rotation signal into electronic pulses that can be used to measure rotation and direction. It is useful in cases where a rotary knob is required, but using a potentiometer is not desirable. A rotary encoder can turn a full 360 degrees without a stop and does not place a resistive load on the circuit, as is the case with a potentiometer. This module maintains a position that is incremented or decremented according to the rotation on the encoder"
-        }
-    },
-    {
-        "path": "rotary",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Rotary Angle Sensor",
-            "description": "Basic UPM module for the rotary angle sensor (knob) on analog. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range"
-        }
-    },
-    {
-        "path": "rpr220-intr",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Infrared (IR) Reflective Sensor",
-            "description": "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time."
-        }
-    },
-    {
-        "path": "rpr220",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Infrared (IR) Reflective Sensor",
-            "description": "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time. It detects high-contrast dark areas on a light background. This module allows the user to determine the current status (black detected or not). Additionally, if desired, an interrupt service routine (ISR) can be installed that is called when black is detected. Either method can be used, depending on your use case"
-        }
-    },
-    {
-        "path": "servo",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Servo Controller",
-            "description": "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period."
-        }
-    },
-    {
-        "path": "sht1x",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Temperature and Humidity Sensor",
-            "description": "This driver was tested with a DFRobot SHT10 Temperature and Humidity sensor. This driver should work on all SHT1X devices. It requires a 10K pull-up resistor connected to the data pin. The sensor can be run at differing voltages from 2.5v to 5v"
-        }
-    },
-    {
-        "path": "slide",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Slide Potentiometer",
-            "description": "Basic UPM module for the slide potentiometer on analog that returns either a raw value or a scaled voltage value"
-        }
-    },
-    {
-        "path": "speaker",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Speaker",
-            "description": "UPM module for the Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable. In GPIO mode, the playAll() and playSound() methods are supported. In PWM mode, setFrequency(), emit(), on() and off() are supported. Calling a method not appropriate for the mode will have no effect"
-        }
-    },
-    {
-        "path": "speaker",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Speaker",
-            "description": "UPM module for the Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable. In GPIO mode, the playAll() and playSound() methods are supported. In PWM mode, setFrequency(), emit(), on() and off() are supported. Calling a method not appropriate for the mode will have no effect"
-        }
-    },
-    {
-        "path": "temperature",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Temperature Sensor",
-            "description": "Basic UPM module for the Grove temperature sensor on analog. This sensor uses a NTC thermistor to measure ambient temperature. The conversion formula has been updated to work with versions 1.1 and 1.2 of the sensor. For the older v1.0 sensor you will have to specify R0 and B values when initializing the device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C"
-        }
-    },
-    {
-        "path": "tsl2561",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss",
-                    "quark_d2000_crb"
-                ]
-            },
-            "name": "Digital Light Sensor",
-            "description": "TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface"
-        }
-    },
-    {
-        "path": "ttp223",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Capacitive Touch Sensor",
-            "description": "This touch sensor detects when a finger is near the metallic pad by the change in capacitance. It can replace a more traditional push button. The touch sensor can still function when placed under a non-metallic surface like glass or plastic"
-        }
-    },
-    {
-        "path": "uln200xa",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Darlington Stepper Driver",
-            "description": "This module was developed on a ULN2003A Stepper Driver. It should also support the ULN2001A, ULN2002A, and ULN2004A devices, when using to drive the 28BYJ-48 unipolar stepper motor"
-        }
-    },
-    {
-        "path": "urm37",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Ultrasonic Range Finder",
-            "description": "The driver was tested with the DFRobot URM37 Ultrasonic Ranger, V4. It has a range of between 5 and 500 centimeters (cm). It supports both analog distance measurement, and UART based temperature and distance measurements. This driver does not support PWM measurement mode. For UART operation, the only supported baud rate is 9600. In addition, you must ensure that the UART TX/RX pins are configured for TTL operation (the factory default) rather than RS232 operation, or permanent damage to your URM37 and/or MCU will result. On power up, the LED indicator will blink one long pulse, followed by one short pulse to indicate TTL operation. See the DFRobot wiki for more information: (https://www.dfrobot.com/wiki/index.php?title=URM37_V4.0_Ultrasonic_Sensor_%28SKU:SEN0001%29)"
-        }
-    },
-    {
-        "path": "vdiv",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Analog Voltage Divider Sensor",
-            "description": "UPM module for the Voltage Divider sensor"
-        }
-    },
-    {
-        "path": "water",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Water Detection Sensor",
-            "description": "UPM module for the Water sensor"
-        }
-    },
-    {
-        "path": "wfs",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101"
-                ]
-            },
-            "name": "Water Flow Sensor",
-            "description": "This sensor is used to measure water flow in liters per minute (LPM). It incorporates a Hall Effect sensor. The UPM module defines an interrupt routine to be triggered on each low pulse, keeping count. This device requires a 10K pull-up resistor for the signal line (yellow wire). There is a schematic diagram on the SeeedStudio site (3/2015): http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor However, be careful when wiring this up - the schematic appears to have a bug in it: the lower left connection of the signal line (yellow) to Vcc (red) should not be there. The sensor can work with this connection, but probably not for very long"
-        }
-    },
-    {
-        "path": "yg1006",
-        "example": {
-            "category": "UPM",
-            "platform": {
-                "boards": [
-                    "arduino_101_sss"
-                ]
-            },
-            "name": "Flame Sensor",
-            "description": "UPM module for the YG1006 flame sensor. It detects a flame or any other light source in the 760-1,100 nm wavelength range"
-        }
+  {
+    "path": "a110x",
+    "example": {
+      "name": "Hall effect sensor",
+      "description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It    outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
     }
+  },
+  {
+    "path": "apa102",
+    "example": {
+      "name": "LED Strip",
+      "description": "APA102 LED Strips provide individually controllable LEDs through a SPI interface. For eac   h LED, brightness (0-31) and RGB (0-255) values can be set.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101",
+          "quark_d2000_crb"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bh1750",
+    "example": {
+      "name": "Digital Light Sensor",
+      "description": "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sen   sitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "biss0001",
+    "example": {
+      "name": "Passive Infrared (PIR) Motion Sensor",
+      "description": "PIR sensors allow you to sense motion, almost always used to detect whether a human has moved in or out of the sensors range. They are small, inexpensive, low-power, easy to use and don't wear out. For that reason they are commonly found in appliances and gadgets used in homes or businesses. They are often referred to as PIR, 'Passive Infrared', 'Pyroelectric', or 'IR motion' sensors.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bme280",
+    "example": {
+      "name": "Digital Humidity, Pressure, and Temperature Sensor",
+      "description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101",
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bmi160",
+    "example": {
+      "name": "Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)",
+      "description": "The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope. Additionally it supports an external Magnetometer, accessed through the BMI160's register interface. This driver was developed with a BMI160 Shuttle board, which included a BMM150 Magnetometer. The device is driven by either 1.8v or 3.3vdc. This driver incorporates the Bosch BMI160 driver code at https://github.com/BoschSensortec/BMI160_driver The Bosch driver code does not provide a mechanism for passing user data around (like the device context). For this reason, only one instance of this driver can be used in a given process, due to the use of static data in the driver. While not all of the functionality of this device is supported initially, the inclusion of the Bosch driver in the source code makes it possible to support whatever features are required that the driver can support",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bmp280",
+    "example": {
+      "name": "Digital Pressure Sensor",
+      "description": "The BMP280 is an absolute barometric pressure sensor especially designed for mobile applications. The sensor module is housed in an extremely compact 8-pin metal-lid LGA package with a footprint of only 2.0 * 2.5 mm2 and 0.95 mm package height. Its small dimensions and its low power consumption of 2.7 uA @1Hz allow the implementation in battery driven devices such as mobile phones, GPS modules or watches.\\n\\nAs the successor to the widely adopted BMP180, the BMP280 delivers high performance in all applications that require precise pressure measurement. The BMP280 operates at lower noise, supports new filter modes and an SPI interface within a footprint 63% smaller than the BMP180.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101",
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bno055",
+    "example": {
+      "name": "Intelligent 9-axis Absolute Orientation Sensor",
+      "description": "The BNO055 is a System in Package (SiP), integrating a triaxial 14-bit accelerometer, a triaxial 16-bit gyroscope with a range of +/- 2000 degrees per second, a triaxial geomagnetic sensor and a 32-bit cortex M0+ microcontroller running Bosch Sensortec sensor fusion software, in a single package.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "button_intr",
+    "example": {
+      "name": "Button Interrupt Example",
+      "description": "Button sensor Interrupt Example",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "button",
+    "example": {
+      "name": "Button",
+      "description": "Basic UPM module for the button sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "buzzer",
+    "example": {
+      "name": "Buzzer",
+      "description": "This module defines the Buzzer interface for libbuzzer. This sensor can make different tones when connected to a pin capable of analog pulse-width modulation. It emits sound using a piezoelectric material that vibrates at different frequencies based on the input voltage",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "cjq4435",
+    "example": {
+      "name": "MOSFET",
+      "description": "UPM module for the CJQ4435 MOSFET. It was developed using the Grove MOSFET module, but could be used with any MOSFET. A MOSFET is like a switch, but it can switch much faster than a mechanical relay. Here, we implement support via MRAA pulse width modulation (PWM) functions. Note: available periods vary depending on the capabilities of your platform.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "collision",
+    "example": {
+      "name": "Collision Sensor",
+      "description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "dfrorp",
+    "example": {
+      "name": "Analog Oxidation Reduction Potential (ORP) Sensor",
+      "description": "DFRobot ORP Sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "dfrph",
+    "example": {
+      "name": "DFRobot pH sensor",
+      "description": "This sensor family returns an analog voltage proportional to the acidity or alkalinity of a liquid - it's pH value. This driver was developed using the DFRobot Analog pH meter and the DFRobot Analog pH Meter Pro. Calibration instructions, taken and slightly reworded from the DFRobot wiki at: http://dfrobot.com/wiki/index.php/PH_meter%28SKU:_SEN0161%29 1) Connect equipment: the pH electrode is connected to the BNC connector on the pH meter board, and then the pH meter board is connected to the analog port 0 of the controller. When the controller gets power, you will see the blue LED on board is on. 2) Put the pH electrode into the standard solution whose pH value is 7.00. Run the dfrph example and note the pH output value. Compare the value with 7.00, and calculate the difference. This is the value you should supply to the setOffset() method. 3) Put the pH electrode into the pH standard solution whose value is 4.00. Then wait about one minute, and adjust the potentiometer on the interface board. Let the value stabilise at around 4.00. At this time,the acidic calibration has been completed and you can measure the pH value of an acidic solution. 4) According to the linear characteristics of pH electrode itself, after the above calibration,you can directly measure the pH value of the alkaline solution. If you want to get better accuracy, you can recalibrate it. Alkaline calibration use the standard solution whose pH value is 9.18. Also adjust the potentiometer and let the value stabilise at around 9.18. After this calibration, you can measure the pH value of an alkaline solution",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "ecezo",
+    "example": {
+      "name": "Electrical Conductivity (EC) Circuit",
+      "description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "emg",
+    "example": {
+      "name": "Electromyography (EMG) Sensor",
+      "description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "enc03r",
+    "example": {
+      "name": "Single-axis Analog Gyro Module",
+      "description": "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "flex",
+    "example": {
+      "name": "Resistive Flex Sensor",
+      "description": "A simple flex sensor. The resistance across the sensor increases when flexed. Patented technology by Spectra Symbol, these sensors were used in the original Nintendo* Power Glove.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "gas",
+    "example": {
+      "name": "Gas Sensor",
+      "description": "Generic gas detection sensor library",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "gp2y0a",
+    "example": {
+      "name": "Analog Infrared (IR) Based Distance Sensor",
+      "description": "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "gsr",
+    "example": {
+      "name": "Galvanic Skin Response (GSR) Sensor",
+      "description": "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "guvas12d",
+    "example": {
+      "name": "Analog UV Sensor",
+      "description": "UPM module for the GUVA-S12D UV sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "hka5",
+    "example": {
+      "name": "Laser Particulate Matter (PM) Sensor",
+      "description": "This driver was tested with a DFRobot Laser PM2.5 Sensor. It connects to a UART at 9600 baud. This is the only baud rate supported. It optionally supports Reset and Set/Sleep gpios as well",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "hmc5883l",
+    "example": {
+      "name": "3-axis Digital Compass",
+      "description": "Honeywell HMC5883L is a 3-axis digital compass. Communication with HMC5883L is simple and all done through an I2C interface. Different breakout boards are available. Typically, a 3V supply is all that is neede   d to power the sensor.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "ims",
+    "example": {
+      "name": "I2C Moisture Sensor",
+      "description": "I2C sensor which can be used to read: moisture light temperature This sensor must run at 100 kHz",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "jhd1313m1",
+    "example": {
+      "name": "RGB Backlight 16x2 LCD Display",
+      "description": "JHD1313M1 has two I2C addreses: one belongs to a controller, very similar to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the other controls only the backlight. This module was tested with the Seeed Grove LCD RGB Backlight v2.0 display that requires 5V to operate.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "joystick12",
+    "example": {
+      "name": "2-axis Analog Joystick",
+      "description": "This module defines the Joystick API, and implementation for the X and Y buttons could be treated as normal GPIO - this enables easier interrupt support. This driver should be compatible with any 2-axis analogjoystick.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "lcm1602",
+    "example": {
+      "name": "16x2 and 20x4 LCD Display",
+      "description": "This supports all sizes of HD44780 displays, from 16x2 to 4x20. The controller has no idea of the actual display hardware, so it lets you write farther than you can see. These displays with such controllers are available from various manufacturers with different I2C addresses. Adafruit* TC1602A-01T seems to be a well-documented example. The driver also supports parallel GPIO connections directly to the HD44780 in case you are not using an I2C expander/backpack.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "ldt0028",
+    "example": {
+      "name": "Piezo Vibration Sensor",
+      "description": "This module defines the LDT0-028 interface for libupm-ldt0028",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "Light-emitting Diode (LED)",
+    "example": {
+      "name": "UPM module for the LED (or other similar light-emitting diodes). An LED is a p-n junction semiconductor which emits light in response to voltage. The longer wire of an LED connects to the positive seat (anode); the shorter wire connects to the negative seat (cathode). The flat side of the bulb corresponds to the cathode, while the rounded side corresponds to the anode",
+      "description": "Blink onboard LED",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101",
+          "quark_d2000_crb"
+        ]
+      }
+    }
+  },
+  {
+    "path": "light",
+    "example": {
+      "name": "Analog Light Sensor",
+      "description": "The light sensor detects the intensity of the ambient light. As the light intensity of the environment increases, the resistance of the sensor decreases. This means the raw value from the analog pin is larger in bright light and smaller in the dark. An approximate lux value can also be returned.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "linefinder",
+    "example": {
+      "name": "Infrared (IR) Based Line Finder",
+      "description": "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "lm35",
+    "example": {
+      "name": "Analog Temperature Sensor",
+      "description": "This sensor returns an analog voltage proportional to the temperature of the ambient environment. It has a range of 2C to 150C. This driver was developed using the DFRobot LM35 Linear Temperature Sensor.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "loudness",
+    "example": {
+      "name": "Loudness Sensor",
+      "description": "This sensor family returns an analog voltage proportional to the loudness of the ambient environment. It's output does not correspond to a particular sound level in decibels. The higher the output voltage, the louder the ambient noise level. This device uses an electret microphone for sound input. This driver was developed using the DFRobot Loudness Sensor V2 and the Grove Loudness sensor.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss",
+          "quark_d2000_crb"
+        ]
+      }
+    }
+  },
+  {
+    "path": "m24lr64e",
+    "example": {
+      "name": "Dynamic NFC/RFID Tag Module",
+      "description": "Grove NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM) that can be written to or read from using I2C and NFC-equipped devices. The user mode (default) allows read and write access to all 8KB of space, provided the sector security status (SSS) allows it. The root mode allows modification of the SSS data and other information, provided the proper password is submitted. The default password for a new tag is 0x00000000. See the datasheet for more details. The Seeed Studio* wiki page for this device includes a link to an Android* application that can be used to also read and write the device via NFC, as well as set NFC passwords, which cannot be done via I2C.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "max30100",
+    "example": {
+      "name": "Pulse Oximeter and Heart-rate Sensor",
+      "description": "The MAX30100 is an integrated pulse oximetry and heartrate monitor sensor solution. It combines two LEDs, a photodetector, optimized optics, and low-noise analog signal processing to detect pulse oximetry and heart-rate signals. I2C sensor which can be used to read: Heart-rate Peripheral capillary oxygen saturation temperature.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mb704x",
+    "example": {
+      "name": "I2C MaxSonar WR Ultrasonic Ranger",
+      "description": "This driver was tested with the MB704x MaxSonar-WR Ultrasonic Ranger using the long distance, weather resistant horn. Depending on your sensor type and horn, tanges from 20cm to 750cm are possible.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "md",
+    "example": {
+      "name": "I2C Motor Driver",
+      "description": "This class implements support for the I2C Motor Driver. This device can support a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L2 98N H-bridge driver chip. This device supports an I2C bus speed of 100Khz only. The module does not provide any telemetry or status - it only accepts I2C commands for its various operations. This module was tested with version 1.3 of the I2C Motor Driver. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "md-stepper",
+    "example": {
+      "name": "I2C Stepper Motor",
+      "description": "This module defines the Stepper Motor interface. It is compatible with A stepper motor drivers that use 2 pins to control the motor, like an Easy Driver from Brian Schmalz or the STR driver series from Applied Motion. It can also control an enable pin if one is available and connected. The implementation is synchronous and thus blocking while the stepper motor is in motion. However it is possible to send the commands via threading and the performance of the library will be very good given a low CPU load. On a busy system though you will notice some jitter especially at higher speeds. It is possible to reduce this effect to some extent by using smoothing and/or microstepping on stepper drivers that support such features.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mic",
+    "example": {
+      "name": "Simple Analog Microphone",
+      "description": "Mic Sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mma7361",
+    "example": {
+      "name": "Triaxial Analog Accelerometer",
+      "description": "This library was tested with the DFRobot MMA7361 Analog Accelerometer. It supports 3 Axes with a selectable 1.5G and 6G sensitivity.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mma7660",
+    "example": {
+      "name": "I2C 3-axis Digital Accelerometer (1.5g)",
+      "description": "UPM module for the MMA7660 I2C 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied (up to 1.5g) This module was tested with the Grove 3-Axis Digital Accelerometer (1.5g).",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "moisture",
+    "example": {
+      "name": "Analog Moisture Sensor",
+      "description": "UPM module for the Moisture Sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mpr121",
+    "example": {
+      "name": "Digital Capacitive Touch Sensor Controller",
+      "description": "UPM module for the MPR121 touch sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mq303a",
+    "example": {
+      "name": "Alcohol Detection Sensor",
+      "description": "UPM module for the MQ303A alcohol sensor. This sensor needs to be warmed up before stable results are obtained. The higher the value returned from value(), the higher the amount of alcohol detected.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "ms5803",
+    "example": {
+      "name": "I2C Barometric Pressure and Temperature Sensor",
+      "description": "The MS5803-14BA is a new generation of high resolution pressure sensors with SPI and I2C bus interface. It is optimized for depth measurement systems with a water depth resolution of 1cm and below. The sensor module includes a high linear pressure sensor and an ultra low power 24 bit delta-sigma ADC with internal factory calibrated coefficients. It provides a precise digital 24 bit pressure and temperature value and different operation modes that allow the user to optimize for conversion speed and current consumption. A high resolution temperature output allows the implementation of a depth measurement systems and thermometer function without any additional sensor. The device is driven at 3.3vdc, and has a pressure range of between 0 and 14 Bar, and a temperature range of between -40 and +85C",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "my9221",
+    "example": {
+      "name": "12-channel Constant Current LED Driver with Grayscale",
+      "description": "12-channel led driver with grayscale adaptive pulse density modulation control.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "nmea_gps",
+    "example": {
+      "name": "Generic Serial Interface for GPS NMEA Devices",
+      "description": "Generic Serial Interface for GPS NMEA Devices.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "nunchuck",
+    "example": {
+      "name": "Wii Nunchuk",
+      "description": "UPM module for the Wii Nunchuk controller. This module was tested with Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter. See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck for more details on the controller and its protocol. A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one side, and 3 traces on the other. Do not match these up with the Nunchuk connector's traces. The connector's 'groove' should be on the same side as the Grove interface socket on the adapter.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "o2",
+    "example": {
+      "name": "Oxygen (O2) Concentration Sensor",
+      "description": "The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "otp538u",
+    "example": {
+      "name": "Analog IR Temperature Sensor",
+      "description": "UPM module for the OTP538U IR temperature sensor This module was tested with the Grove IR non-contact temperature sensor. The sensor provides 2 analog outputs: one for the thermistor that measures the ambient temperature, and the other for the thermopile that measures the object temperature. Much of the code depends on analyzing Seeed Studio* examples and the circuit design. As a result, there are several 'magic' numbers derived from their circuit design. These values are used by default.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "ppd42ns",
+    "example": {
+      "name": "Dust Sensor",
+      "description": "UPM module for the PPD42NS dust sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "relay",
+    "example": {
+      "name": "Relay",
+      "description": "UPM module for the relay switch. The relay is a digital normally-open switch that uses low voltage or current to control a higher voltage and/or higher current. When closed, the indicator LED (if present) lights up and current is allowed to flow.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "rotaryencoder",
+    "example": {
+      "name": "Rotary Encoder",
+      "description": "UPM module for the Grove rotary encoder. This rotary encoder encodes a rotation signal into electronic pulses that can be used to measure rotation and direction. It is useful in cases where a rotary knob is required, but using a potentiometer is not desirable. A rotary encoder can turn a full 360 degrees without a stop and does not place a resistive load on the circuit, as is the case with a potentiometer. This module maintains a position that is incremented or decremented according to the rotation on the encoder",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "rotary",
+    "example": {
+      "name": "Rotary Angle Sensor",
+      "description": "Basic UPM module for the rotary angle sensor (knob) on analog. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "rpr220-intr",
+    "example": {
+      "name": "Infrared (IR) Reflective Sensor",
+      "description": "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "rpr220",
+    "example": {
+      "name": "Infrared (IR) Reflective Sensor",
+      "description": "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time. It detects high-contrast dark areas on a light background. This module allows the user to determine the current status (black detected or not). Additionally, if desired, an interrupt service routine (ISR) can be installed that is called when black is detected. Either method can be used, depending on your use case",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "servo",
+    "example": {
+      "name": "Servo Controller",
+      "description": "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "sht1x",
+    "example": {
+      "name": "Temperature and Humidity Sensor",
+      "description": "This driver was tested with a DFRobot SHT10 Temperature and Humidity sensor. This driver should work on all SHT1X devices. It requires a 10K pull-up resistor connected to the data pin. The sensor can be run at differing voltages from 2.5v to 5v",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "slide",
+    "example": {
+      "name": "Slide Potentiometer",
+      "description": "Basic UPM module for the slide potentiometer on analog that returns either a raw value or a scaled voltage value",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "speaker",
+    "example": {
+      "name": "Speaker",
+      "description": "UPM module for the Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable. In GPIO mode, the playAll() and playSound() methods are supported. In PWM mode, setFrequency(), emit(), on() and off() are supported. Calling a method not appropriate for the mode will have no effect.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "speaker",
+    "example": {
+      "name": "PWM Speaker",
+      "description": "UPM module for the Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable. In GPIO mode, the playAll() and playSound() methods are supported. In PWM mode, setFrequency(), emit(), on() and off() are supported. Calling a method not appropriate for the mode will have no effect",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "temperature",
+    "example": {
+      "name": "Analog Temperature Sensor",
+      "description": "Basic UPM module for the Grove temperature sensor on analog. This sensor uses a NTC thermistor to measure ambient temperature. The conversion formula has been updated to work with versions 1.1 and 1.2 of the sensor. For the older v1.0 sensor you will have to specify R0 and B values when initializing the device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "tsl2561",
+    "example": {
+      "name": "Digital Light Sensor",
+      "description": "TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss",
+          "quark_d2000_crb"
+        ]
+      }
+    }
+  },
+  {
+    "path": "ttp223",
+    "example": {
+      "name": "Capacitive Touch Sensor",
+      "description": "This touch sensor detects when a finger is near the metallic pad by the change in capacitance. It can replace a more traditional push button. The touch sensor can still function when placed under a non-metallic surface like glass or plastic.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "uln200xa",
+    "example": {
+      "name": "Darlington Stepper Driver",
+      "description": "This module was developed on a ULN2003A Stepper Driver. It should also support the ULN2001A, ULN2002A, and ULN2004A devices, when using to drive the 28BYJ-48 unipolar stepper motor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "urm37",
+    "example": {
+      "name": "Ultrasonic Range Finder",
+      "description": "This library was tested with the DFRobot URM37 Ultrasonic Ranger, V4. It has a range of between 5 and 500 centimeters (cm). It supports both analog distance measurement, and UART based temperature and distance measurements. This driver does not support PWM measurement mode. For UART operation, the only supported baud rate is 9600. In addition, you must ensure that the UART TX/RX pins are configured for TTL operation (the factory default) rather than RS232 operation, or permanent damage to your URM37 and/or MCU will result. On power up, the LED indicator will blink one long pulse, followed by one short pulse to indicate TTL operation.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "vdiv",
+    "example": {
+      "name": "Analog Voltage Divider Sensor",
+      "description": "UPM module for the Voltage Divider sensor.",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "water",
+    "example": {
+      "name": "Water Detection Sensor",
+      "description": "UPM module for the Water sensor",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "wfs",
+    "example": {
+      "name": "Water Flow Sensor",
+      "description": "This sensor is used to measure water flow in liters per minute (LPM). It incorporates a Hall Effect sensor. The UPM module defines an interrupt routine to be triggered on each low pulse, keeping count. This device requires a 10K pull-up resistor for the signal line (yellow wire). There is a schematic diagram on the SeeedStudio site (3/2015): http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor However, be careful when wiring this up - the schematic appears to have a bug in it: the lower left connection of the signal line (yellow) to Vcc (red) should not be there. The sensor can work with this connection, but probably not for very long",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "yg1006",
+    "example": {
+      "name": "Flame Sensor",
+      "description": "UPM module for the YG1006 flame sensor. It detects a flame or any other light source in the 760-1,100 nm wavelength range",
+      "category": "UPM",
+      "platform": {
+        "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  }
 ]

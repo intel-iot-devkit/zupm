@@ -1,8 +1,8 @@
 {
     "path" : "button",
     "example": {
-        "name" : "button",
-        "description" : "Button sensor",
+        "name" : "Button",
+        "description" : "Basic UPM module for the button sensor",
         "category": "UPM",
         "platform": {
             "boards": [

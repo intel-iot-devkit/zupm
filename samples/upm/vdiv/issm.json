@@ -1,8 +1,8 @@
 {
     "path" : "vdiv",
     "example": {
-        "name" : "vdiv",
-        "description" : "Analog voltage divider sensor",
+        "name" : "Analog Voltage Divider Sensor",
+        "description" : "UPM module for the Voltage Divider sensor.",
         "category": "UPM",
         "platform": {
             "boards": [

@@ -1,8 +1,8 @@
 {
     "path" : "rpr220-intr",
     "example": {
-        "name" : "rpr220-intr",
-        "description" : "Infrared (IR) reflective sensor",
+        "name" : "Infrared (IR) Reflective Sensor",
+        "description" : "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time.",
         "category": "UPM",
         "platform": {
             "boards": [

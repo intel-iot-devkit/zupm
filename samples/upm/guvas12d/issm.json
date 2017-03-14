@@ -1,8 +1,8 @@
 {
     "path" : "guvas12d",
     "example": {
-        "name" : "guvas12d",
-        "description" : "Analog UV sensor",
+        "name" : "Analog UV Sensor",
+        "description" : "UPM module for the GUVA-S12D UV sensor",
         "category": "UPM",
         "platform": {
             "boards": [

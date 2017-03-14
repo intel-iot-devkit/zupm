@@ -1,8 +1,8 @@
 {
     "path" : "ppd42ns",
     "example": {
-        "name" : "ppd42ns",
-        "description" : "PPD42NS Dust Sensor",
+        "name" : "Dust Sensor",
+        "description" : "UPM module for the PPD42NS dust sensor",
         "category": "UPM",
         "platform": {
             "boards": [

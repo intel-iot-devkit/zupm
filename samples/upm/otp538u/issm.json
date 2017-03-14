@@ -1,8 +1,8 @@
 {
     "path" : "otp538u",
     "example": {
-        "name" : "otp538u",
-        "description" : "Analog IR Temperature sensor",
+        "name" : "Analog IR Temperature Sensor",
+        "description" : "UPM module for the OTP538U IR temperature sensor This module was tested with the Grove IR non-contact temperature sensor. The sensor provides 2 analog outputs: one for the thermistor that measures the ambient temperature, and the other for the thermopile that measures the object temperature. Much of the code depends on analyzing Seeed Studio* examples and the circuit design. As a result, there are several 'magic' numbers derived from their circuit design. These values are used by default.",
         "category": "UPM",
         "platform": {
             "boards": [

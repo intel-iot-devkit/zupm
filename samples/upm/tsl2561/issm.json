@@ -1,8 +1,8 @@
 {
     "path" : "tsl2561",
     "example": {
-        "name" : "UPM sample for reading values from an I2C light sensor",
-        "description" : "Digital light sensor example",
+        "name" : "Digital Light Sensor",
+        "description" : "TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface.",
         "category": "UPM",
         "platform": {
             "boards": [

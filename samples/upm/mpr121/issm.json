@@ -1,8 +1,8 @@
 {
     "path" : "mpr121",
     "example": {
-        "name" : "mpr121",
-        "description" : "Digital capacitive touch sensor controller",
+        "name" : "Digital Capacitive Touch Sensor Controller",
+        "description" : "UPM module for the MPR121 touch sensor",
         "category": "UPM",
         "platform": {
             "boards": [

@@ -1,8 +1,8 @@
 {
     "path" : "ldt0028",
     "example": {
-        "name" : "ldt0028",
-        "description" : "Piezo vibration sensor",
+        "name" : "Piezo Vibration Sensor",
+        "description" : "This module defines the LDT0-028 interface for libupm-ldt0028",
         "category": "UPM",
         "platform": {
             "boards": [

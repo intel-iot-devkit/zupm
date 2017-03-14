@@ -1,8 +1,8 @@
 {
     "path" : "joystick12",
     "example": {
-        "name" : "joystick12",
-        "description" : "2-axis analog joystick",
+        "name" : "2-axis Analog Joystick",
+        "description" : "This module defines the Joystick API, and implementation for the X and Y buttons could be treated as normal GPIO - this enables easier interrupt support. This driver should be compatible with any 2-axis analogjoystick.",
         "category": "UPM",
         "platform": {
             "boards": [

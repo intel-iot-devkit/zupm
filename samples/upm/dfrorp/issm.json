@@ -1,8 +1,8 @@
 {
     "path" : "dfrorp",
     "example": {
-        "name" : "dfrorp",
-        "description" : "DFRobot analog oxidation reduction potential (ORP) sensor",
+        "name" : "Analog Oxidation Reduction Potential (ORP) Sensor",
+        "description" : "DFRobot ORP Sensor",
         "category": "UPM",
         "platform": {
             "boards": [

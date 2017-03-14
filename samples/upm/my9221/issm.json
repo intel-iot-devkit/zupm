@@ -1,8 +1,8 @@
 {
     "path" : "my9221",
     "example": {
-        "name" : "my9221",
-        "description" : "MY9221 LED controller",
+        "name" : "12-channel Constant Current LED Driver with Grayscale",
+        "description" : "12-channel led driver with grayscale adaptive pulse density modulation control.",
         "category": "UPM",
         "platform": {
             "boards": [

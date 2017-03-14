@@ -1,8 +1,8 @@
 {
     "path" : "ecezo",
     "example": {
-        "name" : "ecezo",
-        "description" : "Driver for the EC-EZO EC sensor",
+        "name" : "Electrical Conductivity (EC) Circuit",
+        "description" : "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes",
         "category": "UPM",
         "platform": {
             "boards": [

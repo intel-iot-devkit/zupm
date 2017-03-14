@@ -1,8 +1,8 @@
 {
     "path" : "ims",
     "example": {
-        "name" : "ims",
-        "description" : "Catnip Electronics I2C moisture sensor",
+        "name" : "I2C Moisture Sensor",
+        "description" : "I2C sensor which can be used to read: moisture light temperature This sensor must run at 100 kHz",
         "category": "UPM",
         "platform": {
             "boards": [

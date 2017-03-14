@@ -1,8 +1,8 @@
 {
     "path" : "slide",
     "example": {
-        "name" : "slide",
-        "description" : "Slide potentiometer sensor",
+        "name" : "Slide Potentiometer",
+        "description" : "Basic UPM module for the slide potentiometer on analog that returns either a raw value or a scaled voltage value",
         "category": "UPM",
         "platform": {
             "boards": [

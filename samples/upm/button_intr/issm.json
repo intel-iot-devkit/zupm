@@ -1,7 +1,7 @@
 {
     "path" : "button_intr",
     "example": {
-        "name" : "button_intr",
+        "name" : "Button Interrupt Example",
         "description" : "Button sensor Interrupt Example",
         "category": "UPM",
         "platform": {

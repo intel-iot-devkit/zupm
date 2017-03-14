@@ -1,8 +1,8 @@
 {
     "path" : "nmea_gps",
     "example": {
-        "name" : "nmea_gps",
-        "description" : "Generic driver for GPS NMEA sensors",
+        "name" : "Generic Serial Interface for GPS NMEA Devices",
+        "description" : "Generic Serial Interface for GPS NMEA Devices.",
         "category": "UPM",
         "platform": {
             "boards": [

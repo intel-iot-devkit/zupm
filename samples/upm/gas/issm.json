@@ -1,7 +1,7 @@
 {
     "path" : "gas",
     "example": {
-        "name" : "gas",
+        "name" : "Gas Sensor",
         "description" : "Generic gas detection sensor library",
         "category": "UPM",
         "platform": {

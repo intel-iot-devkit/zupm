@@ -1,8 +1,8 @@
 {
     "path" : "enc03r",
     "example": {
-        "name" : "enc03r",
-        "description" : "Single-axis analog gyroscope",
+        "name" : "Single-axis Analog Gyro Module",
+        "description" : "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",
         "category": "UPM",
         "platform": {
             "boards": [
