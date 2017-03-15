@@ -24,6 +24,7 @@
 
 #include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
 
 #include "ldt0028.h"
 #include "upm_utilities.h"
@@ -62,10 +63,6 @@ int main()
     ldt0028_set_aref(sensor, 5.0);
     ldt0028_set_scale(sensor, 1.0);
     ldt0028_set_offset(sensor, -.1);
-    printf("aRef: %0.03f scale: %0.03f offset: %0.03f\n\n",
-            ldt0028_get_aref(sensor),
-            ldt0028_get_scale(sensor),
-            ldt0028_get_offset(sensor));
 
     float normalized = 0.0;
     float raw_volts = 0.0;
@@ -86,8 +83,13 @@ int main()
         if (normalized > norm_base)
         {
             printf("Detected vibration!\n");
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+            printf("Normalized output(100): %d, raw ldt0028 sensor output: %d mv "
+                    "adjusted output: %d mv\n", (int)(normalized*100), (int)(raw_volts*1000), (int)(volts*1000));
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
             printf("Normalized output: %0.03f, raw ldt0028 sensor output: %0.03f v "
-                    "adjusted output: %0.03f v\n\n", normalized, raw_volts, volts);
+                    "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
+#endif
         }
 
         upm_delay_ms(500);

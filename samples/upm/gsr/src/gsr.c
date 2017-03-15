@@ -24,6 +24,7 @@
 
 #include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
 
 #include "gsr.h"
 #include "upm_utilities.h"
@@ -62,10 +63,12 @@ int main()
     gsr_set_aref(sensor, 5.0);
     gsr_set_scale(sensor, 1.0);
     gsr_set_offset(sensor, -.1);
+/*
     printf("aRef: %0.03f scale: %0.03f offset: %0.03f\n\n",
             gsr_get_aref(sensor),
             gsr_get_scale(sensor),
             gsr_get_offset(sensor));
+*/
 
     // Every half a second, sample the sensor output
     while (shouldRun)
@@ -78,8 +81,13 @@ int main()
         gsr_get_raw_volts(sensor, &raw_volts);
         gsr_get_volts(sensor, &volts);
 
-        printf("Normalized output: %0.03f, raw gsr sensor output: %0.03f v "
-                "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Normalized output(100): %d, raw gsr sensor output: %d mv "
+                "adjusted output: %d mv\n", (int)(normalized*100), (int)(raw_volts*1000), (int)(volts*1000));
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
+            printf("Normalized output: %0.03f, raw gsr sensor output: %0.03f v "
+                    "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
+#endif
 
         upm_delay_ms(500);
     }

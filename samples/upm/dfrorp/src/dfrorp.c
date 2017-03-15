@@ -78,9 +78,11 @@ int main()
     while (shouldRun)
     {
         dfrorp_update(sensor);
-
+#if defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("ORP = %f mV\n", dfrorp_get_orp(sensor));
-
+#elif defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("ORP = %d mV\n", (int)dfrorp_get_orp(sensor));
+#endif
         upm_delay(1);
     }
 

@@ -24,6 +24,7 @@
 
 #include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
 
 #include "dfrph.h"
 #include "upm_utilities.h"
@@ -39,6 +40,7 @@ void sig_handler(int signo)
 
 int main()
 {
+upm_delay_ms(500);
     if (mraa_init() != MRAA_SUCCESS)
     {
         fprintf(stderr,"Failed to initialize mraa\n");
@@ -68,10 +70,13 @@ int main()
 
         dfrph_get_raw_volts(sensor, &volts);
         dfrph_get_ph(sensor, &pH);
-
+#if defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("Detected volts: %0.03f\n", volts);
         printf("pH value: %0.03f\n", pH);
-
+#elif defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Detected millivolts: %d\n", (int)(volts*1000));
+        printf("pH value: %d\n", (int)pH);
+#endif
         upm_delay_ms(500);
     }
 

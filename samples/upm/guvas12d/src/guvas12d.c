@@ -43,7 +43,7 @@ void sig_handler(int signo)
 int main()
 {
     signal(SIGINT, sig_handler);
-
+    upm_delay(1);
 //! [Interesting]
     // This was tested with the Grove UV Sensor module.
     // It has a sensing range from between 240-370nm.  It's strongest
@@ -57,7 +57,6 @@ int main()
         printf("guvas12d_init() failed\n");
         return 1;
     }
-
     // The higher the voltage the more intense the UV radiation.
     while (shouldRun)
     {
@@ -69,6 +68,7 @@ int main()
             printf("guvas12d_get_volts() failed\n");
             return 1;
         }
+        upm_delay_ms(500);
 
         if (guvas12d_get_intensity(uv, &intensity))
         {
@@ -76,9 +76,12 @@ int main()
             return 1;
         }
 
-        printf("Volts: %f, Intensity %f mW/m^2\n", volts, intensity);
-
-        upm_delay(1);
+        upm_delay_ms(500);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Volts: %d Intensity %d mW/m^2\n", (int)(volts*1000), (int)intensity);
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
+            printf("Volts: %f Intensity %f mW/m^2\n", volts, intensity);
+#endif
     }
 
     printf("Exiting\n");

@@ -2,11 +2,12 @@
     "path" : "ldt0028",
     "example": {
         "name" : "Piezo Vibration Sensor",
-        "description" : "This module defines the LDT0-028 interface for libupm-ldt0028",
+        "description" : "This module defines the LDT0-028 interface for libupm-ldt0028 and API for LDT0-028 PZT film-based sensors, such as a Grove Piezo Vibration sensor",
         "category": "UPM",
         "platform": {
             "boards": [
-                "arduino_101_sss"
+                "arduino_101_sss",
+                "quark_d2000_crb"
             ]
         }
     }

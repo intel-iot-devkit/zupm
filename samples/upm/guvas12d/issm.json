@@ -1,12 +1,13 @@
 {
     "path" : "guvas12d",
     "example": {
-        "name" : "Analog UV Sensor",
-        "description" : "UPM module for the GUVA-S12D UV sensor",
+        "name" : "GUVA-S12D UV sensor",
+        "description" : "UPM module for the GUVA-S12D UV sensor. Includes functions to return the intensity and volts as well as a small calibration API.",
         "category": "UPM",
         "platform": {
             "boards": [
-                "arduino_101_sss"
+                "arduino_101_sss",
+                "quark_d2000_crb"
             ]
         }
     }

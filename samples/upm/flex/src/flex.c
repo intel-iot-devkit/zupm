@@ -24,6 +24,7 @@
 
 #include <unistd.h>
 #include <signal.h>
+#include <stdio.h>
 
 #include "flex.h"
 #include "upm_utilities.h"
@@ -62,10 +63,6 @@ int main()
     flex_set_aref(sensor, 5.0);
     flex_set_scale(sensor, 1.0);
     flex_set_offset(sensor, -.1);
-    printf("aRef: %0.03f scale: %0.03f offset: %0.03f\n\n",
-            flex_get_aref(sensor),
-            flex_get_scale(sensor),
-            flex_get_offset(sensor));
 
     // Every half a second, sample the sensor output
     while (shouldRun)
@@ -78,9 +75,13 @@ int main()
         flex_get_raw_volts(sensor, &raw_volts);
         flex_get_volts(sensor, &volts);
 
-        printf("Normalized output: %0.03f, raw flex sensor output: %0.03f v "
-                "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
-
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Normalized output(100): %d, raw flex sensor output: %d mv "
+                "adjusted output: %d mv\n", (int)(normalized*100), (int)(raw_volts*1000), (int)(volts*1000));
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
+            printf("Normalized output: %0.03f, raw flex sensor output: %0.03f v "
+                    "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
+#endif
         upm_delay_ms(500);
     }
 
