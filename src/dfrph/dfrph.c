@@ -82,6 +82,7 @@ upm_result_t dfrph_set_scale(const dfrph_context dev, float scale)
 upm_result_t dfrph_get_raw_volts(const dfrph_context dev, float *volts)
 {
     *volts = mraa_aio_read_float(dev->aio);
+
     if (*volts == -1.0) return UPM_ERROR_OPERATION_FAILED;
 
     /* Scale by aref */

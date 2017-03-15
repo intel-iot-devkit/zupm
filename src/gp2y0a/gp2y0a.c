@@ -52,8 +52,10 @@ upm_result_t gp2y0a_get_value(gp2y0a_context dev, float a_ref,
 
     for(i=0; i<samples; i++) {
         val = mraa_aio_read(dev->aio);
+        upm_delay_ms(1);
         sum += val;
     }
+
     val = sum/samples;
     float volts = (float)(val * a_ref) / (float)dev->a_res;
     *value = volts;
