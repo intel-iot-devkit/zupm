@@ -2,7 +2,7 @@
     "path" : "a110x",
     "example": {
         "name" : "Hall effect sensor",
-        "description" : "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It    outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
+        "description" : "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
         "category": "UPM",
         "platform": {
             "boards": [

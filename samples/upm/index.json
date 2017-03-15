@@ -3,7 +3,7 @@
     "path": "a110x",
     "example": {
       "name": "Hall effect sensor",
-      "description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It    outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
+      "description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
       "category": "UPM",
       "platform": {
         "boards": [
@@ -16,7 +16,7 @@
     "path": "apa102",
     "example": {
       "name": "LED Strip",
-      "description": "APA102 LED Strips provide individually controllable LEDs through a SPI interface. For eac   h LED, brightness (0-31) and RGB (0-255) values can be set.",
+      "description": "APA102 LED Strips provide individually controllable LEDs through a SPI interface. For each LED, brightness (0-31) and RGB (0-255) values can be set.",
       "category": "UPM",
       "platform": {
         "boards": [
@@ -30,7 +30,7 @@
     "path": "bh1750",
     "example": {
       "name": "Digital Light Sensor",
-      "description": "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sen   sitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C.",
+      "description": "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sensitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C.",
       "category": "UPM",
       "platform": {
         "boards": [
