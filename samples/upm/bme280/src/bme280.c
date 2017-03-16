@@ -44,12 +44,26 @@ int main(int argc, char **argv)
     signal(SIGINT, sig_handler);
 //! [Interesting]
 
-    // Instantiate a BME280 instance using default i2c bus and
-    // address.  We use the BMP280 driver to do all of our work, since
+    // We use the BMP280 driver to do all of our work, since
     // the BMP280 and the BME280 are identical except for the fact
     // that the BME280 includes a humidity sensor.
-    bmp280_context sensor = bmp280_init(BME280_DEFAULT_I2C_BUS,
-                                        BME280_DEFAULT_ADDR, -1);
+
+#if defined(CONFIG_BOARD_ARDUINO_101_SSS)
+    // 101_SSS MUST use I2C
+    // Instantiate a BMP280 instance using default i2c bus and address
+    bmp280_context sensor = bmp280_init(BMP280_DEFAULT_I2C_BUS,
+                                        BMP280_DEFAULT_ADDR, -1);
+#elif defined(CONFIG_BOARD_ARDUINO_101)
+    // ARDUINO_101 where you must use SPI
+    // Instantiate a BMP280 instance using default SPI bus and pin 10 as CS
+    bmp280_context sensor = bmp280_init(BMP280_DEFAULT_SPI_BUS,
+                                        -1, 10);
+#else
+    // everything else use I2C by default
+    // Instantiate a BMP280 instance using default i2c bus and address
+    bmp280_context sensor = bmp280_init(BMP280_DEFAULT_I2C_BUS,
+                                        BMP280_DEFAULT_ADDR, -1);
+#endif
 
     if (!sensor)
     {
