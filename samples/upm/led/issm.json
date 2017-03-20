@@ -1,8 +1,8 @@
 {
-    "path" : "Light-emitting Diode (LED)",
+    "path" : "led",
     "example": {
-        "name" : "UPM module for the LED (or other similar light-emitting diodes). An LED is a p-n junction semiconductor which emits light in response to voltage. The longer wire of an LED connects to the positive seat (anode); the shorter wire connects to the negative seat (cathode). The flat side of the bulb corresponds to the cathode, while the rounded side corresponds to the anode",
-        "description" : "Blink onboard LED",
+        "description" : "UPM module for the LED (or other similar light-emitting diodes). An LED is a p-n junction semiconductor which emits light in response to voltage. The longer wire of an LED connects to the positive seat (anode); the shorter wire connects to the negative seat (cathode). The flat side of the bulb corresponds to the cathode, while the rounded side corresponds to the anode",
+        "name" : "Onboard LED",
         "category": "UPM",
         "platform": {
             "boards": [
