@@ -51,6 +51,7 @@ int main()
         return 1;
     }
 
+    int ndx = 0;
     // Every second, sample the sensor outputs
     while (shouldRun)
     {
@@ -60,8 +61,8 @@ int main()
             ims_get_light(sensor, &light) == UPM_SUCCESS &&
             ims_get_moisture(sensor, &moisture) == UPM_SUCCESS &&
             ims_get_temperature(sensor, &temp) == UPM_SUCCESS)
-            printf("Version: %d light: 0x%04x moisture: 0x%04x temp: %3.2f C\n",
-                    version, light, moisture, temp/10.0);
+            printf("%03d Version: %d light: 0x%04x moisture: 0x%04x temp: %d C\n",
+                    ndx++, version, light, moisture, (int)(temp/10.0));
         else
             break;
 
