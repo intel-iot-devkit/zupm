@@ -38,7 +38,7 @@ max30100_context* max30100_init(int16_t i2c_bus)
         goto max30100_init_fail;
     }
 
-    /* Initilize mraa */
+    /* Initialize mraa */
     mraa_result_t result = mraa_init();
     if (result != MRAA_SUCCESS)
     {
