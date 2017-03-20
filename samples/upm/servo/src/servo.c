@@ -18,7 +18,11 @@ int main()
         return -1;
     }
 
+#if defined(CONFIG_BOARD_ARDUINO_101_SSS)
     es08a_context dev = es08a_init(3, ES08A_MIN_PULSE_WIDTH, ES08A_MAX_PULSE_WIDTH);
+#elif defined(CONFIG_BOARD_QUARK_D2000_CRB)
+    es08a_context dev = es08a_init(6, ES08A_MIN_PULSE_WIDTH, ES08A_MAX_PULSE_WIDTH);
+#endif
     if(dev == NULL){
         printf("unable to initialize the servo context\n");
     }
