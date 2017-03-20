@@ -62,10 +62,6 @@ int main()
     slide_set_aref(sensor, 5.0);
     slide_set_scale(sensor, 1.0);
     slide_set_offset(sensor, -.1);
-    printf("aRef: %0.03f scale: %0.03f offset: %0.03f\n\n",
-            slide_get_aref(sensor),
-            slide_get_scale(sensor),
-            slide_get_offset(sensor));
 
     // Every half a second, sample the sensor output
     while (shouldRun)
@@ -75,11 +71,22 @@ int main()
         float volts = 0.0;
 
         slide_get_normalized(sensor, &normalized);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+upm_delay_ms(5);
+#endif
         slide_get_raw_volts(sensor, &raw_volts);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+upm_delay_ms(5);
+#endif
         slide_get_volts(sensor, &volts);
 
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Normalized output: %d, raw slide sensor output: %d mv "
+                "adjusted output: %d mv\n", (int)normalized, (int)(raw_volts*1000), (int)(volts*1000));
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("Normalized output: %0.03f, raw slide sensor output: %0.03f v "
                 "adjusted output: %0.03f v\n", normalized, raw_volts, volts);
+#endif
 
         upm_delay_ms(500);
     }

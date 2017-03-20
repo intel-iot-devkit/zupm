@@ -18,7 +18,7 @@ int main()
         return -1;
     }
 
-    moisture_context dev = moisture_init(14);
+    moisture_context dev = moisture_init(0);
     int val;
     while(1){
         if(moisture_get_moisture(dev, &val) != UPM_SUCCESS){

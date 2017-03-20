@@ -65,10 +65,19 @@ int main()
         float o2_percent = 0.0;
 
         o2_get_raw_volts(sensor, &raw_volts);
+        // d2000 needs extra delay for some reason
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        upm_delay_ms(5);
+#endif
         o2_get_value(sensor, &o2_percent);
 
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("O2 raw volts: %d mv, o2: %d \n",
+                (int)(raw_volts*1000), (int)o2_percent);
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("O2 raw volts: %0.03f v, o2: %0.03f %%\n",
                 raw_volts, o2_percent);
+#endif
 
         upm_delay_ms(500);
     }

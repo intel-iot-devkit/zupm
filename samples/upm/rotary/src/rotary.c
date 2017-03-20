@@ -46,7 +46,11 @@ int main()
     float angle;
     while(1) {
         rotary_get_value_voltage(dev, &angle);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("rotary voltage value detected: %d mv\n", (int)(angle*1000));
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("rotary voltage value detected: %f\n", angle);
+#endif
         upm_delay(1);
     }
 

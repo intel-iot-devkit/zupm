@@ -57,7 +57,11 @@ int main()
             return 1;
         }
 
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Temperature: %d C\n", (int)temp);
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("Temperature: %3.2f C\n", temp);
+#endif
 
         upm_delay_ms(500);
     }

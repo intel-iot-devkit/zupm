@@ -64,10 +64,18 @@ int main()
         float raw_volts = 0.0, computed_volts = 0.0;
 
         vdiv_get_raw_volts(sensor, &raw_volts);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        upm_delay_ms(5);
+#endif
         vdiv_get_computed_volts(sensor, &computed_volts);
 
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Divide SW: %d ADC voltage: %d mv Sensor voltage: %d mv\n",
+                vdiv_get_divsw(sensor), (int)(raw_volts*1000), (int)(computed_volts*1000));
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("Divide SW: %d ADC voltage: %0.03f Sensor voltage: %0.03f\n",
                 vdiv_get_divsw(sensor), raw_volts, computed_volts);
+#endif
 
         upm_delay_ms(500);
     }

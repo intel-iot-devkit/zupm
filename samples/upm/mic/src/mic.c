@@ -46,7 +46,11 @@ int main()
     float val;
     while(1) {
         mic_get_value(dev, &val);
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("mic value: %d\n", (int)val);
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("mic value: %f\n", val);
+#endif
         upm_delay(1);
     }
 

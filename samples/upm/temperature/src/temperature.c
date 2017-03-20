@@ -24,7 +24,12 @@ int main()
         if(temperature_get_value(dev, &val) != UPM_SUCCESS){
             printf("Failed to get any values from the sensor\n");
         }
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+        printf("Temperature Value: %d\n", (int)val);
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
         printf("Temperature Value: %f\n", val);
+#endif
+
         upm_delay(1);
     }
     temperature_close(dev);

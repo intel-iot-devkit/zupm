@@ -65,8 +65,13 @@ int main()
         else if (otp538u_get_object_temperature(temps, &object))
             printf("otp538u_get_object_temperature() failed\n");
         else
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+            printf("Ambient temp: %d C, Object temp: %d C\n",
+                   (int)ambient, (int)object);
+#elif defined(CONFIG_BOARD_ARDUINO_101_SSS)
             printf("Ambient temp: %f C, Object temp: %f C\n",
                    ambient, object);
+#endif
 
         printf("\n");
         upm_delay(1);
