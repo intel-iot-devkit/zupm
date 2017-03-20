@@ -72,7 +72,7 @@ int main()
         goto max30100_exit;
     }
 
-    printf("Temperature: %f C\n", temp);
+    printf("Temperature: %d C\n", (int)temp);
     printf("Version: 0x%04x\n", version);
 
     /* Set high-res (50 Hz, 16-bit) */
