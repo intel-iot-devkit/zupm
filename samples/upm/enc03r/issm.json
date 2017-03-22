@@ -3,7 +3,7 @@
     "example": {
         "name" : "Single-axis Analog Gyro Module",
         "description" : "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss"

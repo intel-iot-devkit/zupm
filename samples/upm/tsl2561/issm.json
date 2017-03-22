@@ -3,7 +3,7 @@
     "example": {
         "name" : "Digital Light Sensor",
         "description" : "TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

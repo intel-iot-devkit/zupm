@@ -3,7 +3,7 @@
     "example": {
         "name" : "Capacitive Touch Sensor",
         "description" : "This touch sensor detects when a finger is near the metallic pad by the change in capacitance. It can replace a more traditional push button. The touch sensor can still function when placed under a non-metallic surface like glass or plastic.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

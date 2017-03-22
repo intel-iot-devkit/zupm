@@ -3,7 +3,7 @@
     "example": {
         "name" : "Gas Sensor",
         "description" : "Generic gas detection sensor library. Includes support for MQ line of sensors.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

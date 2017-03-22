@@ -3,7 +3,7 @@
     "example": {
         "name" : "Resistive Flex Sensor",
         "description" : "A simple flex sensor. The resistance across the sensor increases when flexed. Patented technology by Spectra Symbol, these sensors were used in the original Nintendo* Power Glove.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

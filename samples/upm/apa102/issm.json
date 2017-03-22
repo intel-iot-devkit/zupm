@@ -3,7 +3,7 @@
     "example": {
         "name" : "LED Strip",
         "description" : "APA102 LED Strips provide individually controllable LEDs through a SPI interface. For each LED, brightness (0-31) and RGB (0-255) values can be set.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

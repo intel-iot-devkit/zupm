@@ -3,7 +3,7 @@
     "example": {
         "name" : "Collision Sensor",
         "description" : "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

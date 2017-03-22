@@ -3,7 +3,7 @@
     "example": {
         "name" : "Water Detection Sensor",
         "description" : "UPM module for the Water sensor",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

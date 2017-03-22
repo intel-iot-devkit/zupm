@@ -3,7 +3,7 @@
     "example": {
         "name" : "Infrared (IR) Based Line Finder",
         "description" : "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

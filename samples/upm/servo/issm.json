@@ -3,7 +3,7 @@
     "example": {
         "name" : "Servo Controller",
         "description" : "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

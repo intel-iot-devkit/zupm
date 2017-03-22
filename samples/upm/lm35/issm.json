@@ -3,7 +3,7 @@
     "example": {
         "name" : "Analog Temperature Sensor",
         "description" : "This sensor returns an analog voltage proportional to the temperature of the ambient environment. It has a range of 2C to 150C. This driver was developed using the DFRobot LM35 Linear Temperature Sensor.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

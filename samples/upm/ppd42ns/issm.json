@@ -3,7 +3,7 @@
     "example": {
         "name" : "Dust Sensor",
         "description" : "UPM module for the PPD42NS dust sensor",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

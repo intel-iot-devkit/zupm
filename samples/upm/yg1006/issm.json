@@ -3,7 +3,7 @@
     "example": {
         "name" : "Flame Sensor",
         "description" : "UPM module for the YG1006 flame sensor. It detects a flame or any other light source in the 760-1,100 nm wavelength range",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss"

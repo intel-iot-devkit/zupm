@@ -3,7 +3,7 @@
     "example": {
         "name" : "Button Interrupt Example",
         "description" : "Button sensor Interrupt Example",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

@@ -3,7 +3,7 @@
     "example": {
         "name" : "Digital Capacitive Touch Sensor Controller",
         "description" : "UPM module for the MPR121 touch sensor",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

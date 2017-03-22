@@ -3,7 +3,7 @@
     "example": {
         "name" : "Analog Voltage Divider Sensor",
         "description" : "UPM module for the Voltage Divider sensor.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

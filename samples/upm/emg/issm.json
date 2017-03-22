@@ -3,7 +3,7 @@
     "example": {
         "name" : "Electromyography (EMG) Sensor",
         "description" : "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss"

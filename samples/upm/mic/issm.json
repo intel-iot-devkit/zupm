@@ -3,7 +3,7 @@
     "example": {
         "name" : "Simple Analog Microphone",
         "description" : "Mic Sensor",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101_sss",

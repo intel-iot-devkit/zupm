@@ -3,7 +3,7 @@
     "example": {
         "name" : "Laser Particulate Matter (PM) Sensor",
         "description" : "This driver was tested with a DFRobot Laser PM2.5 Sensor. It connects to a UART at 9600 baud. This is the only baud rate supported. It optionally supports Reset and Set/Sleep gpios as well",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",

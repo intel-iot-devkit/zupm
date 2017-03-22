@@ -3,7 +3,7 @@
     "example": {
         "name" : "12-channel Constant Current LED Driver with Grayscale",
         "description" : "12-channel led driver with grayscale adaptive pulse density modulation control.",
-        "category": "UPM",
+        "category": ["Sensors/Discrete"],
         "platform": {
             "boards": [
                 "arduino_101",
