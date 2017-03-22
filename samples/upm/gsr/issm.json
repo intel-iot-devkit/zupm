@@ -1,14 +1,16 @@
 {
-    "path" : "gsr",
-    "example": {
-        "name" : "Galvanic Skin Response (GSR) Sensor",
-        "description" : "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "gsr",
+  "example": {
+    "name": "gsr - Galvanic Skin Response (GSR) Sensor",
+    "description": "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

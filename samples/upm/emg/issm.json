@@ -1,13 +1,15 @@
 {
-    "path" : "emg",
-    "example": {
-        "name" : "Electromyography (EMG) Sensor",
-        "description" : "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "emg",
+  "example": {
+    "name": "emg - Electromyography (EMG) Sensor",
+    "description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

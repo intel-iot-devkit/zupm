@@ -1,14 +1,16 @@
 {
-    "path" : "gp2y0a",
-    "example": {
-        "name" : "Analog Infrared (IR) Based Distance Sensor",
-        "description" : "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "gp2y0a",
+  "example": {
+    "name": "gp2y0a - Analog Infrared (IR) Based Distance Sensor",
+    "description": "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

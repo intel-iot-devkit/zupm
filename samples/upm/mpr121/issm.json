@@ -1,14 +1,16 @@
 {
-    "path" : "mpr121",
-    "example": {
-        "name" : "Digital Capacitive Touch Sensor Controller",
-        "description" : "UPM module for the MPR121 touch sensor",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "mpr121",
+  "example": {
+    "name": "mpr121 - Digital Capacitive Touch Sensor Controller",
+    "description": "UPM module for the MPR121 touch sensor",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

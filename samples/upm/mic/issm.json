@@ -1,14 +1,16 @@
 {
-    "path" : "mic",
-    "example": {
-        "name" : "Simple Analog Microphone",
-        "description" : "Mic Sensor",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "mic",
+  "example": {
+    "name": "mic - Simple Analog Microphone",
+    "description": "Mic Sensor",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

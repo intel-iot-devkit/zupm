@@ -1,13 +1,15 @@
 {
-    "path" : "urm37",
-    "example": {
-        "name" : "Ultrasonic Range Finder",
-        "description" : "This library was tested with the DFRobot URM37 Ultrasonic Ranger, V4. It has a range of between 5 and 500 centimeters (cm). It supports both analog distance measurement, and UART based temperature and distance measurements. This driver does not support PWM measurement mode. For UART operation, the only supported baud rate is 9600. In addition, you must ensure that the UART TX/RX pins are configured for TTL operation (the factory default) rather than RS232 operation, or permanent damage to your URM37 and/or MCU will result. On power up, the LED indicator will blink one long pulse, followed by one short pulse to indicate TTL operation.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "urm37",
+  "example": {
+    "name": "urm37 - Ultrasonic Range Finder",
+    "description": "This library was tested with the DFRobot URM37 Ultrasonic Ranger, V4. It has a range of between 5 and 500 centimeters (cm). It supports both analog distance measurement, and UART based temperature and distance measurements. This driver does not support PWM measurement mode. For UART operation, the only supported baud rate is 9600. In addition, you must ensure that the UART TX/RX pins are configured for TTL operation (the factory default) rather than RS232 operation, or permanent damage to your URM37 and/or MCU will result. On power up, the LED indicator will blink one long pulse, followed by one short pulse to indicate TTL operation.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

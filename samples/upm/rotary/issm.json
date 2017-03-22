@@ -1,14 +1,16 @@
 {
-    "path" : "rotary",
-    "example": {
-        "name" : "Rotary Angle Sensor",
-        "description" : "Basic UPM module for the rotary angle sensor (knob) on analog. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "rotary",
+  "example": {
+    "name": "rotary - Rotary Angle Sensor",
+    "description": "Basic UPM module for the rotary angle sensor (knob) on analog. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

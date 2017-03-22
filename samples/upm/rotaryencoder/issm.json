@@ -1,14 +1,16 @@
 {
-    "path" : "rotaryencoder",
-    "example": {
-        "name" : "Rotary Encoder",
-        "description" : "UPM module for the Grove rotary encoder. This rotary encoder encodes a rotation signal into electronic pulses that can be used to measure rotation and direction. It is useful in cases where a rotary knob is required, but using a potentiometer is not desirable. A rotary encoder can turn a full 360 degrees without a stop and does not place a resistive load on the circuit, as is the case with a potentiometer. This module maintains a position that is incremented or decremented according to the rotation on the encoder",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "rotaryencoder",
+  "example": {
+    "name": "rotaryencoder - Rotary Encoder",
+    "description": "UPM module for the Grove rotary encoder. This rotary encoder encodes a rotation signal into electronic pulses that can be used to measure rotation and direction. It is useful in cases where a rotary knob is required, but using a potentiometer is not desirable. A rotary encoder can turn a full 360 degrees without a stop and does not place a resistive load on the circuit, as is the case with a potentiometer. This module maintains a position that is incremented or decremented according to the rotation on the encoder",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

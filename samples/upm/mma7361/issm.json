@@ -1,13 +1,15 @@
 {
-    "path" : "mma7361",
-    "example": {
-        "name" : "Triaxial Analog Accelerometer",
-        "description" : "This library was tested with the DFRobot MMA7361 Analog Accelerometer. It supports 3 Axes with a selectable 1.5G and 6G sensitivity.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "mma7361",
+  "example": {
+    "name": "mma7361 - Triaxial Analog Accelerometer",
+    "description": "This library was tested with the DFRobot MMA7361 Analog Accelerometer. It supports 3 Axes with a selectable 1.5G and 6G sensitivity.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

@@ -1,13 +1,15 @@
 {
-    "path" : "nmea_gps",
-    "example": {
-        "name" : "Generic Serial Interface for GPS NMEA Devices",
-        "description" : "Generic Serial Interface for GPS NMEA Devices.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101"
-            ]
-        }
+  "path": "nmea_gps",
+  "example": {
+    "name": "nmea_gps - Generic Serial Interface for GPS NMEA Devices",
+    "description": "Generic Serial Interface for GPS NMEA Devices.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101"
+      ]
     }
+  }
 }

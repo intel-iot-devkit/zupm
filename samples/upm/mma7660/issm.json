@@ -1,13 +1,15 @@
 {
-    "path" : "mma7660",
-    "example": {
-        "name" : "I2C 3-axis Digital Accelerometer (1.5g)",
- "description" : "UPM module for the MMA7660 I2C 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied (up to 1.5g) This module was tested with the Grove 3-Axis Digital Accelerometer (1.5g).",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "mma7660",
+  "example": {
+    "name": "mma7660 - I2C 3-axis Digital Accelerometer (1.5g)",
+    "description": "UPM module for the MMA7660 I2C 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied (up to 1.5g) This module was tested with the Grove 3-Axis Digital Accelerometer (1.5g).",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

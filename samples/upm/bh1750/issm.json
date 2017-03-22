@@ -1,13 +1,15 @@
 {
-    "path" : "bh1750",
-    "example": {
-        "name" : "Digital Light Sensor",
-        "description" : "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sensitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "bh1750",
+  "example": {
+    "name": "bh1750 - Digital Light Sensor",
+    "description": "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sensitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

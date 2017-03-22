@@ -1,14 +1,16 @@
 {
-    "path" : "guvas12d",
-    "example": {
-        "name" : "GUVA-S12D UV sensor",
-        "description" : "UPM module for the GUVA-S12D UV sensor. Includes functions to return the intensity and volts as well as a small calibration API.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "guvas12d",
+  "example": {
+    "name": "guvas12d - GUVA-S12D UV sensor",
+    "description": "UPM module for the GUVA-S12D UV sensor. Includes functions to return the intensity and volts as well as a small calibration API.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

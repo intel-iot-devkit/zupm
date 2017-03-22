@@ -1,14 +1,16 @@
 {
-    "path" : "ppd42ns",
-    "example": {
-        "name" : "Dust Sensor",
-        "description" : "UPM module for the PPD42NS dust sensor",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "ppd42ns",
+  "example": {
+    "name": "ppd42ns - Dust Sensor",
+    "description": "UPM module for the PPD42NS dust sensor",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

@@ -1,14 +1,16 @@
 {
-    "path" : "button",
-    "example": {
-        "name" : "Button",
-        "description" : "Basic UPM module for the button sensor",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "button",
+  "example": {
+    "name": "Button",
+    "description": "Basic UPM module for the button sensor",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

@@ -1,13 +1,15 @@
 {
-    "path" : "ecezo",
-    "example": {
-        "name" : "Electrical Conductivity (EC) Circuit",
-        "description" : "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "ecezo",
+  "example": {
+    "name": "ecezo - Electrical Conductivity (EC) Circuit",
+    "description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

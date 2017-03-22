@@ -1,14 +1,16 @@
 {
-    "path" : "collision",
-    "example": {
-        "name" : "Collision Sensor",
-        "description" : "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "collision",
+  "example": {
+    "name": "collision - Collision Sensor",
+    "description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

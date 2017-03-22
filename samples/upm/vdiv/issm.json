@@ -1,14 +1,16 @@
 {
-    "path" : "vdiv",
-    "example": {
-        "name" : "Analog Voltage Divider Sensor",
-        "description" : "UPM module for the Voltage Divider sensor.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "vdiv",
+  "example": {
+    "name": "vdiv - Analog Voltage Divider Sensor",
+    "description": "UPM module for the Voltage Divider sensor.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

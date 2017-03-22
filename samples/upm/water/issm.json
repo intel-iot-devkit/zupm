@@ -1,14 +1,16 @@
 {
-    "path" : "water",
-    "example": {
-        "name" : "Water Detection Sensor",
-        "description" : "UPM module for the Water sensor",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "water",
+  "example": {
+    "name": "water - Water Detection Sensor",
+    "description": "UPM module for the Water sensor",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

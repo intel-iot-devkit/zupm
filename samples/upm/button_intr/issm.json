@@ -1,14 +1,16 @@
 {
-    "path" : "button_intr",
-    "example": {
-        "name" : "Button Interrupt Example",
-        "description" : "Button sensor Interrupt Example",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "button_intr",
+  "example": {
+    "name": "button_intr - Button Interrupt Example",
+    "description": "Button sensor Interrupt Example",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

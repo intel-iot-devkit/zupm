@@ -1,14 +1,16 @@
 {
-    "path" : "servo",
-    "example": {
-        "name" : "Servo Controller",
-        "description" : "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "servo",
+  "example": {
+    "name": "servo - Servo Controller",
+    "description": "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

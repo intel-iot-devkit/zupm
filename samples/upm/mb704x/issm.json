@@ -1,14 +1,16 @@
 {
-    "path" : "mb704x",
-    "example": {
-        "name" : "I2C MaxSonar WR Ultrasonic Ranger",
-        "description" : "This driver was tested with the MB704x MaxSonar-WR Ultrasonic Ranger using the long distance, weather resistant horn. Depending on your sensor type and horn, tanges from 20cm to 750cm are possible.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "mb704x",
+  "example": {
+    "name": "mb704x - I2C MaxSonar WR Ultrasonic Ranger",
+    "description": "This driver was tested with the MB704x MaxSonar-WR Ultrasonic Ranger using the long distance, weather resistant horn. Depending on your sensor type and horn, tanges from 20cm to 750cm are possible.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

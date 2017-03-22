@@ -1,14 +1,16 @@
 {
-    "path" : "lcm1602",
-    "example": {
-        "name" : "16x2 and 20x4 LCD Display",
-        "description" : "This supports all sizes of HD44780 displays, from 16x2 to 4x20. The controller has no idea of the actual display hardware, so it lets you write farther than you can see. These displays with such controllers are available from various manufacturers with different I2C addresses. Adafruit* TC1602A-01T seems to be a well-documented example. The driver also supports parallel GPIO connections directly to the HD44780 in case you are not using an I2C expander/backpack.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "lcm1602",
+  "example": {
+    "name": "lcm1602 - 16x2 and 20x4 LCD Display",
+    "description": "This supports all sizes of HD44780 displays, from 16x2 to 4x20. The controller has no idea of the actual display hardware, so it lets you write farther than you can see. These displays with such controllers are available from various manufacturers with different I2C addresses. Adafruit* TC1602A-01T seems to be a well-documented example. The driver also supports parallel GPIO connections directly to the HD44780 in case you are not using an I2C expander/backpack.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

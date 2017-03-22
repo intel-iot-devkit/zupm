@@ -1,13 +1,15 @@
 {
-    "path" : "bmi160",
-    "example": {
-        "name" : "Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)",
-        "description" : "The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope. Additionally it supports an external Magnetometer, accessed through the BMI160's register interface. This driver was developed with a BMI160 Shuttle board, which included a BMM150 Magnetometer. The device is driven by either 1.8v or 3.3vdc. This driver incorporates the Bosch BMI160 driver code at https://github.com/BoschSensortec/BMI160_driver The Bosch driver code does not provide a mechanism for passing user data around (like the device context). For this reason, only one instance of this driver can be used in a given process, due to the use of static data in the driver. While not all of the functionality of this device is supported initially, the inclusion of the Bosch driver in the source code makes it possible to support whatever features are required that the driver can support",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "bmi160",
+  "example": {
+    "name": "bmi160 - Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)",
+    "description": "The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope. Additionally it supports an external Magnetometer, accessed through the BMI160's register interface. This driver was developed with a BMI160 Shuttle board, which included a BMM150 Magnetometer. The device is driven by either 1.8v or 3.3vdc. This driver incorporates the Bosch BMI160 driver code at https://github.com/BoschSensortec/BMI160_driver The Bosch driver code does not provide a mechanism for passing user data around (like the device context). For this reason, only one instance of this driver can be used in a given process, due to the use of static data in the driver. While not all of the functionality of this device is supported initially, the inclusion of the Bosch driver in the source code makes it possible to support whatever features are required that the driver can support",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

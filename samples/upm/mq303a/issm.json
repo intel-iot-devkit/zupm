@@ -1,13 +1,15 @@
 {
-    "path" : "mq303a",
-    "example": {
-        "name" : "Alcohol Detection Sensor",
-        "description" : "UPM module for the MQ303A alcohol sensor. This sensor needs to be warmed up before stable results are obtained. The higher the value returned from value(), the higher the amount of alcohol detected.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss"
-            ]
-        }
+  "path": "mq303a",
+  "example": {
+    "name": "mq303a - Alcohol Detection Sensor",
+    "description": "UPM module for the MQ303A alcohol sensor. This sensor needs to be warmed up before stable results are obtained. The higher the value returned from value(), the higher the amount of alcohol detected.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
     }
+  }
 }

@@ -1,14 +1,16 @@
 {
-    "path" : "gas",
-    "example": {
-        "name" : "Gas Sensor",
-        "description" : "Generic gas detection sensor library. Includes support for MQ line of sensors.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101_sss",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "gas",
+  "example": {
+    "name": "gas - Gas Sensor",
+    "description": "Generic gas detection sensor library. Includes support for MQ line of sensors.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }

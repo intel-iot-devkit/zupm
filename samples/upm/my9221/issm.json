@@ -1,14 +1,16 @@
 {
-    "path" : "my9221",
-    "example": {
-        "name" : "12-channel Constant Current LED Driver with Grayscale",
-        "description" : "12-channel led driver with grayscale adaptive pulse density modulation control.",
-        "category": ["Sensors/Discrete"],
-        "platform": {
-            "boards": [
-                "arduino_101",
-                "quark_d2000_crb"
-            ]
-        }
+  "path": "my9221",
+  "example": {
+    "name": "my9221 - 12-channel Constant Current LED Driver with Grayscale",
+    "description": "12-channel led driver with grayscale adaptive pulse density modulation control.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "quark_d2000_crb"
+      ]
     }
+  }
 }
