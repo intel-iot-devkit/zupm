@@ -2,7 +2,7 @@
   {
     "path": "a110x",
     "example": {
-      "name": "Hall effect sensor",
+      "name": "a110x - Hall effect sensor",
       "description": "UPM module for the A110X (A1101, A1102, A1103, A1104, and A1106) Hall Effect sensors. It outputs a digital signal indicating whether it is detecting a magnetic field with south polarity perpendicular to the sensor element.",
       "category": [
         "Sensors/Discrete"
@@ -18,7 +18,7 @@
   {
     "path": "apa102",
     "example": {
-      "name": "LED Strip",
+      "name": "apa102 - LED Strip",
       "description": "APA102 LED Strips provide individually controllable LEDs through a SPI interface. For each LED, brightness (0-31) and RGB (0-255) values can be set.",
       "category": [
         "Sensors/Discrete"
@@ -34,7 +34,7 @@
   {
     "path": "bh1750",
     "example": {
-      "name": "Digital Light Sensor",
+      "name": "bh1750 - Digital Light Sensor",
       "description": "This driver was developed with the DFRobot Light Sensor based on the BH1750. It has a sensitivity of .5 10 65535 Lux. It supports voltages from 3-5vdc and is connected via I2C.",
       "category": [
         "Sensors/Discrete"
@@ -49,7 +49,7 @@
   {
     "path": "biss0001",
     "example": {
-      "name": "Passive Infrared (PIR) Motion Sensor",
+      "name": "biss0001 - Passive Infrared (PIR) Motion Sensor",
       "description": "PIR sensors allow you to sense motion, almost always used to detect whether a human has moved in or out of the sensors range. They are small, inexpensive, low-power, easy to use and don't wear out. For that reason they are commonly found in appliances and gadgets used in homes or businesses. They are often referred to as PIR, 'Passive Infrared', 'Pyroelectric', or 'IR motion' sensors.",
       "category": [
         "Sensors/Discrete"
@@ -65,7 +65,7 @@
   {
     "path": "bme280",
     "example": {
-      "name": "Digital Humidity, Pressure, and Temperature Sensor",
+      "name": "bme280 - Digital Humidity, Pressure, and Temperature Sensor",
       "description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor.",
       "category": [
         "Sensors/Discrete"
@@ -81,7 +81,7 @@
   {
     "path": "bmi160",
     "example": {
-      "name": "Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)",
+      "name": "bmi160 - Low-power IMU (triaxial Accelerometer and Triaxial Gyroscope)",
       "description": "The Bosch BMI160 is a 3-axis Accelerometer and Gyroscope. Additionally it supports an external Magnetometer, accessed through the BMI160's register interface. This driver was developed with a BMI160 Shuttle board, which included a BMM150 Magnetometer. The device is driven by either 1.8v or 3.3vdc. This driver incorporates the Bosch BMI160 driver code at https://github.com/BoschSensortec/BMI160_driver The Bosch driver code does not provide a mechanism for passing user data around (like the device context). For this reason, only one instance of this driver can be used in a given process, due to the use of static data in the driver. While not all of the functionality of this device is supported initially, the inclusion of the Bosch driver in the source code makes it possible to support whatever features are required that the driver can support",
       "category": [
         "Sensors/Discrete"
@@ -96,7 +96,7 @@
   {
     "path": "bmp280",
     "example": {
-      "name": "Digital Pressure Sensor",
+      "name": "bmp280 - Digital Pressure Sensor",
       "description": "The BMP280 is an absolute barometric pressure sensor especially designed for mobile applications. The sensor module is housed in an extremely compact 8-pin metal-lid LGA package with a footprint of only 2.0 * 2.5 mm2 and 0.95 mm package height. Its small dimensions and its low power consumption of 2.7 uA @1Hz allow the implementation in battery driven devices such as mobile phones, GPS modules or watches.\\n\\nAs the successor to the widely adopted BMP180, the BMP280 delivers high performance in all applications that require precise pressure measurement. The BMP280 operates at lower noise, supports new filter modes and an SPI interface within a footprint 63% smaller than the BMP180.",
       "category": [
         "Sensors/Discrete"
@@ -112,7 +112,7 @@
   {
     "path": "bno055",
     "example": {
-      "name": "Intelligent 9-axis Absolute Orientation Sensor",
+      "name": "bno055 - Intelligent 9-axis Absolute Orientation Sensor",
       "description": "The BNO055 is a System in Package (SiP), integrating a triaxial 14-bit accelerometer, a triaxial 16-bit gyroscope with a range of +/- 2000 degrees per second, a triaxial geomagnetic sensor and a 32-bit cortex M0+ microcontroller running Bosch Sensortec sensor fusion software, in a single package.",
       "category": [
         "Sensors/Discrete"
@@ -127,7 +127,7 @@
   {
     "path": "button_intr",
     "example": {
-      "name": "Button Interrupt Example",
+      "name": "button_intr - Button Interrupt Example",
       "description": "Button sensor Interrupt Example",
       "category": [
         "Sensors/Discrete"
@@ -174,7 +174,7 @@
   {
     "path": "cjq4435",
     "example": {
-      "name": "MOSFET",
+      "name": "cjq4435 - MOSFET",
       "description": "UPM module for the CJQ4435 MOSFET. It was developed using the Grove MOSFET module, but could be used with any MOSFET. A MOSFET is like a switch, but it can switch much faster than a mechanical relay. Here, we implement support via MRAA pulse width modulation (PWM) functions. Note: available periods vary depending on the capabilities of your platform.",
       "category": [
         "Sensors/Discrete"
@@ -189,7 +189,7 @@
   {
     "path": "collision",
     "example": {
-      "name": "Collision Sensor",
+      "name": "collision - Collision Sensor",
       "description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
       "category": [
         "Sensors/Discrete"
@@ -205,7 +205,7 @@
   {
     "path": "dfrorp",
     "example": {
-      "name": "Analog Oxidation Reduction Potential (ORP) Sensor",
+      "name": "dfrorp - Analog Oxidation Reduction Potential (ORP) Sensor",
       "description": "The driver was tested with the DFRobot ORP (Oxidation/Reduction Potential) Sensor.To calibrate: Disconnect the sensor probe (but leave the sensor interface board connected).  Then run one of the examples while holding down the 'calibrate' button on the device.  Read the ORP value reported (it should be fairly small). This value is what you should supply to setCalibrationOffset().  Then reconnect the probe to the interface board and you should be ready to go. DO NOT press the calibrate button on the interface board while the probe is attached or you can permanently damage the probe.",
       "category": [
         "Sensors/Discrete"
@@ -221,7 +221,7 @@
   {
     "path": "dfrph",
     "example": {
-      "name": "DFRobot pH sensor",
+      "name": "dfrph - DFRobot pH sensor",
       "description": "This sensor family returns an analog voltage proportional to the acidity or alkalinity of a liquid - it's pH value. This driver was developed using the DFRobot Analog pH meter and the DFRobot Analog pH Meter Pro. Calibration instructions, taken and slightly reworded from the DFRobot wiki at: http://dfrobot.com/wiki/index.php/PH_meter%28SKU:_SEN0161%29 1) Connect equipment: the pH electrode is connected to the BNC connector on the pH meter board, and then the pH meter board is connected to the analog port 0 of the controller. When the controller gets power, you will see the blue LED on board is on. 2) Put the pH electrode into the standard solution whose pH value is 7.00. Run the dfrph example and note the pH output value. Compare the value with 7.00, and calculate the difference. This is the value you should supply to the setOffset() method. 3) Put the pH electrode into the pH standard solution whose value is 4.00. Then wait about one minute, and adjust the potentiometer on the interface board. Let the value stabilise at around 4.00. At this time,the acidic calibration has been completed and you can measure the pH value of an acidic solution. 4) According to the linear characteristics of pH electrode itself, after the above calibration,you can directly measure the pH value of the alkaline solution. If you want to get better accuracy, you can recalibrate it. Alkaline calibration use the standard solution whose pH value is 9.18. Also adjust the potentiometer and let the value stabilise at around 9.18. After this calibration, you can measure the pH value of an alkaline solution",
       "category": [
         "Sensors/Discrete"
@@ -237,7 +237,7 @@
   {
     "path": "ecezo",
     "example": {
-      "name": "Electrical Conductivity (EC) Circuit",
+      "name": "ecezo - Electrical Conductivity (EC) Circuit",
       "description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes",
       "category": [
         "Sensors/Discrete"
@@ -252,7 +252,7 @@
   {
     "path": "emg",
     "example": {
-      "name": "Electromyography (EMG) Sensor",
+      "name": "emg - Electromyography (EMG) Sensor",
       "description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
       "category": [
         "Sensors/Discrete"
@@ -267,7 +267,7 @@
   {
     "path": "enc03r",
     "example": {
-      "name": "Single-axis Analog Gyro Module",
+      "name": "enc03r - Single-axis Analog Gyro Module",
       "description": "UPM module for the ENC03R single axis analog gyro. This gyroscope measures x-axis angular velocity, that is how fast the sensor is rotating around the x-axis. Calibration of the sensor is necessary for accurate readings.",
       "category": [
         "Sensors/Discrete"
@@ -282,7 +282,7 @@
   {
     "path": "flex",
     "example": {
-      "name": "Resistive Flex Sensor",
+      "name": "flex - Resistive Flex Sensor",
       "description": "A simple flex sensor. The resistance across the sensor increases when flexed. Patented technology by Spectra Symbol, these sensors were used in the original Nintendo* Power Glove.",
       "category": [
         "Sensors/Discrete"
@@ -298,7 +298,7 @@
   {
     "path": "gas",
     "example": {
-      "name": "Gas Sensor",
+      "name": "gas - Gas Sensor",
       "description": "Generic gas detection sensor library. Includes support for MQ line of sensors.",
       "category": [
         "Sensors/Discrete"
@@ -314,7 +314,7 @@
   {
     "path": "gp2y0a",
     "example": {
-      "name": "Analog Infrared (IR) Based Distance Sensor",
+      "name": "gp2y0a - Analog Infrared (IR) Based Distance Sensor",
       "description": "Sensors of this family return an analog voltage corresponding to the distance of an object from the sensor. The voltage is lower when objects are far away; the voltage increases as objects get closer to the sensor.",
       "category": [
         "Sensors/Discrete"
@@ -330,7 +330,7 @@
   {
     "path": "gsr",
     "example": {
-      "name": "Galvanic Skin Response (GSR) Sensor",
+      "name": "gsr - Galvanic Skin Response (GSR) Sensor",
       "description": "Measures the electrical conductance of skin to measure strong emotional reactions. In other words, it measures sweat on your fingers as an indicator of strong emotional reactions.",
       "category": [
         "Sensors/Discrete"
@@ -346,7 +346,7 @@
   {
     "path": "guvas12d",
     "example": {
-      "name": "GUVA-S12D UV sensor",
+      "name": "guvas12d - GUVA-S12D UV sensor",
       "description": "UPM module for the GUVA-S12D UV sensor. Includes functions to return the intensity and volts as well as a small calibration API.",
       "category": [
         "Sensors/Discrete"
@@ -362,7 +362,7 @@
   {
     "path": "hka5",
     "example": {
-      "name": "Laser Particulate Matter (PM) Sensor",
+      "name": "hka5 - Laser Particulate Matter (PM) Sensor",
       "description": "This driver was tested with a DFRobot Laser PM2.5 Sensor. It connects to a UART at 9600 baud. This is the only baud rate supported. It optionally supports Reset and Set/Sleep gpios as well",
       "category": [
         "Sensors/Discrete"
@@ -378,7 +378,7 @@
   {
     "path": "hmc5883l",
     "example": {
-      "name": "3-axis Digital Compass",
+      "name": "hmc5883l - 3-axis Digital Compass",
       "description": "Honeywell HMC5883L is a 3-axis digital compass. Communication with HMC5883L is simple and all done through an I2C interface. Different breakout boards are available. Typically, a 3V supply is all that is neede   d to power the sensor.",
       "category": [
         "Sensors/Discrete"
@@ -393,7 +393,7 @@
   {
     "path": "ims",
     "example": {
-      "name": "I2C Moisture Sensor",
+      "name": "ims - I2C Moisture Sensor",
       "description": "I2C sensor which can be used to read: moisture light temperature This sensor must run at 100 kHz",
       "category": [
         "Sensors/Discrete"
@@ -409,7 +409,7 @@
   {
     "path": "jhd1313m1",
     "example": {
-      "name": "RGB Backlight 16x2 LCD Display",
+      "name": "jhd1313m1 - RGB Backlight 16x2 LCD Display",
       "description": "JHD1313M1 has two I2C addreses: one belongs to a controller, very similar to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the other controls only the backlight. This module was tested with the Seeed Grove LCD RGB Backlight v2.0 display that requires 5V to operate.",
       "category": [
         "Sensors/Discrete"
@@ -425,7 +425,7 @@
   {
     "path": "joystick12",
     "example": {
-      "name": "2-axis Analog Joystick",
+      "name": "joystick12 - 2-axis Analog Joystick",
       "description": "This module defines the Joystick API, and implementation for the X and Y buttons could be treated as normal GPIO - this enables easier interrupt support. This driver should be compatible with any 2-axis analogjoystick.",
       "category": [
         "Sensors/Discrete"
@@ -440,7 +440,7 @@
   {
     "path": "lcm1602",
     "example": {
-      "name": "16x2 and 20x4 LCD Display",
+      "name": "lcm1602 - 16x2 and 20x4 LCD Display",
       "description": "This supports all sizes of HD44780 displays, from 16x2 to 4x20. The controller has no idea of the actual display hardware, so it lets you write farther than you can see. These displays with such controllers are available from various manufacturers with different I2C addresses. Adafruit* TC1602A-01T seems to be a well-documented example. The driver also supports parallel GPIO connections directly to the HD44780 in case you are not using an I2C expander/backpack.",
       "category": [
         "Sensors/Discrete"
@@ -456,7 +456,7 @@
   {
     "path": "ldt0028",
     "example": {
-      "name": "Piezo Vibration Sensor",
+      "name": "ldt0028 - Piezo Vibration Sensor",
       "description": "This module defines the LDT0-028 interface for libupm-ldt0028 and API for LDT0-028 PZT film-based sensors, such as a Grove Piezo Vibration sensor",
       "category": [
         "Sensors/Discrete"
@@ -473,7 +473,7 @@
     "path": "led",
     "example": {
       "description": "UPM module for the LED (or other similar light-emitting diodes). An LED is a p-n junction semiconductor which emits light in response to voltage. The longer wire of an LED connects to the positive seat (anode); the shorter wire connects to the negative seat (cathode). The flat side of the bulb corresponds to the cathode, while the rounded side corresponds to the anode",
-      "name": "Onboard LED",
+      "name": "led - Onboard LED",
       "category": [
         "Sensors/Onboard"
       ],
@@ -488,7 +488,7 @@
   {
     "path": "light",
     "example": {
-      "name": "Analog Light Sensor",
+      "name": "light - Analog Light Sensor",
       "description": "The light sensor detects the intensity of the ambient light. As the light intensity of the environment increases, the resistance of the sensor decreases. This means the raw value from the analog pin is larger in bright light and smaller in the dark. An approximate lux value can also be returned.",
       "category": [
         "Sensors/Discrete"
@@ -503,7 +503,7 @@
   {
     "path": "linefinder",
     "example": {
-      "name": "Infrared (IR) Based Line Finder",
+      "name": "linefinder - Infrared (IR) Based Line Finder",
       "description": "UPM module for the Line Finder sensor. It outputs a digital signal indicating whether it is detecting black on a white background, or white on a black background.",
       "category": [
         "Sensors/Discrete"
@@ -519,7 +519,7 @@
   {
     "path": "lm35",
     "example": {
-      "name": "Analog Temperature Sensor",
+      "name": "lm35 - Analog Temperature Sensor",
       "description": "This sensor returns an analog voltage proportional to the temperature of the ambient environment. It has a range of 2C to 150C. This driver was developed using the DFRobot LM35 Linear Temperature Sensor.",
       "category": [
         "Sensors/Discrete"
@@ -535,7 +535,7 @@
   {
     "path": "loudness",
     "example": {
-      "name": "Loudness Sensor",
+      "name": "loudness - Loudness Sensor",
       "description": "This sensor family returns an analog voltage proportional to the loudness of the ambient environment. It's output does not correspond to a particular sound level in decibels. The higher the output voltage, the louder the ambient noise level. This device uses an electret microphone for sound input. This driver was developed using the DFRobot Loudness Sensor V2 and the Grove Loudness sensor.",
       "category": [
         "Sensors/Discrete"
@@ -551,7 +551,7 @@
   {
     "path": "m24lr64e",
     "example": {
-      "name": "Dynamic NFC/RFID Tag Module",
+      "name": "m24lr64e - Dynamic NFC/RFID Tag Module",
       "description": "Grove NFC tag is an 8KB electrically erasable programmable read-only memory (EEPROM) that can be written to or read from using I2C and NFC-equipped devices. The user mode (default) allows read and write access to all 8KB of space, provided the sector security status (SSS) allows it. The root mode allows modification of the SSS data and other information, provided the proper password is submitted. The default password for a new tag is 0x00000000. See the datasheet for more details. The Seeed Studio* wiki page for this device includes a link to an Android* application that can be used to also read and write the device via NFC, as well as set NFC passwords, which cannot be done via I2C.",
       "category": [
         "Sensors/Discrete"
@@ -567,7 +567,7 @@
   {
     "path": "max30100",
     "example": {
-      "name": "Pulse Oximeter and Heart-rate Sensor",
+      "name": "max30100 - Pulse Oximeter and Heart-rate Sensor",
       "description": "The MAX30100 is an integrated pulse oximetry and heartrate monitor sensor solution. It combines two LEDs, a photodetector, optimized optics, and low-noise analog signal processing to detect pulse oximetry and heart-rate signals. I2C sensor which can be used to read: Heart-rate Peripheral capillary oxygen saturation temperature.",
       "category": [
         "Sensors/Discrete"
@@ -583,7 +583,7 @@
   {
     "path": "mb704x",
     "example": {
-      "name": "I2C MaxSonar WR Ultrasonic Ranger",
+      "name": "mb704x - I2C MaxSonar WR Ultrasonic Ranger",
       "description": "This driver was tested with the MB704x MaxSonar-WR Ultrasonic Ranger using the long distance, weather resistant horn. Depending on your sensor type and horn, tanges from 20cm to 750cm are possible.",
       "category": [
         "Sensors/Discrete"
@@ -599,7 +599,7 @@
   {
     "path": "md",
     "example": {
-      "name": "I2C Motor Driver",
+      "name": "md - I2C Motor Driver",
       "description": "This class implements support for the I2C Motor Driver. This device can support a single 4-wire stepper motor, or two 2-wire DC motors. The device contains an Atmel* ATmega8L microcontroller that manages an L2 98N H-bridge driver chip. This device supports an I2C bus speed of 100Khz only. The module does not provide any telemetry or status - it only accepts I2C commands for its various operations. This module was tested with version 1.3 of the I2C Motor Driver. For stepper operation, this driver can run in one of two modes - Mode 1, where this driver handles the stepping operation, and Mode 2, where this driver simply sends commands to the Motor Driver, and it handles the stepping operation. Mode2 requires updated (and working) firmware to be loaded onto the device. The default stepper operation mode is Mode1, which is generally more flexible and is supported on all firmware revisions.",
       "category": [
         "Sensors/Discrete"
@@ -615,7 +615,7 @@
   {
     "path": "md-stepper",
     "example": {
-      "name": "I2C Stepper Motor",
+      "name": "md-stepper - I2C Stepper Motor",
       "description": "This module defines the Stepper Motor interface. It is compatible with A stepper motor drivers that use 2 pins to control the motor, like an Easy Driver from Brian Schmalz or the STR driver series from Applied Motion. It can also control an enable pin if one is available and connected. The implementation is synchronous and thus blocking while the stepper motor is in motion. However it is possible to send the commands via threading and the performance of the library will be very good given a low CPU load. On a busy system though you will notice some jitter especially at higher speeds. It is possible to reduce this effect to some extent by using smoothing and/or microstepping on stepper drivers that support such features.",
       "category": [
         "Sensors/Discrete"
@@ -631,7 +631,7 @@
   {
     "path": "mic",
     "example": {
-      "name": "Simple Analog Microphone",
+      "name": "mic - Simple Analog Microphone",
       "description": "Mic Sensor",
       "category": [
         "Sensors/Discrete"
@@ -647,7 +647,7 @@
   {
     "path": "mma7361",
     "example": {
-      "name": "Triaxial Analog Accelerometer",
+      "name": "mma7361 - Triaxial Analog Accelerometer",
       "description": "This library was tested with the DFRobot MMA7361 Analog Accelerometer. It supports 3 Axes with a selectable 1.5G and 6G sensitivity.",
       "category": [
         "Sensors/Discrete"
@@ -662,7 +662,7 @@
   {
     "path": "mma7660",
     "example": {
-      "name": "I2C 3-axis Digital Accelerometer (1.5g)",
+      "name": "mma7660 - I2C 3-axis Digital Accelerometer (1.5g)",
       "description": "UPM module for the MMA7660 I2C 3-axis digital accelerometer. This device supports a variety of capabilities, including the generation of interrupts for various conditions, tilt and basic gesture detection, and X/Y/Z-axis measurements of g-forces being applied (up to 1.5g) This module was tested with the Grove 3-Axis Digital Accelerometer (1.5g).",
       "category": [
         "Sensors/Discrete"
@@ -677,7 +677,7 @@
   {
     "path": "moisture",
     "example": {
-      "name": "Analog Moisture Sensor",
+      "name": "moisture - Analog Moisture Sensor",
       "description": "UPM module for the Moisture Sensor. This sensor can be used to detect the moisture content of soil or whether there is water around the sensor. As the moisture content increases, so does the value that is read. Note: this sensor is not designed to be left in soil nor to be used outdoors.",
       "category": [
         "Sensors/Discrete"
@@ -693,7 +693,7 @@
   {
     "path": "mpr121",
     "example": {
-      "name": "Digital Capacitive Touch Sensor Controller",
+      "name": "mpr121 - Digital Capacitive Touch Sensor Controller",
       "description": "UPM module for the MPR121 touch sensor",
       "category": [
         "Sensors/Discrete"
@@ -709,7 +709,7 @@
   {
     "path": "mq303a",
     "example": {
-      "name": "Alcohol Detection Sensor",
+      "name": "mq303a - Alcohol Detection Sensor",
       "description": "UPM module for the MQ303A alcohol sensor. This sensor needs to be warmed up before stable results are obtained. The higher the value returned from value(), the higher the amount of alcohol detected.",
       "category": [
         "Sensors/Discrete"
@@ -724,7 +724,7 @@
   {
     "path": "ms5803",
     "example": {
-      "name": "I2C Barometric Pressure and Temperature Sensor",
+      "name": "ms5803 - I2C Barometric Pressure and Temperature Sensor",
       "description": "The MS5803-14BA is a new generation of high resolution pressure sensors with SPI and I2C bus interface. It is optimized for depth measurement systems with a water depth resolution of 1cm and below. The sensor module includes a high linear pressure sensor and an ultra low power 24 bit delta-sigma ADC with internal factory calibrated coefficients. It provides a precise digital 24 bit pressure and temperature value and different operation modes that allow the user to optimize for conversion speed and current consumption. A high resolution temperature output allows the implementation of a depth measurement systems and thermometer function without any additional sensor. The device is driven at 3.3vdc, and has a pressure range of between 0 and 14 Bar, and a temperature range of between -40 and +85C",
       "category": [
         "Sensors/Discrete"
@@ -739,7 +739,7 @@
   {
     "path": "my9221",
     "example": {
-      "name": "12-channel Constant Current LED Driver with Grayscale",
+      "name": "my9221 - 12-channel Constant Current LED Driver with Grayscale",
       "description": "12-channel led driver with grayscale adaptive pulse density modulation control.",
       "category": [
         "Sensors/Discrete"
@@ -755,7 +755,7 @@
   {
     "path": "nmea_gps",
     "example": {
-      "name": "Generic Serial Interface for GPS NMEA Devices",
+      "name": "nmea_gps - Generic Serial Interface for GPS NMEA Devices",
       "description": "Generic Serial Interface for GPS NMEA Devices.",
       "category": [
         "Sensors/Discrete"
@@ -770,7 +770,7 @@
   {
     "path": "nunchuck",
     "example": {
-      "name": "Wii Nunchuk",
+      "name": "nunchuck - Wii Nunchuk",
       "description": "UPM module for the Wii Nunchuk controller. This module was tested with Wii Nunchuck connected to I2C via a Grove Wii Nunchuck adapter. See http://wiibrew.org/wiki/Wiimote/Extension_Controllers and http://wiibrew.org/wiki/Wiimote/Extension_Controllers/Nunchuck for more details on the controller and its protocol. A warning for the Grove Wii Nunchuk adapter: it has 2 traces on one side, and 3 traces on the other. Do not match these up with the Nunchuk connector's traces. The connector's 'groove' should be on the same side as the Grove interface socket on the adapter.",
       "category": [
         "Sensors/Discrete"
@@ -785,7 +785,7 @@
   {
     "path": "o2",
     "example": {
-      "name": "Oxygen (O2) Concentration Sensor",
+      "name": "o2 - Oxygen (O2) Concentration Sensor",
       "description": "The Grove O2 Oxygen Gas sensor measures the oxygen concentration in the air.",
       "category": [
         "Sensors/Discrete"
@@ -801,7 +801,7 @@
   {
     "path": "otp538u",
     "example": {
-      "name": "Analog IR Temperature Sensor",
+      "name": "otp538u - Analog IR Temperature Sensor",
       "description": "UPM module for the OTP538U IR temperature sensor This module was tested with the Grove IR non-contact temperature sensor. The sensor provides 2 analog outputs: one for the thermistor that measures the ambient temperature, and the other for the thermopile that measures the object temperature. Much of the code depends on analyzing Seeed Studio* examples and the circuit design. As a result, there are several 'magic' numbers derived from their circuit design. These values are used by default.",
       "category": [
         "Sensors/Discrete"
@@ -817,7 +817,7 @@
   {
     "path": "ppd42ns",
     "example": {
-      "name": "Dust Sensor",
+      "name": "ppd42ns - Dust Sensor",
       "description": "UPM module for the PPD42NS dust sensor",
       "category": [
         "Sensors/Discrete"
@@ -849,7 +849,7 @@
   {
     "path": "rotaryencoder",
     "example": {
-      "name": "Rotary Encoder",
+      "name": "rotaryencoder - Rotary Encoder",
       "description": "UPM module for the Grove rotary encoder. This rotary encoder encodes a rotation signal into electronic pulses that can be used to measure rotation and direction. It is useful in cases where a rotary knob is required, but using a potentiometer is not desirable. A rotary encoder can turn a full 360 degrees without a stop and does not place a resistive load on the circuit, as is the case with a potentiometer. This module maintains a position that is incremented or decremented according to the rotation on the encoder",
       "category": [
         "Sensors/Discrete"
@@ -865,7 +865,7 @@
   {
     "path": "rotary",
     "example": {
-      "name": "Rotary Angle Sensor",
+      "name": "rotary - Rotary Angle Sensor",
       "description": "Basic UPM module for the rotary angle sensor (knob) on analog. Provides a set of functions to read the absolute pin value, degrees or radians, and another set to do the same relative to the center of the knob's range",
       "category": [
         "Sensors/Discrete"
@@ -881,7 +881,7 @@
   {
     "path": "rpr220-intr",
     "example": {
-      "name": "Infrared (IR) Reflective Sensor",
+      "name": "rpr220-intr - Infrared (IR) Reflective Sensor",
       "description": "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time.",
       "category": [
         "Sensors/Discrete"
@@ -897,7 +897,7 @@
   {
     "path": "rpr220",
     "example": {
-      "name": "Infrared (IR) Reflective Sensor",
+      "name": "rpr220 - Infrared (IR) Reflective Sensor",
       "description": "UPM module for the Grove IR reflective sensor. The sensitivity can be adjusted with the potentiometer on the sensor module. It has a range of approximately 15 mm, and a quick response time. It detects high-contrast dark areas on a light background. This module allows the user to determine the current status (black detected or not). Additionally, if desired, an interrupt service routine (ISR) can be installed that is called when black is detected. Either method can be used, depending on your use case",
       "category": [
         "Sensors/Discrete"
@@ -913,7 +913,7 @@
   {
     "path": "servo",
     "example": {
-      "name": "Servo Controller",
+      "name": "servo - Servo Controller",
       "description": "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period.",
       "category": [
         "Sensors/Discrete"
@@ -929,7 +929,7 @@
   {
     "path": "sht1x",
     "example": {
-      "name": "Temperature and Humidity Sensor",
+      "name": "sht1x - Temperature and Humidity Sensor",
       "description": "This driver was tested with a DFRobot SHT10 Temperature and Humidity sensor. This driver should work on all SHT1X devices. It requires a 10K pull-up resistor connected to the data pin. The sensor can be run at differing voltages from 2.5v to 5v",
       "category": [
         "Sensors/Discrete"
@@ -945,7 +945,7 @@
   {
     "path": "slide",
     "example": {
-      "name": "Slide Potentiometer",
+      "name": "slide - Slide Potentiometer",
       "description": "Basic UPM module for the slide potentiometer on analog that returns either a raw value or a scaled voltage value",
       "category": [
         "Sensors/Discrete"
@@ -976,7 +976,7 @@
   {
     "path": "speaker",
     "example": {
-      "name": "PWM Speaker",
+      "name": "speaker - PWM Speaker",
       "description": "UPM module for the Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable. In GPIO mode, the playAll() and playSound() methods are supported. In PWM mode, setFrequency(), emit(), on() and off() are supported. Calling a method not appropriate for the mode will have no effect",
       "category": [
         "Sensors/Discrete"
@@ -991,7 +991,7 @@
   {
     "path": "temperature",
     "example": {
-      "name": "Analog Temperature Sensor",
+      "name": "temperature - Analog Temperature Sensor",
       "description": "Basic UPM module for the Grove temperature sensor on analog. This sensor uses a NTC thermistor to measure ambient temperature. The conversion formula has been updated to work with versions 1.1 and 1.2 of the sensor. For the older v1.0 sensor you will have to specify R0 and B values when initializing the device. The range of this sensor is -40 to 125 C and accuracy is +/- 1.5 C",
       "category": [
         "Sensors/Discrete"
@@ -1007,7 +1007,7 @@
   {
     "path": "tsl2561",
     "example": {
-      "name": "Digital Light Sensor",
+      "name": "tsl2561 - Digital Light Sensor",
       "description": "TSL2560 and TSL2561 are light-to-digital converters that transform light intensity to a digital signal output capable of a direct I2C (TSL2561) interface.",
       "category": [
         "Sensors/Discrete"
@@ -1023,7 +1023,7 @@
   {
     "path": "ttp223",
     "example": {
-      "name": "Capacitive Touch Sensor",
+      "name": "ttp223 - Capacitive Touch Sensor",
       "description": "This touch sensor detects when a finger is near the metallic pad by the change in capacitance. It can replace a more traditional push button. The touch sensor can still function when placed under a non-metallic surface like glass or plastic.",
       "category": [
         "Sensors/Discrete"
@@ -1039,7 +1039,7 @@
   {
     "path": "uln200xa",
     "example": {
-      "name": "Darlington Stepper Driver",
+      "name": "uln200xa - Darlington Stepper Driver",
       "description": "This module was developed on a ULN2003A Stepper Driver. It should also support the ULN2001A, ULN2002A, and ULN2004A devices, when using to drive the 28BYJ-48 unipolar stepper motor",
       "category": [
         "Sensors/Discrete"
@@ -1055,7 +1055,7 @@
   {
     "path": "urm37",
     "example": {
-      "name": "Ultrasonic Range Finder",
+      "name": "urm37 - Ultrasonic Range Finder",
       "description": "This library was tested with the DFRobot URM37 Ultrasonic Ranger, V4. It has a range of between 5 and 500 centimeters (cm). It supports both analog distance measurement, and UART based temperature and distance measurements. This driver does not support PWM measurement mode. For UART operation, the only supported baud rate is 9600. In addition, you must ensure that the UART TX/RX pins are configured for TTL operation (the factory default) rather than RS232 operation, or permanent damage to your URM37 and/or MCU will result. On power up, the LED indicator will blink one long pulse, followed by one short pulse to indicate TTL operation.",
       "category": [
         "Sensors/Discrete"
@@ -1070,7 +1070,7 @@
   {
     "path": "vdiv",
     "example": {
-      "name": "Analog Voltage Divider Sensor",
+      "name": "vdiv - Analog Voltage Divider Sensor",
       "description": "UPM module for the Voltage Divider sensor.",
       "category": [
         "Sensors/Discrete"
@@ -1086,7 +1086,7 @@
   {
     "path": "water",
     "example": {
-      "name": "Water Detection Sensor",
+      "name": "water - Water Detection Sensor",
       "description": "UPM module for the Water sensor",
       "category": [
         "Sensors/Discrete"
@@ -1102,7 +1102,7 @@
   {
     "path": "wfs",
     "example": {
-      "name": "Water Flow Sensor",
+      "name": "wfs - Water Flow Sensor",
       "description": "This sensor is used to measure water flow in liters per minute (LPM). It incorporates a Hall Effect sensor. The UPM module defines an interrupt routine to be triggered on each low pulse, keeping count. This device requires a 10K pull-up resistor for the signal line (yellow wire). There is a schematic diagram on the SeeedStudio site (3/2015): http://www.seeedstudio.com/wiki/index.php?title=G1/2_Water_Flow_sensor However, be careful when wiring this up - the schematic appears to have a bug in it: the lower left connection of the signal line (yellow) to Vcc (red) should not be there. The sensor can work with this connection, but probably not for very long",
       "category": [
         "Sensors/Discrete"
@@ -1117,7 +1117,7 @@
   {
     "path": "yg1006",
     "example": {
-      "name": "Flame Sensor",
+      "name": "yg1006 - Flame Sensor",
       "description": "UPM module for the YG1006 flame sensor. It detects a flame or any other light source in the 760-1,100 nm wavelength range",
       "category": [
         "Sensors/Discrete"
