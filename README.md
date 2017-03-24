@@ -43,6 +43,13 @@ patch -p1 < $ZEPHYR_BASE/ext/lib/upm/zupm_2_zephyr.patch
 ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
 ```
 
+#### Setup ZMRAA/ZUPM with Zephyr 1.7
+```sh
+cd $ZEPHYR_BASE
+patch -p1 < $ZEPHYR_BASE/ext/lib/upm/add_upm_mraa.patch
+ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
+```
+
 ### Method 2 (clone zephyr, patch to create zmraa and zupm)
 
 #### Clone Zephyr (currently 1.6.0)
