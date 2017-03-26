@@ -3,6 +3,8 @@ config UPM
     bool
     prompt "UPM Support"
     select NEWLIB_LIBC
+    select NEWLIB_LIBC_FLOAT_PRINTF if BOARD_ARDUINO_101
+    select NEWLIB_LIBC_FLOAT_PRINTF if BOARD_ARDUINO_101_SSS
     default n
     help
         This option enables the UPM sensor libraries
