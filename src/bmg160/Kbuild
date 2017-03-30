@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_bmg160) += bmg160.o

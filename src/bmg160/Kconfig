@@ -1,0 +1,8 @@
+config UPM_bmg160
+    bool "bmg160"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm BMG160 3-axis Gyroscope

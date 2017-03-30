@@ -1,0 +1,8 @@
+config UPM_bma250e
+    bool "bma250e"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm BMA250E 3-axis Accelerometer

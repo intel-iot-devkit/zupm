@@ -71,3 +71,6 @@ include $(srctree)/ext/lib/upm/src/max30100/Makefile
 include $(srctree)/ext/lib/upm/src/bno055/Makefile
 include $(srctree)/ext/lib/upm/src/wfs/Makefile
 include $(srctree)/ext/lib/upm/src/bmp280/Makefile
+include $(srctree)/ext/lib/upm/src/bma250e/Makefile
+include $(srctree)/ext/lib/upm/src/bmg160/Makefile
+include $(srctree)/ext/lib/upm/src/bmm150/Makefile

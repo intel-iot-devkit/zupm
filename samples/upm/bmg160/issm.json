@@ -1,0 +1,16 @@
+{
+  "path": "bmg160",
+  "example": {
+    "name": "bma250e - 3-axis Gyroscope",
+    "description": "The BMG160 is a 3-axis angular rate sensor that is made of a surface micro machined sensing element and an evaluation ASIC.  Both parts are packed into one single LGA 3.0mm x 3.0mm x 0.95mm housing.  The BMG160 is designed to meet requirements for consumer applications such as image stabilization (DSC and camera-phone), gaming and pointing devices. It is capable to measure angular rates in three perpendicular room dimensions, the x-, y- and z-axis, and to provide the corresponding output signals. The BMG160 is fitted with digital bi-directional SPI and I2C interfaces for optimum system integration.",
+    "category": [
+      "Sensors/Discrete"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101",
+        "arduino_101_sss"
+      ]
+    }
+  }
+}

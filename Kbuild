@@ -68,3 +68,6 @@ obj-$(CONFIG_UPM_max30100) += src/max30100/
 obj-$(CONFIG_UPM_bno055) += src/bno055/
 obj-$(CONFIG_UPM_wfs) += src/wfs/
 obj-$(CONFIG_UPM_bmp280) += src/bmp280/
+obj-$(CONFIG_UPM_bma250e) += src/bma250e/
+obj-$(CONFIG_UPM_bmg160) += src/bmg160/
+obj-$(CONFIG_UPM_bmm150) += src/bmm150/
