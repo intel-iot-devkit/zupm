@@ -1,0 +1,8 @@
+config UPM_bmpx8x
+    bool "bmpx8x"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm BMPX8X Pressure and Temperature Sensor

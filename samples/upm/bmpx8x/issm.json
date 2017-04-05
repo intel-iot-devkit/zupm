@@ -1,0 +1,15 @@
+{
+  "path": "bmpx8x",
+  "example": {
+    "name": "bmpx8x - Pressure and Temperature sensor",
+    "description": "Bosch GY65/BMP085 and BMP180 are high-precision, ultra-low power consumption pressure sensors. They operate in the range of 30,000-110,000 Pa.",
+    "category": [
+      "UPM"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
+    }
+  }
+}

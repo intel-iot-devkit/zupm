@@ -75,3 +75,4 @@ include $(srctree)/ext/lib/upm/src/bma250e/Makefile
 include $(srctree)/ext/lib/upm/src/bmg160/Makefile
 include $(srctree)/ext/lib/upm/src/bmm150/Makefile
 include $(srctree)/ext/lib/upm/src/mcp2515/Makefile
+include $(srctree)/ext/lib/upm/src/bmpx8x/Makefile
