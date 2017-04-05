@@ -18,7 +18,7 @@ int main()
         return -1;
     }
 
-    tsl2561_context dev = tsl2561_init(0, TSL2561_Address, GAIN_0X, INTEGRATION_TIME1_101MS);
+    tsl2561_context dev = tsl2561_init(1, TSL2561_Address, GAIN_0X, INTEGRATION_TIME1_101MS);
     if (!dev)
     {
         fprintf(stderr,"Failed to initialize digital light sensor\n");
@@ -33,13 +33,13 @@ int main()
             return -1;
         }
 
-#if defined(CONFIG_BOARD_QUARK_D2000_CRB)
+#if defined(CONFIG_BOARD_QUARK_D2000_CRB) || defined(CONFIG_BOARD_QUARK_SE_C1000_DEVBOARD_SS)
         int abc_int = abc;
         printf("value retrieved: %d\n", abc_int);
 #else
         printf("value retrieved: %f\n", abc);
 #endif
-        upm_delay_ms(500);
+        upm_delay_us(500000);
     }
 
     return 0;

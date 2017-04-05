@@ -33,7 +33,9 @@ extern "C" {
 # define UPM_PLATFORM_LINUX (1)
 #elif defined(CONFIG_BOARD_ARDUINO_101) || \
     defined(CONFIG_BOARD_ARDUINO_101_SSS) || \
-    defined(CONFIG_BOARD_QUARK_D2000_CRB)
+    defined(CONFIG_BOARD_QUARK_D2000_CRB) || \
+    defined(CONFIG_BOARD_QUARK_SE_C1000_DEVBOARD) || \
+    defined(CONFIG_BOARD_QUARK_SE_C1000_DEVBOARD_SS)
 # define UPM_PLATFORM_ZEPHYR (1)
 #else
 # error "UPM: Unknown Platform!"

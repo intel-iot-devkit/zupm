@@ -9,7 +9,8 @@
     "platform": {
       "boards": [
         "arduino_101_sss",
-        "quark_d2000_crb"
+        "quark_d2000_crb",
+        "quark_se_c1000_ss_devboard"
       ]
     }
   }

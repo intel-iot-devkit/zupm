@@ -34,6 +34,7 @@ upm_result_t tsl2561_compute_lux(const tsl2561_context dev, int *int_data);
 
 tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,
                              uint8_t integration_time){
+
     tsl2561_context dev =
       (tsl2561_context)malloc(sizeof(struct _tsl2561_context));
 
@@ -57,14 +58,14 @@ tsl2561_context tsl2561_init(int bus, uint8_t dev_address, uint8_t gain,
             free(dev);
             return NULL;
         }
-
+printf("aaa\n");
     // POWER UP.
     if(mraa_i2c_write_byte_data(dev->i2c, CONTROL_POWERON, REGISTER_Control) != MRAA_SUCCESS){
         mraa_i2c_stop(dev->i2c);
         free(dev);
         return NULL;
     }
-
+printf("bbb\n");
     // Power on Settling time
     upm_delay_us(1000);
 
@@ -121,7 +122,7 @@ upm_result_t tsl2561_i2c_write_reg(tsl2561_context dev, uint8_t reg,
         return UPM_ERROR_OPERATION_FAILED;
     }
 
-    upm_delay_ms(100);
+    upm_delay_us(100000);
     return UPM_SUCCESS;
 }
 

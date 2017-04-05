@@ -69,7 +69,7 @@ upm_result_t es08a_set_angle(es08a_context dev, int32_t angle){
     es08a_calc_pulse_travelling(dev, &val, angle);
     mraa_pwm_pulsewidth_us(dev->pwm, val);
 
-    upm_delay(1);
+    upm_delay_us(1000000);
     mraa_pwm_enable(dev->pwm, 0);
 
     return UPM_SUCCESS;

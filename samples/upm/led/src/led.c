@@ -24,6 +24,8 @@ int main(void)
     int onboard_led_pin = 13;
 #if defined(CONFIG_BOARD_QUARK_D2000_CRB)
     onboard_led_pin = 9;
+#elif defined(CONFIG_BOARD_QUARK_SE_C1000_DEVBOARD)
+    onboard_led_pin = 64;      // pin 62 is also an onboard LED
 #endif
 
     led_context dev = led_init(onboard_led_pin);
@@ -33,12 +35,12 @@ int main(void)
         if(led_on(dev) != UPM_SUCCESS){
             printf("problem turning the LED on\n");
         }
-        upm_delay_ms(750);
+        upm_delay_us(750000);
         printf("Turning off\n");
         if(led_off(dev) != UPM_SUCCESS){
             printf("problem turning the LED off\n");
         }
-        upm_delay_ms(750);
+        upm_delay_us(750000);
     }
     led_close(dev);
     return 0;
