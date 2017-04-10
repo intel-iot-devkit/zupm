@@ -4,7 +4,7 @@
     "name": "ecezo - Electrical Conductivity (EC) Circuit",
     "description": "This driver was tested with the Atlas Scientific Electrical Conductivity kit. This device can operate in either UART or I2C modes",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

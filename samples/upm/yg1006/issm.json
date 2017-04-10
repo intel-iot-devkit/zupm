@@ -4,7 +4,7 @@
     "name": "yg1006 - Flame Sensor",
     "description": "UPM module for the YG1006 flame sensor. It detects a flame or any other light source in the 760-1,100 nm wavelength range",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

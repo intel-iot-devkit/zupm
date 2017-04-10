@@ -4,7 +4,7 @@
     "name": "mcp2515 - CANbus controller",
     "description": "The MCP2515 is a stand-alone CAN controller developed to simplify applications that require interfacing with a CAN bus.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

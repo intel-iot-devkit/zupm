@@ -4,7 +4,7 @@
     "name": "collision - Collision Sensor",
     "description": "The Collision Sensor can detect whether any collision movement or vibration happens. It outputs a low pulse signal when vibration is detected.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

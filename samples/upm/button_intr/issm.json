@@ -4,7 +4,7 @@
     "name": "button_intr - Button Interrupt Example",
     "description": "Button sensor Interrupt Example",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

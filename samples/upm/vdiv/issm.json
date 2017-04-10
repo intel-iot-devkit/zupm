@@ -4,7 +4,7 @@
     "name": "vdiv - Analog Voltage Divider Sensor",
     "description": "UPM module for the Voltage Divider sensor.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

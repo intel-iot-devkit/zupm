@@ -4,7 +4,7 @@
     "name": "mic - Simple Analog Microphone",
     "description": "Mic Sensor",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

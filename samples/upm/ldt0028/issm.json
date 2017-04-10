@@ -4,7 +4,7 @@
     "name": "ldt0028 - Piezo Vibration Sensor",
     "description": "This module defines the LDT0-028 interface for libupm-ldt0028 and API for LDT0-028 PZT film-based sensors, such as a Grove Piezo Vibration sensor",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

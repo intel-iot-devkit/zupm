@@ -4,7 +4,7 @@
     "name": "jhd1313m1 - RGB Backlight 16x2 LCD Display",
     "description": "JHD1313M1 has two I2C addreses: one belongs to a controller, very similar to the upm::Lcm1602 LCD driver, that controls the HD44780-based display, and the other controls only the backlight. This module was tested with the Seeed Grove LCD RGB Backlight v2.0 display that requires 5V to operate.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

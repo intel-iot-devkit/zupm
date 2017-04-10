@@ -4,7 +4,7 @@
     "name": "servo - Servo Controller",
     "description": "Provides routines for setting the angle of the shaft as well as setting and getting the minimum and maximum pulse width and the maximum period.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

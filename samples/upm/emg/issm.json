@@ -4,7 +4,7 @@
     "name": "emg - Electromyography (EMG) Sensor",
     "description": "Grove EMG muscle signal reader gathers small muscle signals, then processes them, and returns the result",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

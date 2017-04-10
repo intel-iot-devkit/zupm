@@ -4,7 +4,7 @@
     "name": "speaker_pwm - PWM Speaker",
     "description": "UPM module for the Speaker. This sensor can generate different tones and sounds depending on the frequency of the input signal. It can operate in one of two modes: GPIO (default) and PWM. Depending on which mode is selected, some methods may not be usable. In GPIO mode, the playAll() and playSound() methods are supported. In PWM mode, setFrequency(), emit(), on() and off() are supported. Calling a method not appropriate for the mode will have no effect",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

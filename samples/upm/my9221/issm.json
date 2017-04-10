@@ -4,7 +4,7 @@
     "name": "my9221 - 12-channel Constant Current LED Driver with Grayscale",
     "description": "12-channel led driver with grayscale adaptive pulse density modulation control.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

@@ -4,7 +4,7 @@
     "name": "uln200xa - Darlington Stepper Driver",
     "description": "This module was developed on a ULN2003A Stepper Driver. It should also support the ULN2001A, ULN2002A, and ULN2004A devices, when using to drive the 28BYJ-48 unipolar stepper motor",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

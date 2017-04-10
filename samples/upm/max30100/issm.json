@@ -4,7 +4,7 @@
     "name": "max30100 - Pulse Oximeter and Heart-rate Sensor",
     "description": "The MAX30100 is an integrated pulse oximetry and heartrate monitor sensor solution. It combines two LEDs, a photodetector, optimized optics, and low-noise analog signal processing to detect pulse oximetry and heart-rate signals. I2C sensor which can be used to read: Heart-rate Peripheral capillary oxygen saturation temperature.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

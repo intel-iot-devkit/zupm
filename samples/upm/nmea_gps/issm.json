@@ -4,7 +4,7 @@
     "name": "nmea_gps - Generic Serial Interface for GPS NMEA Devices",
     "description": "Generic Serial Interface for GPS NMEA Devices.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [

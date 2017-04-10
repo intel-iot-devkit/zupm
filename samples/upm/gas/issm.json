@@ -4,7 +4,7 @@
     "name": "gas - Gas Sensor",
     "description": "Generic gas detection sensor library. Includes support for MQ line of sensors.",
     "category": [
-      "Sensors/Discrete"
+      "UPM"
     ],
     "platform": {
       "boards": [
