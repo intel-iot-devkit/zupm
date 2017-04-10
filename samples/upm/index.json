@@ -64,10 +64,42 @@
     }
   },
   {
+    "path": "bma250e",
+    "example": {
+      "name": "bma250e - 3-axis Accelerometer",
+      "description": "The BMA250E is a triaxial, low-g acceleration sensor with digital output for consumer applications. It allows measurements of acceleration in three perpendicular axes. An evaluation circuitry (ASIC) converts the output of a micromechanical acceleration-sensing structure (MEMS) that works according to the differential capacitance principle.",
+      "category": [
+        "Sensors/Discrete"
+      ],
+      "platform": {
+        "boards": [
+          "arduino_101",
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
     "path": "bme280",
     "example": {
       "name": "bme280 - Digital Humidity, Pressure, and Temperature Sensor",
       "description": "The BME280 is as combined digital humidity, pressure and temperature sensor based on proven sensing principles. The sensor module is housed in an extremely compact metal-lid LGA package with a footprint of only 2.5 * 2.5 mm2 with a height of 0.93 mm. Its small dimensions and its low power consumption allow the implementation in battery driven devices such as handsets, GPS modules or watches. The BME280 is register and performance compatible to the Bosch Sensortec BMP280 digital pressure sensor.",
+      "category": [
+        "Sensors/Discrete"
+      ],
+      "platform": {
+        "boards": [
+          "arduino_101",
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bmg160",
+    "example": {
+      "name": "bma250e - 3-axis Gyroscope",
+      "description": "The BMG160 is a 3-axis angular rate sensor that is made of a surface micro machined sensing element and an evaluation ASIC.  Both parts are packed into one single LGA 3.0mm x 3.0mm x 0.95mm housing.  The BMG160 is designed to meet requirements for consumer applications such as image stabilization (DSC and camera-phone), gaming and pointing devices. It is capable to measure angular rates in three perpendicular room dimensions, the x-, y- and z-axis, and to provide the corresponding output signals. The BMG160 is fitted with digital bi-directional SPI and I2C interfaces for optimum system integration.",
       "category": [
         "Sensors/Discrete"
       ],
@@ -89,6 +121,21 @@
       ],
       "platform": {
         "boards": [
+          "arduino_101_sss"
+        ]
+      }
+    }
+  },
+  {
+    "path": "bmm150",
+    "example": {
+      "name": "The BMM150 is a standalone geomagnetic sensor for consumer market applications. It allows measurements of the magnetic field in three perpendicular axes. Based on Bosch's proprietary FlipCore technology, performance and features of BMM150 are carefully tuned and perfectly match the demanding requirements of all 3-axis mobile applications such as electronic compass, navigation or augmented reality.",
+      "category": [
+        "Sensors/Discrete"
+      ],
+      "platform": {
+        "boards": [
+          "arduino_101",
           "arduino_101_sss"
         ]
       }
@@ -594,6 +641,36 @@
         "boards": [
           "arduino_101_sss",
           "quark_d2000_crb"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mcp2515",
+    "example": {
+      "name": "mcp2515 - CANbus controller",
+      "description": "The MCP2515 is a stand-alone CAN controller developed to simplify applications that require interfacing with a CAN bus.",
+      "category": [
+        "Sensors/Discrete"
+      ],
+      "platform": {
+        "boards": [
+          "arduino_101"
+        ]
+      }
+    }
+  },
+  {
+    "path": "mcp2515",
+    "example": {
+      "name": "mcp2515 - CANbus controller",
+      "description": "The MCP2515 is a stand-alone CAN controller developed to simplify applications that require interfacing with a CAN bus.",
+      "category": [
+        "Sensors/Discrete"
+      ],
+      "platform": {
+        "boards": [
+          "arduino_101"
         ]
       }
     }
