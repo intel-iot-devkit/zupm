@@ -73,3 +73,4 @@ obj-$(CONFIG_UPM_bmg160) += src/bmg160/
 obj-$(CONFIG_UPM_bmm150) += src/bmm150/
 obj-$(CONFIG_UPM_mcp2515) += src/mcp2515/
 obj-$(CONFIG_UPM_bmpx8x) += src/bmpx8x/
+obj-$(CONFIG_UPM_lsm303agr) += src/lsm303agr/

@@ -1,0 +1,8 @@
+config UPM_lsm303agr
+    bool "lsm303agr"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LSM303AGR 3-axis Accelerometer and Magnetometer

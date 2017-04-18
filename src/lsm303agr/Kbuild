@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_lsm303agr) += lsm303agr.o

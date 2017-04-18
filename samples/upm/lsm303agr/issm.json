@@ -1,0 +1,14 @@
+{
+  "path": "lsm303agr",
+  "example": {
+    "name": "The LSM303AGR is an ultra-low-power high-performance system-in-package featuring a 3D digital linear acceleration sensor and a 3D digital magnetic sensor.",
+    "category": [
+      "UPM"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
+    }
+  }
+}
