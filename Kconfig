@@ -84,4 +84,5 @@ source "ext/lib/upm/src/bmg160/Kconfig"
 source "ext/lib/upm/src/mcp2515/Kconfig"
 source "ext/lib/upm/src/bmpx8x/Kconfig"
 source "ext/lib/upm/src/lsm303agr/Kconfig"
+source "ext/lib/upm/src/lis2ds12/Kconfig"
 endmenu

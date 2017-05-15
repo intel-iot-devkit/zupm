@@ -1,0 +1,15 @@
+{
+  "path": "lis2ds12",
+  "example": {
+    "name": "lis2ds12 - 3-axis Accelerometer",
+    "description": "The LIS2DS12 is an ultra-low-power high performance three-axis linear accelerometer belonging to the pico family which leverages on the robust and mature manufacturing processes already used for the production of micromachined accelerometers.",
+    "category": [
+      "UPM"
+    ],
+    "platform": {
+      "boards": [
+        "arduino_101_sss"
+      ]
+    }
+  }
+}

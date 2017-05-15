@@ -1,0 +1,8 @@
+config UPM_lis2ds12
+    bool "lis2ds12"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LIS2DS12 3-axis Accelerometer
