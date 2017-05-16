@@ -1,35 +1,38 @@
 diff --git a/ext/Kbuild b/ext/Kbuild
-index bb18178..c879cf5 100644
+index bb18178..7ea5742 100644
 --- a/ext/Kbuild
 +++ b/ext/Kbuild
-@@ -2,3 +2,5 @@ obj-y += hal/
+@@ -2,3 +2,6 @@ obj-y += hal/
  obj-y += lib/
  obj-y += fs/
  obj-y += debug/
-+obj-$(CONFIG_MRAA) += lib/mraa/
++obj-y += lib/mraa/
 +obj-y += lib/upm/
++
 diff --git a/ext/Kconfig b/ext/Kconfig
 index b6b488c..8ad430a 100644
 --- a/ext/Kconfig
 +++ b/ext/Kconfig
 @@ -16,4 +16,8 @@ source "ext/fs/Kconfig"
-
+ 
  source "ext/debug/Kconfig"
-
+ 
 +source "ext/lib/mraa/Kconfig"
 +
 +source "ext/lib/upm/Kconfig"
 +
  endmenu
 diff --git a/ext/Makefile b/ext/Makefile
-index b51f7a2..18b3861 100644
+index b51f7a2..987f85c 100644
 --- a/ext/Makefile
 +++ b/ext/Makefile
-@@ -2,3 +2,7 @@ include $(srctree)/ext/lib/Makefile
+@@ -2,3 +2,9 @@ include $(srctree)/ext/lib/Makefile
  include $(srctree)/ext/hal/Makefile
  include $(srctree)/ext/fs/Makefile
  include $(srctree)/ext/debug/Makefile
 +ifdef CONFIG_MRAA
-+ZEPHYRINCLUDE += -I$(srctree)/ext/lib/mraa/include
++    ZEPHYRINCLUDE += -I$(srctree)/ext/lib/mraa/include
 +endif
 +include $(srctree)/ext/lib/upm/Makefile
++include $(srctree)/ext/lib/mraa/Makefile
++
