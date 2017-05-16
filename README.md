@@ -15,13 +15,12 @@ ZUPM is a UPM C source repo for use with the [Zephyr Project](http://zephyrproje
 
 ## Installation (clone from zephyr/zmraa/zupm and patch)
 
-#### Clone Zephyr Kernel (also requires correct Zephyr SDK per kernel)
+#### Clone Zephyr Kernel (requires corresponding Zephyr SDK)
 ```sh
 git clone https://github.com/zephyrproject-rtos/zephyr.git && cd zephyr && git checkout tags/v1.7.0
 
 export ZEPHYR_GCC_VARIANT=zephyr
 export ZEPHYR_SDK_INSTALL_DIR=<path to your sdk installation directory>
-
 source zephyr-env.sh
 ```
 
@@ -92,4 +91,3 @@ Flash the target
 make BOARD=quark_se_c1000_devboard flash
 ```
 After resetting the target, the onboard LED should flash.
-
