@@ -1,0 +1,17 @@
+{
+  "path": "lsm6ds3h",
+  "example": {
+    "name": "lsm6ds3h - 3-axis Accelerometer and Gyroscope",
+    "description": "The LSM6DS3H is a system-in-package featuring a 3D digital accelerometer and a 3D digital gyroscope performing at 1.1 mA (up to 1.6 kHz ODR) in high-performance mode and enabling always-on low-power features for an optimal motion experience for the consumer.
+",
+    "category": [
+      "UPM"
+    ],
+    "platform": {
+      "boards": [
+          "arduino_101_sss",
+          "arduino_101"
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+config UPM_lsm6ds3h
+    bool "lsm6ds3h"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LSM6DS3H 3-axis Accelerometer
