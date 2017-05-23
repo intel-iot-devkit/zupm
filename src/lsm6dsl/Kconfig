@@ -1,0 +1,8 @@
+config UPM_lsm6dsl
+    bool "lsm6dsl"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        upm LSM6DSL 3-axis Accelerometer and Gyroscope

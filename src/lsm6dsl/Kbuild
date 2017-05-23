@@ -1,0 +1,1 @@
+obj-$(CONFIG_UPM_lsm6dsl) += lsm6dsl.o
