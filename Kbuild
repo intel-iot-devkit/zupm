@@ -77,3 +77,5 @@ obj-$(CONFIG_UPM_lsm303agr) += src/lsm303agr/
 obj-$(CONFIG_UPM_lis2ds12) += src/lis2ds12/
 obj-$(CONFIG_UPM_lsm6ds3h) += src/lsm6ds3h/
 obj-$(CONFIG_UPM_lsm6dsl) += src/lsm6dsl/
+obj-$(CONFIG_UPM_sx127x) += src/sx127x/
+obj-$(CONFIG_UPM_sx127x_mac) += src/sx127x/

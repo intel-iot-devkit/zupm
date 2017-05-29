@@ -1,0 +1,17 @@
+config UPM_sx127x
+    bool "sx127x"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        LORA Module
+
+config UPM_sx127x_mac
+    bool "sx127x"
+    select MRAA
+    select NEWLIB_LIBC
+    depends on UPM
+    default n
+    help
+        LORA Module mac layer

@@ -1,0 +1,2 @@
+obj-$(CONFIG_UPM_sx127x) += sx127x.o
+obj-$(CONFIG_UPM_sx127x_mac) += sx127x.o aes.o cmac.o loramaccrypto.o sx127x_mac.o

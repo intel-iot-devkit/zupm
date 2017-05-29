@@ -1,0 +1,16 @@
+{
+  "path": "sx127x_tx",
+  "example": {
+    "name": "sx127x - LoRa TX Example",
+    "description": "Basic UPM module for transmitting using the sx1276 module. To be used in conjunction with the rx example running on another sx1276.",
+    "category": [
+      "UPM"
+    ],
+    "platform": {
+      "boards": [
+        "quark_se_c1000_devboard",
+        "arduino_101"
+      ]
+    }
+  }
+}
