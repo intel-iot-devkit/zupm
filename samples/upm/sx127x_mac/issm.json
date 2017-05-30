@@ -1,0 +1,16 @@
+{
+  "path": "sx127x_mac",
+  "example": {
+    "name": "sx127x - LoRa MAC Example",
+    "description": "Basic UPM module for using the LoRa MAC layer",
+    "category": [
+      "UPM"
+    ],
+    "platform": {
+      "boards": [
+        "quark_se_c1000_devboard",
+        "arduino_101"
+      ]
+    }
+  }
+}

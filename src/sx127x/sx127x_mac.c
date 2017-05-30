@@ -166,8 +166,6 @@ uint16_t channeMask[6];
 loRaWAN_context lorawan_init() {
     printf("coming into lorawan_init\n");
 
-    sx1276_context dev = init(60, 82, 72, 915e6);
-
     DrRange_ptr DrRange = (DrRange_ptr) malloc(sizeof(DrRange_t));
     if(DrRange == NULL) {
     	printf("Unable to initialize Datarate Range\n");
@@ -243,6 +241,9 @@ loRaWAN_context lorawan_init() {
     	return NULL;
     }
 
+    lora_dev->sx1276_dev = init(60, 82, 72, 915e6);
+    printf("device init\n");
+
     for(uint8_t i = 0; i < LORA_MAX_NB_CHANNELS; i++) {
     	loRaWANBandParams->Channels[i] = (ChannelParams_ptr) malloc(sizeof(ChannelParams_t));
         if(loRaWANBandParams->Channels[i] == NULL) {
@@ -265,7 +266,7 @@ loRaWAN_context lorawan_init() {
     //lora_dev->ChannelParams = ChannelParams;
     lora_dev->loRaWANMACCommand = loRaWANMACCommand;
     lora_dev->loRaWANOTAAJoin = loRaWANOTAAJoin;
-    lora_dev->sx1276_dev = dev;
+    //lora_dev->sx1276_dev = dev;
     //LoRaClass();
     //setPins(60, 82, 72);
 
@@ -338,7 +339,7 @@ loRaWAN_context lorawan_init() {
 	joinSuccessful = false;
     printf("init done\n");
 
-    return UPM_SUCCESS;
+    return lora_dev;
 }
 
 uint8_t lorawan_set_random_channel(loRaWAN_context lorawan_dev) {
@@ -386,7 +387,7 @@ int setNextChannel(loRaWAN_context lorawan_dev) {
 	while(1) {
 		if(lorawan_dev->loRaWANBandParams->channelCounter < lorawan_dev->loRaWANBandParams->maxChannelCounter) {
 		//if(channelCounter < maxChannelCounter) {
-			tryChannel = lorawan_dev->loRaWANBandParams->randChannelArr[channelCounter];
+			tryChannel = lorawan_dev->loRaWANBandParams->randChannelArr[lorawan_dev->loRaWANBandParams->channelCounter];
 			lorawan_dev->loRaWANBandParams->channelCounter++;
 			//channelCounter++;
 
@@ -417,33 +418,41 @@ int nextChannelValid(loRaWAN_context lorawan_dev, int channel) {
 }
 
 upm_result_t lorawan_otaa_join(loRaWAN_context lorawan_dev) {
+	printf("entering otaa join function\n");
     uint32_t mic = 0;
     msgType = JOIN_TX;
     // since this is join
     lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[0] = 0;
     //lorawan_otaa_join_pack[0] = 0;
+    printf("aaaa\n");
     memcpy(lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack+1, lorawan_dev->loRaWANSecurityParams->APPEUI, 8);
+    printf("bbbb\n");
     memcpy(lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack+9, lorawan_dev->loRaWANSecurityParams->DEVEUI, 8);
     //memcpy(lorawan_otaa_join_pack+1, APPEUI, 8);
     //memcpy(lorawan_otaa_join_pack+9, DEVEUI, 8);
 
+    if(lorawan_dev->sx1276_dev == NULL)
+    	printf("SX1276 DEV IS NULL\n");
     uint16_t nonce = SX1276Random(lorawan_dev->sx1276_dev);
+    printf("cccc\n");
     lorawan_dev->loRaWANOTAAJoin->devNonce = nonce;
     //devNonce = nonce;
     lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[17] = nonce & 0xff;
     lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[18] = (nonce >> 8) & 0xff;
+    printf("dddd\n");
     //lorawan_otaa_join_pack[17] = nonce & 0xff;
     //lorawan_otaa_join_pack[18] = (nonce >> 8) & 0xff;
 
     LoRaMacJoinComputeMic(lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack, 19, lorawan_dev->loRaWANSecurityParams->APPKEY, &mic);
     //LoRaMacJoinComputeMic(lorawan_otaa_join_pack, 19, APPKEY, &mic);
+    printf("eeee\n");
 
     lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[19] = mic&0xff;
     lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[20] = (mic >> 8) & 0xff;
 	lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[21] = (mic >> 16) & 0xff;
 	lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[22] = (mic >> 24) & 0xff;
 
-#if LORAMAC_DEBUG
+#if 1
     int c = 0;
     for(c=0; c<LORAWAN_OTAA_JOIN_PACK_LEN; c++)
         printf("%x, ", lorawan_dev->loRaWANOTAAJoin->lorawan_otaa_join_pack[c]);
@@ -531,7 +540,10 @@ void onRxDone(loRaWAN_context lorawan_dev, uint8_t *payload, uint16_t size) {
     uint8_t multicast = 0; // 1 means its a multicast
     int foptsLenCnt = 0;
     //int rxPacketLen = 0;
-
+    printf("payload: \n");
+    for(uint8_t i = 0; i < size; i++)
+    	printf("%x, ", payload[i]);
+    printf("\n");
     lorawan_dev->MHDR->type = (payload[0] >> 5)&0x07;
     lorawan_dev->MHDR->Major = payload[0]&0x03;
     //macHDR.type = (payload[0] >> 5)&0x07;
@@ -542,8 +554,8 @@ void onRxDone(loRaWAN_context lorawan_dev, uint8_t *payload, uint16_t size) {
             LoRaMacJoinDecrypt(payload+1, size-1, lorawan_dev->loRaWANSecurityParams->APPKEY, rx_dec_buffer+1);
             rx_dec_buffer[0] = payload[0];
 
-            nonce[0] = devNonce&0xff;
-            nonce[1] = (devNonce>>8)&0xff;
+            nonce[0] = lorawan_dev->loRaWANOTAAJoin->devNonce&0xff;
+            nonce[1] = (lorawan_dev->loRaWANOTAAJoin->devNonce>>8)&0xff;
 
             LoRaMacJoinComputeMic(rx_dec_buffer, size - LORAMAC_MFR_LEN, lorawan_dev->loRaWANSecurityParams->APPKEY, &mic);
             int c = 0;
@@ -556,7 +568,7 @@ void onRxDone(loRaWAN_context lorawan_dev, uint8_t *payload, uint16_t size) {
 					(rx_dec_buffer[size-4]);
             if(mic == micRx) {
             	printf("the mics are the same\n");
-            	LoRaMacJoinComputeSKeys(lorawan_dev->loRaWANSecurityParams->APPKEY, rx_dec_buffer+1, devNonce, lorawan_dev->loRaWANSecurityParams->NwkSKey, lorawan_dev->loRaWANSecurityParams->AppSKey);
+            	LoRaMacJoinComputeSKeys(lorawan_dev->loRaWANSecurityParams->APPKEY, rx_dec_buffer+1, lorawan_dev->loRaWANOTAAJoin->devNonce, lorawan_dev->loRaWANSecurityParams->NwkSKey, lorawan_dev->loRaWANSecurityParams->AppSKey);
             	c = 0;
             	printf("LoRaMacNwkSKey: ");
             	for(c = 0; c<16; c++)
@@ -671,7 +683,6 @@ LoRaWanResult_t lorawan_transmit_packet(loRaWAN_context lorawan_dev, uint8_t* bu
     int packet_len = 0;
     // adding the MHDR
     lorawan_dev->lorawan_tx_packet[packet_len++] = 0x80;
-    //lorawan_tx_packet[packet_len++] = 0x80;
 
     // adding the FHDR
 	lorawan_dev->lorawan_tx_packet[packet_len++] = lorawan_dev->loRaWANParams->LoRaMacDevAddr & 0xff;
@@ -754,7 +765,7 @@ LoRaWanResult_t lorawan_transmit_packet(loRaWAN_context lorawan_dev, uint8_t* bu
     printf("\n");
 #endif
 
-    FCnt_up++;
+    lorawan_dev->loRaWANParams->FCnt_up++;
     ret = lorawan_schedule_tx(lorawan_dev, packet_len);
     msgType = RX_1;
 #if 0
@@ -857,7 +868,6 @@ LoRaWanResult_t lorawan_initiate_rx(loRaWAN_context lorawan_dev, LoRaWanMsg_t ty
 LoRaWanResult_t lorawan_schedule_tx(loRaWAN_context lorawan_dev, int size) {
 	// if dr is preset to 500
 	if(lorawan_dev->loRaWANParams->req_datarate == DR_4) {
-	//if(req_datarate == DR_4) {
 		while(1) {
 			lorawan_dev->loRaWANBandParams->currentChannel = setNextChannel(lorawan_dev);
 			if(lorawan_dev->loRaWANBandParams->currentChannel >= 64 && lorawan_dev->loRaWANBandParams->currentChannel <= 71) {
@@ -874,12 +884,7 @@ LoRaWanResult_t lorawan_schedule_tx(loRaWAN_context lorawan_dev, int size) {
 		else
 			lorawan_dev->loRaWANParams->uplink_datarate = DR_0;
 	}
-	//currentChannel = setNextChannel();
 	setFrequency(lorawan_dev->sx1276_dev, lorawan_dev->loRaWANBandParams->Channels[lorawan_dev->loRaWANBandParams->currentChannel]->Frequency);
-	//if(currentChannel >= 64 && currentChannel <= 71)
-	//	uplink_datarate = DR_4;
-	//else
-	//	uplink_datarate = DR_0;
 
 	printf("Uplink DR: %d, Uplink Power: %d, Uplink BW: %d\n", dr_table[lorawan_dev->loRaWANParams->uplink_datarate][0], lorawan_dev->loRaWANParams->uplink_power, dr_table[lorawan_dev->loRaWANParams->uplink_datarate][1]);
     SX1276SetTxConfig(lorawan_dev->sx1276_dev, MODEM_LORA, lorawan_dev->loRaWANParams->uplink_power, 0, dr_table[lorawan_dev->loRaWANParams->uplink_datarate][1], dr_table[lorawan_dev->loRaWANParams->uplink_datarate][0], 1, 8, false, true, 0, 0, false, 3000);
@@ -893,21 +898,18 @@ LoRaWanResult_t lorawan_schedule_tx(loRaWAN_context lorawan_dev, int size) {
 void lorawan_set_dev_eui(loRaWAN_context lorawan_dev, uint8_t* dev_eui) {
     int c = 0;
     for(c=0; c<8; c++)
-        //DEVEUI[c] = dev_eui[c];
     	lorawan_dev->loRaWANSecurityParams->DEVEUI[c] = dev_eui[c];
 }
 
 void lorawan_set_app_eui(loRaWAN_context lorawan_dev, uint8_t* app_eui) {
     int c = 0;
     for(c=0; c<8; c++)
-        //APPEUI[c] = app_eui[c];
     	lorawan_dev->loRaWANSecurityParams->APPEUI[c] = app_eui[c];
 }
 
 void lorawan_set_app_key(loRaWAN_context lorawan_dev, uint8_t* app_key) {
     int c = 0;
     for(c=0; c<16; c++)
-        //APPKEY[c] = app_key[c];
     	lorawan_dev->loRaWANSecurityParams->APPKEY[c] = app_key[c];
 }
 

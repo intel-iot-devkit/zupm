@@ -69,9 +69,7 @@ RadioStateExt_t st;
 sx1276_context init(int ss, int reset, int dio0, long frequency)
 {
   // setup pins
-#if LORA_DEBUG
 printf("coming into the init\n");
-#endif
     int mraa_rv;
     if((mraa_rv = mraa_init()) != MRAA_SUCCESS) {
         printf("%s: mraa_init failed (%d).\n", __FUNCTION__, mraa_rv);
@@ -374,7 +372,6 @@ void idle(sx1276_context SX1276) {
 }
 
 void SX1276sleep(sx1276_context SX1276) {
-    //printf("Setting to sleep/ FIFO not accessible\n");
     SX1276SetOpMode(SX1276, MODE_SLEEP);
 }
 
@@ -540,11 +537,12 @@ void handleDio0Rise(sx1276_context SX1276) {
 }
 
 uint8_t readRegister(sx1276_context SX1276, uint8_t address) {
-    //return singleTransfer(address & 0x7f, 0x00);
 
     uint8_t tx_buf[2] = { address & 0x7f, 0 };
     uint8_t rx_buf[2];
 
+    if(SX1276->gpio_ss == NULL)
+    	printf("gpio ss is null\n");
     mraa_gpio_write(SX1276->gpio_ss, 0);
     if (mraa_spi_transfer_buf(SX1276->spi, tx_buf, rx_buf, 2) != MRAA_SUCCESS) {
         printf("Unable to transfer data over the SPI bus\n");
@@ -666,7 +664,6 @@ uint32_t SX1276Random(sx1276_context SX1276)
 {
     uint8_t i;
     uint32_t rnd = 0;
-
     /*
      * Radio setup for random number generation
      */
