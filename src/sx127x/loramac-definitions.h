@@ -1,4 +1,13 @@
 /*
+ * Author: Abhishek Malik <abhishek.malik@intel.com>
+ *
+ * This code is heavily based on the semtech lora library at:
+ * https://github.com/Lora-net/LoRaMac-node
+ * which is licensed under the BSD license at:
+ * upm/src/sx127x/LICENSE.txt
+ */
+
+/*
  / _____)             _              | |
 ( (____  _____ ____ _| |_ _____  ____| |__
  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
