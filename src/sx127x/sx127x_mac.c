@@ -18,7 +18,6 @@
 #include "mraa.h"
 #include "loramac-definitions.h"
 #include "loramaccrypto.h"
-#include "loramactest.h"
 #include "aes.h"
 
 static int8_t dr_table[16][2] =

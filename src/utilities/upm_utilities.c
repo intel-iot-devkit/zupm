@@ -25,6 +25,7 @@
 
 #include <upm_platform.h>
 #include <upm_utilities.h>
+#include <legacy.h>
 
 void upm_delay(int time)
 {
