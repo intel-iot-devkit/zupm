@@ -35,5 +35,8 @@ COPY . .
 # Link ZUPM under Zephyr kernel
 RUN ln -s /work/zupm $ZEPHYR_BASE/ext/lib/upm
 
+# Patch Zephyr ext Kbuild to include ZMRAA
+RUN patch -d $ZEPHYR_BASE -p1 < $ZEPHYR_BASE/ext/lib/mraa/install.patch
+
 # Patch Zephyr ext Kbuild to include ZUPM
-RUN patch -d $ZEPHYR_BASE -p1 < add_upm_mraa.patch
+RUN patch -d $ZEPHYR_BASE -p1 < install.patch
