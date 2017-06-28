@@ -37,8 +37,13 @@ git clone https://github.com/intel-iot-devkit/zupm.git $ZEPHYR_BASE/ext/lib/upm
 #### Setup Kbuild to include MRAA and UPM, link UPM examples to Zephry samples
 ```sh
 cd $ZEPHYR_BASE
-patch -p1 < $ZEPHYR_BASE/ext/lib/upm/add_upm_mraa.patch
+patch -p1 < $ZEPHYR_BASE/ext/lib/mraa/install.patch
+patch -p1 < $ZEPHYR_BASE/ext/lib/upm/install.patch
 ln -s $ZEPHYR_BASE/ext/lib/upm/samples/upm $ZEPHYR_BASE/samples/
+```
+
+```
+NOTE: ZUPM HAS A HARD DEPENDENCY ON ZMRAA. PLEASE CLONE AND PATCH ZMRAA FIRST AND THEN PROCEED TO ZUPM.
 ```
 
 ## Code Examples
