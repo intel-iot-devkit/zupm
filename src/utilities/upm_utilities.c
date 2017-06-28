@@ -25,7 +25,6 @@
 
 #include <upm_platform.h>
 #include <upm_utilities.h>
-#include <legacy.h>
 
 void upm_delay(int time)
 {
@@ -125,7 +124,7 @@ void upm_clock_init(upm_clock_t *clock)
     gettimeofday(clock, NULL);
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
-    *clock = sys_cycle_get_32();
+    *clock = k_cycle_get_32();
 #endif
 }
 
@@ -161,7 +160,7 @@ uint32_t upm_elapsed_ms(upm_clock_t *clock)
     return elapse;
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
-    uint32_t now = sys_cycle_get_32();
+    uint32_t now = k_cycle_get_32();
 
     uint32_t elapsed =
         (uint32_t)(SYS_CLOCK_HW_CYCLES_TO_NS64(now - *clock)/(uint64_t)1000000);
@@ -205,7 +204,7 @@ uint32_t upm_elapsed_us(upm_clock_t *clock)
     return elapse;
 
 #elif defined(UPM_PLATFORM_ZEPHYR)
-    uint32_t now = sys_cycle_get_32();
+    uint32_t now = k_cycle_get_32();
 
     uint32_t elapsed =
         (uint32_t)(SYS_CLOCK_HW_CYCLES_TO_NS64(now - *clock)/(uint64_t)1000);
